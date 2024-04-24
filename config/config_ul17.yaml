@@ -1,0 +1,22 @@
+# https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
+
+# cmssw setup
+cmssw_version: CMSSW_13_0_18
+scram_arch: slc7_amd64_gcc920
+cmssw_env_name: nanogen
+sandbox_script: cmssw_nanogen.sh
+
+# arguments for cmsDriver.py that creates the cmsRun config
+global_tag:
+  mc: auto:phase1_2017_realistic
+  data: auto:run2_data
+era:
+  mc: &era Run2_2017,run2_nanoAOD_106Xv2
+  data: *era
+
+# postfix for produced nano datasets in the cms-store-like path
+campaign_version_postfix: NanoAODAPVv12UHH
+
+# references to dataset and nano configs
+dataset_config: datasets_ul17.yaml
+nano_config: nano.yaml

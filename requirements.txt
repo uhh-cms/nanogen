@@ -1,0 +1,15 @@
+pyyaml~=6.0.1
+uproot~=5.3.3
+awkward~=2.6.3
+pyarrow~=16.0.0
+zstandard~=0.22.0
+
+# law
+-r modules/law/requirements.txt
+
+# development
+mypy~=1.9.0
+flake8~=7.0
+flake8-commas~=2.1.0
+flake8-quotes~=3.3.2
+types-docutils~=0.20.0

@@ -1,0 +1,242 @@
+#!/usr/bin/env bash
+
+setup_ng() {
+    # Runs the entire project setup, leading to a collection of environment variables starting with
+    # "NG_", the installation of the software stack via virtual environments.
+
+    #
+    # prepare local variables
+    #
+
+    local shell_is_zsh=$( [ -z "${ZSH_VERSION}" ] && echo "false" || echo "true" )
+    local this_file="$( ${shell_is_zsh} && echo "${(%):-%x}" || echo "${BASH_SOURCE[0]}" )"
+    local this_dir="$( cd "$( dirname "${this_file}" )" && pwd )"
+    local orig="${PWD}"
+    local micromamba_url="https://micro.mamba.pm/api/micromamba/linux-64/latest"
+    local pyv="3.9"
+    local remote_env="$( [ -z "${NG_REMOTE_ENV}" ] && echo "false" || echo "true" )"
+
+
+    #
+    # check for mandatory variables
+    #
+
+    if [ -z "${NG_CERN_USER}" ]; then
+        >&2 echo "NG_CERN_USER empty, please set it to your CERN username before sourcing"
+        return "1"
+    fi
+
+
+    #
+    # global variables
+    # (NG = NanoGen)
+    #
+
+    # start exporting variables
+    export NG_BASE="${this_dir}"
+    export NG_CERN_USER="${NG_CERN_USER}"
+    export NG_CERN_USER_FIRSTCHAR="${NG_CERN_USER:0:1}"
+    export NG_CMS_SITE="${NG_CMS_SITE:-T2_DE_DESY}"
+    export NG_DATA_BASE="${NG_DATA_BASE:-${NG_BASE}/data}"
+    export NG_SOFTWARE_BASE="${NG_SOFTWARE_BASE:-${NG_DATA_BASE}/software}"
+    export NG_CONDA_BASE="${NG_CONDA_BASE:-${NG_SOFTWARE_BASE}/conda}"
+    export NG_VENV_BASE="${NG_VENV_BASE:-${NG_SOFTWARE_BASE}/venvs}"
+    export NG_CMSSW_BASE="${NG_CMSSW_BASE:-${NG_SOFTWARE_BASE}/cmssw}"
+    export NG_JOB_BASE="${NG_JOB_BASE:-${NG_DATA_BASE}/jobs}"
+    export NG_STORE_LOCAL="${NG_STORE_LOCAL:-${NG_DATA_BASE}/store}"
+    export NG_LOCAL_SCHEDULER="${NG_LOCAL_SCHEDULER:-true}"
+    export NG_SCHEDULER_HOST="${NG_SCHEDULER_HOST:-127.0.0.1}"
+    export NG_SCHEDULER_PORT="${NG_SCHEDULER_PORT:-8082}"
+    export NG_WORKER_KEEP_ALIVE="${NG_WORKER_KEEP_ALIVE:-"${remote_env}"}"
+    export NG_HTCONDOR_FLAVOR="${NG_HTCONDOR_FLAVOR:-naf}"
+    export NG_SLURM_FLAVOR="${NG_SLURM_FLAVOR:-maxwell}"
+    export NG_SLURM_PARTITION="${NG_SLURM_PARTITION:-allcpu}"
+    export NG_DEFAULT_WLCG_FS="${NG_DEFAULT_WLCG_FS:-wlcg_fs}"
+    export NG_WLCG_CACHE_ROOT="${NG_WLCG_CACHE_ROOT}"
+    export NG_WLCG_USE_CACHE="${NG_WLCG_USE_CACHE:-$( [ -z "${NG_WLCG_CACHE_ROOT}" ] && echo "false" || echo "true" )}"
+    export NG_WLCG_CACHE_CLEANUP="${NG_WLCG_CACHE_CLEANUP:-false}"
+
+    # external variables
+    export LANGUAGE="${LANGUAGE:-en_US.UTF-8}"
+    export LANG="${LANG:-en_US.UTF-8}"
+    export LC_ALL="${LC_ALL:-en_US.UTF-8}"
+    export X509_USER_PROXY="${X509_USER_PROXY:-/tmp/x509up_u$( id -u )}"
+    export PYTHONWARNINGS="ignore"
+    export GLOBUS_THREAD_MODEL="none"
+    export VIRTUAL_ENV_DISABLE_PROMPT="${VIRTUAL_ENV_DISABLE_PROMPT:-1}"
+    export X509_CERT_DIR="${X509_CERT_DIR:-/cvmfs/grid.cern.ch/etc/grid-security/certificates}"
+    export X509_VOMS_DIR="${X509_VOMS_DIR:-/cvmfs/grid.cern.ch/etc/grid-security/vomsdir}"
+    export X509_VOMSES="${X509_VOMSES:-/cvmfs/grid.cern.ch/etc/grid-security/vomses}"
+    export VOMS_USERCONF="${VOMS_USERCONF:-${X509_VOMSES}}"
+    export MAMBA_ROOT_PREFIX="${NG_CONDA_BASE}"
+    export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/micromamba"
+
+
+    #
+    # minimal local software setup
+    #
+
+    ulimit -s unlimited
+
+    # remove parts of the software stack if requested
+    if [ "${NG_REINSTALL_CONDA}" = "1" ] || ( [ -z "${NG_REINSTALL_CONDA}" ] && [ "${NG_REINSTALL_SOFTWARE}" = "1" ] ); then
+        echo "removing conda/micromamba at ${NG_CONDA_BASE}"
+        rm -rf "${NG_CONDA_BASE}"
+    fi
+    if [ "${NG_REINSTALL_VENV}" = "1" ] || ( [ -z "${NG_REINSTALL_VENV}" ] && [ "${NG_REINSTALL_SOFTWARE}" = "1" ] ); then
+        echo "removing venvs at ${ML_VENV_BASE}"
+        rm -rf "${ML_VENV_BASE}"
+    fi
+    if [ "${NG_REINSTALL_CMSSW}" = "1" ] || ( [ -z "${NG_REINSTALL_CMSSW}" ] && [ "${NG_REINSTALL_SOFTWARE}" = "1" ] ); then
+        echo "removing cmssw at ${ML_CMSSW_BASE}"
+        rm -rf "${ML_CMSSW_BASE}"
+    fi
+
+    # conda base environment
+    local conda_missing="$( [ -d "${NG_CONDA_BASE}" ] && echo "false" || echo "true" )"
+    if ${conda_missing}; then
+        echo "installing conda/micromamba at ${NG_CONDA_BASE}"
+        (
+            mkdir -p "${NG_CONDA_BASE}"
+            cd "${NG_CONDA_BASE}"
+            curl -Ls "${micromamba_url}" | tar -xvj -C . "bin/micromamba"
+            ./bin/micromamba shell hook -y --prefix="${NG_CONDA_BASE}" &> "micromamba.sh"
+            mkdir -p "etc/profile.d"
+            mv "micromamba.sh" "etc/profile.d"
+            cat << EOF > ".mambarc"
+changeps1: false
+always_yes: true
+channels:
+  - conda-forge
+EOF
+        )
+    fi
+
+    # initialize conda
+    source "${NG_CONDA_BASE}/etc/profile.d/micromamba.sh" "" || return "$?"
+    micromamba activate || return "$?"
+    echo "initialized conda/micromamba"
+
+    # install packages
+    if ${conda_missing}; then
+        echo
+        echo "setting up conda/micromamba environment"
+
+        # conda packages (nothing so far)
+        micromamba install \
+            libgcc \
+            bash \
+            zsh \
+            "python=${pyv}" \
+            git \
+            git-lfs \
+            gfal2-util \
+            python-gfal2 \
+            conda-pack \
+            || return "$?"
+        micromamba clean --yes --all
+
+        # update python base packages
+        pip install --no-cache-dir -U \
+            pip \
+            setuptools \
+            wheel \
+            || return "$?"
+
+        # additional packages
+        pip install --no-cache-dir -U -r "${NG_BASE}/requirements.txt" || return "$?"
+
+        # create a custom gfal plugin directory for use in cmssw sandboxes that might provide an
+        # incompatible glibcxx version (to be checked again after upgrading to el9)
+        mkdir "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+        (
+            cd "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+            for f in $( find ../gfal2-plugins -name "*.so" ); do
+                ln -s "${f}" .
+            done
+            # the http and xrootd plugins were incompatible last time
+            rm -f libgfal_plugin_{http,xrootd}.so
+        ) || return "$?"
+    fi
+
+    # adjust paths
+    export PATH="${NG_BASE}/bin:${NG_BASE}/modules/law/bin:${NG_SOFTWARE_BASE}/bin:${PATH}"
+    export PYTHONPATH="${NG_BASE}:${NG_BASE}/modules/law:${MAMBA_ROOT_PREFIX}/lib/python${pyv}/site-packages:${PYTHONPATH}"
+
+
+    #
+    # CMS site setup
+    # (only needed if /cvmfs/cms.cern.ch/SITECONF/local is undefined)
+    #
+
+    export NG_CMS_PATH="/cvmfs/cms.cern.ch"
+    local local_conf="/cvmfs/cms.cern.ch/SITECONF/local"
+    if [ ! -d "${local_conf}" ] || [ -z "$( readlink "${local_conf}" )" ]; then
+        local cms_path="${NG_SOFTWARE_BASE}/cms"
+        local dst_conf="${cms_path}/SITECONF/local"
+        if [ ! -d "${dst_conf}" ]; then
+            local src_conf="$( dirname "${local_conf}" )/${NG_CMS_SITE}"
+            if [ ! -d "${src_conf}" ]; then
+                >&2 echo "CMS site configuration not found at ${src_conf}"
+                return "1"
+            fi
+            echo "local SITECONF not found, creating symlink"
+            echo "${src_conf} -> ${dst_conf}"
+            mkdir -p "$( dirname "${dst_conf}" )"
+            ln -s "${src_conf}" "${dst_conf}"
+        fi
+        export NG_CMS_PATH="${cms_path}"
+    fi
+
+
+    #
+    # initialize / update submodules
+    #
+
+    for mpath in modules/law; do
+        # do nothing when the path does not exist or it is not a submodule
+        if [ ! -d "${mpath}" ] || [ ! -f "${mpath}/.git" ] ; then
+            continue
+        fi
+
+        # initialize the submodule when the directory is empty
+        if [ "$( ls -1q "${mpath}" | wc -l )" = "0" ]; then
+            git submodule update --init --recursive "${mpath}"
+        else
+            # update when not on a working branch and there are no changes
+            local detached_head="$( ( cd "${mpath}"; git symbolic-ref -q HEAD &> /dev/null ) && echo "true" || echo "false" )"
+            local changed_files="$( cd "${mpath}"; git status --porcelain=v1 2> /dev/null | wc -l )"
+            if ! ${detached_head} && [ "${changed_files}" = "0" ]; then
+                git submodule update --init --recursive "${mpath}"
+            fi
+        fi
+    done
+
+
+    #
+    # law setup
+    #
+
+    export LAW_HOME="${NG_BASE}/.law"
+    export LAW_CONFIG_FILE="${NG_BASE}/law.cfg"
+
+    if which law &> /dev/null; then
+        # source law's bash completion scipt
+        source "$( law completion )" ""
+
+        # silently index
+        law index -q
+    fi
+}
+
+action() {
+    if setup_ng "$@"; then
+        echo -e "\x1b[0;49;35mnanogen successfully setup\x1b[0m"
+        return "0"
+    else
+        local code="$?"
+        echo -e "\x1b[0;49;31mnanogen setup failed with code ${code}\x1b[0m"
+        return "${code}"
+    fi
+}
+action "$@"
