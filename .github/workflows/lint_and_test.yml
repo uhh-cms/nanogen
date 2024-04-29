@@ -25,7 +25,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Lint 🔍
-        run: flake8 mlprof
+        run: flake8 nanogen
 
   typecheck:
     runs-on: ubuntu-latest
@@ -47,4 +47,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Typecheck 🥊
-        run: mypy mlprof
+        run: mypy nanogen
