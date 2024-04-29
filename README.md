@@ -10,6 +10,16 @@ export NG_DATA_BASE="/nfs/dust/cms/user/$( whoami )/nanogen"  # e.g. dust
 source setup.sh ""
 ```
 
+## Tasks
+
+```mermaid
+flowchart TD
+    CN([CreateNano])
+    GetDatasetLFNs --> CN
+    CreateCMSRunConfig --> CN
+    BundleRepo -- for remote<br />workflows --> CN
+    CN -. optional .-> GenerateNanoDocs
+```
 
 ## References
 
