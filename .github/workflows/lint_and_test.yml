@@ -11,6 +11,7 @@ jobs:
       - name: Checkout ⬇️
         uses: actions/checkout@v4
         with:
+          submodules: recursive
           persist-credentials: false
 
       - name: Setup python 🐍
@@ -32,6 +33,7 @@ jobs:
       - name: Checkout ⬇️
         uses: actions/checkout@v4
         with:
+          submodules: recursive
           persist-credentials: false
 
       - name: Setup python 🐍
