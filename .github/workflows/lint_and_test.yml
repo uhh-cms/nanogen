@@ -25,7 +25,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Lint 🔍
-        run: flake8 nanogen
+        run: |
+          export PYTHONPATH="${PWD}/modules/law:${PYTHONPATH}"
+          flake8 nanogen
 
   typecheck:
     runs-on: ubuntu-latest
@@ -47,4 +49,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Typecheck 🥊
-        run: mypy nanogen
+        run: |
+          export PYTHONPATH="${PWD}/modules/law:${PYTHONPATH}"
+          mypy nanogen
