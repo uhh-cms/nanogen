@@ -2,7 +2,8 @@
 customization:
   module: nanogen.customizations.default
   function: customize_v12_uhh
-  arguments: {}
+  arguments:
+    pf_candidates: true
 
 # objects to by bypassed in skimming process and copied as is
 bypass:

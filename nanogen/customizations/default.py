@@ -25,7 +25,7 @@ def no_customization(process, *, dataset_kind: str, **kwargs):
     return process
 
 
-def customize_v12_uhh(process, *, dataset_kind: str, **kwargs):
+def customize_v12_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwargs):
     # reduce gen particle history info
     if dataset_kind == "mc":
         process = reduce_gen_particles(process)
@@ -34,7 +34,8 @@ def customize_v12_uhh(process, *, dataset_kind: str, **kwargs):
     process = add_tau_variables(process, add_lifetime_vars=False)
 
     # add PF candidates
-    process = add_pf_candidates(process)
+    if pf_candidates:
+        process = add_pf_candidates(process)
 
     return process
 
