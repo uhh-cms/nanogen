@@ -6,7 +6,6 @@ Custom bbtt tasks.
 
 from __future__ import annotations
 
-import os
 import functools
 import operator
 
@@ -16,6 +15,7 @@ from nanogen.tasks.base import ConfigTask, wrapper_factory
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.nano import NanoDatasetWorkflow, CreateNano
 from nanogen.nano_util import iter_root_coffea_events
+from nanogen.util import maybe_local_target
 
 
 class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
@@ -52,14 +52,7 @@ class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
         import awkward as ak  # type: ignore[import-untyped]
 
         # prepare inputs
-        inputs = []
-        for inp in self.input().nano.collection.targets.values():
-            # try if existing locally
-            if not isinstance(inp, law.LocalFileTarget):
-                inp_local = law.LocalFileTarget(inp.path.lstrip(os.sep), fs="local_fs_desy_store")
-                if inp_local.exists():
-                    inp = inp_local
-            inputs.append(inp)
+        inputs = [maybe_local_target(inp) for inp in self.input().nano.collection.targets.values()]
         self.publish_message(f"processing {len(inputs)} inputs ...")
 
         # storage for output array chunks

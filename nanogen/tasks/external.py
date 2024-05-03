@@ -6,11 +6,14 @@ Tasks dealing with external data.
 
 from __future__ import annotations
 
+import os
 import subprocess
 
+import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import ConfigTask, DatasetTask, wrapper_factory
+from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory
+from nanogen.nano_util import fetch_lfn
 
 
 class GetDatasetLFNs(DatasetTask, law.tasks.TransferLocalFile):
@@ -57,3 +60,20 @@ GetDatasetLFNsWrapper = wrapper_factory(
     enable=["datasets", "skip_datasets"],
     attributes={"version": None},
 )
+
+
+class FetchLFN(Task):
+
+    lfn = luigi.Parameter(description="the LFN to fetch")
+
+    version = None
+
+    def output(self):
+        return self.target(os.path.basename(self.lfn))
+
+    @law.decorator.safe_output
+    def run(self):
+        with self.output().localize("w") as out:
+            with self.publish_step("fetching LFN ..."):
+                fetch_lfn(self.lfn, out.abspath, logger=self.logger)
+            self.publish_message(f"size is {law.util.human_bytes(out.stat().st_size, fmt=True)}")

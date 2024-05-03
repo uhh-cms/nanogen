@@ -207,7 +207,8 @@ def fetch_lfn(
 
         # stop when found
         if input_stat:
-            log_info(f"found {input_file.uri()}")
+            input_size = law.util.human_bytes(input_stat.st_size, fmt=True)
+            log_info(f"found at {fs} ({input_size})")
             break
     else:
         raise Exception(f"LFN {lfn} not found at any of {wlcg_fs_list}")
@@ -217,7 +218,7 @@ def fetch_lfn(
         return input_file.abspath
 
     # fetch the file
-    log_info(f"fetching {input_file} ...")
+    log_info(f"fetching {input_file.uri()} to {abs_dst}...")
     input_file.copy_to_local(abs_dst)
 
     return abs_dst

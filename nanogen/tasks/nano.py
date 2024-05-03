@@ -13,11 +13,9 @@ import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory
 from nanogen.tasks.remote import RemoteWorkflow
-from nanogen.tasks.external import GetDatasetLFNs
-from nanogen.nano_util import (
-    SkimConfig, inject_customizations, nano_file_hash, fetch_lfn, skim_nano_file,
-)
-from nanogen.util import expand_path
+from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
+from nanogen.nano_util import SkimConfig, inject_customizations, nano_file_hash, skim_nano_file
+from nanogen.util import expand_path, maybe_local_target
 
 
 class CreateCMSRunConfig(CMSSWSandboxTask):
@@ -74,14 +72,14 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow):
 
     @law.dynamic_workflow_condition
     def workflow_condition(self):
-        return self.input()["lfns"].exists()
+        return maybe_local_target(self.input().lfns).exists()
 
     def lfns_per_task(self, n_lfns: int) -> int:
         return self.dataset.get("lfns_per_task", 1)
 
     @workflow_condition.create_branch_map
     def create_branch_map(self):
-        n_lfns = len(self.input()["lfns"].load(formatter="json"))
+        n_lfns = len(maybe_local_target(self.input().lfns).load(formatter="json"))
         return list(law.util.iter_chunks(range(n_lfns), self.lfns_per_task(n_lfns)))
 
     def requires(self):
@@ -98,12 +96,11 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
         default=True,
         description="whether to store the output in the CMS-style /store/... format; default: True",
     )
-    stream_lfn = luigi.BoolParameter(
-        default=True,
+    fetch_lfns = luigi.BoolParameter(
+        default=False,
         significant=False,
-        description="whether to stream input files rather than prefetching them; note that this "
-        "currently seems to be the only option since gfal plugins other than gsiftp are not "
-        "supported within cmssw environment; default: True",
+        description="whether to prefetch input files rather then streaming them them; "
+        "default: False",
     )
 
     def workflow_requires(self):
@@ -114,6 +111,12 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
     def requires(self):
         reqs = super().requires()
         reqs["cfg"] = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
+        # edge case: if the inputs are to be fetched, the "lfns" requirement must be present
+        if self.fetch_lfns:
+            if not reqs["lfns"].complete():
+                raise Exception("fetch_lfn requires GetDatasetLFNs to be already complete")
+            lfns = maybe_local_target(reqs["lfns"].output()).load(formatter="json")
+            reqs["files"] = [FetchLFN.req(self, lfn=lfns[i]) for i in self.branch_data]
         return reqs
 
     workflow_condition = NanoDatasetWorkflow.workflow_condition.copy()
@@ -133,26 +136,20 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
 
         return self.target(f"{name}.root", cms_store=self.cms_store)
 
-    @law.decorator.log
     def run(self):
         inputs = self.input()
+
+        # get the input files to process
+        if self.fetch_lfns:
+            input_files = [maybe_local_target(t).uri() for t in inputs.files]
+        else:
+            lfns = maybe_local_target(inputs.lfns).load(formatter="json")
+            input_files = [lfns[i] for i in self.branch_data]
+        self.publish_message(f"processing files {', '.join(input_files)}")
 
         # temporary directory to run in
         tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
         tmp_dir.touch()
-
-        # get the lfns to process
-        lfns = inputs.lfns.load(formatter="json")
-        input_files = [lfns[i] for i in self.branch_data]
-        self.publish_message(f"processing LFNs {', '.join(input_files)}")
-
-        # fetch the file
-        if not self.stream_lfn:
-            pfns = []
-            for lfn in input_files:
-                with self.publish_step("fetching lfn ..."):
-                    pfns.append(fetch_lfn(lfn, tmp_dir.abspath, logger=self.logger))
-            input_files = pfns
 
         # determine custom hook and arguments from config, or dataset of they exist
         custom_hook = (
@@ -261,7 +258,7 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
             f"{inspection_script}"
             f" -d {outputs.docs.abspath}"
             f" -s {outputs.sizes.abspath}"
-            f" {self.input().abspath}",
+            f" {maybe_local_target(self.input()).abspath}",
         )
 
         # once created, some lines have to be updated in the output files
