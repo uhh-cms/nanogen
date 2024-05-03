@@ -76,13 +76,16 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow):
     def workflow_condition(self):
         return self.input()["lfns"].exists()
 
+    def lfns_per_task(self, n_lfns: int) -> int:
+        return self.dataset.get("lfns_per_task", 1)
+
     @workflow_condition.create_branch_map
     def create_branch_map(self):
-        lfns = self.input()["lfns"].load(formatter="json")
-        return list(law.util.iter_chunks(lfns, self.dataset.get("lfns_per_task", 1)))
+        n_lfns = len(self.input()["lfns"].load(formatter="json"))
+        return list(law.util.iter_chunks(range(n_lfns), self.lfns_per_task(n_lfns)))
 
     def requires(self):
-        return {"lfns": GetDatasetLFNs.req(self)}
+        return law.util.DotDict({"lfns": GetDatasetLFNs.req(self)})
 
 
 class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
@@ -139,7 +142,8 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
         tmp_dir.touch()
 
         # get the lfns to process
-        input_files = self.branch_data
+        lfns = inputs.lfns.load(formatter="json")
+        input_files = [lfns[i] for i in self.branch_data]
         self.publish_message(f"processing LFNs {', '.join(input_files)}")
 
         # fetch the file
@@ -165,7 +169,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
 
         # fetch and adjust the cmsRun config
         cfg = tmp_dir.child("nano_cfg.py", type="f")
-        inputs["cfg"].copy_to_local(cfg)
+        inputs.cfg.copy_to_local(cfg)
         inject_customizations(
             cfg.abspath,
             hook=("nanogen.nano_util", "customize_nano_process"),
@@ -231,10 +235,10 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
         return CreateNano.req(self, branch=0)
 
     def output(self):
-        return {
+        return law.util.DotDict({
             "docs": self.target("docs.html"),
             "sizes": self.target("sizes.html"),
-        }
+        })
 
     @law.decorator.log
     @law.decorator.localize
@@ -255,8 +259,8 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
         outputs = self.output()
         cmds.append(
             f"{inspection_script}"
-            f" -d {outputs['docs'].abspath}"
-            f" -s {outputs['sizes'].abspath}"
+            f" -d {outputs.docs.abspath}"
+            f" -s {outputs.sizes.abspath}"
             f" {self.input().abspath}",
         )
 

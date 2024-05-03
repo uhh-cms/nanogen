@@ -11,15 +11,17 @@ __all__: list[str] = []
 import os
 import re
 import time
+import math
 import shutil
 import logging
+import contextlib
 from importlib import import_module
 from fnmatch import fnmatch
 from copy import deepcopy
 from collections import Counter
 from dataclasses import dataclass
 from tempfile import mkstemp
-from typing import Any
+from typing import Any, Callable
 
 import law  # type: ignore[import-untyped]
 from law.target.file import has_scheme, add_scheme  # type: ignore[import-untyped]
@@ -485,3 +487,49 @@ def filter_branches(branches: list[str], column_filters: list[str]) -> list[str]
     selected.sort(key=orig_branches.index)
 
     return selected
+
+
+def iter_root_coffea_events(
+    source: Any | list[Any],  # the uproot.Directory
+    treepath: str = "Events",
+    chunk_size: int = 20_000,
+    branches: list[str] | None = None,
+    callback: Callable[[int, int, int, int], Any] | None = None,
+):
+    import uproot  # type: ignore[import-untyped]
+    import coffea.nanoevents  # type: ignore[import-untyped]
+
+    # helper context to localize and uproot open a file target
+    @contextlib.contextmanager
+    def uproot_open_target(target):
+        with target.localize("r") as tmp:
+            yield uproot.open(tmp.abspath)
+
+    sources = source if isinstance(source, list) else [source]
+    for i, _source in enumerate(sources):
+        context = (
+            uproot_open_target
+            if isinstance(_source, law.FileSystemFileTarget)
+            else law.util.empty_context
+        )
+
+        with context(_source) as uproot_dir:
+            # get the number of entries
+            n_entries = uproot_dir[treepath].num_entries
+            n_chunks = int(math.ceil(n_entries / chunk_size))
+
+            # start iterating
+            for j in range(0, n_chunks):
+                yield coffea.nanoevents.NanoEventsFactory.from_root(
+                    uproot_dir,
+                    treepath="Events",
+                    entry_start=j * chunk_size,
+                    entry_stop=min((j + 1) * chunk_size, n_entries),
+                    delayed=False,
+                    runtime_cache=None,
+                    persistent_cache=None,
+                    iteritems_options={"filter_name": branches},
+                ).events()
+
+                if callable(callback):
+                    callback(i, len(sources), j, n_chunks)
