@@ -18,5 +18,5 @@ era:
 campaign_version_postfix: NanoAODAPVv12UHH
 
 # references to dataset and nano configs
-dataset_config: datasets_ul16post.yaml  # not existing yet
+dataset_config: datasets_ul16post.yaml
 nano_config: nano.yaml
