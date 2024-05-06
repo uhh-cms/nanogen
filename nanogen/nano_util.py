@@ -17,7 +17,7 @@ import json
 import shutil
 import logging
 import subprocess
-import urllib
+import urllib.parse
 import contextlib
 from importlib import import_module
 from fnmatch import fnmatch
