@@ -156,7 +156,7 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         # use cc7 on naf
         # https://confluence.desy.de/display/IS/BIRD
         if self.htcondor_flavor == "naf":
-            config.custom_content.append(("requirements", "(OpSysAndVer == \"CentOS7\")"))  # noqa: Q003
+            config.custom_content.append(("requirements", "(OpSysAndVer == \"CentOS7\")"))  # noqa
 
         # maximum runtime, compatible with multiple batch systems
         if self.max_runtime is not None and self.max_runtime > 0:
@@ -175,10 +175,14 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         config.render_variables.setdefault("ng_pre_setup_command", "")
         config.render_variables.setdefault("ng_post_setup_command", "")
 
-        config.render_variables["ng_cern_user"] = os.environ["NG_CERN_USER"]
-        config.render_variables["ng_software_base"] = os.environ["NG_SOFTWARE_BASE"]
-        config.render_variables["ng_store_local"] = os.environ["NG_STORE_LOCAL"]
-        config.render_variables["ng_local_scheduler"] = os.environ["NG_LOCAL_SCHEDULER"]
+        for var in [
+            "NG_CERN_USER",
+            "NG_CERN_USER_DCACHE_STORE",
+            "NG_SOFTWARE_BASE",
+            "NG_STORE_LOCAL",
+            "NG_LOCAL_SCHEDULER",
+        ]:
+            config.render_variables[var.lower()] = os.environ[var]
 
         return config
 
@@ -279,7 +283,7 @@ class SlurmWorkflow(Task, law.slurm.SlurmWorkflow):
         # python's default multiprocessing puts socket files into that tmp directory which comes
         # with the restriction of less then 80 characters that would be violated, and potentially
         # would also overwhelm the submission directory
-        config.render_variables["law_job_tmp"] = "/tmp/law_$( basename \"$LAW_JOB_HOME\" )"  # noqa: Q003
+        config.render_variables["law_job_tmp"] = "/tmp/law_$( basename \"$LAW_JOB_HOME\" )"  # noqa
 
         return config
 

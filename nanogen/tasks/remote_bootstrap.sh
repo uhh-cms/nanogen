@@ -10,7 +10,7 @@ bootstrap_htcondor() {
     export NG_ON_HTCONDOR="1"
     export NG_REMOTE_ENV="1"
     export NG_CERN_USER="{{ng_cern_user}}"
-    export NG_CERN_USER_FIRSTCHAR="${NG_CERN_USER:0:1}"
+    export NG_CERN_USER_DCACHE_STORE="{{ng_cern_user_dcache_store}}"
     export NG_BASE="${LAW_JOB_HOME}/repo"
     export NG_DATA_BASE="${LAW_JOB_HOME}/ng_data"
     export NG_SOFTWARE_BASE="{{ng_software_base}}"

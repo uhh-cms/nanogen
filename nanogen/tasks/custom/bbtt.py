@@ -12,19 +12,18 @@ import operator
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import ConfigTask, wrapper_factory
-from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.nano import NanoDatasetWorkflow, CreateNano
 from nanogen.nano_util import iter_root_coffea_events
-from nanogen.util import maybe_local_target
+from nanogen.util import maybe_wait_for_dcache
 
 
-class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
+class ReduceNano(NanoDatasetWorkflow):
 
     task_namespace = "bbtt"
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
-        reqs["nano"] = CreateNano.req_different_branching(self)
+        reqs.nano = CreateNano.req_different_branching(self)
         return reqs
 
     def lfns_per_task(self, n_lfns: int) -> int:
@@ -33,7 +32,7 @@ class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
 
     def requires(self):
         reqs = super().requires()
-        reqs["nano"] = CreateNano.req_different_branching(
+        reqs.nano = CreateNano.req_different_branching(
             self,
             branch=-1,
             workflow="local",
@@ -41,19 +40,18 @@ class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
         )
         return reqs
 
-    workflow_condition = NanoDatasetWorkflow.workflow_condition.copy()
-
-    @workflow_condition.output
     def output(self):
         return self.target(f"output_{self.branch}.parquet")
 
     @law.decorator.log
+    @maybe_wait_for_dcache
     def run(self):
         import awkward as ak  # type: ignore[import-untyped]
 
         # prepare inputs
-        inputs = [maybe_local_target(inp) for inp in self.input().nano.collection.targets.values()]
-        self.publish_message(f"processing {len(inputs)} inputs ...")
+        inputs = [inp for inp in self.input().nano.collection.targets.values()]
+        self.publish_message(f"processing {len(inputs)} input(s) ...")
+        self.publish_progress(0)
 
         # storage for output array chunks
         output = []
@@ -183,14 +181,8 @@ class ReduceNano(NanoDatasetWorkflow, RemoteWorkflow):
         self.publish_progress(100)
 
         # some logs
-        size_in = sum(inp.stat().st_size for inp in inputs)
-        size_out = self.output().stat().st_size
         n_out = len(output)
-        self.publish_message(
-            f"events saved: {n_out:_} ({law.util.human_bytes(size_out, fmt=True)}) of "
-            f"{n_in:_} ({law.util.human_bytes(size_in, fmt=True)}) "
-            f"-> {n_out / n_in * 100:.2f}%",
-        )
+        self.publish_message(f"events saved: {n_out:_} of {n_in:_} -> {n_out / n_in * 100:.2f}%")
 
 
 ReduceNanoWrapper = wrapper_factory(

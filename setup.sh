@@ -35,7 +35,7 @@ setup_ng() {
     # start exporting variables
     export NG_BASE="${this_dir}"
     export NG_CERN_USER="${NG_CERN_USER}"
-    export NG_CERN_USER_FIRSTCHAR="${NG_CERN_USER:0:1}"
+    export NG_CERN_USER_DCACHE_STORE="${NG_CERN_USER_DCACHE_STORE:-${NG_CERN_USER}}"
     export NG_CMS_SITE="${NG_CMS_SITE:-T2_DE_DESY}"
     export NG_DATA_BASE="${NG_DATA_BASE:-${NG_BASE}/data}"
     export NG_SOFTWARE_BASE="${NG_SOFTWARE_BASE:-${NG_DATA_BASE}/software}"

@@ -15,8 +15,8 @@ from typing import Type
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.util import expand_path
 from nanogen.nano_util import DatasetInfo, mini_to_nano_dataset
+from nanogen.util import expand_path, DCacheFileTarget, DCacheDirectoryTarget
 
 
 default_config = law.config.get_expanded("analysis", "default_config")
@@ -31,6 +31,7 @@ class OutputLocation(enum.Enum):
     config = "config"
     local = "local"
     wlcg = "wlcg"
+    dcache = "dcache"
 
 
 class Task(law.SandboxTask):
@@ -101,7 +102,8 @@ class Task(law.SandboxTask):
         store_parts = self.store_parts_cms() if cms_store else self.store_parts()
 
         # concatenate all parts that make up the path and join them
-        path = os.path.join(*map(str, tuple(store_parts.values()) + path))
+        parts = tuple(store_parts.values()) + path
+        path = os.path.join(*[str(part).strip(os.sep) for part in parts])
 
         return path
 
@@ -130,6 +132,30 @@ class Task(law.SandboxTask):
 
         # create the target instance and return it
         return cls(path, fs=fs, **kwargs)
+
+    def dcache_target(
+        self,
+        *path,
+        dir=False,
+        cms_store=False,
+        wlcg_fs=None,
+        local_fs=None,
+        **kwargs,
+    ):
+        # default fs
+        if wlcg_fs is None:
+            wlcg_fs = self.default_wlcg_fs
+        if local_fs is None:
+            local_fs = "local_fs_dcache_store"
+
+        # select the target class
+        cls = DCacheDirectoryTarget if dir else DCacheFileTarget
+
+        # create the path
+        path = self.store_path(*path, cms_store=cms_store)
+
+        # create the target instance and return it
+        return cls(path, wlcg_fs=wlcg_fs, local_fs=local_fs, **kwargs)
 
     def target(self, *path, **kwargs):
         # get the default location
@@ -162,6 +188,13 @@ class Task(law.SandboxTask):
             (fs,) = (location[1:] + [None])[:1]
             kwargs.setdefault("fs", fs)
             return self.wlcg_target(*path, **kwargs)
+
+        if location[0] == OutputLocation.dcache:
+            # get other options
+            wlcg_fs, local_fs = (location[1:] + [None, None])[:2]
+            kwargs.setdefault("wlcg_fs", wlcg_fs)
+            kwargs.setdefault("local_fs", local_fs)
+            return self.dcache_target(*path, **kwargs)
 
         raise Exception(f"cannot determine output location based on '{location}'")
 
@@ -426,7 +459,7 @@ def wrapper_factory(
             # per config, find datasets
             selected_dataset_names = {}
             if self.wrapper_has_dataset_names:
-                def load_dataset_names(config_name: str) -> list[str]:
+                def load_dataset_names(config_name):
                     config_file = ConfigTask.resolve_config_file(config_name)
                     config = law.LocalFileTarget(config_file).load(formatter="yaml")
                     dataset_config_file = ConfigTask.resolve_dataset_config(config_file, config)

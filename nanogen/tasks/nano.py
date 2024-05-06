@@ -15,7 +15,7 @@ from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrappe
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
 from nanogen.nano_util import SkimConfig, inject_customizations, nano_file_hash, skim_nano_file
-from nanogen.util import expand_path, maybe_local_target
+from nanogen.util import expand_path, maybe_wait_for_dcache
 
 
 class CreateCMSRunConfig(CMSSWSandboxTask):
@@ -32,6 +32,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         return self.target(f"nano_cfg_{self.dataset_kind}.py")
 
     @law.decorator.log
+    @maybe_wait_for_dcache
     def run(self):
         # create the cmsDriver command that generates the nano config
         # https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Instructions/Private-production
@@ -63,30 +64,55 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         self.output().copy_from_local(tmp_dir.child("NANO_NANO.py"))
 
 
-class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow):
+class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
         reqs["lfns"] = GetDatasetLFNs.req(self)
         return reqs
 
-    @law.dynamic_workflow_condition
-    def workflow_condition(self):
-        return maybe_local_target(self.input().lfns).exists()
-
     def lfns_per_task(self, n_lfns: int) -> int:
         return self.dataset.get("lfns_per_task", 1)
 
-    @workflow_condition.create_branch_map
+    def get_lfns(self, lfns_input=None):
+        # default lfns input
+        if lfns_input is None:
+            lfns_input = self.input().lfns.lfns
+
+        # check existence
+        if not lfns_input.exists():
+            raise Exception(f"{self.task_family} requires GetDatasetLFNs to be already complete")
+
+        # load lfn list
+        lfns = lfns_input.load(formatter="json")
+
+        # potentially skip some lfns
+        for lfn in self.dataset.get("skip_lfns", []):
+            if lfn in lfns:
+                lfns.remove(lfn)
+            else:
+                print(
+                    f"LFN {lfn} confiured to be skipped for dataset {self.dataset_name}, but not "
+                    "found in list of LFNs!",
+                )
+
+        return lfns
+
     def create_branch_map(self):
-        n_lfns = len(maybe_local_target(self.input().lfns).load(formatter="json"))
+        n_lfns = len(self.get_lfns())
         return list(law.util.iter_chunks(range(n_lfns), self.lfns_per_task(n_lfns)))
 
     def requires(self):
         return law.util.DotDict({"lfns": GetDatasetLFNs.req(self)})
 
+    def htcondor_destination_info(self, info):
+        info = super().htcondor_destination_info(info)
+        info["config"] = self.config_name
+        info["dataset"] = self.dataset_name
+        return info
 
-class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
+
+class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
     n_events = luigi.IntParameter(
         default=-1,
@@ -105,23 +131,24 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
-        reqs["cfg"] = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
+        reqs.cfg = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
         return reqs
 
     def requires(self):
         reqs = super().requires()
-        reqs["cfg"] = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
-        # edge case: if the inputs are to be fetched, the "lfns" requirement must be present
-        if self.fetch_lfns:
-            if not reqs["lfns"].complete():
-                raise Exception("fetch_lfn requires GetDatasetLFNs to be already complete")
-            lfns = maybe_local_target(reqs["lfns"].output()).load(formatter="json")
-            reqs["files"] = [FetchLFN.req(self, lfn=lfns[i]) for i in self.branch_data]
+        reqs.cfg = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
+
+        # check if lfns were maybe already fetched, and if so, use them
+        # otherwise make the decision dependent on the fetch_lfns flag
+        lfns = self.get_lfns(reqs.lfns.output().lfns)
+        reqs.fetched_lfns = {
+            i: task
+            for i, task in ((i, FetchLFN.req(self, lfn=lfns[i])) for i in self.branch_data)
+            if self.fetch_lfns or task.complete()
+        }
+
         return reqs
 
-    workflow_condition = NanoDatasetWorkflow.workflow_condition.copy()
-
-    @workflow_condition.output
     def output(self):
         if self.cms_store:
             hash_parts = [self.dataset.key, self.branch]
@@ -136,15 +163,17 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask, RemoteWorkflow):
 
         return self.target(f"{name}.root", cms_store=self.cms_store)
 
+    @law.decorator.log
+    @maybe_wait_for_dcache
     def run(self):
         inputs = self.input()
 
         # get the input files to process
-        if self.fetch_lfns:
-            input_files = [maybe_local_target(t).uri() for t in inputs.files]
-        else:
-            lfns = maybe_local_target(inputs.lfns).load(formatter="json")
-            input_files = [lfns[i] for i in self.branch_data]
+        lfns = self.get_lfns(inputs.lfns.lfns)
+        input_files = [
+            inputs.fetched_lfns[i].uri() if i in inputs.fetched_lfns else lfns[i]
+            for i in self.branch_data
+        ]
         self.publish_message(f"processing files {', '.join(input_files)}")
 
         # temporary directory to run in
@@ -258,7 +287,7 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
             f"{inspection_script}"
             f" -d {outputs.docs.abspath}"
             f" -s {outputs.sizes.abspath}"
-            f" {maybe_local_target(self.input()).abspath}",
+            f" {self.input().abspath}",
         )
 
         # once created, some lines have to be updated in the output files

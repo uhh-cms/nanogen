@@ -10,10 +10,14 @@ __all__: list[str] = []
 
 import os
 import re
+import gc
 import time
 import math
+import json
 import shutil
 import logging
+import subprocess
+import urllib
 import contextlib
 from importlib import import_module
 from fnmatch import fnmatch
@@ -24,7 +28,7 @@ from tempfile import mkstemp
 from typing import Any, Callable
 
 import law  # type: ignore[import-untyped]
-from law.target.file import has_scheme, add_scheme  # type: ignore[import-untyped]
+from law.target.file import has_scheme, get_scheme, add_scheme  # type: ignore[import-untyped]
 
 from nanogen.util import expand_path
 
@@ -136,10 +140,173 @@ def nano_file_hash(hash_parts: list[Any]) -> str:
     return "".join(h)
 
 
+def das_query(
+    query: str,
+    args: str | list[str] | None = None,
+    log: Callable[[str], Any] | None = None,
+) -> str:
+    log = log or print
+
+    # build and run the command
+    cmd = f"dasgoclient --query='{query}' --limit=0"
+    if args:
+        cmd += f" {law.util.quote_cmd(law.util.make_list(args))}"
+    log(f"cmd: {cmd}")
+    code, out, _ = law.util.interruptable_popen(
+        cmd,
+        stdout=subprocess.PIPE,
+        shell=True,
+        executable="/bin/bash",
+    )
+    if code != 0:
+        raise Exception(f"dasgoclient query failed:\n{out}")
+
+    return out.strip()
+
+
+class MissingLFNException(Exception):
+
+    def __init__(self, lfn: str, reason: str | None = None):
+        msg = f"LFN {lfn} not found"
+        if reason:
+            msg += f", {reason}"
+        super().__init__(msg)
+
+
+def resolve_lfn_to_site(
+    lfn: str,
+    site: str,
+    skip_protocols: list[str] | None = None,
+) -> dict[str, str]:
+    # default skip protocols
+    if not skip_protocols:
+        skip_protocols = ["mixed", "xrootd-module", "file"]
+
+    # load storage settings
+    settings_path = os.path.join("/cvmfs/cms.cern.ch/SITECONF", site, "storage.json")
+    with open(settings_path, "r") as f:
+        settings = json.load(f)
+
+    # find protocol settings
+    protocol_settings = [entry["protocols"] for entry in settings if entry["site"] == site]
+    if not protocol_settings:
+        raise ValueError(f"no protocol settings found for site {site}")
+
+    # apply rules per protocol and collect pfns
+    pfns = {}
+    for protocol_data in protocol_settings:
+        for data in protocol_data:
+            proto = data["protocol"]
+            if proto in skip_protocols:
+                continue
+
+            # when there is a prefix defined, use it as is
+            if "prefix" in data:
+                pfns[proto] = data["prefix"] + lfn
+            # check which rules applies
+            elif "rules" in data:
+                for rule in data["rules"]:
+                    if re.match(rule["lfn"], lfn):
+                        pfns[proto] = re.sub(rule["lfn"], rule["pfn"].replace("$", "\\"), lfn)
+                        break
+            else:
+                raise ValueError(
+                    f"invalid protocol settings with neither rules nor prefix setting: {data}",
+                )
+
+    return pfns
+
+
+def locate_lfn(
+    lfn: str,
+    locations: str | list[str] | None = None,
+    retries: int = 2,
+    logger: logging.Logger | None = None,
+) -> tuple[law.FileSystemFileTarget, os.stat_result, bool]:
+    # prepare logging
+    log_debug = log_info = lambda msg: None
+    if logger:
+        log_debug = logger.debug
+        log_info = logger.info
+
+    # get default locations from DAS
+    if not locations:
+        # get non-tape locations
+        locations = das_query(f"site file={lfn}", log=log_debug).split("\n")
+        # remove tapes and disks
+        locations = [l for l in locations if not l.lower().endswith(("_tape", "_disk"))]
+        # sort DESY -> DE -> CH -> Rest -> US
+        locations.sort(key=lambda l: (
+            -("DESY" in l),
+            -((country := l.split("_")[1]) == "DE"),
+            -(country == "CH"),
+            +(country == "US"),
+        ))
+        # complain when there are no locations to check
+        if not locations:
+            raise MissingLFNException(lfn, "no available sites")
+
+    # expand sites for all protocols
+    locations = sum((
+        (
+            list(resolve_lfn_to_site(lfn, location).values())
+            if re.match(r"^T[0-9]_\w{2}_.+$", location)
+            else [location]
+        )
+        for location in locations
+    ), [])
+
+    # loop over repeated fs
+    log_info(f"checking location of {lfn} ...")
+    for location in locations:
+        log_debug(f"checking {location}")
+
+        # here, location can either be a full uri (with a scheme) or a law fs name
+        path = lfn
+        fs = location
+        is_local = True
+        scheme = get_scheme(location)
+        if scheme == "file":
+            path = location
+            fs = "local_fs"
+        elif scheme:
+            is_local = False
+            url = urllib.parse.urlparse(location)
+            path = "/" + url.path.lstrip("/")
+            base = add_scheme(url.netloc, url.scheme)
+            fs = f"wlcg_fs_{url.hostname.replace('.', '_')}"  # type: ignore[union-attr]
+            if not law.config.has_section(fs):
+                law.config.update({fs: {"base": base}})
+        elif location.startswith("wlcg_fs"):
+            fs_base = law.config.get_expanded(location, "base")
+            is_local = law.target.file.get_scheme(fs_base) in (None, "file")
+
+        # define the file target
+        target_cls = law.LocalFileTarget if is_local else law.wlcg.WLCGFileTarget
+        input_file = target_cls(path, fs=fs)
+
+        # measure the time required to perform a stat query
+        attempt = 1
+        while attempt <= retries:
+            t1 = time.perf_counter()
+            input_stat = input_file.exists(stat=True)
+            duration = time.perf_counter() - t1
+            log_debug(f"stat query took {duration:.2f}s")
+
+            if input_stat:
+                input_size = law.util.human_bytes(input_stat.st_size, fmt=True)
+                log_info(f"located lfn at {fs} with file size of {input_size}")
+                return input_file, input_stat, is_local
+
+            attempt += 1
+
+    raise MissingLFNException(lfn, "no stat request succeeded")
+
+
 def fetch_lfn(
     lfn: str,
     dst: str,
-    wlcg_fs: str | list[str] | None = None,
+    locations: str | list[str] | None = None,
     retries: int = 2,
     fetch_local: bool = False,
     logger: logging.Logger | None = None,
@@ -150,9 +317,8 @@ def fetch_lfn(
     stored file is returned.
     """
     # prepare logging
-    log_debug = log_info = lambda msg: None
+    log_info = lambda msg: None
     if logger:
-        log_debug = logger.debug
         log_info = logger.info
 
     # prepare the output file
@@ -173,52 +339,15 @@ def fetch_lfn(
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
 
-    # prepare fs list
-    wlcg_fs_list = (
-        law.util.make_list(wlcg_fs)
-        if wlcg_fs
-        else law.config.get_expanded("analysis", "lfn_sources", split_csv=True)
-    )
-
-    # loop over repeated fs
-    log_info(f"determining location of {lfn} ...")
-    for fs in wlcg_fs_list:
-        log_debug(f"checking fs {fs}")
-
-        # check if the fs is really remote or local
-        is_local = True
-        if fs.startswith("wlcg_fs"):
-            fs_base = law.config.get_expanded(fs, "base")
-            is_local = law.target.file.get_scheme(fs_base) in (None, "file")
-        target_cls = law.LocalFileTarget if is_local else law.wlcg.WLCGFileTarget
-
-        # measure the time required to perform a stat query
-        input_file = target_cls(lfn, fs=fs)
-        attempt = 1
-        while attempt <= retries:
-            t1 = time.perf_counter()
-            input_stat = input_file.exists(stat=True)
-            duration = time.perf_counter() - t1
-            if input_stat:
-                log_debug(f"stat query took {duration:.2f}s")
-                break
-            attempt += 1
-        log_debug(f"file {lfn} does{'' if input_stat else ' not'} exist at fs {fs}")
-
-        # stop when found
-        if input_stat:
-            input_size = law.util.human_bytes(input_stat.st_size, fmt=True)
-            log_info(f"found at {fs} ({input_size})")
-            break
-    else:
-        raise Exception(f"LFN {lfn} not found at any of {wlcg_fs_list}")
+    # locate the lfn
+    input_file, _, is_local = locate_lfn(lfn, locations=locations, retries=retries, logger=logger)
 
     # when local and local fetching is not allowed, just return the path
     if is_local and not fetch_local:
         return input_file.abspath
 
     # fetch the file
-    log_info(f"fetching {input_file.uri()} to {abs_dst}...")
+    log_info(f"fetching {input_file.uri()} to {abs_dst} ...")
     input_file.copy_to_local(abs_dst)
 
     return abs_dst
@@ -491,12 +620,15 @@ def filter_branches(branches: list[str], column_filters: list[str]) -> list[str]
 
 
 def iter_root_coffea_events(
-    source: Any | list[Any],  # the uproot.Directory
+    source: Any | law.FileSystemFileTarget | list[Any | law.FileSystemFileTarget],
     treepath: str = "Events",
-    chunk_size: int = 20_000,
+    chunk_size: int = 30_000,
     branches: list[str] | None = None,
     callback: Callable[[int, int, int, int], Any] | None = None,
 ):
+    """
+    TODO: coffea.nanoevents.NanoEventsFactory leaks memory, which is known but unresolved?
+    """
     import uproot  # type: ignore[import-untyped]
     import coffea.nanoevents  # type: ignore[import-untyped]
 
@@ -504,7 +636,12 @@ def iter_root_coffea_events(
     @contextlib.contextmanager
     def uproot_open_target(target):
         with target.localize("r") as tmp:
-            yield uproot.open(tmp.abspath)
+            # print(f"localized {target.uri()}")
+            try:
+                yield uproot.open(tmp.abspath)
+            except:
+                print(f"error occurred while processing {target.uri()}")
+                raise
 
     sources = source if isinstance(source, list) else [source]
     for i, _source in enumerate(sources):
@@ -523,7 +660,7 @@ def iter_root_coffea_events(
             for j in range(0, n_chunks):
                 yield coffea.nanoevents.NanoEventsFactory.from_root(
                     uproot_dir,
-                    treepath="Events",
+                    treepath=treepath,
                     entry_start=j * chunk_size,
                     entry_stop=min((j + 1) * chunk_size, n_entries),
                     delayed=False,
@@ -531,6 +668,8 @@ def iter_root_coffea_events(
                     persistent_cache=None,
                     iteritems_options={"filter_name": branches},
                 ).events()
+
+                gc.collect()
 
                 if callable(callback):
                     callback(i, len(sources), j, n_chunks)

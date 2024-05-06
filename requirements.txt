@@ -1,4 +1,5 @@
 pyyaml~=6.0.1
+tabulate~=0.9.0
 uproot~=5.3.2
 awkward~=2.6.3
 coffea~=2024.4.1
