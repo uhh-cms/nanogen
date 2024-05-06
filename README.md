@@ -16,10 +16,17 @@ source setup.sh ""
 flowchart TD
     CN([CreateNano])
     GetDatasetLFNs --> CN
+    FetchLFN -. optional .-> CN
     CreateCMSRunConfig --> CN
     BundleRepo -- for remote<br />workflows --> CN
     CN -. optional .-> GenerateNanoDocs
+    CN -. custom .-> bbtt.ReduceEvents
+    ListDatasetStats
 ```
+
+Almost all tasks have an accompanying `*Wrapper` task that adds functionality like `--dataset-names PATTERNS`, `--skip-dataset-names PATTERNS` to trigger multiple *wrapped* tasks at once.
+
+**Note:** `GetDatasetLFNs` should be run **manually** before `CreateNano` or any other task downstream, since dynamic dependency generation can be costly in this case.
 
 ## References
 
