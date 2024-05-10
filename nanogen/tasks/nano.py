@@ -14,7 +14,10 @@ import law  # type: ignore[import-untyped]
 from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
-from nanogen.nano_util import SkimConfig, inject_customizations, nano_file_hash, skim_nano_file
+from nanogen.nano_util import (
+    SkimConfig, inject_customizations, nano_file_hash, skim_nano_file, locate_lfn, fetch_lfn,
+    MissingLFNException,
+)
 from nanogen.util import expand_path, maybe_wait_for_dcache
 
 
@@ -71,15 +74,10 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
         reqs["lfns"] = GetDatasetLFNs.req(self)
         return reqs
 
-    def lfns_per_task(self, n_lfns: int) -> int:
-        return self.dataset.get("lfns_per_task", 1)
-
-    def get_lfns(self, lfns_input=None):
-        # default lfns input
-        if lfns_input is None:
-            lfns_input = self.input().lfns.lfns
-
-        # check existence
+    @law.workflow_property(cache=True)
+    def lfns(self) -> list[str]:
+        # get the lfns target
+        lfns_input = self.requires().lfns.output().lfns
         if not lfns_input.exists():
             raise Exception(f"{self.task_family} requires GetDatasetLFNs to be already complete")
 
@@ -98,8 +96,11 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
 
         return lfns
 
+    def lfns_per_task(self, n_lfns: int) -> int:
+        return self.dataset.get("lfns_per_task", 1)
+
     def create_branch_map(self):
-        n_lfns = len(self.get_lfns())
+        n_lfns = len(self.lfns)
         return list(law.util.iter_chunks(range(n_lfns), self.lfns_per_task(n_lfns)))
 
     def requires(self):
@@ -125,8 +126,16 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
     fetch_lfns = luigi.BoolParameter(
         default=False,
         significant=False,
-        description="whether to prefetch input files rather then streaming them them; "
+        description="whether to persistently prefetch input files rather than streaming them; "
         "default: False",
+    )
+    tmp_fetch_lfns = luigi.ChoiceParameter(
+        default="auto",
+        choices=["True", "False", "auto"],
+        significant=False,
+        description="whether to temporarily prefetch input files rather than streaming them; "
+        "this only works for xrootd targets since gfal plugins fail inside the cmssw sandbox; "
+        "when 'auto', only lfns located at sites known to be unstable are prefetched; default: auto",
     )
 
     def workflow_requires(self):
@@ -140,7 +149,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         # check if lfns were maybe already fetched, and if so, use them
         # otherwise make the decision dependent on the fetch_lfns flag
-        lfns = self.get_lfns(reqs.lfns.output().lfns)
+        lfns = self.lfns
         reqs.fetched_lfns = {
             i: task
             for i, task in ((i, FetchLFN.req(self, lfn=lfns[i])) for i in self.branch_data)
@@ -151,12 +160,17 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
     def output(self):
         if self.cms_store:
-            hash_parts = [self.dataset.key, self.branch]
-            if self.n_events >= 0:
-                hash_parts.append(f"n{self.n_events}")
-            name = nano_file_hash(hash_parts)
+            # when only a single input lfn is processed and the number of events is unlimited,
+            # reuse the nano file hash, otherwise create a new one
+            if len(self.branch_data) == 1 and self.n_events < 0:
+                name = os.path.splitext(os.path.basename(self.lfns[self.branch_data[0]]))[0]
+            else:
+                hash_parts = [[self.lfns[i] for i in self.branch_data]]
+                if self.n_events >= 0:
+                    hash_parts.append(f"n{self.n_events}")
+                name = nano_file_hash(hash_parts)
         else:
-            postfix_parts = [self.branch]
+            postfix_parts = [f"{min(self.branch_data)}To{max(self.branch_data) + 1}"]
             if self.n_events >= 0:
                 postfix_parts.append(f"n{self.n_events}")
             name = f"nano_{'_'.join(map(str, postfix_parts))}"
@@ -168,17 +182,47 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
     def run(self):
         inputs = self.input()
 
+        # temporary directory to run in
+        tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
+        tmp_dir.touch()
+
         # get the input files to process
-        lfns = self.get_lfns(inputs.lfns.lfns)
+        lfns = self.lfns
         input_files = [
             inputs.fetched_lfns[i].uri() if i in inputs.fetched_lfns else lfns[i]
             for i in self.branch_data
         ]
         self.publish_message(f"processing files {', '.join(input_files)}")
 
-        # temporary directory to run in
-        tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
-        tmp_dir.touch()
+        # check if lfns need to be fetched temporarily
+        if self.tmp_fetch_lfns.lower() != "false":
+            for i, lfn in enumerate(list(input_files)):
+                # skip non-lfns
+                if not lfn.startswith("/store/"):
+                    continue
+                # locate it
+                try:
+                    lfn_locations = locate_lfn(lfn, logger=self.logger)
+                except MissingLFNException:
+                    continue
+                # select only xrootd locations
+                lfn_locations = list(filter((lambda l: l.scheme == "root"), lfn_locations))
+                if not lfn_locations:
+                    continue
+                # based on the first location, determine if the site is deemed unstable, or skip
+                # TODO: it might happen that there is another site first in the list, but later on
+                # during streaming it turns out to be unreliable and cmssw switches to a bad site,
+                # so one might proactively identify these cases here through some kind of heuristic
+                # and fetch the file anyway
+                if self.tmp_fetch_lfns.lower() == "auto":
+                    tier, country, _ = lfn_locations[0].site.split("_", 2)
+                    # so far, only fetch from US and KR sites
+                    if country.lower() not in {"us", "kr"}:
+                        continue
+                # fetch
+                input_files[i] = fetch_lfn(
+                    lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locations,
+                )
 
         # determine custom hook and arguments from config, or dataset of they exist
         custom_hook = (
@@ -244,6 +288,16 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             self.publish_message(f"nano size after skimming is {nano_size}")
 
         # move the output
+        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
+        # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
+        # otherwise let the configured target protocol handle the move
+        uri = self.output().uri(base_name="xrootd")
+        if law.target.file.get_scheme(uri) == "root":
+            self.publish_message("copying output via xrdcp")
+            cmd = f"xrdcp {nano_file.abspath} {uri}"
+            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
+            if code == 0:
+                return
         self.output().move_from_local(nano_file)
 
 

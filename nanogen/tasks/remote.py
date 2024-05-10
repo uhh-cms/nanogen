@@ -174,13 +174,13 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
             config.render_variables["ng_htcondor_flavor"] = self.htcondor_flavor
         config.render_variables.setdefault("ng_pre_setup_command", "")
         config.render_variables.setdefault("ng_post_setup_command", "")
-
         for var in [
             "NG_CERN_USER",
             "NG_CERN_USER_DCACHE_STORE",
             "NG_SOFTWARE_BASE",
             "NG_STORE_LOCAL",
             "NG_LOCAL_SCHEDULER",
+            "NG_DASMAPS_BASE",
         ]:
             config.render_variables[var.lower()] = os.environ[var]
 
@@ -276,7 +276,11 @@ class SlurmWorkflow(Task, law.slurm.SlurmWorkflow):
         config.render_variables["ng_bootstrap_name"] = "slurm"
         config.render_variables.setdefault("ng_pre_setup_command", "")
         config.render_variables.setdefault("ng_post_setup_command", "")
-        config.render_variables["ng_base"] = os.environ["NG_BASE"]
+        for var in [
+            "NG_BASE",
+            "NG_DASMAPS_BASE",
+        ]:
+            config.render_variables[var.lower()] = os.environ[var]
 
         # custom tmp dir since slurm uses the job submission dir as the main job directory, and law
         # puts the tmp directory in this job directory which might become quite long; then,

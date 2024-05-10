@@ -7,12 +7,15 @@ Tasks dealing with external data.
 from __future__ import annotations
 
 import json
+from multiprocessing.dummy import Pool as ThreadPool
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory
-from nanogen.nano_util import das_query, locate_lfn, fetch_lfn, MissingLFNException
+from nanogen.nano_util import (
+    das_query, locate_lfn, fetch_lfn, sort_sites_opinionated, MissingLFNException,
+)
 from nanogen.util import maybe_wait_for_dcache
 
 
@@ -22,10 +25,22 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
         default=(),
         description="comma-separated list of dataset names or patterns; when empty, all datasets "
         "in the config are considered; no default",
+        brace_expand=True,
     )
     skip_dataset_names = law.CSVParameter(
         default=(),
         description="comma-separated list of dataset names or patterns to skip; no default",
+        brace_expand=True,
+    )
+    sites = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to list the sites where the datasets are available; default: False",
+    )
+    table_format = luigi.Parameter(
+        default="fancy_grid",
+        significant=False,
+        description="the format of the 'tabular' table; default: fancy_grid",
     )
 
     version = None
@@ -53,54 +68,82 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
     def run(self):
         from tabulate import tabulate  # type: ignore[import-untyped]
 
-        # load stats, considering present outputs as caches
-        stats = {}
+        # prepare cache outputs
         outputs = self.output().targets
-        for dataset_name in self.selected_dataset_names:
+
+        # helper to load stats, either from cache or by querying DAS
+        def load_stats(dataset_name):
             if outputs[dataset_name].exists():
-                stats[dataset_name] = outputs[dataset_name].load(formatter="json")
-                continue
+                return outputs[dataset_name].load(formatter="json")
 
             # fetch info
             dataset_key = self.datasets[dataset_name].key
-            res = das_query(f"dataset={dataset_key}", args="--json", log=self.logger.debug)
+            res = das_query(f"dataset={dataset_key}", args="-json", log=self.logger.debug)
             for entry in json.loads(res):
                 # extract stats
                 if "dbs3:filesummaries" in entry.get("das", {}).get("services", []):
                     summary = entry["dataset"][0]
-                    stats[dataset_name] = {
+                    stats = {
                         "size": summary["size"],
                         "n_files": summary["nfiles"],
                         "n_events": summary["nevents"],
                     }
-                    outputs[dataset_name].dump(stats[dataset_name], indent=4, formatter="json")
-                    break
-            else:
-                self.logger.warning(f"no dbs3:filesummaries in response for dataset {dataset_name}")
-                stats[dataset_name] = {"size": "-", "n_files": "-", "n_events": "-"}
+                    # add sites
+                    stats["sites"] = [
+                        site
+                        for site in das_query(f"site dataset={dataset_key}").split("\n")
+                        if not site.lower().endswith(("_tape", "_disk"))
+                    ]
+                    # save and return
+                    outputs[dataset_name].dump(stats, indent=4, formatter="json")
+                    return stats
+
+            # no stats found
+            self.logger.warning(f"no dbs3:filesummaries in response for dataset {dataset_name}")
+            return {k: None for k in ["size", "n_files", "n_events", "sites"]}
+
+        # load stats in parallel
+        with ThreadPool(3) as pool:
+            stats = dict(zip(
+                self.selected_dataset_names,
+                pool.map(load_stats, self.selected_dataset_names),
+            ))
+
+        # helper to convert from bytes to GB
+        gb = lambda b: b / 1024**3
 
         # fill table rows
         rows = []
-        for dataset_name, _stats in stats.items():
+        for dataset_name, s in stats.items():
             rows.append([
                 dataset_name,
-                law.util.human_bytes(_stats["size"], unit="GB")[0],
-                _stats["n_files"],
-                _stats["n_events"],
+                "-" if s["size"] is None else gb(s["size"]),
+                "-" if s["n_files"] is None else s["n_files"],
+                "-" if s["n_events"] is None else s["n_events"],
             ])
+            if self.sites:
+                rows[-1].append(
+                    "-" if not s["sites"] else ",".join(sort_sites_opinionated(s["sites"])),
+                )
 
         # add a summary line
         if len(rows) > 1:
             rows.append([
                 "Total",
-                sum(row[1] for row in rows if row[1] != "-"),
-                sum(row[2] for row in rows if row[2] != "-"),
-                sum(row[3] for row in rows if row[3] != "-"),
+                gb(sum(s["size"] for s in stats.values() if s["size"] is not None)),
+                sum(s["n_files"] for s in stats.values() if s["n_files"] is not None),
+                sum(s["n_events"] for s in stats.values() if s["n_events"] is not None),
             ])
+            if self.sites:
+                rows[-1].append(
+                    len(set(sum((s["sites"] for s in stats.values() if s["sites"]), []))),
+                )
 
         # create the table
-        headers = ["Dataset", "Size / GB", "Files", "Events"]
-        print(tabulate(rows, headers=headers, tablefmt="fancy_grid", floatfmt="_.1f", intfmt="_"))
+        headers = ["Dataset", "Size / GB", "Files", "Events", "Sites"]
+        print(tabulate(
+            rows, headers=headers, tablefmt=self.table_format, floatfmt="_.1f", intfmt="_",
+        ))
 
 
 class GetDatasetLFNs(DatasetTask):
@@ -153,19 +196,9 @@ class GetDatasetLFNs(DatasetTask):
                     continue
                 except MissingLFNException:
                     self.logger.warning(f"LFN {lfn} not found")
-
-                # get the names of sites where the file is reported to exist
-                sites = [
-                    line.strip()
-                    for line in das_query(f"site file={lfn}", log=self.publish_message).split("\n")
-                    if line.strip()
-                ]
-                # store info
-                missing_lfns.add(lfn)
-                missing_data["missing"].append({
-                    "lfn": lfn,
-                    "sites": sites,
-                })
+                    # store info
+                    missing_lfns.add(lfn)
+                    missing_data["missing"].append(lfn)
 
             # reduce lfns and show some logs
             n_missing = missing_data["n_missing"] = len(missing_lfns)
@@ -214,6 +247,10 @@ class FetchLFN(Task):
     version = None
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
+    @property
+    def priority(self):
+        return 10
+
     def output(self):
         return self.target(self.lfn)
 
@@ -222,3 +259,33 @@ class FetchLFN(Task):
     def run(self):
         with self.publish_step("fetching LFN ..."), self.output().localize("w") as out:
             fetch_lfn(self.lfn, out.abspath, locations=self.locations or None, logger=self.logger)
+
+
+class FetchLFNWrapper(Task, law.WrapperTask):
+
+    lfns = law.CSVParameter(
+        description="comma-separated list of LFNs to fetch",
+    )
+    locations = law.MultiCSVParameter(
+        default=(),
+        description="colon-separated sequences of comma-separated locations to fetch the lfns from; "
+        "when only a single sequence is passed, it is used for all lfns; otherwise, the number of "
+        "sequences must match the number of lfns; no default",
+    )
+
+    version = None
+
+    @classmethod
+    def modify_param_values(cls, params):
+        if "lfns" in params and "locations" in params:
+            if len(params["locations"]) == 1:
+                params["locations"] *= len(params["lfns"])
+            elif len(params["locations"]) not in {0, len(params["lfns"])}:
+                raise ValueError("number of location sequences must match number of LFNs")
+        return params
+
+    def requires(self):
+        return {
+            lfn: FetchLFN(lfn=lfn, locations=locs)
+            for lfn, locs in zip(self.lfns, self.locations or ([()] * len(self.lfns)))
+        }

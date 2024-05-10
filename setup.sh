@@ -55,6 +55,7 @@ setup_ng() {
     export NG_WLCG_CACHE_ROOT="${NG_WLCG_CACHE_ROOT}"
     export NG_WLCG_USE_CACHE="${NG_WLCG_USE_CACHE:-$( [ -z "${NG_WLCG_CACHE_ROOT}" ] && echo "false" || echo "true" )}"
     export NG_WLCG_CACHE_CLEANUP="${NG_WLCG_CACHE_CLEANUP:-false}"
+    export NG_DASMAPS_BASE="${NG_DASMAPS_BASE:-${HOME}}"
 
     # external variables
     export LANGUAGE="${LANGUAGE:-en_US.UTF-8}"
@@ -70,6 +71,7 @@ setup_ng() {
     export VOMS_USERCONF="${VOMS_USERCONF:-${X509_VOMSES}}"
     export MAMBA_ROOT_PREFIX="${NG_CONDA_BASE}"
     export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/micromamba"
+    export GFAL_PLUGIN_DIR="${NG_CONDA_BASE}/lib/gfal2-plugins"
 
 
     #

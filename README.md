@@ -16,9 +16,10 @@ source setup.sh ""
 flowchart TD
     CN([CreateNano])
     GetDatasetLFNs --> CN
-    FetchLFN -. optional .-> CN
-    CreateCMSRunConfig --> CN
     BundleRepo -- for remote<br />workflows --> CN
+    CreateCMSRunConfig --> CN
+    FetchLFN -. optional .-> CN
+    FetchLFN --> FetchLFNWrapper
     CN -. optional .-> GenerateNanoDocs
     CN -. custom .-> bbtt.ReduceEvents
     ListDatasetStats

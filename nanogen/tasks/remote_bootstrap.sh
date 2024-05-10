@@ -20,6 +20,7 @@ bootstrap_htcondor() {
     export NG_WLCG_CACHE_CLEANUP="true"
     export NG_WLCG_TOOLS="{{wlcg_tools}}"
     export LAW_CONFIG_FILE="{{law_config_file}}"
+    [ ! -z "{{ng_dasmaps_base}}" ] && export NG_DASMAPS_BASE="{{ng_dasmaps_base}}"
     [ ! -z "{{vomsproxy_file}}" ] && export X509_USER_PROXY="${PWD}/{{vomsproxy_file}}"
 
     # load the repo bundle
@@ -60,6 +61,7 @@ bootstrap_slurm() {
     export NG_WLCG_CACHE_ROOT="${LAW_JOB_HOME}/ng_wlcg_cache"
     export NG_WLCG_CACHE_CLEANUP="true"
     export KRB5CCNAME="FILE:{{kerberosproxy_file}}"
+    [ ! -z "{{ng_dasmaps_base}}" ] && export NG_DASMAPS_BASE="{{ng_dasmaps_base}}"
     [ ! -z "{{vomsproxy_file}}" ] && export X509_USER_PROXY="{{vomsproxy_file}}"
 
     # optional custom command before the setup is sourced

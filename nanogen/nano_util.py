@@ -11,7 +11,6 @@ __all__: list[str] = []
 import os
 import re
 import gc
-import time
 import math
 import json
 import shutil
@@ -28,7 +27,7 @@ from tempfile import mkstemp
 from typing import Any, Callable
 
 import law  # type: ignore[import-untyped]
-from law.target.file import has_scheme, get_scheme, add_scheme  # type: ignore[import-untyped]
+from law.target.file import has_scheme, get_scheme, add_scheme, remove_scheme  # type: ignore[import-untyped] # noqa
 
 from nanogen.util import expand_path
 
@@ -147,10 +146,16 @@ def das_query(
 ) -> str:
     log = log or print
 
-    # build and run the command
-    cmd = f"dasgoclient --query='{query}' --limit=0"
+    # build the command
+    cmd = f"dasgoclient -query='{query}'"
     if args:
         cmd += f" {law.util.quote_cmd(law.util.make_list(args))}"
+    if "-limit" not in cmd:
+        cmd += " -limit=0"
+    if "-dasmaps" not in cmd and (dasmaps := os.getenv("NG_DASMAPS_BASE")):
+        cmd += f" -dasmaps={dasmaps}"
+
+    # run it
     log(f"cmd: {cmd}")
     code, out, _ = law.util.interruptable_popen(
         cmd,
@@ -173,143 +178,193 @@ class MissingLFNException(Exception):
         super().__init__(msg)
 
 
-def resolve_lfn_to_site(
-    lfn: str,
-    site: str,
-    skip_protocols: list[str] | None = None,
-) -> dict[str, str]:
-    # default skip protocols
-    if not skip_protocols:
-        skip_protocols = ["mixed", "xrootd-module", "file"]
+def sort_sites_opinionated(sites: list[str]) -> list[str]:
+    # sort DESY -> DE -> CH -> Rest -> US -> T3 -> RU
+    return sorted(sites, key=lambda l: (
+        -("DESY" in l),
+        -((country := l.split("_")[1]) == "DE"),
+        -(country == "CH"),
+        # rest goes here
+        +(country == "RU"),
+        +(l.split("_")[0] not in {"T1", "T2"}),
+        +(country == "US"),
+    ))
 
-    # load storage settings
-    settings_path = os.path.join("/cvmfs/cms.cern.ch/SITECONF", site, "storage.json")
+
+def resolve_lfn_to_site(lfn: str, site: str) -> list[str]:
+    # helper to determine a storage settings path
+    def get_settings_path(site: str) -> str:
+        return os.path.join("/cvmfs/cms.cern.ch/SITECONF", site, "storage.json")
+
+    # determine the settings path and consider cases where a file for that specific site is not
+    # available but a more general file is used (e.g. T1_UK_RAL_Disk isin T1_UK_RAL), and in these
+    # cases, enforce that the so-called rse entry of the settings must match the requested site
+    settings_path = get_settings_path(site)
+    must_match_rse = False
+    if not os.path.exists(settings_path) and (m := re.match(r"^(T\d_[^_]+_[^_]+)_.+$", site)):
+        must_match_rse = True
+        settings_path = get_settings_path(m.group(1))
+    if not os.path.exists(settings_path):
+        raise Exception(f"no storage settings found for site {site}")
+
+    # load the settings
     with open(settings_path, "r") as f:
-        settings = json.load(f)
-
-    # find protocol settings
-    protocol_settings = [entry["protocols"] for entry in settings if entry["site"] == site]
-    if not protocol_settings:
-        raise ValueError(f"no protocol settings found for site {site}")
+        site_settings = json.load(f)
 
     # apply rules per protocol and collect pfns
-    pfns = {}
-    for protocol_data in protocol_settings:
-        for data in protocol_data:
-            proto = data["protocol"]
-            if proto in skip_protocols:
+    pfns = []
+    for entry in site_settings:
+        # skip certain storage types
+        if entry.get("type", "").lower() == "tape":
+            continue
+
+        # skip certain volumes
+        vol = entry.get("volume", "")
+        if vol.lower().endswith(("_xcache", "_tape")):
+            continue
+
+        # optionally require the rse entry to match
+        if must_match_rse and entry.get("rse", "") != site:
+            continue
+
+        # select pfns per protocol
+        proto_pfns = []
+        for proto_entry in entry.get("protocols", []):
+            # skip certain protocols (mixed refers to xcache, xrootd-module and file to site local)
+            proto = proto_entry.get("protocol", "")
+            if proto.lower() in {"mixed", "mixed-fuse", "mixed-xrootd", "xrootd-module", "file"}:
                 continue
 
-            # when there is a prefix defined, use it as is
-            if "prefix" in data:
-                pfns[proto] = data["prefix"] + lfn
-            # check which rules applies
-            elif "rules" in data:
-                for rule in data["rules"]:
+            # skip certain access types
+            if proto_entry.get("access", "").lower() in {"virtual"}:
+                continue
+
+            if "prefix" in proto_entry:
+                # when there is a prefix defined, use it as is if it's not nocal
+                if get_scheme(proto_entry["prefix"]) == "file":
+                    continue
+                proto_pfns.append(proto_entry["prefix"] + lfn)
+
+            elif "rules" in proto_entry:
+                # check which rules applies
+                for rule in proto_entry["rules"]:
+                    # skip rules resulting in local paths
+                    if get_scheme(rule["pfn"]) == "file" or rule["pfn"].startswith("/"):
+                        continue
+                    # match the lfn
                     if re.match(rule["lfn"], lfn):
-                        pfns[proto] = re.sub(rule["lfn"], rule["pfn"].replace("$", "\\"), lfn)
+                        proto_pfns.append(re.sub(rule["lfn"], rule["pfn"].replace("$", "\\"), lfn))
                         break
-            else:
-                raise ValueError(
-                    f"invalid protocol settings with neither rules nor prefix setting: {data}",
-                )
+
+            # opinionated sorting: place xrootd first
+            xrootd_pfns = [pfn for pfn in proto_pfns if get_scheme(pfn) == "root"]
+            proto_pfns = list(filter((lambda pfn: pfn not in xrootd_pfns), proto_pfns))
+
+            pfns.extend(xrootd_pfns)
 
     return pfns
+
+
+@dataclass
+class LFNLocation(object):
+    lfn: str
+    pfn: str | None = None  # optional in init, but always set
+    fs: str | None = None
+    site: str | None = None
+    stat: os.stat_result | None = None
+
+    def __post_init__(self) -> None:
+        # either fs or site can be given
+        if self.fs and self.site:
+            raise ValueError("fs and site cannot be given at the same time")
+
+        # pfn can be extracted from fs, otherwise it must be given
+        if not self.pfn:
+            if not self.fs:
+                raise ValueError("a pfn must be given when no fs is set")
+            self.pfn = self.create_target().uri(base_name="filecopy")
+
+    def __str__(self) -> str:
+        return f"LFNLocation({self.fs or self.site or self.pfn})"
+
+    def __repr__(self) -> str:
+        return str(self)
+
+    @property
+    def scheme(self) -> str:
+        return get_scheme(self.pfn)
+
+    @property
+    def is_local(self) -> bool:
+        base = law.config.get_expanded(self.fs, "base") if self.fs else self.pfn
+        return get_scheme(base) in (None, "file")
+
+    def create_target(self) -> law.LocalFileTarget | law.wlcg.WLCGFileTarget:
+        if self.fs:
+            target_cls = law.LocalFileTarget if self.is_local else law.wlcg.WLCGFileTarget
+            return target_cls(self.lfn, fs=self.fs)
+
+        # extract info from the pfn and register a law fs for the site if not already existing
+        url = urllib.parse.urlparse(self.pfn)
+        fs = f"wlcg_fs_{str(url.scheme)}_{str(url.hostname)}"  # type: ignore[union-attr]
+        if not law.config.has_section(fs):
+            law.config.update({fs: {"base": add_scheme(url.netloc, url.scheme)}})
+        return law.wlcg.WLCGFileTarget("/" + str(url.path).lstrip("/"), fs=fs)
 
 
 def locate_lfn(
     lfn: str,
     locations: str | list[str] | None = None,
-    retries: int = 2,
-    logger: logging.Logger | None = None,
-) -> tuple[law.FileSystemFileTarget, os.stat_result, bool]:
+    enable_xrd: bool = True,
+    logger: logging.Logger | Callable | None = None,
+) -> list[LFNLocation]:
     # prepare logging
-    log_debug = log_info = lambda msg: None
+    log_debug = log_info = print
     if logger:
-        log_debug = logger.debug
-        log_info = logger.info
+        log_debug = getattr(logger, "debug", logger)  # type: ignore[arg-type]
+        log_info = getattr(logger, "info", logger)  # type: ignore[arg-type]
 
     # get default locations from DAS
     if not locations:
         # get non-tape locations
         locations = das_query(f"site file={lfn}", log=log_debug).split("\n")
-        # remove tapes and disks
-        locations = [l for l in locations if not l.lower().endswith(("_tape", "_disk"))]
-        # sort DESY -> DE -> CH -> Rest -> US
-        locations.sort(key=lambda l: (
-            -("DESY" in l),
-            -((country := l.split("_")[1]) == "DE"),
-            -(country == "CH"),
-            +(country == "US"),
-        ))
+        # remove tapes
+        locations = [l for l in locations if not l.lower().endswith("_tape")]
+        # sort
+        locations = sort_sites_opinionated(locations)
         # complain when there are no locations to check
         if not locations:
-            raise MissingLFNException(lfn, "no available sites")
+            raise MissingLFNException(lfn, "DAS reported no available sites")
+        log_info(f"DAS reported {len(locations)} location(s): {', '.join(locations)}")
 
-    # expand sites for all protocols
-    locations = sum((
-        (
-            list(resolve_lfn_to_site(lfn, location).values())
-            if re.match(r"^T[0-9]_\w{2}_.+$", location)
-            else [location]
-        )
-        for location in locations
-    ), [])
-
-    # loop over repeated fs
-    log_info(f"checking location of {lfn} ...")
+    # create location objects
+    lfn_locations = []
     for location in locations:
-        log_debug(f"checking {location}")
+        # site, fs, or a schemed prefix (e.g. root://...)?
+        if re.match(r"^T[0-9]_\w{2}_.+$", location):
+            # expand available protocols
+            for pfn in resolve_lfn_to_site(lfn, location):
+                lfn_locations.append(LFNLocation(lfn=lfn, pfn=pfn, site=location))
+        elif has_scheme(location):
+            lfn_locations.append(LFNLocation(lfn=lfn, pfn=location + lfn))
+        else:
+            lfn_locations.append(LFNLocation(lfn=lfn, fs=location))
 
-        # here, location can either be a full uri (with a scheme) or a law fs name
-        path = lfn
-        fs = location
-        is_local = True
-        scheme = get_scheme(location)
-        if scheme == "file":
-            path = location
-            fs = "local_fs"
-        elif scheme:
-            is_local = False
-            url = urllib.parse.urlparse(location)
-            path = "/" + url.path.lstrip("/")
-            base = add_scheme(url.netloc, url.scheme)
-            fs = f"wlcg_fs_{url.hostname.replace('.', '_')}"  # type: ignore[union-attr]
-            if not law.config.has_section(fs):
-                law.config.update({fs: {"base": base}})
-        elif location.startswith("wlcg_fs"):
-            fs_base = law.config.get_expanded(location, "base")
-            is_local = law.target.file.get_scheme(fs_base) in (None, "file")
+    if not lfn_locations:
+        raise MissingLFNException(lfn, "no locations found")
 
-        # define the file target
-        target_cls = law.LocalFileTarget if is_local else law.wlcg.WLCGFileTarget
-        input_file = target_cls(path, fs=fs)
-
-        # measure the time required to perform a stat query
-        attempt = 1
-        while attempt <= retries:
-            t1 = time.perf_counter()
-            input_stat = input_file.exists(stat=True)
-            duration = time.perf_counter() - t1
-            log_debug(f"stat query took {duration:.2f}s")
-
-            if input_stat:
-                input_size = law.util.human_bytes(input_stat.st_size, fmt=True)
-                log_info(f"located lfn at {fs} with file size of {input_size}")
-                return input_file, input_stat, is_local
-
-            attempt += 1
-
-    raise MissingLFNException(lfn, "no stat request succeeded")
+    return lfn_locations
 
 
 def fetch_lfn(
     lfn: str,
     dst: str,
     locations: str | list[str] | None = None,
-    retries: int = 2,
+    attempts: int = 2,
     fetch_local: bool = False,
+    enable_xrd: bool = True,
     logger: logging.Logger | None = None,
+    _lfn_locations: list[LFNLocation] | None = None,
 ) -> str:
     """
     Fetchs a *lfn* and stores it at *dst*. When *dst* is an existing directory, the file is stored
@@ -317,9 +372,10 @@ def fetch_lfn(
     stored file is returned.
     """
     # prepare logging
-    log_info = lambda msg: None
+    log_info = log_warning = print
     if logger:
-        log_info = logger.info
+        log_info = getattr(logger, "info", logger)  # type: ignore[arg-type]
+        log_warning = getattr(logger, "warning", logger)  # type: ignore[arg-type]
 
     # prepare the output file
     abs_dst = expand_path(dst, abs=True)
@@ -340,15 +396,33 @@ def fetch_lfn(
         os.makedirs(dst_dir)
 
     # locate the lfn
-    input_file, _, is_local = locate_lfn(lfn, locations=locations, retries=retries, logger=logger)
+    lfn_locations = _lfn_locations
+    if not lfn_locations:
+        lfn_locations = locate_lfn(lfn, locations=locations, enable_xrd=enable_xrd, logger=logger)
 
-    # when local and local fetching is not allowed, just return the path
-    if is_local and not fetch_local:
-        return input_file.abspath
+    # when there is a local location, just return the path
+    for lfn_location in lfn_locations:
+        if lfn_location.is_local and not fetch_local:
+            return remove_scheme(lfn_location.pfn)
 
     # fetch the file
-    log_info(f"fetching {input_file.uri()} to {abs_dst} ...")
-    input_file.copy_to_local(abs_dst)
+    for attempt, lfn_location in sum([list(enumerate(attempts * [l])) for l in lfn_locations], []):
+        log_info(f"fetching {lfn_location.pfn} to {abs_dst}, attempt {attempt} ...")
+        if lfn_location.scheme == "root" and enable_xrd:
+            cmd = f"xrdcp {lfn_location.pfn} {abs_dst}"
+            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
+            if code == 0:
+                break
+            log_warning(f"xrdcp failed for {lfn_location.pfn}")
+
+        else:
+            try:
+                lfn_location.create_target().copy_to_local(abs_dst)
+                break
+            except Exception as e:
+                log_warning(f"failed to fetch {lfn_location.pfn}: {e}")
+    else:
+        raise MissingLFNException(lfn, "all locations failed")
 
     return abs_dst
 

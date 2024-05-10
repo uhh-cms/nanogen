@@ -199,6 +199,10 @@ class Task(law.SandboxTask):
         raise Exception(f"cannot determine output location based on '{location}'")
 
 
+# cache for loaded configs
+_config_cache: dict[str, tuple[str, dict, str, dict, str, dict]] = {}
+
+
 class ConfigTask(Task):
 
     config_name = luigi.Parameter(
@@ -233,26 +237,50 @@ class ConfigTask(Task):
         config_dir = os.path.dirname(config_file)
         return expand_path(config_dir, config["nano_config"], abs=True)
 
+    @classmethod
+    def load_configs(cls, config_name: str) -> tuple[str, dict, str, dict, str, dict]:
+        # resolve the config file and check if it was already
+        config_file = cls.resolve_config_file(config_name)
+        if config_file not in _config_cache:
+            # load the config
+            config = law.util.DotDict.wrap(
+                law.LocalFileTarget(config_file).load(formatter="yaml"),
+            )
+
+            # resolve and load the dataset config
+            dataset_config_file = cls.resolve_dataset_config(config_file, config)
+            datasets = law.util.DotDict.wrap(
+                law.LocalFileTarget(dataset_config_file).load(formatter="yaml"),
+            )
+
+            # resolve and load the nano config
+            nano_config_file = cls.resolve_nano_config(config_file, config)
+            nano_config = law.util.DotDict.wrap(
+                law.LocalFileTarget(nano_config_file).load(formatter="yaml"),
+            )
+
+            # store in cache
+            _config_cache[config_file] = (
+                config_file, config,
+                dataset_config_file, datasets,
+                nano_config_file, nano_config,
+            )
+
+        # return from cache
+        return _config_cache[config_file]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # load the config
-        self.config_file = self.resolve_config_file(self.config_name)
-        self.config = law.util.DotDict.wrap(
-            law.LocalFileTarget(self.config_file).load(formatter="yaml"),
-        )
-
-        # resolve and load the dataset config
-        self.dataset_config_file = self.resolve_dataset_config(self.config_file, self.config)
-        self.datasets = law.util.DotDict.wrap(
-            law.LocalFileTarget(self.dataset_config_file).load(formatter="yaml"),
-        )
-
-        # resolve and load the nano config
-        self.nano_config_file = self.resolve_nano_config(self.config_file, self.config)
-        self.nano_config = law.util.DotDict.wrap(
-            law.LocalFileTarget(self.nano_config_file).load(formatter="yaml"),
-        )
+        # load configs
+        (
+            self.config_file,
+            self.config,
+            self.dataset_config_file,
+            self.datasets,
+            self.nano_config_file,
+            self.nano_config,
+        ) = self.load_configs(self.config_name)
 
     def store_parts(self) -> law.util.InsertableDict:
         parts = super().store_parts()
