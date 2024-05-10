@@ -169,6 +169,34 @@ def das_query(
     return out.strip()
 
 
+def load_dataset_stats(dataset_key: str) -> dict[str, Any]:
+    stats = {}
+    found_info = False
+    found_summaries = False
+
+    for entry in json.loads(das_query(f"dataset={dataset_key}", args="-json")):
+        # dataset info
+        if not found_info and "dbs3:dataset_info" in entry.get("das", {}).get("services", []):
+            info = entry["dataset"][0]
+            stats["dataset_id"] = info["dataset_id"]
+            found_info = True
+
+        # file summaries
+        if not found_summaries and "dbs3:filesummaries" in entry.get("das", {}).get("services", []):
+            summary = entry["dataset"][0]
+            stats["size"] = summary["size"]
+            stats["n_files"] = summary["nfiles"]
+            stats["n_events"] = summary["nevents"]
+            found_summaries = True
+
+    if not found_info:
+        raise Exception(f"dataset info not found for {dataset_key}")
+    if not found_summaries:
+        raise Exception(f"file summaries not found for {dataset_key}")
+
+    return stats
+
+
 class MissingLFNException(Exception):
 
     def __init__(self, lfn: str, reason: str | None = None):

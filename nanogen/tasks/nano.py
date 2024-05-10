@@ -7,6 +7,7 @@ Tasks for MiniAOD to NanoAOD conversion.
 from __future__ import annotations
 
 import os
+import re
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -16,7 +17,7 @@ from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
 from nanogen.nano_util import (
     SkimConfig, inject_customizations, nano_file_hash, skim_nano_file, locate_lfn, fetch_lfn,
-    MissingLFNException,
+    load_dataset_stats, mini_to_nano_dataset, MissingLFNException,
 )
 from nanogen.util import expand_path, maybe_wait_for_dcache
 
@@ -366,5 +367,119 @@ GenerateNanoDocsWrapper = wrapper_factory(
     base_cls=ConfigTask,
     require_cls=GenerateNanoDocs,
     cls_name="GenerateNanoDocsWrapper",
+    enable=["datasets", "skip_datasets"],
+)
+
+
+class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
+
+    skip_shifts = luigi.BoolParameter(
+        default=False,
+        description="whether to skip systematic shifts; default: False",
+    )
+
+    sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # systematic shifts are not allowed
+        if self.dataset_name.endswith(("_up", "_down")):
+            raise Exception(f"systematic variations are not allowed, got '{self.dataset_name}'")
+
+    def requires(self):
+        reqs = law.util.DotDict({(self.dataset_name, "nominal"): CreateNano.req(self)})
+
+        # add systematic shifts
+        if not self.skip_shifts:
+            for dataset_name in self.datasets.keys():
+                if (m := re.match(rf"^{self.dataset_name}_([^_]+)_(up|down)$", dataset_name)):
+                    key = (dataset_name, "_".join(m.groups()))
+                    reqs[key] = CreateNano.req(self, dataset_name=dataset_name)
+
+        return reqs
+
+    def output(self):
+        return self.target(f"cmsdb_entry{'_noshifts' if self.skip_shifts else ''}.txt")
+
+    @law.decorator.log
+    def run(self):
+        inputs = self.input()
+
+        # helper to determine the number of files and events
+        def get_stats(dataset_name, shift):
+            # get das stats
+            _das_stats = das_stats
+            if shift != "nominal":
+                _das_stats = load_dataset_stats(self.datasets[dataset_name].key)
+            # when there are as many files in the collection as reported by das, also take
+            # the number of events from there since CreateNano converts files one to one
+            inp = inputs[(dataset_name, shift)]
+            if len(inp.collection) == _das_stats["n_files"] or 1:
+                return _das_stats["n_files"], _das_stats["n_events"]
+            # otherwise, count events manually
+            raise NotImplementedError("reduced number of files require manual event counting")
+
+        # helper to create the nano dataset key based on a dataset name
+        def nano_key(dataset_name):
+            dataset = self.datasets[dataset_name]
+            version_postfix = dataset.get(
+                "campaign_version_postfix",
+                self.config.campaign_version_postfix,
+            )
+            return mini_to_nano_dataset(dataset.key, campaign_version_postfix=version_postfix)
+
+        # get the id of the original dataset
+        das_stats = load_dataset_stats(self.dataset.key)
+        dataset_id = das_stats["dataset_id"]
+
+        # estimate the process name
+        if self.nano_info.data:
+            process_name = "_".join(self.dataset_name.split("_")[:2])
+        else:
+            process_name = re.sub(r"_(powheg|madgraph|amcatnlo)$", "", self.dataset_name)
+
+        # start creating the entry
+        entry = "cpn.add_dataset(\n"
+        entry += f"    name=\"{self.dataset_name}\",\n"  # noqa: Q003
+        entry += f"    id={dataset_id},\n"
+        if self.nano_info.data:
+            entry += "    is_data=True,\n"
+        entry += f"    processes=[procs.{process_name}]\n"
+        if set(inputs.keys()) == {(self.dataset_name, "nominal")}:
+            n_files, n_events = get_stats(self.dataset_name, "nominal")
+            entry += "    keys=[\n"
+            entry += f"        \"{nano_key(self.dataset_name)}\",  # noqa\n"  # noqa: Q003
+            entry += "    ],\n"
+            entry += f"    n_files={n_files:_},\n"
+            entry += f"    n_events={n_events:_},\n"
+        else:
+            entry += "    info=dict(\n"
+            for dataset_name, shift in inputs.keys():
+                n_files, n_events = get_stats(dataset_name, shift)
+                entry += f"        {shift}=DatasetInfo(\n"
+                entry += "            keys=[\n"
+                entry += f"                \"{nano_key(dataset_name)}\",  # noqa\n"
+                entry += "            ],\n"
+                entry += f"            n_files={n_files:_},\n"
+                entry += f"            n_events={n_events:_},\n"
+                entry += "        ),\n"
+            entry += "    ),\n"
+        if self.nano_info.data:
+            era = self.dataset_name.split("_")[-1].upper()
+            entry += "    aux={\n"
+            entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
+            entry += "    },\n"
+        entry += ")"
+
+        # save and print the entry
+        self.output().dump(entry, formatter="text")
+        self.publish_message("\n" + entry + "\n")
+
+
+CreateDBEntryWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=CreateDBEntry,
+    cls_name="CreateDBEntryWrapper",
     enable=["datasets", "skip_datasets"],
 )

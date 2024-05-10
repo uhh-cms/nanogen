@@ -21,6 +21,7 @@ flowchart TD
     FetchLFN -. optional .-> CN
     FetchLFN --> FetchLFNWrapper
     CN -. optional .-> GenerateNanoDocs
+    CN -. optional .-> CreateDBEntry
     CN -. custom .-> bbtt.ReduceEvents
     ListDatasetStats
 ```

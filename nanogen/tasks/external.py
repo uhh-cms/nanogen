@@ -6,7 +6,6 @@ Tasks dealing with external data.
 
 from __future__ import annotations
 
-import json
 from multiprocessing.dummy import Pool as ThreadPool
 
 import luigi  # type: ignore[import-untyped]
@@ -14,7 +13,8 @@ import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory
 from nanogen.nano_util import (
-    das_query, locate_lfn, fetch_lfn, sort_sites_opinionated, MissingLFNException,
+    das_query, load_dataset_stats, locate_lfn, fetch_lfn, sort_sites_opinionated,
+    MissingLFNException,
 )
 from nanogen.util import maybe_wait_for_dcache
 
@@ -78,29 +78,18 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
 
             # fetch info
             dataset_key = self.datasets[dataset_name].key
-            res = das_query(f"dataset={dataset_key}", args="-json", log=self.logger.debug)
-            for entry in json.loads(res):
-                # extract stats
-                if "dbs3:filesummaries" in entry.get("das", {}).get("services", []):
-                    summary = entry["dataset"][0]
-                    stats = {
-                        "size": summary["size"],
-                        "n_files": summary["nfiles"],
-                        "n_events": summary["nevents"],
-                    }
-                    # add sites
-                    stats["sites"] = [
-                        site
-                        for site in das_query(f"site dataset={dataset_key}").split("\n")
-                        if not site.lower().endswith(("_tape", "_disk"))
-                    ]
-                    # save and return
-                    outputs[dataset_name].dump(stats, indent=4, formatter="json")
-                    return stats
+            stats = load_dataset_stats(dataset_key)
 
-            # no stats found
-            self.logger.warning(f"no dbs3:filesummaries in response for dataset {dataset_name}")
-            return {k: None for k in ["size", "n_files", "n_events", "sites"]}
+            # add sites
+            stats["sites"] = [
+                site
+                for site in das_query(f"site dataset={dataset_key}").split("\n")
+                if not site.lower().endswith(("_tape", "_disk"))
+            ]
+
+            # save and return
+            outputs[dataset_name].dump(stats, indent=4, formatter="json")
+            return stats
 
         # load stats in parallel
         with ThreadPool(3) as pool:
