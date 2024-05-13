@@ -197,6 +197,15 @@ def load_dataset_stats(dataset_key: str) -> dict[str, Any]:
     return stats
 
 
+def load_lfn_stats(lfn: str) -> dict[str, Any]:
+    file_info = json.loads(das_query(f"file={lfn}", args="-json"))[0]["file"][0]
+    return {
+        "n_events": file_info["nevents"],
+        "size": file_info["size"],
+        "checksum": file_info["adler32"],
+    }
+
+
 class MissingLFNException(Exception):
 
     def __init__(self, lfn: str, reason: str | None = None):
@@ -207,13 +216,15 @@ class MissingLFNException(Exception):
 
 
 def sort_sites_opinionated(sites: list[str]) -> list[str]:
-    # sort DESY -> DE -> CH -> Rest -> US -> T3 -> RU
+    # sort DESY -> DE -> CH -> Rest -> US -> T3 -> TW -> IN -> RU
     return sorted(sites, key=lambda l: (
         -("DESY" in l),
         -((country := l.split("_")[1]) == "DE"),
         -(country == "CH"),
         # rest goes here
         +(country == "RU"),
+        +(country == "IN"),
+        +(country == "TW"),
         +(l.split("_")[0] not in {"T1", "T2"}),
         +(country == "US"),
     ))
@@ -437,7 +448,7 @@ def fetch_lfn(
     for attempt, lfn_location in sum([list(enumerate(attempts * [l])) for l in lfn_locations], []):
         log_info(f"fetching {lfn_location.pfn} to {abs_dst}, attempt {attempt} ...")
         if lfn_location.scheme == "root" and enable_xrd:
-            cmd = f"xrdcp {lfn_location.pfn} {abs_dst}"
+            cmd = f"xrdcp -f {lfn_location.pfn} {abs_dst}"
             code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
             if code == 0:
                 break

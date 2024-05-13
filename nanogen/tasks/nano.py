@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import re
+import urllib.parse
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -17,7 +18,7 @@ from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
 from nanogen.nano_util import (
     SkimConfig, inject_customizations, nano_file_hash, skim_nano_file, locate_lfn, fetch_lfn,
-    load_dataset_stats, mini_to_nano_dataset, MissingLFNException,
+    load_dataset_stats, mini_to_nano_dataset, load_lfn_stats, MissingLFNException,
 )
 from nanogen.util import expand_path, maybe_wait_for_dcache
 
@@ -189,41 +190,43 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         # get the input files to process
         lfns = self.lfns
-        input_files = [
-            inputs.fetched_lfns[i].uri() if i in inputs.fetched_lfns else lfns[i]
-            for i in self.branch_data
-        ]
-        self.publish_message(f"processing files {', '.join(input_files)}")
+        input_files = []
+        for i in self.branch_data:
+            # when already prefetched, use it but prefer local mounts
+            if i in inputs.fetched_lfns:
+                uri = inputs.fetched_lfns[i].uri(base_name="xrootd")
+                if law.target.file.get_scheme(uri) == "root":
+                    local_path = "/" + urllib.parse.urlparse(uri).path.lstrip("/")
+                    if os.path.exists(local_path):
+                        uri = local_path
+                input_files.append(uri)
+                continue
 
-        # check if lfns need to be fetched temporarily
-        if self.tmp_fetch_lfns.lower() != "false":
-            for i, lfn in enumerate(list(input_files)):
-                # skip non-lfns
-                if not lfn.startswith("/store/"):
+            # use the lfn as is
+            lfn = lfns[i]
+            input_files.append(lfn)
+
+            # check if we should fetch it temporarily though
+            if self.tmp_fetch_lfns.lower() == "false":
+                continue
+            # locate it
+            try:
+                lfn_locations = locate_lfn(lfn, logger=self.logger)
+            except MissingLFNException:
+                continue
+            # select only xrootd locations
+            lfn_locations = list(filter((lambda l: l.scheme == "root"), lfn_locations))
+            if not lfn_locations:
+                continue
+            # in "auto" mode, check the primary location
+            if self.tmp_fetch_lfns.lower() == "auto":
+                country = lfn_locations[0].site.split("_", 2)[1]
+                if country.lower() not in {"us", "kr", "in"}:
                     continue
-                # locate it
-                try:
-                    lfn_locations = locate_lfn(lfn, logger=self.logger)
-                except MissingLFNException:
-                    continue
-                # select only xrootd locations
-                lfn_locations = list(filter((lambda l: l.scheme == "root"), lfn_locations))
-                if not lfn_locations:
-                    continue
-                # based on the first location, determine if the site is deemed unstable, or skip
-                # TODO: it might happen that there is another site first in the list, but later on
-                # during streaming it turns out to be unreliable and cmssw switches to a bad site,
-                # so one might proactively identify these cases here through some kind of heuristic
-                # and fetch the file anyway
-                if self.tmp_fetch_lfns.lower() == "auto":
-                    tier, country, _ = lfn_locations[0].site.split("_", 2)
-                    # so far, only fetch from US and KR sites
-                    if country.lower() not in {"us", "kr"}:
-                        continue
-                # fetch
-                input_files[i] = fetch_lfn(
-                    lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locations,
-                )
+            # fetch and replace
+            input_files[-1] = fetch_lfn(
+                lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locations,
+            )
 
         # determine custom hook and arguments from config, or dataset of they exist
         custom_hook = (
@@ -406,19 +409,39 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
     def run(self):
         inputs = self.input()
 
+        # load nominal stats
+        das_stats = load_dataset_stats(self.dataset.key)
+
         # helper to determine the number of files and events
         def get_stats(dataset_name, shift):
             # get das stats
-            _das_stats = das_stats
+            stats = das_stats
             if shift != "nominal":
-                _das_stats = load_dataset_stats(self.datasets[dataset_name].key)
+                stats = load_dataset_stats(self.datasets[dataset_name].key)
+            # sanity check: the collection should be as long as the number of files, otherwise
+            # DAS might have temporarily returned a shorter list which it sometimes does
+            inp = inputs[(dataset_name, shift)]
+            if len(inp.collection) != stats["n_files"]:
+                raise Exception(
+                    f"number of files in collection ({len(inp.collection)}) does not match "
+                    f"number of files in DAS ({stats['n_files']})",
+                )
             # when there are as many files in the collection as reported by das, also take
             # the number of events from there since CreateNano converts files one to one
-            inp = inputs[(dataset_name, shift)]
-            if len(inp.collection) == _das_stats["n_files"] or 1:
-                return _das_stats["n_files"], _das_stats["n_events"]
-            # otherwise, count events manually
-            raise NotImplementedError("reduced number of files require manual event counting")
+            n_missing, missing_branches = inp.collection.count(existing=False, keys=True)
+            if not n_missing:
+                return stats["n_files"], stats["n_events"]
+            # otherwise, identify which files are missing and check DAS for their number of events
+            # to subtract them manually
+            nano_task = CreateNano.req(
+                self, dataset_name=dataset_name, branches=tuple(missing_branches), workflow="local",
+            )
+            # get the sum of missing events
+            n_missing_events = 0
+            for b in missing_branches:
+                lfn = nano_task.lfns[b]
+                n_missing_events += load_lfn_stats(lfn)["n_events"]
+            return stats["n_files"] - n_missing, stats["n_events"] - n_missing_events
 
         # helper to create the nano dataset key based on a dataset name
         def nano_key(dataset_name):
@@ -430,7 +453,6 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return mini_to_nano_dataset(dataset.key, campaign_version_postfix=version_postfix)
 
         # get the id of the original dataset
-        das_stats = load_dataset_stats(self.dataset.key)
         dataset_id = das_stats["dataset_id"]
 
         # estimate the process name

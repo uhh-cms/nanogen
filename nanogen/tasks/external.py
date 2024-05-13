@@ -246,8 +246,24 @@ class FetchLFN(Task):
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
-        with self.publish_step("fetching LFN ..."), self.output().localize("w") as out:
-            fetch_lfn(self.lfn, out.abspath, locations=self.locations or None, logger=self.logger)
+        # hotfix: if all wlcg protocols worked normally, we could just the larget localization
+        # feature with mode "w" here, but since there are issues with webdav and xrootd plugins in
+        # slc7, and with gsiftp on the desy dcache in general, fetch into a tmp file and move it
+        # manually
+        with self.publish_step("fetching LFN ..."):
+            tmp = law.LocalFileTarget(is_tmp=".root")
+            fetch_lfn(self.lfn, tmp.abspath, locations=self.locations or None, logger=self.logger)
+
+        with self.publish_step("moving LFN to output location ..."):
+            output = self.output()
+            uri = output.uri(base_name="xrootd")
+            if law.target.file.get_scheme(uri) == "root":
+                cmd = f"xrdcp -f {tmp.abspath} {uri}"
+                code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
+                if code != 0:
+                    raise Exception(f"failed to xrdcp {tmp.abspath} to {uri}")
+            else:
+                output.move_from_local(tmp)
 
 
 class FetchLFNWrapper(Task, law.WrapperTask):
