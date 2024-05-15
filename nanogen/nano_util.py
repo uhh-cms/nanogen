@@ -483,19 +483,16 @@ def inject_customizations(
         lines = [line.rstrip() for line in f.readlines()]
 
     # inject hook
-    injected_hook = False
     for i, line in enumerate(lines):
-        if not injected_hook and line == "# End of customisation functions":
+        if line == "# End of customisation functions":
             lines[i] = f"""
 # nanogen customization hook
 from {hook[0]} import {hook[1]}
 process = {hook[1]}(process, **{hook_kwargs})
 
 {line}"""
-            injected_hook = True
-
-    # check success
-    if not injected_hook:
+            break
+    else:
         raise Exception(f"could not inject customization hook into {cfg_file}")
 
     # uncomment for cms process debugging

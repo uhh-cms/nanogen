@@ -54,7 +54,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
             " -n -1"
             " --no_exec"
             " --customise_commands=\""  # noqa: Q003
-            "process.add_(cms.Service('InitRootHandlers', EnableIMT=cms.untracked.bool(False)));"
+            "process.add_(cms.Service('InitRootHandlers', EnableIMT=cms.untracked.bool(False)));\n"
             "\""  # noqa: Q003
         )
 
@@ -418,19 +418,26 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             stats = das_stats
             if shift != "nominal":
                 stats = load_dataset_stats(self.datasets[dataset_name].key)
-            # sanity check: the collection should be as long as the number of files, otherwise
-            # DAS might have temporarily returned a shorter list which it sometimes does
+            # sanity check: the collection should be as long as the number of files minus lfns to
+            # skip, otherwise DAS might have temporarily returned a shorter list (which happens)
             inp = inputs[(dataset_name, shift)]
-            if len(inp.collection) != stats["n_files"]:
+            skipped_lfns = self.datasets[dataset_name].get("skip_lfns", [])
+            n_skipped = len(skipped_lfns)
+            n_unskipped = len(inp.collection)
+            if n_unskipped + n_skipped != stats["n_files"]:
                 raise Exception(
-                    f"number of files in collection ({len(inp.collection)}) does not match "
-                    f"number of files in DAS ({stats['n_files']})",
+                    f"number of files in collection ({n_unskipped}) plus skipped lfns ({n_skipped}) "
+                    f"does not match number of files in DAS ({stats['n_files']})",
                 )
-            # when there are as many files in the collection as reported by das, also take
-            # the number of events from there since CreateNano converts files one to one
+            # query DAS for the number of events in skipped lfns
+            n_skipped_events = 0
+            for lfn in skipped_lfns:
+                n_skipped_events += load_lfn_stats(lfn)["n_events"]
+            n_unskipped_events = stats["n_events"] - n_skipped_events
+            # when there are no missing branches, return known counts
             n_missing, missing_branches = inp.collection.count(existing=False, keys=True)
             if not n_missing:
-                return stats["n_files"], stats["n_events"]
+                return n_unskipped, n_unskipped_events
             # otherwise, identify which files are missing and check DAS for their number of events
             # to subtract them manually
             nano_task = CreateNano.req(
@@ -441,7 +448,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             for b in missing_branches:
                 lfn = nano_task.lfns[b]
                 n_missing_events += load_lfn_stats(lfn)["n_events"]
-            return stats["n_files"] - n_missing, stats["n_events"] - n_missing_events
+            return n_unskipped - n_missing, n_unskipped_events - n_missing_events
 
         # helper to create the nano dataset key based on a dataset name
         def nano_key(dataset_name):

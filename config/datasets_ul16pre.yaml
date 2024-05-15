@@ -221,6 +221,9 @@ tt_dl_tune_down:
 
 tt_dl_tune_up:
   key: /TTTo2L2Nu_TuneCP5up_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM
+  skip_lfns:
+    # corrupted event content
+    - /store/mc/RunIISummer20UL16MiniAODAPVv2/TTTo2L2Nu_TuneCP5up_13TeV-powheg-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/80000/4BF8BFDD-0114-AD48-B59F-2F0BFB9C342F.root
 
 tt_dl_hdamp_down:
   key: /TTTo2L2Nu_hdampDOWN_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM
@@ -248,6 +251,11 @@ tt_sl_hdamp_up:
 
 tt_sl_mtop_up:
   key: /TTToSemiLeptonic_mtop173p5_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM
+  skip_lfns:
+    # corrupted event content
+    - /store/mc/RunIISummer20UL16MiniAODAPVv2/TTToSemiLeptonic_mtop173p5_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/140000/68971D39-E764-0944-B81A-D47D59800B30.root
+    # corrupted event content
+    - /store/mc/RunIISummer20UL16MiniAODAPVv2/TTToSemiLeptonic_mtop173p5_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_preVFP_v11-v1/140000/7E5C8426-1A53-BC44-A249-FDD284EEA53C.root
 
 tt_sl_mtop_down:
   key: /TTToSemiLeptonic_mtop171p5_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM
