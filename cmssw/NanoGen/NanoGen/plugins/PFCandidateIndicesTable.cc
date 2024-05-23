@@ -16,7 +16,7 @@
 #include "DataFormats/PatCandidates/interface/Tau.h"
 
 typedef std::vector<int32_t> CandidateIndices;
-typedef std::vector<pat::PackedCandidate> Candidates;
+typedef edm::View<pat::PackedCandidate> InputCandidates;
 
 class PFCandidateIndicesTable : public edm::stream::EDProducer<> {
 public:
@@ -29,14 +29,20 @@ private:
 
   std::string tableName_;
   edm::EDPutTokenT<nanoaod::FlatTable> tableToken_;
-  edm::EDGetTokenT<Candidates> candidateToken_;
+  edm::EDGetTokenT<InputCandidates> candidateToken_;
   edm::InputTag jetIndicesCollection_;
+  edm::InputTag fatJetIndicesCollection_;
   edm::InputTag tauIndicesCollection_;
+  edm::InputTag boostedTauIndicesCollection_;
   std::string jetIndicesName_;
+  std::string fatJetIndicesName_;
   std::string tauIndicesName_;
+  std::string boostedTauIndicesName_;
 
   edm::EDGetTokenT<CandidateIndices> jetIndicesToken_;
+  edm::EDGetTokenT<CandidateIndices> fatJetIndicesToken_;
   edm::EDGetTokenT<CandidateIndices> tauIndicesToken_;
+  edm::EDGetTokenT<CandidateIndices> boostedTauIndicesToken_;
 };
 
 void PFCandidateIndicesTable::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
@@ -45,7 +51,9 @@ void PFCandidateIndicesTable::fillDescriptions(edm::ConfigurationDescriptions& d
   desc.add<std::string>("tableName", "PFCandidateIndices");
   desc.add<edm::InputTag>("candidateCollection", edm::InputTag("packedPFCandidates"));
   desc.add<edm::InputTag>("jetIndicesCollection", edm::InputTag("pfCandidateIndexer", "jet"));
+  desc.add<edm::InputTag>("fatJetIndicesCollection", edm::InputTag("pfCandidateIndexer", "fatjet"));
   desc.add<edm::InputTag>("tauIndicesCollection", edm::InputTag("pfCandidateIndexer", "tau"));
+  desc.add<edm::InputTag>("boostedTauIndicesCollection", edm::InputTag("pfCandidateIndexer", "boostedtau"));
 
   descriptions.add("pfCandidateIndicesTable", desc);
 }
@@ -53,18 +61,45 @@ void PFCandidateIndicesTable::fillDescriptions(edm::ConfigurationDescriptions& d
 PFCandidateIndicesTable::PFCandidateIndicesTable(const edm::ParameterSet& pset)
     : tableName_(pset.getParameter<std::string>("tableName")),
       tableToken_(produces<nanoaod::FlatTable>(tableName_)),
-      candidateToken_(consumes<Candidates>(pset.getParameter<edm::InputTag>("candidateCollection"))),
+      candidateToken_(consumes<InputCandidates>(pset.getParameter<edm::InputTag>("candidateCollection"))),
       jetIndicesCollection_(pset.getParameter<edm::InputTag>("jetIndicesCollection")),
+      fatJetIndicesCollection_(pset.getParameter<edm::InputTag>("fatJetIndicesCollection")),
       tauIndicesCollection_(pset.getParameter<edm::InputTag>("tauIndicesCollection")),
+      boostedTauIndicesCollection_(pset.getParameter<edm::InputTag>("boostedTauIndicesCollection")),
       jetIndicesName_(jetIndicesCollection_.instance()),
-      tauIndicesName_(tauIndicesCollection_.instance()) {
-  // consume jet indices if collection is provided
+      fatJetIndicesName_(fatJetIndicesCollection_.instance()),
+      tauIndicesName_(tauIndicesCollection_.instance()),
+      boostedTauIndicesName_(boostedTauIndicesCollection_.instance()) {
+  // consume jet indices if collection and indices name are provided
+  if (jetIndicesCollection_.encode().empty()) {
+    jetIndicesName_ = "";
+  }
   if (!jetIndicesName_.empty()) {
     jetIndicesToken_ = consumes<CandidateIndices>(jetIndicesCollection_);
   }
-  // consume tau indices if collection is provided
+
+  // consume fat jet indices if collection and indices name are provided
+  if (fatJetIndicesCollection_.encode().empty()) {
+    fatJetIndicesName_ = "";
+  }
+  if (!fatJetIndicesName_.empty()) {
+    fatJetIndicesToken_ = consumes<CandidateIndices>(fatJetIndicesCollection_);
+  }
+
+  // consume tau indices if collection and indices name are provided
+  if (tauIndicesCollection_.encode().empty()) {
+    tauIndicesName_ = "";
+  }
   if (!tauIndicesName_.empty()) {
     tauIndicesToken_ = consumes<CandidateIndices>(tauIndicesCollection_);
+  }
+
+  // consume boosted tau indices if collection and indices name are provided
+  if (boostedTauIndicesCollection_.encode().empty()) {
+    boostedTauIndicesName_ = "";
+  }
+  if (!boostedTauIndicesName_.empty()) {
+    boostedTauIndicesToken_ = consumes<CandidateIndices>(boostedTauIndicesCollection_);
   }
 }
 
@@ -81,10 +116,22 @@ void PFCandidateIndicesTable::produce(edm::Event& event, const edm::EventSetup& 
     tab->addColumn<int8_t>(jetIndicesName_, jetIndices, jetIndicesName_ + " index");
   }
 
+  // fill fat jet indices if configured
+  if (!fatJetIndicesName_.empty()) {
+    auto const& fatJetIndices = event.get(fatJetIndicesToken_);
+    tab->addColumn<int8_t>(fatJetIndicesName_, fatJetIndices, fatJetIndicesName_ + " index");
+  }
+
   // fill tau indices if configured
   if (!tauIndicesName_.empty()) {
     auto const& tauIndices = event.get(tauIndicesToken_);
     tab->addColumn<int8_t>(tauIndicesName_, tauIndices, tauIndicesName_ + " index");
+  }
+
+  // fill boosted tau indices if configured
+  if (!boostedTauIndicesName_.empty()) {
+    auto const& boostedTauIndices = event.get(boostedTauIndicesToken_);
+    tab->addColumn<int8_t>(boostedTauIndicesName_, boostedTauIndices, boostedTauIndicesName_ + " index");
   }
 
   // write the table

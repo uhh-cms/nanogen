@@ -474,7 +474,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         entry += f"    id={dataset_id},\n"
         if self.nano_info.data:
             entry += "    is_data=True,\n"
-        entry += f"    processes=[procs.{process_name}]\n"
+        entry += f"    processes=[procs.{process_name}],\n"
         if set(inputs.keys()) == {(self.dataset_name, "nominal")}:
             n_files, n_events = get_stats(self.dataset_name, "nominal")
             entry += "    keys=[\n"

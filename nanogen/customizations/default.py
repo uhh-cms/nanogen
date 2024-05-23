@@ -140,15 +140,21 @@ def add_pf_candidates(
     candidate_src: str = "packedPFCandidates",
     puppi_candidates: bool = False,
     jet_src: str = "linkedObjects:jets",
+    fat_jet_src: str = "finalJetsAK8",
     tau_src: str = "linkedObjects:taus",
+    boosted_tau_src: str = "linkedObjects:boostedTaus",
 ):
     # add candidate indexes to jets and taus their are contained in
     process.load("NanoGen.NanoGen.pfCandidateIndexer_cfi")
     process.pfCandidateIndexer.candidateCollection = cms.InputTag(candidate_src)
     process.pfCandidateIndexer.jetCollection = cms.InputTag(jet_src)
     process.pfCandidateIndexer.jetIndicesName = cms.string("jet")
+    process.pfCandidateIndexer.fatJetCollection = cms.InputTag(fat_jet_src)
+    process.pfCandidateIndexer.fatJetIndicesName = cms.string("fatjet")
     process.pfCandidateIndexer.tauCollection = cms.InputTag(tau_src)
     process.pfCandidateIndexer.tauIndicesName = cms.string("tau")
+    process.pfCandidateIndexer.boostedTauCollection = cms.InputTag(boosted_tau_src)
+    process.pfCandidateIndexer.boostedTauIndicesName = cms.string("boostedtau")
     process.pfCandidateIndexer.containedCandidatesName = cms.string("containedPFCandidates")
     process.nanoTableTaskCommon.add(process.pfCandidateIndexer)
     new_candidate_src = "pfCandidateIndexer:containedPFCandidates"
@@ -158,7 +164,9 @@ def add_pf_candidates(
     process.pfCandidateIndicesTable.tableName = cms.string(f"{collection_name}Indices")
     process.pfCandidateIndicesTable.candidateCollection = cms.InputTag(new_candidate_src)
     process.pfCandidateIndicesTable.jetIndicesCollection = cms.InputTag("pfCandidateIndexer:jet")
+    process.pfCandidateIndicesTable.fatJetIndicesCollection = cms.InputTag("pfCandidateIndexer:fatjet")  # noqa
     process.pfCandidateIndicesTable.tauIndicesCollection = cms.InputTag("pfCandidateIndexer:tau")
+    process.pfCandidateIndicesTable.boostedTauIndicesCollection = cms.InputTag("pfCandidateIndexer:boostedtau")  # noqa
     process.nanoTableTaskCommon.add(process.pfCandidateIndicesTable)
 
     # define variables in a dict

@@ -512,6 +512,7 @@ def customize_nano_process(
     output_file: str | None = None,
     compression: tuple[str, int] | None = None,
     report_every: int = 500,
+    want_summary: bool = False,
     max_events: int = -1,
     custom_hook: tuple[str, str] | None = None,
     custom_kwargs: dict[str, Any] | None = None,
@@ -542,12 +543,15 @@ def customize_nano_process(
         out_module.compressionAlgorithm = cms.untracked.string(compression[0])
         out_module.compressionLevel = cms.untracked.int32(compression[1])
 
+    # set reporting frequency
+    process.MessageLogger.cerr.FwkReport.reportEvery = report_every
+
+    # set summary
+    process.options.wantSummary = cms.untracked.bool(want_summary)
+
     # set max events
     process.maxEvents.input = cms.untracked.int32(max_events)
     process.configurationMetadata.annotation = cms.untracked.string(f"NANO evts:{max_events}")
-
-    # set reporting frequency
-    process.MessageLogger.cerr.FwkReport.reportEvery = report_every
 
     # invoke the custom hook
     if custom_hook:

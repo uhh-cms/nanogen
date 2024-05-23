@@ -17,8 +17,9 @@
 typedef std::vector<int32_t> CandidateIndices;
 typedef std::vector<CandidateIndices*> CandidateIndicesList;
 typedef std::vector<pat::PackedCandidate> Candidates;
-typedef std::vector<pat::Jet> Jets;
-typedef std::vector<pat::Tau> Taus;
+typedef edm::View<pat::PackedCandidate> InputCandidates;
+typedef edm::View<pat::Jet> InputJets;
+typedef edm::View<pat::Tau> InputTaus;
 
 class PFCandidateIndexer : public edm::stream::EDProducer<> {
 public:
@@ -29,19 +30,29 @@ public:
 private:
   void produce(edm::Event&, const edm::EventSetup&) override;
 
-  void fillJetIndices(const Candidates&, const Jets&, CandidateIndices&) const;
-  void fillTauIndices(const Candidates&, const Taus&, CandidateIndices&) const;
-  void fillContainedCandidates(const Candidates&, const CandidateIndicesList&, Candidates&) const;
+  void fillJetIndices(const InputCandidates&, const InputJets&, CandidateIndices&) const;
+  void fillTauIndices(const InputCandidates&, const InputTaus&, CandidateIndices&) const;
+  void fillContainedCandidates(const InputCandidates&, const CandidateIndicesList&, Candidates&) const;
 
-  edm::EDGetTokenT<Candidates> candidateToken_;
-  edm::EDGetTokenT<Jets> jetToken_;
-  edm::EDGetTokenT<Taus> tauToken_;
+  // parameters
+  edm::EDGetTokenT<InputCandidates> candidateToken_;
   std::string jetIndicesName_;
+  std::string fatJetIndicesName_;
   std::string tauIndicesName_;
+  std::string boostedTauIndicesName_;
   std::string containedCandidatesName_;
 
+  // get tokens
+  edm::EDGetTokenT<InputJets> jetToken_;
+  edm::EDGetTokenT<InputJets> fatJetToken_;
+  edm::EDGetTokenT<InputTaus> tauToken_;
+  edm::EDGetTokenT<InputTaus> boostedTauToken_;
+
+  // put tokens
   edm::EDPutTokenT<CandidateIndices> jetIndicesToken_;
+  edm::EDPutTokenT<CandidateIndices> fatJetIndicesToken_;
   edm::EDPutTokenT<CandidateIndices> tauIndicesToken_;
+  edm::EDPutTokenT<CandidateIndices> boostedTauIndicesToken_;
   edm::EDPutTokenT<Candidates> containedCandidatesToken_;
 };
 
@@ -50,29 +61,65 @@ void PFCandidateIndexer::fillDescriptions(edm::ConfigurationDescriptions& descri
 
   desc.add<edm::InputTag>("candidateCollection", edm::InputTag("packedPFCandidates"));
   desc.add<edm::InputTag>("jetCollection", edm::InputTag("slimmedJets"));
+  desc.add<edm::InputTag>("fatJetCollection", edm::InputTag("slimmedJetsAK8"));
   desc.add<edm::InputTag>("tauCollection", edm::InputTag("slimmedTaus"));
+  desc.add<edm::InputTag>("boostedTauCollection", edm::InputTag("slimmedTausBoosted"));
   desc.add<std::string>("jetIndicesName", "jet");
+  desc.add<std::string>("fatJetIndicesName", "fatjet");
   desc.add<std::string>("tauIndicesName", "tau");
+  desc.add<std::string>("boostedTauIndicesName", "boostedtau");
   desc.add<std::string>("containedCandidatesName", "");
 
   descriptions.add("pfCandidateIndexer", desc);
 }
 
 PFCandidateIndexer::PFCandidateIndexer(const edm::ParameterSet& pset)
-    : candidateToken_(consumes<Candidates>(pset.getParameter<edm::InputTag>("candidateCollection"))),
-      jetToken_(consumes<Jets>(pset.getParameter<edm::InputTag>("jetCollection"))),
-      tauToken_(consumes<Taus>(pset.getParameter<edm::InputTag>("tauCollection"))),
+    : candidateToken_(consumes<InputCandidates>(pset.getParameter<edm::InputTag>("candidateCollection"))),
       jetIndicesName_(pset.getParameter<std::string>("jetIndicesName")),
+      fatJetIndicesName_(pset.getParameter<std::string>("fatJetIndicesName")),
       tauIndicesName_(pset.getParameter<std::string>("tauIndicesName")),
+      boostedTauIndicesName_(pset.getParameter<std::string>("boostedTauIndicesName")),
       containedCandidatesName_(pset.getParameter<std::string>("containedCandidatesName")) {
-  // produce jet indices if name is provided
+  // consume jets, produce indices
+  auto jetCollection = pset.getParameter<edm::InputTag>("jetCollection");
+  if (jetCollection.encode().empty()) {
+    jetIndicesName_ = "";
+  }
   if (!jetIndicesName_.empty()) {
+    jetToken_ = consumes<InputJets>(jetCollection);
     jetIndicesToken_ = produces<CandidateIndices>(jetIndicesName_);
   }
-  // produce tau indices if name is provided
+
+  // consume fat jets, produce indices
+  auto fatJetCollection = pset.getParameter<edm::InputTag>("fatJetCollection");
+  if (fatJetCollection.encode().empty()) {
+    fatJetIndicesName_ = "";
+  }
+  if (!fatJetIndicesName_.empty()) {
+    fatJetToken_ = consumes<InputJets>(fatJetCollection);
+    fatJetIndicesToken_ = produces<CandidateIndices>(fatJetIndicesName_);
+  }
+
+  // consume taus, produce indices
+  auto tauCollection = pset.getParameter<edm::InputTag>("tauCollection");
+  if (tauCollection.encode().empty()) {
+    tauIndicesName_ = "";
+  }
   if (!tauIndicesName_.empty()) {
+    tauToken_ = consumes<InputTaus>(tauCollection);
     tauIndicesToken_ = produces<CandidateIndices>(tauIndicesName_);
   }
+
+  // consume boosted taus, produce indices
+  auto boostedTauCollection = pset.getParameter<edm::InputTag>("boostedTauCollection");
+  if (boostedTauCollection.encode().empty()) {
+    boostedTauIndicesName_ = "";
+  }
+  if (!boostedTauIndicesName_.empty()) {
+    boostedTauToken_ = consumes<InputTaus>(boostedTauCollection);
+    boostedTauIndicesToken_ = produces<CandidateIndices>(boostedTauIndicesName_);
+  }
+
   // produce a new collection of candidates that are contained in jets or taus if name is provided
   if (!containedCandidatesName_.empty()) {
     containedCandidatesToken_ = produces<Candidates>(containedCandidatesName_);
@@ -90,6 +137,13 @@ void PFCandidateIndexer::produce(edm::Event& event, const edm::EventSetup& setup
     fillJetIndices(candidates, jets, *jetIndices);
   }
 
+  // produce fat jet indices if configured
+  auto fatJetIndices = std::make_unique<CandidateIndices>();
+  if (!fatJetIndicesName_.empty()) {
+    auto const& fatJets = event.get(fatJetToken_);
+    fillJetIndices(candidates, fatJets, *fatJetIndices);
+  }
+
   // produce tau indices if configured
   auto tauIndices = std::make_unique<CandidateIndices>();
   if (!tauIndicesName_.empty()) {
@@ -97,10 +151,29 @@ void PFCandidateIndexer::produce(edm::Event& event, const edm::EventSetup& setup
     fillTauIndices(candidates, taus, *tauIndices);
   }
 
+  // produce boosted tau indices if configured
+  auto boostedTauIndices = std::make_unique<CandidateIndices>();
+  if (!boostedTauIndicesName_.empty()) {
+    auto const& boostedTaus = event.get(boostedTauToken_);
+    fillTauIndices(candidates, boostedTaus, *boostedTauIndices);
+  }
+
   // produce new candidates if configured
   auto containedCandidates = std::make_unique<Candidates>();
   if (!containedCandidatesName_.empty()) {
-    CandidateIndicesList indices({&(*jetIndices), &(*tauIndices)});
+    CandidateIndicesList indices;
+    if (!jetIndicesName_.empty()) {
+      indices.push_back(&(*jetIndices));
+    }
+    if (!fatJetIndicesName_.empty()) {
+      indices.push_back(&(*fatJetIndices));
+    }
+    if (!tauIndicesName_.empty()) {
+      indices.push_back(&(*tauIndices));
+    }
+    if (!boostedTauIndicesName_.empty()) {
+      indices.push_back(&(*boostedTauIndices));
+    }
     fillContainedCandidates(candidates, indices, *containedCandidates);
   }
 
@@ -108,16 +181,22 @@ void PFCandidateIndexer::produce(edm::Event& event, const edm::EventSetup& setup
   if (!jetIndicesName_.empty()) {
     event.put(jetIndicesToken_, std::move(jetIndices));
   }
+  if (!fatJetIndicesName_.empty()) {
+    event.put(fatJetIndicesToken_, std::move(fatJetIndices));
+  }
   if (!tauIndicesName_.empty()) {
     event.put(tauIndicesToken_, std::move(tauIndices));
+  }
+  if (!boostedTauIndicesName_.empty()) {
+    event.put(boostedTauIndicesToken_, std::move(boostedTauIndices));
   }
   if (!containedCandidatesName_.empty()) {
     event.put(containedCandidatesToken_, std::move(containedCandidates));
   }
 }
 
-void PFCandidateIndexer::fillJetIndices(const Candidates& candidates,
-                                        const Jets& jets,
+void PFCandidateIndexer::fillJetIndices(const InputCandidates& candidates,
+                                        const InputJets& jets,
                                         CandidateIndices& indices) const {
   // create a hash map that associates pointers of jet constituents to the corresponding jet index
   std::map<const pat::PackedCandidate*, int32_t> candidateMap;
@@ -139,8 +218,8 @@ void PFCandidateIndexer::fillJetIndices(const Candidates& candidates,
   }
 }
 
-void PFCandidateIndexer::fillTauIndices(const Candidates& candidates,
-                                        const Taus& taus,
+void PFCandidateIndexer::fillTauIndices(const InputCandidates& candidates,
+                                        const InputTaus& taus,
                                         CandidateIndices& indices) const {
   // create a hash map that associates pointers of tau constituents to the corresponding tau index
   std::map<const pat::PackedCandidate*, int32_t> candidateMap;
@@ -162,7 +241,7 @@ void PFCandidateIndexer::fillTauIndices(const Candidates& candidates,
   }
 }
 
-void PFCandidateIndexer::fillContainedCandidates(const Candidates& candidates,
+void PFCandidateIndexer::fillContainedCandidates(const InputCandidates& candidates,
                                                  const CandidateIndicesList& indicesList,
                                                  Candidates& containedCandidates) const {
   // strategy:
