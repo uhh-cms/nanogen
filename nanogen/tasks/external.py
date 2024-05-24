@@ -166,6 +166,8 @@ class GetDatasetLFNs(DatasetTask):
             if line.strip().endswith(".root")
         ]
         self.publish_message(f"found {len(lfns)} LFNs for dataset {self.dataset.key}")
+        if not lfns:
+            raise Exception("no LFNs found")
 
         # sort them to always deal with a deterministic order
         lfns.sort()

@@ -8,15 +8,15 @@ sandbox_script: cmssw_nanogen.sh
 
 # arguments for cmsDriver.py that creates the cmsRun config
 global_tag:
-  mc: auto:run2_mc
+  mc: auto:run2_mc_pre_vfp
   data: auto:run2_data
 era:
-  mc: &era Run2_2016,run2_nanoAOD_106Xv2
+  mc: &era Run2_2016_HIPM,run2_nanoAOD_106Xv2
   data: *era
 
 # postfix for produced nano datasets in the cms-store-like path
-campaign_version_postfix: NanoAODAPVv12UHH
+campaign_version_postfix: NanoAODv12UHH
 
 # references to dataset and nano configs
-dataset_config: datasets_ul16post.yaml
-nano_config: nano.yaml
+dataset_config: datasets_16pre.yaml
+nano_config: nano_run2.yaml
