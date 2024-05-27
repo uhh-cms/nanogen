@@ -15,7 +15,8 @@
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 
-typedef std::vector<int32_t> CandidateIndices;
+typedef int16_t CandidateIndexType;
+typedef std::vector<CandidateIndexType> CandidateIndices;
 typedef edm::View<pat::PackedCandidate> InputCandidates;
 
 class PFCandidateIndicesTable : public edm::stream::EDProducer<> {
@@ -113,25 +114,25 @@ void PFCandidateIndicesTable::produce(edm::Event& event, const edm::EventSetup& 
   // fill jet indices if configured
   if (!jetIndicesName_.empty()) {
     auto const& jetIndices = event.get(jetIndicesToken_);
-    tab->addColumn<int8_t>(jetIndicesName_, jetIndices, jetIndicesName_ + " index");
+    tab->addColumn<CandidateIndexType>(jetIndicesName_, jetIndices, jetIndicesName_ + " index");
   }
 
   // fill fat jet indices if configured
   if (!fatJetIndicesName_.empty()) {
     auto const& fatJetIndices = event.get(fatJetIndicesToken_);
-    tab->addColumn<int8_t>(fatJetIndicesName_, fatJetIndices, fatJetIndicesName_ + " index");
+    tab->addColumn<CandidateIndexType>(fatJetIndicesName_, fatJetIndices, fatJetIndicesName_ + " index");
   }
 
   // fill tau indices if configured
   if (!tauIndicesName_.empty()) {
     auto const& tauIndices = event.get(tauIndicesToken_);
-    tab->addColumn<int8_t>(tauIndicesName_, tauIndices, tauIndicesName_ + " index");
+    tab->addColumn<CandidateIndexType>(tauIndicesName_, tauIndices, tauIndicesName_ + " index");
   }
 
   // fill boosted tau indices if configured
   if (!boostedTauIndicesName_.empty()) {
     auto const& boostedTauIndices = event.get(boostedTauIndicesToken_);
-    tab->addColumn<int8_t>(boostedTauIndicesName_, boostedTauIndices, boostedTauIndicesName_ + " index");
+    tab->addColumn<CandidateIndexType>(boostedTauIndicesName_, boostedTauIndices, boostedTauIndicesName_ + " index");
   }
 
   // write the table

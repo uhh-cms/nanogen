@@ -14,7 +14,8 @@
 #include "DataFormats/PatCandidates/interface/Jet.h"
 #include "DataFormats/PatCandidates/interface/Tau.h"
 
-typedef std::vector<int32_t> CandidateIndices;
+typedef int16_t CandidateIndexType;
+typedef std::vector<CandidateIndexType> CandidateIndices;
 typedef std::vector<CandidateIndices*> CandidateIndicesList;
 typedef std::vector<pat::PackedCandidate> Candidates;
 typedef edm::View<pat::PackedCandidate> InputCandidates;
@@ -199,12 +200,12 @@ void PFCandidateIndexer::fillJetIndices(const InputCandidates& candidates,
                                         const InputJets& jets,
                                         CandidateIndices& indices) const {
   // create a hash map that associates pointers of jet constituents to the corresponding jet index
-  std::map<const pat::PackedCandidate*, int32_t> candidateMap;
+  std::map<const pat::PackedCandidate*, CandidateIndexType> candidateMap;
   for (size_t iJet = 0; iJet < jets.size(); ++iJet) {
     const auto& jet = jets[iJet];
     for (size_t iCand = 0; iCand < jet.numberOfDaughters(); ++iCand) {
       const auto pc = dynamic_cast<const pat::PackedCandidate*>(jet.daughterPtr(iCand).get());
-      candidateMap[pc] = (int32_t)iJet;
+      candidateMap[pc] = (CandidateIndexType)iJet;
     }
   }
 
@@ -222,12 +223,12 @@ void PFCandidateIndexer::fillTauIndices(const InputCandidates& candidates,
                                         const InputTaus& taus,
                                         CandidateIndices& indices) const {
   // create a hash map that associates pointers of tau constituents to the corresponding tau index
-  std::map<const pat::PackedCandidate*, int32_t> candidateMap;
+  std::map<const pat::PackedCandidate*, CandidateIndexType> candidateMap;
   for (size_t iTau = 0; iTau < taus.size(); ++iTau) {
     const auto& tau = taus[iTau];
     for (size_t iCand = 0; iCand < tau.numberOfSourceCandidatePtrs(); ++iCand) {
       const auto pc = dynamic_cast<const pat::PackedCandidate*>(tau.sourceCandidatePtr(iCand).get());
-      candidateMap[pc] = (int32_t)iTau;
+      candidateMap[pc] = (CandidateIndexType)iTau;
     }
   }
 

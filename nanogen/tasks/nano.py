@@ -27,14 +27,33 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
 
     dataset_kind = luigi.ChoiceParameter(
         choices=["data", "mc"],
-        description="the kind of dataset to create a config for; choices: data,mc",
+        description="the kind of dataset to create a config for; choices: data,mc; no default",
+    )
+    era = luigi.Parameter(
+        default=law.NO_STR,
+        description="the era to use; when empty, the era defined in the config is used; "
+        "empty default",
+    )
+    global_tag = luigi.Parameter(
+        default=law.NO_STR,
+        description="the global tag to use; when empty, the global tag defined in the config is "
+        "used; empty default",
     )
 
     # versioning not required
     version = None
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # set era and global tag when empty
+        if self.era in {law.NO_STR, "", None}:
+            self.era = self.config.era[self.dataset_kind]
+        if self.global_tag in {law.NO_STR, "", None}:
+            self.global_tag = self.config.global_tag[self.dataset_kind]
+
     def output(self):
-        return self.target(f"nano_cfg_{self.dataset_kind}.py")
+        return self.target(f"nano_cfg_{self.dataset_kind}_{self.era}_{self.global_tag}.py")
 
     @law.decorator.log
     @maybe_wait_for_dcache
@@ -49,8 +68,8 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
             f" --{self.dataset_kind}"
             f" --eventcontent {tier}"
             f" --datatier {tier}"
-            f" --conditions {self.config.global_tag[self.dataset_kind]}"
-            f" --era {self.config.era[self.dataset_kind]}"
+            f" --conditions {self.global_tag}"
+            f" --era {self.era}"
             " -n -1"
             " --no_exec"
             " --customise_commands=\""  # noqa: Q003
@@ -142,12 +161,22 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
-        reqs.cfg = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
+        reqs.cfg = CreateCMSRunConfig.req(
+            self,
+            dataset_kind=self.mini_info.kind,
+            era=self.dataset.get("era", law.NO_STR),
+            global_tag=self.dataset.get("global_tag", law.NO_STR),
+        )
         return reqs
 
     def requires(self):
         reqs = super().requires()
-        reqs.cfg = CreateCMSRunConfig.req(self, dataset_kind=self.mini_info.kind)
+        reqs.cfg = CreateCMSRunConfig.req(
+            self,
+            dataset_kind=self.mini_info.kind,
+            era=self.dataset.get("era", law.NO_STR),
+            global_tag=self.dataset.get("global_tag", law.NO_STR),
+        )
 
         # check if lfns were maybe already fetched, and if so, use them
         # otherwise make the decision dependent on the fetch_lfns flag
