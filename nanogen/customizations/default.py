@@ -9,9 +9,20 @@ all packages will be provided by - and therefore must exist in - the cmssw envir
 
 from __future__ import annotations
 
+import os
+import enum
+
 import FWCore.ParameterSet.Config as cms  # type: ignore[import-not-found]
 from PhysicsTools.NanoAOD.common_cff import Var  # type: ignore[import-not-found]
-from PhysicsTools.NanoAOD.simpleCandidateFlatTableProducer_cfi import simpleCandidateFlatTableProducer  # type: ignore[import-not-found] # noqa
+
+
+# get the cmssw version triplet
+cmssw_version = tuple(map(int, os.environ["CMSSW_VERSION"].split("_")[1:4]))
+
+
+class NanoVersion(enum.Enum):
+    V12 = "v12"
+    V14 = "v14"
 
 
 #
@@ -26,16 +37,31 @@ def no_customization(process, *, dataset_kind: str, **kwargs):
 
 
 def customize_v12_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwargs):
-    # reduce gen particle history info
+    # update gen particle selection
     if dataset_kind == "mc":
-        process = reduce_gen_particles(process)
+        process = update_gen_particles(process, NanoVersion.V12)
 
-    # add tau variables, lifetime variables not available in run 2 nano
-    process = add_tau_variables(process, add_lifetime_vars=False)
+    # add tau variables
+    process = add_tau_variables(process, NanoVersion.V12)
 
     # add PF candidates
     if pf_candidates:
-        process = add_pf_candidates(process)
+        process = add_pf_candidates(process, NanoVersion.V12)
+
+    return process
+
+
+def customize_v14_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwargs):
+    # update gen particle selection
+    if dataset_kind == "mc":
+        process = update_gen_particles(process, NanoVersion.V14)
+
+    # add tau variables, lifetime variables already present in run 3 nano
+    process = add_tau_variables(process, NanoVersion.V14)
+
+    # add PF candidates
+    if pf_candidates:
+        process = add_pf_candidates(process, NanoVersion.V14)
 
     return process
 
@@ -77,22 +103,23 @@ def var_b(expr: str, *, doc: str = "") -> Var:
 # Lower-level modular customizations.
 #
 
-def reduce_gen_particles(process):
+def update_gen_particles(process, nano_version: NanoVersion):
     """
-    Taken from TAU POG.
+    With infos taken from TAU POG.
     https://github.com/cms-tau-pog/NanoProd/blob/c66e12e738528f5155043472f51452853abe9b14/NanoProd/python/customize.py#L5
     """
+    vip = pdg_abs_or([6, 21, 22, 23, 24, 25, 35, 36, 37, 39, 9990012, 9900012, 1000015])
     leptons = pdg_abs_or([11, 12, 13, 14, 15, 16])
-    important_particles = pdg_abs_or([6, 23, 24, 25, 35, 39, 9990012, 9900012, 1000015])
-
-    process.finalGenParticles.select = [
-        "drop *",
+    process.finalGenParticles.select += [
+        # parents and daughers of important particles
+        f"keep+ statusFlags().isLastCopy() && {vip}",
+        f"+keep statusFlags().isFirstCopy() && {vip}",
+        # parents and full decay history of leptons
         f"keep++ statusFlags().isLastCopy() && {leptons}",
         f"+keep statusFlags().isFirstCopy() && {leptons}",
-        f"keep+ statusFlags().isLastCopy() && {important_particles}",
-        f"+keep statusFlags().isFirstCopy() && {important_particles}",
     ]
 
+    # store the production vertex coordinate
     for coord in ["x", "y", "z"]:
         new_var = var_f10(f"vertex().{coord}", doc=f"{coord} coordinate of the production vertex")
         setattr(process.genParticleTable.variables, f"v{coord}", new_var)
@@ -100,21 +127,26 @@ def reduce_gen_particles(process):
     return process
 
 
-def add_tau_variables(
-    process,
-    *,
-    add_lifetime_vars: bool = True,
-):
+def add_tau_variables(process, nano_version: NanoVersion):
     """
     Taken from TAU POG.
     """
     # additional variables
     tau_vars = process.tauTable.variables
     tau_vars.dxyErr = var_f10("dxy_error", doc="dxy error")
-    tau_vars.dzErr = var_f10(
-        "?leadChargedHadrCand.isNonnull() && leadChargedHadrCand.hasTrackDetails()?leadChargedHadrCand.dzError(): 0/0.",  # noqa
-        doc="dz error",
-    )
+    if cmssw_version < (14, 0, 0):
+        tau_vars.dzErr = var_f10(
+            "?leadChargedHadrCand.isNonnull() && leadChargedHadrCand.hasTrackDetails() ? leadChargedHadrCand.dzError() : 1000.0",  # noqa
+            doc="dz error",
+        )
+    else:
+        # as of 14_0_0, leadChargedHadrCand is not downcasted to a packed candidate but sticks with
+        # a normal candidate, which does not have hasTrackDetails(), so skip the check here and
+        # assume that dzError is returning sensible values
+        tau_vars.dzErr = var_f10(
+            "?leadChargedHadrCand.isNonnull() ? leadChargedHadrCand.dzError() : 1000.0",  # noqa
+            doc="dz error",
+        )
     tau_vars.ip3d = var_f10("ip3d", doc="3D impact parameter")
     tau_vars.ip3dErr = var_f10("ip3d_error", doc="3D impact parameter error")
     tau_vars.hasSV = var_b("hasSecondaryVertex", doc="has secondary vertex")
@@ -126,15 +158,17 @@ def add_tau_variables(
     tau_vars.leadChCandEtaAtEcalEntrance = var_f10("etaAtEcalEntranceLeadChargedCand", doc="eta of the leading charged candidate at the entrance of the ECAL")  # noqa
 
     # lifetime variables
-    if add_lifetime_vars:
-        from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addTimeLifeInfoToTaus  # type: ignore[import-not-found] # noqa
-        addTimeLifeInfoToTaus(process)
+    # not available in V12, already present in V14
+    # if add_lifetime_vars:
+    #     from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addTimeLifeInfoToTaus  # type: ignore[import-not-found] # noqa
+    #     addTimeLifeInfoToTaus(process)
 
     return process
 
 
 def add_pf_candidates(
     process,
+    nano_version: NanoVersion,
     *,
     collection_name: str = "PFCandidate",
     candidate_src: str = "packedPFCandidates",
@@ -184,7 +218,14 @@ def add_pf_candidates(
         variables["puppiWeight"] = var_f8("puppiWeight")
 
     # create the table and add it to the common nano sequence
-    process.pfCandidateTable = simpleCandidateFlatTableProducer.clone(
+    if cmssw_version >= (14, 0, 0):
+        # use the pat candidate specific table producer that exists since 14_0_0
+        from PhysicsTools.NanoAOD.simplePATCandidateFlatTableProducer_cfi import simplePATCandidateFlatTableProducer as candidateTableProducer  # type: ignore[import-not-found] # noqa
+    else:
+        # fall back to the generic candidate table producer
+        from PhysicsTools.NanoAOD.simpleCandidateFlatTableProducer_cfi import simpleCandidateFlatTableProducer as candidateTableProducer # type: ignore[import-not-found] # noqa
+
+    process.pfCandidateTable = candidateTableProducer.clone(
         name=cms.string(collection_name),
         src=cms.InputTag(new_candidate_src),
         doc=cms.string(f"interesting {candidate_src}"),
