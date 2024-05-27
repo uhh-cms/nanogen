@@ -419,15 +419,35 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if self.dataset_name.endswith(("_up", "_down")):
             raise Exception(f"systematic variations are not allowed, got '{self.dataset_name}'")
 
+        # extensions are not allowed
+        if self.dataset.get("extends"):
+            raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
+
     def requires(self):
-        reqs = law.util.DotDict({(self.dataset_name, "nominal"): CreateNano.req(self)})
+        def include_extensions(dataset_name):
+            yield dataset_name
+            for name, dataset in self.datasets.items():
+                if dataset.get("extends") == dataset_name:
+                    yield name
+
+        # nominal dataset, plus extensions
+        reqs = law.util.DotDict.wrap({
+            "nominal": {
+                dataset_name: CreateNano.req(self, dataset_name=dataset_name)
+                for dataset_name in include_extensions(self.dataset_name)
+            },
+        })
 
         # add systematic shifts
         if not self.skip_shifts:
             for dataset_name in self.datasets.keys():
-                if (m := re.match(rf"^{self.dataset_name}_([^_]+)_(up|down)$", dataset_name)):
-                    key = (dataset_name, "_".join(m.groups()))
-                    reqs[key] = CreateNano.req(self, dataset_name=dataset_name)
+                if not (m := re.match(rf"^{self.dataset_name}_([^_]+)_(up|down)$", dataset_name)):
+                    continue
+                shift_name = "_".join(m.groups())
+                reqs[shift_name] = {
+                    _dataset_name: CreateNano.req(self, dataset_name=_dataset_name)
+                    for _dataset_name in include_extensions(dataset_name)
+                }
 
         return reqs
 
@@ -438,18 +458,13 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
     def run(self):
         inputs = self.input()
 
-        # load nominal stats
-        das_stats = load_dataset_stats(self.dataset.key)
-
         # helper to determine the number of files and events
-        def get_stats(dataset_name, shift):
+        def get_stats(dataset_name, shift_name):
             # get das stats
-            stats = das_stats
-            if shift != "nominal":
-                stats = load_dataset_stats(self.datasets[dataset_name].key)
+            stats = load_dataset_stats(self.datasets[dataset_name].key)
             # sanity check: the collection should be as long as the number of files minus lfns to
             # skip, otherwise DAS might have temporarily returned a shorter list (which happens)
-            inp = inputs[(dataset_name, shift)]
+            inp = inputs[shift_name][dataset_name]
             skipped_lfns = self.datasets[dataset_name].get("skip_lfns", [])
             n_skipped = len(skipped_lfns)
             n_unskipped = len(inp.collection)
@@ -489,13 +504,16 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return mini_to_nano_dataset(dataset.key, campaign_version_postfix=version_postfix)
 
         # get the id of the original dataset
-        dataset_id = das_stats["dataset_id"]
+        dataset_id = load_dataset_stats(self.dataset.key)["dataset_id"]
 
         # estimate the process name
         if self.nano_info.data:
             process_name = "_".join(self.dataset_name.split("_")[:2])
         else:
             process_name = re.sub(r"_(powheg|madgraph|amcatnlo)$", "", self.dataset_name)
+
+        # helper to format summation of numbers
+        fmt_sum = lambda nums: " + ".join(f"{n:_}" for n in nums)
 
         # start creating the entry
         entry = "cpn.add_dataset(\n"
@@ -504,23 +522,35 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if self.nano_info.data:
             entry += "    is_data=True,\n"
         entry += f"    processes=[procs.{process_name}],\n"
-        if set(inputs.keys()) == {(self.dataset_name, "nominal")}:
-            n_files, n_events = get_stats(self.dataset_name, "nominal")
+        if set(inputs.keys()) == {"nominal"}:
+            # prepare values
+            n_files, n_events = law.util.unzip([
+                get_stats(dataset_name, "nominal")
+                for dataset_name in inputs["nominal"]
+            ])
+            # add entries
             entry += "    keys=[\n"
-            entry += f"        \"{nano_key(self.dataset_name)}\",  # noqa\n"  # noqa: Q003
+            for dataset_name in inputs["nominal"]:
+                entry += f"        \"{nano_key(dataset_name)}\",  # noqa\n"  # noqa: Q003
             entry += "    ],\n"
-            entry += f"    n_files={n_files:_},\n"
-            entry += f"    n_events={n_events:_},\n"
+            entry += f"    n_files={fmt_sum(n_files)},\n"
+            entry += f"    n_events={fmt_sum(n_events)},\n"
         else:
             entry += "    info=dict(\n"
-            for dataset_name, shift in inputs.keys():
-                n_files, n_events = get_stats(dataset_name, shift)
-                entry += f"        {shift}=DatasetInfo(\n"
+            for shift_name in inputs:
+                # prepare values
+                n_files, n_events = law.util.unzip([
+                    get_stats(dataset_name, shift_name)
+                    for dataset_name in inputs[shift_name]
+                ])
+                # add entries
+                entry += f"        {shift_name}=DatasetInfo(\n"
                 entry += "            keys=[\n"
-                entry += f"                \"{nano_key(dataset_name)}\",  # noqa\n"
+                for dataset_name in inputs[shift_name]:
+                    entry += f"                \"{nano_key(dataset_name)}\",  # noqa\n"
                 entry += "            ],\n"
-                entry += f"            n_files={n_files:_},\n"
-                entry += f"            n_events={n_events:_},\n"
+                entry += f"            n_files={fmt_sum(n_files)},\n"
+                entry += f"            n_events={fmt_sum(n_events)},\n"
                 entry += "        ),\n"
             entry += "    ),\n"
         if self.nano_info.data:
@@ -535,9 +565,22 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         self.publish_message("\n" + entry + "\n")
 
 
+def db_entry_wrapper_reduce_params(self, params):
+    # remove variations and extensions
+    return [
+        (config_name, dataset_name)
+        for config_name, dataset_name in params
+        if not (
+            dataset_name.endswith(("_up", "_down")) or
+            self.datasets[dataset_name].get("extends")
+        )
+    ]
+
+
 CreateDBEntryWrapper = wrapper_factory(
     base_cls=ConfigTask,
     require_cls=CreateDBEntry,
     cls_name="CreateDBEntryWrapper",
     enable=["datasets", "skip_datasets"],
+    reduce_params=db_entry_wrapper_reduce_params,
 )

@@ -10,7 +10,7 @@ import os
 import re
 import enum
 import inspect
-from typing import Type
+from typing import Type, Callable
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -387,6 +387,7 @@ def wrapper_factory(
     cls_name: str | None = None,
     attributes: dict | None = None,
     docs: str | None = None,
+    reduce_params: Callable[[Type[Task], list[tuple]], list[tuple]] | None = None,
 ) -> Type[Task]:
     # check known features
     known_features = ["configs", "datasets", "skip_datasets"]
@@ -521,7 +522,13 @@ def wrapper_factory(
                 # just use the configs
                 params = [(config_name,) for config_name in config_names]
 
+            # hook to reduce the parameter space
+            params = self.reduce_wrapper_parameters(params)
+
             return params
+
+        def reduce_wrapper_parameters(self, params):
+            return reduce_params(self, params) if callable(reduce_params) else params
 
         def requires(self) -> dict:
             # build all requirements based on the parameter space
