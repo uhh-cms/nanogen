@@ -20,6 +20,11 @@ from PhysicsTools.NanoAOD.common_cff import Var  # type: ignore[import-not-found
 cmssw_version = tuple(map(int, os.environ["CMSSW_VERSION"].split("_")[1:4]))
 
 
+class Run(enum.Enum):
+    II = "II"
+    III = "III"
+
+
 class NanoVersion(enum.Enum):
     V12 = "v12"
     V14 = "v14"
@@ -36,40 +41,38 @@ def no_customization(process, *, dataset_kind: str, **kwargs):
     return process
 
 
-def customize_v12_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwargs):
+def _customize_v12_uhh(
+    process,
+    run: Run,
+    nano_version: NanoVersion,
+    *,
+    dataset_kind: str,
+    pf_candidates: bool,
+    **kwargs,
+):
     # update gen particle selection
     if dataset_kind == "mc":
-        process = update_gen_particles(process, NanoVersion.V12)
+        process = update_gen_particles(process, run, nano_version)
 
     # add tau variables
-    process = add_tau_variables(process, NanoVersion.V12)
+    process = add_tau_variables(process, run, nano_version)
 
     # add met variables
-    process = add_met_variables(process, NanoVersion.V12)
+    process = add_met_variables(process, run, nano_version)
 
     # add PF candidates
     if pf_candidates:
-        process = add_pf_candidates(process, NanoVersion.V12)
+        process = add_pf_candidates(process, run, nano_version)
 
     return process
 
 
-def customize_v14_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwargs):
-    # update gen particle selection
-    if dataset_kind == "mc":
-        process = update_gen_particles(process, NanoVersion.V14)
+def customize_run2_v12_uhh(process, **kwargs):
+    return _customize_v12_uhh(process, Run.II, NanoVersion.V12, **kwargs)
 
-    # add tau variables, lifetime variables already present in run 3 nano
-    process = add_tau_variables(process, NanoVersion.V14)
 
-    # add met variables
-    process = add_met_variables(process, NanoVersion.V14)
-
-    # add PF candidates
-    if pf_candidates:
-        process = add_pf_candidates(process, NanoVersion.V14)
-
-    return process
+def customize_run3_v12_uhh(process, **kwargs):
+    return _customize_v12_uhh(process, Run.III, NanoVersion.V12, **kwargs)
 
 
 #
@@ -109,7 +112,7 @@ def var_b(expr: str, *, doc: str = "") -> Var:
 # Lower-level modular customizations.
 #
 
-def update_gen_particles(process, nano_version: NanoVersion):
+def update_gen_particles(process, run: Run, nano_version: NanoVersion):
     """
     With infos taken from TAU POG.
     https://github.com/cms-tau-pog/NanoProd/blob/c66e12e738528f5155043472f51452853abe9b14/NanoProd/python/customize.py#L5
@@ -133,7 +136,7 @@ def update_gen_particles(process, nano_version: NanoVersion):
     return process
 
 
-def add_tau_variables(process, nano_version: NanoVersion):
+def add_tau_variables(process, run: Run, nano_version: NanoVersion):
     """
     Taken from TAU POG.
     """
@@ -172,7 +175,7 @@ def add_tau_variables(process, nano_version: NanoVersion):
     return process
 
 
-def add_met_variables(process, nano_version: NanoVersion):
+def add_met_variables(process, run: Run, nano_version: NanoVersion):
     """
     Adds additional (Puppi)MET variables.
     """
@@ -199,6 +202,7 @@ def add_met_variables(process, nano_version: NanoVersion):
 
 def add_pf_candidates(
     process,
+    run: Run,
     nano_version: NanoVersion,
     *,
     collection_name: str = "PFCandidate",

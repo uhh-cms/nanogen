@@ -1,4 +1,8 @@
-# https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
+# Custom NanoAOD v12, Run2, 2017
+#
+# Links:
+#   - https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
+#   - https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun2Analysis
 
 # cmssw setup
 cmssw_version: CMSSW_13_0_18
@@ -19,4 +23,4 @@ campaign_version_postfix: NanoAODv12UHH
 
 # references to dataset and nano configs
 dataset_config: datasets_17.yaml
-nano_config: nano_run2.yaml
+nano_config: nano_run2_v12.yaml

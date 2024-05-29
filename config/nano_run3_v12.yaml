@@ -1,7 +1,7 @@
 # nano customonization hook to be injected into the cmsRun config
 customization:
   module: nanogen.customizations.default
-  function: customize_v12_uhh
+  function: customize_run3_v12_uhh
   arguments:
     pf_candidates: true
 

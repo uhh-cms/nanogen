@@ -1,4 +1,11 @@
-# https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
+# Custom NanoAOD v12, Run2, 2016, preVFP.
+#
+# "pre" refers to the era in 2016 before the VPF fix, which is commonly denoted HIPM in DAS
+# (hip mitigation through software adjustments).
+#
+# Links:
+#   - https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
+#   - https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun2Analysis
 
 # cmssw setup
 cmssw_version: CMSSW_13_0_18
@@ -19,4 +26,4 @@ campaign_version_postfix: NanoAODv12UHH
 
 # references to dataset and nano configs
 dataset_config: datasets_16pre.yaml
-nano_config: nano_run2.yaml
+nano_config: nano_run2_v12.yaml
