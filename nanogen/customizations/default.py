@@ -44,6 +44,9 @@ def customize_v12_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwar
     # add tau variables
     process = add_tau_variables(process, NanoVersion.V12)
 
+    # add met variables
+    process = add_met_variables(process, NanoVersion.V12)
+
     # add PF candidates
     if pf_candidates:
         process = add_pf_candidates(process, NanoVersion.V12)
@@ -58,6 +61,9 @@ def customize_v14_uhh(process, *, dataset_kind: str, pf_candidates: bool, **kwar
 
     # add tau variables, lifetime variables already present in run 3 nano
     process = add_tau_variables(process, NanoVersion.V14)
+
+    # add met variables
+    process = add_met_variables(process, NanoVersion.V14)
 
     # add PF candidates
     if pf_candidates:
@@ -162,6 +168,31 @@ def add_tau_variables(process, nano_version: NanoVersion):
     # if add_lifetime_vars:
     #     from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addTimeLifeInfoToTaus  # type: ignore[import-not-found] # noqa
     #     addTimeLifeInfoToTaus(process)
+
+    return process
+
+
+def add_met_variables(process, nano_version: NanoVersion):
+    """
+    Adds additional (Puppi)MET variables.
+    """
+    puppimet_vars = getattr(getattr(process, "puppiMetTable", None), "variables", None)
+    if puppimet_vars is None:
+        print("no puppiMetTable found, skip adding additional variables")
+        return process
+
+    puppimet_vars.covXX = var_f8(
+        "getSignificanceMatrix().At(0,0)",
+        doc="xx element of met covariance matrix",
+    )
+    puppimet_vars.covXY = var_f8(
+        "getSignificanceMatrix().At(0,1)",
+        doc="xy element of met covariance matrix",
+    )
+    puppimet_vars.covYY = var_f8(
+        "getSignificanceMatrix().At(1,1)",
+        doc="yy element of met covariance matrix",
+    )
 
     return process
 
