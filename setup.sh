@@ -51,7 +51,6 @@ setup_ng() {
     export NG_HTCONDOR_FLAVOR="${NG_HTCONDOR_FLAVOR:-naf}"
     export NG_SLURM_FLAVOR="${NG_SLURM_FLAVOR:-maxwell}"
     export NG_SLURM_PARTITION="${NG_SLURM_PARTITION:-allcpu}"
-    export NG_DEFAULT_WLCG_FS="${NG_DEFAULT_WLCG_FS:-wlcg_fs}"
     export NG_WLCG_CACHE_ROOT="${NG_WLCG_CACHE_ROOT}"
     export NG_WLCG_USE_CACHE="${NG_WLCG_USE_CACHE:-$( [ -z "${NG_WLCG_CACHE_ROOT}" ] && echo "false" || echo "true" )}"
     export NG_WLCG_CACHE_CLEANUP="${NG_WLCG_CACHE_CLEANUP:-false}"

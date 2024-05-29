@@ -52,7 +52,7 @@ class Task(law.SandboxTask):
 
     # defaults for targets
     default_local_fs = "local_fs_store"
-    default_wlcg_fs = law.config.get_expanded("analysis", "default_wlcg_fs")
+    default_wlcg_fs = "wlcg_fs"
     default_output_location = "config"
 
     @classmethod
@@ -163,6 +163,9 @@ class Task(law.SandboxTask):
         # create the target instance and return it
         return cls(path, wlcg_fs=wlcg_fs, local_fs=local_fs, **kwargs)
 
+    def get_task_output_location_options(self):
+        return [self.task_family]
+
     def target(self, *path, **kwargs):
         # get the default location
         location = kwargs.pop("location", self.default_output_location)
@@ -171,8 +174,11 @@ class Task(law.SandboxTask):
         if isinstance(location, str):
             location = OutputLocation[location]
         if location == OutputLocation.config:
-            location = law.config.get_expanded("analysis", self.task_family, None, split_csv=True)
-            if not location:
+            for opt in self.get_task_output_location_options():
+                location = law.config.get_expanded("analysis", opt, None, split_csv=True)
+                if location:
+                    break
+            else:
                 self.logger.debug(
                     f"no option 'analysis::{self.task_family}' found in law.cfg to obtain target "
                     "location, falling back to 'local'",
@@ -298,6 +304,11 @@ class ConfigTask(Task):
         parts.insert_before("version", "config", self.config_name)
         return parts
 
+    def get_task_output_location_options(self):
+        opts = [f"{self.task_family}_{self.config_name}"]
+        opts += super().get_task_output_location_options()
+        return opts
+
 
 class CMSSWSandboxTask(ConfigTask):
 
@@ -318,8 +329,6 @@ class CMSSWSandboxTask(ConfigTask):
             return []
 
         return self.sandbox_inst._build_export_commands({
-            # switch to a wlcg_fs config with adjusted protocols for within cmssw
-            "NG_DEFAULT_WLCG_FS": "wlcg_fs_cmssw",
             # use a custom gfal plugin dir with plugins removed that lead to plenty of warnings
             "GFAL_PLUGIN_DIR": "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw",
             # potentially updated cms related paths
@@ -384,6 +393,11 @@ class DatasetTask(ConfigTask):
         parts["cms_store"] = os.path.join(self.nano_info.cms_store.lstrip("/"), "0")
 
         return parts
+
+    def get_task_output_location_options(self):
+        opts = [f"{self.task_family}_{self.config_name}_{self.dataset_name}"]
+        opts += super().get_task_output_location_options()
+        return opts
 
 
 def wrapper_factory(
