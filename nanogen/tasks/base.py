@@ -16,7 +16,9 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.nano_util import DatasetInfo, mini_to_nano_dataset
-from nanogen.util import expand_path, DCacheFileTarget, DCacheDirectoryTarget
+from nanogen.util import (
+    expand_path, DCacheFileTarget, DCacheDirectoryTarget, maybe_wait_for_dcache,
+)
 
 
 default_config = law.config.get_expanded("analysis", "default_config")
@@ -75,6 +77,10 @@ class Task(law.SandboxTask):
 
         # build the params
         return super().req_params(inst, **kwargs)
+
+    @maybe_wait_for_dcache(missing=True)
+    def _remove_output(self, *args, **kwargs):
+        return super()._remove_output(*args, **kwargs)
 
     def store_parts(self) -> law.util.InsertableDict:
         parts = law.util.InsertableDict()

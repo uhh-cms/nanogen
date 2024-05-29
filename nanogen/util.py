@@ -257,7 +257,7 @@ DCacheTarget.file_class = DCacheFileTarget
 DCacheTarget.directory_class = DCacheDirectoryTarget
 
 
-@law.decorator.factory(accept_generator=True)
+@law.decorator.factory(missing=False, accept_generator=True)
 def maybe_wait_for_dcache(fn, opts, task, *args, **kwargs):
     def before_call() -> None:
         # no need for a state
@@ -279,10 +279,10 @@ def maybe_wait_for_dcache(fn, opts, task, *args, **kwargs):
         if not dcache_outputs:
             return
 
-        with task.publish_step("waiting for DCache to sync ..."):
+        with task.publish_step("waiting for DCache to sync ...", scheduler=False):
             for outp in dcache_outputs:
                 sleep_counter = 0
-                while not outp.local.exists() and sleep_counter < 90:
+                while outp.local.exists() == opts["missing"] and sleep_counter < 90:
                     time.sleep(1.0)
                     sleep_counter += 1
 
