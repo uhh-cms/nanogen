@@ -7,6 +7,7 @@ import nanogen.tasks.base  # noqa: F401
 import nanogen.tasks.remote  # noqa: F401
 import nanogen.tasks.external  # noqa: F401
 import nanogen.tasks.nano  # noqa: F401
+import nanogen.tasks.export  # noqa: F401
 import nanogen.tasks.custom  # noqa: F401
 
 
