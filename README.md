@@ -58,11 +58,8 @@ tt_dl:
 
 
 # extension of tt_dl
-# (no special requirements on the name)
+# ❗️ name must start with tt_dl and end with _ext{N}
 tt_dl_ext1:
-  # ❗️ this field should be set
-  extends: tt_dl
-
   # all other fields as shown above
   key: ...
 

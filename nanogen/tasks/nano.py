@@ -416,19 +416,19 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         super().__init__(*args, **kwargs)
 
         # systematic shifts are not allowed
-        if self.dataset_name.endswith(("_up", "_down")):
+        if re.match(r"^.*_(up|down)$", self.dataset_name):
             raise Exception(f"systematic variations are not allowed, got '{self.dataset_name}'")
 
         # extensions are not allowed
-        if self.dataset.get("extends"):
+        if re.match(r"^.*_ext\d+$", self.dataset_name):
             raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
 
     def requires(self):
         def include_extensions(dataset_name):
             yield dataset_name
-            for name, dataset in self.datasets.items():
-                if dataset.get("extends") == dataset_name:
-                    yield name
+            for _dataset_name in self.datasets:
+                if re.match(rf"^{dataset_name}_ext\d+$", _dataset_name):
+                    yield _dataset_name
 
         # nominal dataset, plus extensions
         reqs = law.util.DotDict.wrap({
@@ -570,10 +570,7 @@ def db_entry_wrapper_reduce_params(self, params):
     return [
         (config_name, dataset_name)
         for config_name, dataset_name in params
-        if not (
-            dataset_name.endswith(("_up", "_down")) or
-            self.datasets[dataset_name].get("extends")
-        )
+        if not re.match(r"^.*_(up|down|ext\d+)$", dataset_name)
     ]
 
 
