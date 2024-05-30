@@ -25,7 +25,6 @@ skim:
       - drop ^n?GenIsolatedPhoton.*$
       - drop ^n?GenProton.*$
       - drop ^n?IsoTrack.*$
-      - drop ^n?L1.*$
       - drop ^n?LowPtElectron.*$
       - drop ^n?OtherPV.*$
       - drop ^n?SoftActivityJet.*$
