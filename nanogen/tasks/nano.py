@@ -339,3 +339,51 @@ CreateNanoWrapper = wrapper_factory(
     cls_name="CreateNanoWrapper",
     enable=["datasets", "skip_datasets"],
 )
+
+
+class CollectNanoSizes(DatasetTask):
+
+    def requires(self):
+        return CreateNano.req(self)
+
+    def output(self):
+        return self.target("sizes.json")
+
+    @maybe_wait_for_dcache
+    def run(self):
+        # collect sizes, taking into account missing files
+        sizes = []
+        missing_branches = []
+        for b, inp in self.input().collection.targets.items():
+            stat = inp.exists(stat=True)
+            if stat:
+                sizes.append(stat.st_size)
+            else:
+                missing_branches.append(b)
+
+        # write output
+        data = {
+            "sizes": sizes,
+            "sum_sizes": sum(sizes or [0]),
+            "missing_branches": missing_branches,
+        }
+        self.output().dump(data, formatter="json", indent=4)
+
+        # some logs
+        if missing_branches:
+            self.publish_message(
+                f"found {len(missing_branches)} missing branch(es) in dataset {self.dataet_name}: "
+                f"{missing_branches}",
+            )
+        size_str = law.util.human_bytes(data["sum_sizes"], fmt=True)
+        self.publish_message(
+            f"dataset {self.dataset_name} amounts to {size_str} across {len(sizes)} files",
+        )
+
+
+CollectNanoSizesWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=CollectNanoSizes,
+    cls_name="CollectNanoSizesWrapper",
+    enable=["datasets", "skip_datasets"],
+)

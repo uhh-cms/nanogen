@@ -75,7 +75,7 @@ class DCacheTarget(law.FileSystemTarget):
         )
 
     def exists(self, *args, **kwargs):
-        return self.local.exists() or self.wlcg.exists()
+        return self.local.exists(*args, **kwargs) or self.wlcg.exists(*args, **kwargs)
 
     def remove(self, *args, **kwargs):
         return self.wlcg.remove(*args, **kwargs)
