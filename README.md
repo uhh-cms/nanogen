@@ -20,11 +20,12 @@ flowchart TD
     CreateCMSRunConfig --> CN
     FetchLFN -. optional .-> CN
     FetchLFN --> FetchLFNWrapper
-    CN --> GenerateNanoDocs
+    CN ----> GenerateNanoDocs
     CN --> CollectNanoSizes
     CollectNanoSizes --> MergeNano
-    CN --> CreateDBEntry
-    CN -. custom .-> bbtt.ReduceEvents
+    CN --> MergeNano
+    MergeNano --> CreateDBEntry
+    CN -. custom ...-> bbtt.ReduceEvents
     ListDatasetStats
 ```
 
