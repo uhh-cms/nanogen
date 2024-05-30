@@ -20,8 +20,10 @@ flowchart TD
     CreateCMSRunConfig --> CN
     FetchLFN -. optional .-> CN
     FetchLFN --> FetchLFNWrapper
-    CN -. optional .-> GenerateNanoDocs
-    CN -. optional .-> CreateDBEntry
+    CN --> GenerateNanoDocs
+    CN --> CollectNanoSizes
+    CollectNanoSizes --> MergeNano
+    CN --> CreateDBEntry
     CN -. custom .-> bbtt.ReduceEvents
     ListDatasetStats
 ```
@@ -55,6 +57,9 @@ tt_dl:
 
   # custom gt to use for this dataset, defaults to the gt of the config (optional)
   global_tag: optional_custom_gt
+
+  # custom campaign postfix, defaults to the postfix of the config (optional)
+  campaign_postfix: optional_custom_postfix
 
 
 # extension of tt_dl

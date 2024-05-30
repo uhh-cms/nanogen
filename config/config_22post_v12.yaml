@@ -1,7 +1,7 @@
-# Custom NanoAOD v12, Run3, 2022, preEE
+# Custom NanoAOD v12, Run3, 2022, postEE
 #
-# "pre" refers to the era in 2022 before the ECAL Endcap (EE) adjustment
-#  which is commonly denoted as "Run3Summer22" in DAS.
+# "post" refers to the era in 2022 after the ECAL Endcap (EE) adjustment
+#  which is commonly denoted as "Run3Summer22EE" in DAS.
 #
 # Links:
 #   - https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv12
@@ -19,7 +19,7 @@ global_tag:
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_mcRun3_2022_realistic_v5
   mc: 130X_mcRun3_2022_realistic_v5
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_dataRun3_v4
-  # v2 supersedes the recommended v2 GT
+  # v2 supersedes the recommended v2 GT and the proposed 130X_dataRun3_PromptAnalysis_v1
   data: 130X_dataRun3_v4
 era:
   mc: &era Run3
@@ -29,5 +29,5 @@ era:
 campaign_postfix: NanoAODv12UHH
 
 # references to dataset and nano configs
-dataset_config: datasets_22pre.yaml
+dataset_config: datasets_22post.yaml
 nano_config: nano_run3_v12.yaml

@@ -13,7 +13,7 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory
-from nanogen.tasks.nano import CreateNano
+from nanogen.tasks.nano import CreateNano, MergeNano
 from nanogen.nano_util import load_dataset_stats, mini_to_nano_dataset, load_lfn_stats
 from nanogen.util import expand_path
 
@@ -81,6 +81,7 @@ GenerateNanoDocsWrapper = wrapper_factory(
 
 class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
+    merged_size = MergeNano.merged_size
     skip_shifts = luigi.BoolParameter(
         default=False,
         description="whether to skip systematic shifts; default: False",
@@ -109,7 +110,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         # nominal dataset, plus extensions
         reqs = law.util.DotDict.wrap({
             "nominal": {
-                dataset_name: CreateNano.req(self, dataset_name=dataset_name)
+                dataset_name: MergeNano.req(self, dataset_name=dataset_name)
                 for dataset_name in include_extensions(self.dataset_name)
             },
         })
@@ -121,7 +122,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                     continue
                 shift_name = "_".join(m.groups())
                 reqs[shift_name] = {
-                    _dataset_name: CreateNano.req(self, dataset_name=_dataset_name)
+                    _dataset_name: MergeNano.req(self, dataset_name=_dataset_name)
                     for _dataset_name in include_extensions(dataset_name)
                 }
 
@@ -132,52 +133,40 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
     @law.decorator.log
     def run(self):
+        reqs = self.requires()
         inputs = self.input()
 
         # helper to determine the number of files and events
         def get_stats(dataset_name, shift_name):
             # get das stats
             stats = load_dataset_stats(self.datasets[dataset_name].key)
+
             # sanity check: the collection should be as long as the number of files minus lfns to
             # skip, otherwise DAS might have temporarily returned a shorter list (which happens)
+            req = reqs[shift_name][dataset_name]
             inp = inputs[shift_name][dataset_name]
             skipped_lfns = self.datasets[dataset_name].get("skip_lfns", [])
             n_skipped = len(skipped_lfns)
-            n_unskipped = len(inp.collection)
+            n_unskipped = sum(len(branch_data) for branch_data in req.branch_map.values())
             if n_unskipped + n_skipped != stats["n_files"]:
                 raise Exception(
-                    f"number of files in collection ({n_unskipped}) plus skipped lfns ({n_skipped}) "
-                    f"does not match number of files in DAS ({stats['n_files']})",
+                    f"number of files in original collection ({n_unskipped}) plus skipped lfns "
+                    f"({n_skipped}) does not match number of files in DAS ({stats['n_files']})",
                 )
+
             # query DAS for the number of events in skipped lfns
             n_skipped_events = 0
             for lfn in skipped_lfns:
                 n_skipped_events += load_lfn_stats(lfn)["n_events"]
             n_unskipped_events = stats["n_events"] - n_skipped_events
-            # when there are no missing branches, return known counts
-            n_missing, missing_branches = inp.collection.count(existing=False, keys=True)
-            if not n_missing:
-                return n_unskipped, n_unskipped_events
-            # otherwise, identify which files are missing and check DAS for their number of events
-            # to subtract them manually
-            nano_task = CreateNano.req(
-                self, dataset_name=dataset_name, branches=tuple(missing_branches), workflow="local",
-            )
-            # get the sum of missing events
-            n_missing_events = 0
-            for b in missing_branches:
-                lfn = nano_task.lfns[b]
-                n_missing_events += load_lfn_stats(lfn)["n_events"]
-            return n_unskipped - n_missing, n_unskipped_events - n_missing_events
+
+            return len(inp.collection), n_unskipped_events
 
         # helper to create the nano dataset key based on a dataset name
         def nano_key(dataset_name):
             dataset = self.datasets[dataset_name]
-            version_postfix = dataset.get(
-                "campaign_version_postfix",
-                self.config.campaign_version_postfix,
-            )
-            return mini_to_nano_dataset(dataset.key, campaign_version_postfix=version_postfix)
+            campaign_postfix = dataset.get("campaign_postfix", self.config.campaign_postfix)
+            return mini_to_nano_dataset(dataset.key, campaign_postfix=campaign_postfix)
 
         # get the id of the original dataset
         dataset_id = load_dataset_stats(self.dataset.key)["dataset_id"]

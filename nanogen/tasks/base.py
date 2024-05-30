@@ -374,11 +374,8 @@ class DatasetTask(ConfigTask):
         self.mini_info = DatasetInfo.from_key(self.dataset.key)
 
         # convert mini-based dataset key info nano-based one and store info
-        version_postfix = self.dataset.get(
-            "campaign_version_postfix",
-            self.config.campaign_version_postfix,
-        )
-        nano_key = mini_to_nano_dataset(self.dataset.key, campaign_version_postfix=version_postfix)
+        campaign_postfix = self.dataset.get("campaign_postfix", self.config.campaign_postfix)
+        nano_key = mini_to_nano_dataset(self.dataset.key, campaign_postfix=campaign_postfix)
         self.nano_info = DatasetInfo.from_key(nano_key)
 
     def store_parts(self) -> law.util.InsertableDict:

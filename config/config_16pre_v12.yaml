@@ -22,7 +22,7 @@ era:
   data: *era
 
 # postfix for produced nano datasets in the cms-store-like path
-campaign_version_postfix: NanoAODv12UHH
+campaign_postfix: NanoAODv12UHH
 
 # references to dataset and nano configs
 dataset_config: datasets_16pre.yaml

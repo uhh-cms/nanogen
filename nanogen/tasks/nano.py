@@ -7,6 +7,7 @@ Tasks for MiniAOD to NanoAOD conversion.
 from __future__ import annotations
 
 import os
+import math
 import urllib.parse
 
 import luigi  # type: ignore[import-untyped]
@@ -52,7 +53,9 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
             self.global_tag = self.config.global_tag[self.dataset_kind]
 
     def output(self):
-        return self.target(f"nano_cfg_{self.dataset_kind}_{self.era}_{self.global_tag}.py")
+        era_str = self.era.replace(",", "_")
+        gt_str = self.global_tag.replace(":", "_")
+        return self.target(f"nano_cfg__{self.dataset_kind}__{era_str}__{gt_str}.py")
 
     @law.decorator.log
     @maybe_wait_for_dcache
@@ -139,10 +142,6 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         default=-1,
         description="maximum number of events to process; -1 for all; default: -1",
     )
-    cms_store = luigi.BoolParameter(
-        default=True,
-        description="whether to store the output in the CMS-style /store/... format; default: True",
-    )
     fetch_lfns = luigi.BoolParameter(
         default=False,
         significant=False,
@@ -189,23 +188,17 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         return reqs
 
     def output(self):
-        if self.cms_store:
-            # when only a single input lfn is processed and the number of events is unlimited,
-            # reuse the nano file hash, otherwise create a new one
-            if len(self.branch_data) == 1 and self.n_events < 0:
-                name = os.path.splitext(os.path.basename(self.lfns[self.branch_data[0]]))[0]
-            else:
-                hash_parts = [[self.lfns[i] for i in self.branch_data]]
-                if self.n_events >= 0:
-                    hash_parts.append(f"n{self.n_events}")
-                name = nano_file_hash(hash_parts)
+        # when only a single input lfn is processed and the number of events is unlimited,
+        # reuse the nano file hash, otherwise create a new one
+        if len(self.branch_data) == 1 and self.n_events < 0:
+            name = os.path.splitext(os.path.basename(self.lfns[self.branch_data[0]]))[0]
         else:
-            postfix_parts = [f"{min(self.branch_data)}To{max(self.branch_data) + 1}"]
+            hash_parts = [[self.lfns[i] for i in self.branch_data]]
             if self.n_events >= 0:
-                postfix_parts.append(f"n{self.n_events}")
-            name = f"nano_{'_'.join(map(str, postfix_parts))}"
+                hash_parts.append(f"n{self.n_events}")
+            name = nano_file_hash(hash_parts)
 
-        return self.target(f"{name}.root", cms_store=self.cms_store)
+        return self.target(f"{name}.root", cms_store=True)
 
     @law.decorator.log
     @maybe_wait_for_dcache
@@ -352,19 +345,19 @@ class CollectNanoSizes(DatasetTask):
     @maybe_wait_for_dcache
     def run(self):
         # collect sizes, taking into account missing files
-        sizes = []
+        sizes = {}
         missing_branches = []
         for b, inp in self.input().collection.targets.items():
             stat = inp.exists(stat=True)
             if stat:
-                sizes.append(stat.st_size)
+                sizes[b] = stat.st_size
             else:
                 missing_branches.append(b)
 
         # write output
         data = {
             "sizes": sizes,
-            "sum_sizes": sum(sizes or [0]),
+            "sum_sizes": sum(sizes.values() or [0]),
             "missing_branches": missing_branches,
         }
         self.output().dump(data, formatter="json", indent=4)
@@ -387,3 +380,97 @@ CollectNanoSizesWrapper = wrapper_factory(
     cls_name="CollectNanoSizesWrapper",
     enable=["datasets", "skip_datasets"],
 )
+
+
+class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow):
+
+    n_events = CreateNano.n_events
+    merged_size = law.BytesParameter(
+        default=1024,
+        unit="MB",
+        description="approximate size of merged nano files; default unit is MB; default: 1024MB",
+    )
+
+    def workflow_requires(self):
+        reqs = super().workflow_requires()
+        reqs["nano"] = CreateNano.req(self)
+        reqs["sizes"] = CollectNanoSizes.req(self)
+        return reqs
+
+    @law.dynamic_workflow_condition
+    def workflow_condition(self):
+        return CollectNanoSizes.req(self).complete()
+
+    @workflow_condition.create_branch_map
+    def create_branch_map(self):
+        size_data = self.input().sizes.load(formatter="json")
+        if size_data["missing_branches"]:
+            raise ValueError(
+                f"cannot defined branch map when CollectNanoSizes reported missing branches, found "
+                f"{size_data['missing_branches']}",
+            )
+
+        # determine the number of files after merging, granting a 20% increase
+        n_merged_files = size_data["sum_sizes"] / (self.merged_size * 1024**2)
+        rnd = math.ceil if n_merged_files % 1.0 > 0.2 else math.floor
+        n_merged_files = max(int(rnd(n_merged_files)), 1)
+        merge_factor = max(math.floor(len(size_data["sizes"]) / n_merged_files), 1)
+
+        # build the branch map from a sequence
+        return list(law.util.iter_chunks(len(size_data["sizes"]), merge_factor))
+
+    @workflow_condition.requires
+    def requires(self):
+        return CreateNano.req_different_branching(
+            self,
+            branch=-1,
+            branches=tuple(self.branch_data),
+            workflow="local",
+        )
+
+    @workflow_condition.output
+    def output(self):
+        # when the input consists of only a single file, reuse its nano hash
+        col = self.input().collection
+        if len(col) == 1:
+            name = os.path.splitext(list(col.targets.values())[0].basename)[0]
+        else:
+            hash_parts = [[inp.basename for inp in col.targets.values()]]
+            if self.n_events >= 0:
+                hash_parts.append(f"n{self.n_events}")
+            name = nano_file_hash(hash_parts)
+
+        return self.target(f"{name}.root", cms_store=True)
+
+    @maybe_wait_for_dcache
+    def run(self):
+        # run in a tmp dir
+        tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
+        tmp_dir.touch()
+
+        # get input file paths
+        input_paths = [inp.abspath for inp in self.input().collection.targets.values()]
+
+        # hadd
+        output_path = tmp_dir.child("merged.root", type="f").abspath
+        law.root.hadd_task(
+            self,
+            input_paths,
+            output_path,
+            cwd=tmp_dir.abspath,
+            local=True,
+            hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
+        )
+
+        # move the output
+        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
+        # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
+        # otherwise let the configured target protocol handle the move
+        uri = self.output().uri(base_name="xrootd")
+        if law.target.file.get_scheme(uri) == "root":
+            self.publish_message("copying output via xrdcp")
+            cmd = f"xrdcp {output_path} {uri}"
+            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
+            if code == 0:
+                return
+        self.output().move_from_local(output_path)

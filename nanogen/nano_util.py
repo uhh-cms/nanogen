@@ -37,7 +37,7 @@ class DatasetInfo(object):
     name: str
     campaign: str
     campaign_version: str
-    dataset_version: str
+    dataset_version: str  # this is usually the GT for MC
     tier: str
     mc: bool
 
@@ -111,10 +111,11 @@ class SkimConfig(object):
         )
 
 
-def mini_to_nano_dataset(dataset_key: str, campaign_version_postfix: str | None = None) -> str:
+def mini_to_nano_dataset(dataset_key: str, campaign_postfix: str | None = None) -> str:
     """
     Converts a MiniAOD dataset key into a NanoAOD dataset key.
-    When *campaign_version_postfix* is given, it is appended to the campaign version.
+    When *campaign_postfix* is given, it is appended to the campaign name for mc, and to the
+    campaign version for data (to comply with CMS naming schemes ...).
     """
     # parse
     info = DatasetInfo.from_key(dataset_key)
@@ -122,9 +123,12 @@ def mini_to_nano_dataset(dataset_key: str, campaign_version_postfix: str | None 
     # update tier
     info = info.copy(tier="nano")
 
-    # update campaign version
-    if campaign_version_postfix:
-        info.campaign_version += f"_{campaign_version_postfix}"
+    # update campaign name or version
+    if campaign_postfix:
+        if info.data:
+            info.campaign_version += f"_{campaign_postfix}"
+        else:
+            info.campaign += f"_{campaign_postfix}"
 
     return info.dataset_key
 
