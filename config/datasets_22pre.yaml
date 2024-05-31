@@ -153,7 +153,7 @@ graviton_hh_ggf_bbtautau_m5000:
 # vbf graviton -> hh -> bbtautau
 #
 
-# TODO, not available for now
+# TODO, not existing for now
 
 #
 # ggf radion -> hh -> bbtautau
@@ -229,7 +229,7 @@ radion_hh_ggf_bbtautau_m5000:
 # vbf radion -> hh -> bbtautau
 #
 
-# TODO, not available for now
+# TODO, not existing for now
 
 #
 # ttbar
@@ -690,8 +690,14 @@ tth_bb:
 tth_nonbb:
   key: /TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v4/MINIAODSIM
 
-# zh_nunubb
-# ggzh_nunubb
+ggzh_nunubb:
+  key: /ggZH_Hto2B_Zto2Nu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
+ggzh_nunubb_ext1:
+  key: /ggZH_Hto2B_Zto2Nu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v3/MINIAODSIM
+
+# zh_nunubb not existing
+
 
 #
 # data
