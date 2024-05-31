@@ -218,11 +218,13 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 entry += f"            n_events={fmt_sum(n_events)},\n"
                 entry += "        ),\n"
             entry += "    ),\n"
+        entry += "    aux={\n"
+        merging_factor = len(reqs.nominal[self.dataset_name].branch_map[0])
+        entry += f"        \"nominal_merging_factor\": {merging_factor},\n"  # noqa: Q003
         if self.nano_info.data:
             era = self.dataset_name.split("_")[-1].upper()
-            entry += "    aux={\n"
             entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
-            entry += "    },\n"
+        entry += "    },\n"
         entry += ")"
 
         # save and print the entry
