@@ -667,3 +667,24 @@ tth_nonbb:
 
 data_e_c:
   key: /EGamma/Run2022C-22Sep2023-v1/MINIAOD
+
+data_e_d:
+  key: /EGamma/Run2022D-22Sep2023-v1/MINIAOD
+
+data_mu_c:
+  key: /Muon/Run2022C-22Sep2023-v1/MINIAOD
+
+data_mu_d:
+  key: /Muon/Run2022D-22Sep2023-v1/MINIAOD
+
+data_tau_c:
+  key: /Tau/Run2022C-22Sep2023-v1/MINIAOD
+
+data_tau_d:
+  key: /Tau/Run2022D-22Sep2023-v1/MINIAOD
+
+data_met_c:
+  key: /JetMET/Run2022C-19Dec2023-v1/MINIAOD
+
+data_met_d:
+  key: /JetMET/Run2022D-19Dec2023-v1/MINIAOD
