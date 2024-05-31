@@ -11,34 +11,28 @@ import operator
 
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import ConfigTask, wrapper_factory
-from nanogen.tasks.nano import NanoDatasetWorkflow, CreateNano
+from nanogen.tasks.base import ConfigTask, DatasetTask, wrapper_factory
+from nanogen.tasks.remote import RemoteWorkflow
+from nanogen.tasks.nano import MergeNano
 from nanogen.nano_util import iter_root_coffea_events
 from nanogen.util import maybe_wait_for_dcache
 
 
-class ReduceNano(NanoDatasetWorkflow):
+class ReduceNano(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
 
     task_namespace = "bbtt"
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
-        reqs.nano = CreateNano.req_different_branching(self)
+        reqs.nano = MergeNano.req_different_branching(self)
         return reqs
 
-    def lfns_per_task(self, n_lfns: int) -> int:
-        # handle all in one
-        return n_lfns
+    def create_branch_map(self):
+        # single branch, no branch data needed
+        return [None]
 
     def requires(self):
-        reqs = super().requires()
-        reqs.nano = CreateNano.req_different_branching(
-            self,
-            branch=-1,
-            workflow="local",
-            branches=tuple(self.branch_data),
-        )
-        return reqs
+        return MergeNano.req_different_branching(self, branch=-1, workflow="local")
 
     def output(self):
         return self.target(f"output_{self.branch}.parquet")
@@ -49,7 +43,7 @@ class ReduceNano(NanoDatasetWorkflow):
         import awkward as ak  # type: ignore[import-untyped]
 
         # prepare inputs
-        inputs = [inp for inp in self.input().nano.collection.targets.values()]
+        inputs = [inp for inp in self.input().collection.targets.values()]
         self.publish_message(f"processing {len(inputs)} input(s) ...")
         self.publish_progress(0)
 

@@ -15,6 +15,7 @@ source setup.sh ""
 ```mermaid
 flowchart TD
     CN([CreateNano])
+    MN([MergeNano])
     GetDatasetLFNs --> CN
     BundleRepo -- for remote<br />workflows --> CN
     CreateCMSRunConfig --> CN
@@ -22,10 +23,10 @@ flowchart TD
     FetchLFN --> FetchLFNWrapper
     CN ----> GenerateNanoDocs
     CN --> CollectNanoSizes
-    CollectNanoSizes --> MergeNano
-    CN --> MergeNano
-    MergeNano --> CreateDBEntry
-    CN -. custom ...-> bbtt.ReduceEvents
+    CollectNanoSizes --> MN
+    CN --> MN
+    MN --> CreateDBEntry
+    MN -. custom .-> bbtt.ReduceEvents
     ListDatasetStats
 ```
 
