@@ -620,9 +620,10 @@ w_lnu_pt600toinf_2j:
 # DY
 #
 
-# there are 3 different samples for DYM-50, the other are smaller and therefore not added
-dy_ll_m50toinf:
-  key: /DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer22MiniAODv4-forPOG_130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+# 2Jets in the name means that up to 2 jets are considered for the MLM matching
+# and it looks like this is the new default choice
+dy_ll_m4to10:
+  key: /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
 dy_ll_m10to50:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
@@ -630,8 +631,18 @@ dy_ll_m10to50:
 dy_ll_m10to50_ext1:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v1/MINIAODSIM
 
-# dy ll pt binned for 2jets and 4jets exist, not added
-# dy tautau do exist, not added
+dy_ll_m50toinf:
+  key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
+dy_ll_m50toinf_ext1:
+  key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v1/MINIAODSIM
+
+dy_ll_m50toinf_ext2:
+  key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext2-v2/MINIAODSIM
+
+# there are also njet- and pt-binned samples, but they are not added here, e.g.
+# /DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+# /DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
 #
 # di boson
