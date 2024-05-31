@@ -153,7 +153,7 @@ graviton_hh_ggf_bbtautau_m5000:
 # vbf graviton -> hh -> bbtautau
 #
 
-# TODO, not existing for now
+# not existing for now
 
 #
 # ggf radion -> hh -> bbtautau
@@ -229,7 +229,7 @@ radion_hh_ggf_bbtautau_m5000:
 # vbf radion -> hh -> bbtautau
 #
 
-# TODO, not existing for now
+# not existing for now
 
 #
 # ttbar
@@ -545,6 +545,12 @@ st_twchannel_tbar_fh_tune_down:
 st_twchannel_tbar_fh_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
+# st tchannel t systematics -> not existing
+
+# st tchannel tbar systematics -> not existing
+
+
 #
 # ttbar + X
 #
@@ -603,8 +609,6 @@ w_lnu_pt600_inf_1j:
 w_lnu_pt600_inf_2j:
   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-# wjets lnu HT gebinnt?
-
 # WToTauNu_M-200
 # WToMuNu_M-200
 
@@ -612,6 +616,7 @@ w_lnu_pt600_inf_2j:
 # DY
 #
 
+# there are 3 different samples for DYM-50, the other are smaller and therefore not added
 dy_ll_m50toinf:
   key: /DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer22MiniAODv4-forPOG_130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
@@ -621,7 +626,8 @@ dy_ll_m10to50:
 dy_ll_m10to50_ext1:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v1/MINIAODSIM
 
-# dy ll pt gebinnt?
+# dy ll pt binned for 2jets and 4jets exist, not added
+# dy tautau do exist, not added
 
 #
 # EWK
