@@ -1,5 +1,3 @@
-# TODO: change names processes with new convention (e.g. ggzh_llbb -> ggf_zh_zll_hbb)
-
 #
 # ggf hh -> bbtautau (LO)
 #
@@ -75,13 +73,10 @@ hh_vbf_bbtautau_cvm1p83_c2v3p57_c3m3p39:
 hh_vbf_bbtautau_cvm2p12_c2v3p87_c3m5p96:
   key: /VBFHHto2B2Tau_CV-m2p12_C2V-3p87_C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-# TODO: C2 stays c2, the other c become k
-
 #
 # ggf graviton -> hh -> bbtautau
 #
 
-# !!!!!! TODO: ggf_graviton_hh_hbb_htt_m250:
 graviton_hh_ggf_bbtautau_m250:
   key: /GluGlutoBulkGravitontoHHto2B2Tau_M-250_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
@@ -369,9 +364,9 @@ st_twchannel_t_dl:
 st_twchannel_t_dl_ext1:
   key: /TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v2/MINIAODSIM
 
-
 st_twchannel_tbar_dl:
   key: /TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
 
 st_twchannel_tbar_dl_ext1:
   key: /TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v2/MINIAODSIM
@@ -382,7 +377,6 @@ st_twchannel_t_fh:
 
 st_twchannel_t_fh_ext1:
   key: /TWminusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v2/MINIAODSIM
-
 
 st_twchannel_tbar_fh:
   key: /TbarWplusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
@@ -474,26 +468,34 @@ st_twchannel_t_dl_tune_up:
 st_twchannel_tbar_dl_hdamp_down:
   key: /TbarWplusto2L2Nu_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
 st_twchannel_tbar_dl_hdamp_up:
   key: /TbarWplusto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
 
 st_twchannel_tbar_dl_mtop_down:
   key: /TbarWplusto2L2Nu_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
 st_twchannel_tbar_dl_mtop_up:
   key: /TbarWplusto2L2Nu_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
 
 st_twchannel_tbar_dl_cr_1:
   key: /TbarWplusto2L2Nu_TuneCP5CR1_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
 st_twchannel_tbar_dl_cr_2:
   key: /TbarWplusto2L2Nu_TuneCP5CR2_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
 
 st_twchannel_tbar_dl_tune_down:
   key: /TbarWplusto2L2Nu_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
 st_twchannel_tbar_dl_tune_up:
   key: /TbarWplusto2L2Nu_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
 
 
 st_twchannel_t_fh_hdamp_down:
@@ -546,57 +548,82 @@ st_twchannel_tbar_fh_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
 
-# st tchannel t systematics
-
-# st tchannel tbar systematics
-
 #
 # ttbar + X
 #
 
-# TTWJetsToLNu
-# TTWJetsToQQ
-# TTZToLLNuNu
-# TTWW
-# TTZZ
-# TTWZ
 
+
+
+
+# TODO
 
 #
 # w + jets
 #
-
 w_lnu:
-  key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22*-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+  key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-# wjets lnu HT gebinnt?
+w_lnu_0j:
+  key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
-# WToTauNu_M-200
-# WToMuNu_M-200
+w_lnu_1j:
+  key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+w_lnu_2j:
+  key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
+w_lnu_pt40_100_1j:
+  key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt40_100_2j:
+  key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
+
+w_lnu_pt100_200_1j:
+  key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt100_200_2j:
+  key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt200_400_1j:
+  key: /WtoLNu-2Jets_PTLNu-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
+
+w_lnu_pt200_400_2j:
+  key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt400_600_1j:
+  key: /WtoLNu-2Jets_PTLNu-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt400_600_2j:
+  key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt600_inf_1j:
+  key: /WtoLNu-2Jets_PTLNu-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
+
+w_lnu_pt600_inf_2j:
+  key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
 #
 # DY
 #
 
-dy_ll_m50toinf:
+dy_ll_m50:
   key: /DYJetsToLL_M-50_TuneCP5_13p6TeV-madgraphMLM-pythia8/Run3Summer22MiniAODv4-forPOG_130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-dy_ll_m10to50:
+dy_lep_m10to50:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-dy_ll_m10to50_ext1:
+dy_lep_m10to50_ext1:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v1/MINIAODSIM
 
-# dy ll pt gebinnt?
 
 #
 # EWK
 #
 
-# ewk wminus lnu
-# ewk wplus lnu
-# ewk z ll
+
+
+# TODO
 
 #
 # multi boson
@@ -611,27 +638,7 @@ wz:
 zz:
   key: /ZZ_TuneCP5_13p6TeV_pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-# www
 
-# wwz
-
-# wzz
-
-# zzz
-
-
-# ZZTo2L2Nu
-# ZZTo2Q2L
-# ZZTo2Q2Nu
-# ZZTo2Nu2Q_5f
-# ZZTo4L
-# ZZTo4Q
-# WWTo1L1Nu2Q
-# WWTo2L2Nu
-# WWTo4Q
-# WZTo1L1Nu2Q
-# WZTo2Q2L
-# WZTo3LNu
 
 #
 # higgs
@@ -705,24 +712,3 @@ ggzh_nunubb_ext1:
 
 data_e_c:
   key: /EGamma/Run2022C-22Sep2023-v1/MINIAOD
-
-data_e_d:
-  key: /EGamma/Run2022D-22Sep2023-v1/MINIAOD
-
-data_mu_c:
-  key: /Muon/Run2022C-22Sep2023-v1/MINIAOD
-
-data_mu_d:
-  key: /Muon/Run2022D-22Sep2023-v1/MINIAOD
-
-data_tau_c:
-  key: /Tau/Run2022C-22Sep2023-v1/MINIAOD
-
-data_tau_d:
-  key: /Tau/Run2022D-22Sep2023-v1/MINIAOD
-
-data_met_c:
-  key: /JetMET/Run2022C-19Dec2023-v1/MINIAOD
-
-data_met_d:
-  key: /JetMET/Run2022D-19Dec2023-v1/MINIAOD
