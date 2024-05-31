@@ -552,16 +552,23 @@ st_twchannel_tbar_fh_tune_up:
 
 
 #
-# ttbar + X
+# ttbar + V
 #
 
-# TTWJetsToLNu
-# TTWJetsToQQ
-# TTZToLLNuNu
-# TTWW
-# TTZZ
-# TTWZ
+# tt_w not existing
+# tt_z not existing
 
+#
+# ttbar + VV
+#
+
+tt_ww:
+  key: /TTWW_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
+# tt_wz not existing
+
+tt_zz:
+  key: /TTZZ_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
 #
 # w + jets
@@ -579,38 +586,35 @@ w_lnu_1j:
 w_lnu_2j:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-w_lnu_pt40_100_1j:
+w_lnu_pt40to100_1j:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt40_100_2j:
+w_lnu_pt40to100_2j:
   key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
-w_lnu_pt100_200_1j:
+w_lnu_pt100to200_1j:
   key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt100_200_2j:
+w_lnu_pt100to200_2j:
   key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt200_400_1j:
+w_lnu_pt200to400_1j:
   key: /WtoLNu-2Jets_PTLNu-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
-w_lnu_pt200_400_2j:
+w_lnu_pt200to400_2j:
   key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt400_600_1j:
+w_lnu_pt400to600_1j:
   key: /WtoLNu-2Jets_PTLNu-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt400_600_2j:
+w_lnu_pt400to600_2j:
   key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt600_inf_1j:
+w_lnu_pt600toinf_1j:
   key: /WtoLNu-2Jets_PTLNu-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
 
-w_lnu_pt600_inf_2j:
+w_lnu_pt600toinf_2j:
   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v1/MINIAODSIM
-
-# WToTauNu_M-200
-# WToMuNu_M-200
 
 #
 # DY
