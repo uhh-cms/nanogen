@@ -1,5 +1,5 @@
 #
-# hh -> bbtautau (LO)
+# ggf hh -> bbtautau (LO)
 #
 
 hh_ggf_bbtautau_kl0_kt1_c20:
@@ -31,8 +31,15 @@ hh_ggf_bbtautau_kl2p45_kt1_c20:
 hh_ggf_bbtautau_kl5_kt1_c20:
   key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+
 #
-# graviton -> hh -> bbtautau
+# vbf hh -> bbtautau (LO)
+#
+
+# TODO
+
+#
+# ggf graviton -> hh -> bbtautau
 #
 
 graviton_hh_ggf_bbtautau_m250:
@@ -101,8 +108,15 @@ graviton_hh_ggf_bbtautau_m4000:
 graviton_hh_ggf_bbtautau_m5000:
   key: /GluGlutoBulkGravitontoHHto2B2Tau_M-5000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
+
 #
-# radion -> hh -> bbtautau
+# vbf graviton -> hh -> bbtautau
+#
+
+# TODO
+
+#
+# ggf radion -> hh -> bbtautau
 #
 
 radion_hh_ggf_bbtautau_m250:
@@ -172,6 +186,12 @@ radion_hh_ggf_bbtautau_m5000:
   key: /GluGlutoRadiontoHHto2B2Tau_M-5000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
 
 #
+# vbf radion -> hh -> bbtautau
+#
+
+# TODO
+
+#
 # ttbar
 #
 
@@ -222,6 +242,13 @@ dy_ll_m50:
 
 #
 # multi boson
+#
+
+# TODO
+
+
+#
+# higgs
 #
 
 # TODO
