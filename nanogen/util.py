@@ -55,6 +55,15 @@ class DCacheTarget(law.FileSystemTarget):
 
         return (), parent_kwargs
 
+    def _wait_for_local(self, missing=False):
+        sleep_counter = 0
+        while self.local.exists() == missing:
+            time.sleep(1.0)
+            sleep_counter += 1
+            if sleep_counter >= 90:
+                state = "disappear" if missing else "exist"
+                raise Exception(f"timeout while waiting for local file to {state}")
+
     @property
     def dirname(self):
         return self.local.dirname
@@ -78,7 +87,9 @@ class DCacheTarget(law.FileSystemTarget):
         return self.local.exists(*args, **kwargs) or self.wlcg.exists(*args, **kwargs)
 
     def remove(self, *args, **kwargs):
-        return self.wlcg.remove(*args, **kwargs)
+        ret = self.wlcg.remove(*args, **kwargs)
+        self._wait_for_local(missing=True)
+        return ret
 
     def chmod(self, *args, **kwargs):
         return self.wlcg.chmod(*args, **kwargs)
@@ -114,13 +125,19 @@ class DCacheTarget(law.FileSystemTarget):
         )
 
     def copy_from(self, *args, **kwargs):
-        return self.wlcg.copy_from(*args, **kwargs)
+        ret = self.wlcg.copy_from(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
     def move_to(self, *args, **kwargs):
-        return self.wlcg.move_to(*args, **kwargs)
+        ret = self.wlcg.move_to(*args, **kwargs)
+        self._wait_for_local(missing=True)
+        return ret
 
     def move_from(self, *args, **kwargs):
-        return self.wlcg.move_from(*args, **kwargs)
+        ret = self.wlcg.move_from(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
     def copy_to_local(self, *args, **kwargs):
         return (
@@ -130,20 +147,29 @@ class DCacheTarget(law.FileSystemTarget):
         )
 
     def copy_from_local(self, *args, **kwargs):
-        return self.wlcg.copy_from_local(*args, **kwargs)
+        ret = self.wlcg.copy_from_local(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
     def move_to_local(self, *args, **kwargs):
-        return self.wlcg.move_to_local(*args, **kwargs)
+        ret = self.wlcg.move_to_local(*args, **kwargs)
+        self._wait_for_local(missing=True)
+        return ret
 
     def move_from_local(self, *args, **kwargs):
-        return self.wlcg.move_from_local(*args, **kwargs)
+        ret = self.wlcg.move_from_local(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
     def localize(self, mode="r", **kwargs):
-        return (
+        ret = (
             self.local.localize(mode, **kwargs)
             if mode == "r" and self.local.exists()
             else self.wlcg.localize(mode, **kwargs)
         )
+        if mode == "w":
+            self._wait_for_local()
+        return ret
 
     def load(self, *args, **kwargs):
         return (
@@ -153,7 +179,9 @@ class DCacheTarget(law.FileSystemTarget):
         )
 
     def dump(self, *args, **kwargs):
-        return self.wlcg.dump(*args, **kwargs)
+        ret = self.wlcg.dump(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
 
 class DCacheFileTarget(law.FileSystemFileTarget, DCacheTarget):
@@ -179,14 +207,19 @@ class DCacheFileTarget(law.FileSystemFileTarget, DCacheTarget):
         super().__init__(path, wlcg_fs, local_fs, **kwargs)
 
     def touch(self, *args, **kwargs):
-        return self.wlcg.touch(*args, **kwargs)
+        ret = self.wlcg.touch(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
     def open(self, mode, **kwargs):
-        return (
+        ret = (
             self.local.open(mode, **kwargs)
             if mode == "r" and self.local.exists()
             else self.wlcg.open(mode, **kwargs)
         )
+        if mode == "w":
+            self._wait_for_local()
+        return ret
 
 
 class DCacheDirectoryTarget(law.FileSystemDirectoryTarget, DCacheTarget):
@@ -250,7 +283,9 @@ class DCacheDirectoryTarget(law.FileSystemDirectoryTarget, DCacheTarget):
         )
 
     def touch(self, *args, **kwargs):
-        return self.wlcg.touch(*args, **kwargs)
+        ret = self.wlcg.touch(*args, **kwargs)
+        self._wait_for_local()
+        return ret
 
 
 DCacheTarget.file_class = DCacheFileTarget
