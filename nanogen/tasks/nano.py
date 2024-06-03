@@ -102,7 +102,10 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
         # get the lfns target
         lfns_input = self.requires().lfns.output().lfns
         if not lfns_input.exists():
-            raise Exception(f"{self.task_family} requires GetDatasetLFNs to be already complete")
+            raise Exception(
+                f"{self.task_family} requires GetDatasetLFNs for dataset {self.dataset_name} to be "
+                "already complete",
+            )
 
         # load lfn list
         lfns = lfns_input.load(formatter="json")
@@ -232,8 +235,14 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
                 continue
             # locate it
             try:
-                lfn_locations = locate_lfn(lfn, logger=self.logger)
+                lfn_locations = locate_lfn(lfn, per_site=1, logger=self.logger)
             except MissingLFNException:
+                continue
+            # hotfix: usually, cmssw tries to open files on the local site if they exist, but for
+            # some reason, the dcache reports that - actually existing - files are missing when
+            # queried via dcap:// which seems to be the default protocol for cmssw's local lookup
+            if lfn_locations and lfn_locations[0].site == "T2_DE_DESY":
+                input_files[-1] = lfn_locations[0].pfn
                 continue
             # select only xrootd locations
             lfn_locations = list(filter((lambda l: l.scheme == "root"), lfn_locations))
@@ -410,11 +419,11 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
                 f"{size_data['missing_branches']}",
             )
 
-        # determine the number of files after merging, granting a 20% increase
+        # determine the number of files after merging, allowing a possible ~20% increase per file
         n_merged_files = size_data["sum_sizes"] / (self.merged_size * 1024**2)
         rnd = math.ceil if n_merged_files % 1.0 > 0.2 else math.floor
         n_merged_files = max(int(rnd(n_merged_files)), 1)
-        merge_factor = max(math.floor(len(size_data["sizes"]) / n_merged_files), 1)
+        merge_factor = max(math.ceil(len(size_data["sizes"]) / n_merged_files), 1)
 
         # build the branch map from a sequence
         return list(law.util.iter_chunks(len(size_data["sizes"]), merge_factor))

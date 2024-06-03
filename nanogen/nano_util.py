@@ -286,6 +286,7 @@ def resolve_lfn_to_site(lfn: str, site: str) -> list[str]:
                 # when there is a prefix defined, use it as is if it's not nocal
                 if get_scheme(proto_entry["prefix"]) == "file":
                     continue
+                # prepend the prefix and store it
                 proto_pfns.append(proto_entry["prefix"] + lfn)
 
             elif "rules" in proto_entry:
@@ -299,11 +300,11 @@ def resolve_lfn_to_site(lfn: str, site: str) -> list[str]:
                         proto_pfns.append(re.sub(rule["lfn"], rule["pfn"].replace("$", "\\"), lfn))
                         break
 
-            # opinionated sorting: place xrootd first
-            xrootd_pfns = [pfn for pfn in proto_pfns if get_scheme(pfn) == "root"]
-            proto_pfns = list(filter((lambda pfn: pfn not in xrootd_pfns), proto_pfns))
+        # opinionated sorting: root > davs > others
+        scheme_order = {"root": 0, "davs": 1}
+        proto_pfns.sort(key=lambda pfn: scheme_order.get(get_scheme(pfn), 2))
 
-            pfns.extend(xrootd_pfns)
+        pfns.extend(proto_pfns)
 
     return pfns
 
@@ -358,7 +359,7 @@ class LFNLocation(object):
 def locate_lfn(
     lfn: str,
     locations: str | list[str] | None = None,
-    enable_xrd: bool = True,
+    per_site: int = -1,
     logger: logging.Logger | Callable | None = None,
 ) -> list[LFNLocation]:
     # prepare logging
@@ -386,7 +387,9 @@ def locate_lfn(
         # site, fs, or a schemed prefix (e.g. root://...)?
         if re.match(r"^T[0-9]_\w{2}_.+$", location):
             # expand available protocols
-            for pfn in resolve_lfn_to_site(lfn, location):
+            for i, pfn in enumerate(resolve_lfn_to_site(lfn, location)):
+                if per_site >= 0 and i >= per_site:
+                    break
                 lfn_locations.append(LFNLocation(lfn=lfn, pfn=pfn, site=location))
         elif has_scheme(location):
             lfn_locations.append(LFNLocation(lfn=lfn, pfn=location + lfn))
@@ -441,7 +444,7 @@ def fetch_lfn(
     # locate the lfn
     lfn_locations = _lfn_locations
     if not lfn_locations:
-        lfn_locations = locate_lfn(lfn, locations=locations, enable_xrd=enable_xrd, logger=logger)
+        lfn_locations = locate_lfn(lfn, locations=locations, logger=logger)
 
     # when there is a local location, just return the path
     for lfn_location in lfn_locations:
