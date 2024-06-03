@@ -86,6 +86,10 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         default=False,
         description="whether to skip systematic shifts; default: False",
     )
+    skip_extensions = luigi.BoolParameter(
+        default=False,
+        description="whether to skip dataset extensions; default: False",
+    )
 
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
@@ -101,17 +105,18 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
 
     def requires(self):
-        def include_extensions(dataset_name):
+        def maybe_include_extensions(dataset_name):
             yield dataset_name
-            for _dataset_name in self.datasets:
-                if re.match(rf"^{dataset_name}_ext\d+$", _dataset_name):
-                    yield _dataset_name
+            if not self.skip_extensions:
+                for _dataset_name in self.datasets:
+                    if re.match(rf"^{dataset_name}_ext\d+$", _dataset_name):
+                        yield _dataset_name
 
         # nominal dataset, plus extensions
         reqs = law.util.DotDict.wrap({
             "nominal": {
                 dataset_name: MergeNano.req(self, dataset_name=dataset_name)
-                for dataset_name in include_extensions(self.dataset_name)
+                for dataset_name in maybe_include_extensions(self.dataset_name)
             },
         })
 
@@ -123,13 +128,19 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 shift_name = "_".join(m.groups())
                 reqs[shift_name] = {
                     _dataset_name: MergeNano.req(self, dataset_name=_dataset_name)
-                    for _dataset_name in include_extensions(dataset_name)
+                    for _dataset_name in maybe_include_extensions(dataset_name)
                 }
 
         return reqs
 
     def output(self):
-        return self.target(f"cmsdb_entry{'_noshifts' if self.skip_shifts else ''}.txt")
+        postfixes = []
+        if self.skip_shifts:
+            postfixes.append("noshifts")
+        if self.skip_extensions:
+            postfixes.append("noext")
+        postfix = ("_" + "_".join(postfixes)) if postfixes else ""
+        return self.target(f"cmsdb_entry{postfix}.txt")
 
     @law.decorator.log
     def run(self):
