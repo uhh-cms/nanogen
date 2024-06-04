@@ -521,6 +521,8 @@ def customize_nano_process(
     report_every: int = 500,
     want_summary: bool = False,
     max_events: int = -1,
+    start_event: int = 0,
+    skip_events: list[tuple[int, int] | tuple[int, int, int]] | None = None,
     custom_hook: tuple[str, str] | None = None,
     custom_kwargs: dict[str, Any] | None = None,
 ):
@@ -539,6 +541,18 @@ def customize_nano_process(
             )
             for input_file in input_files
         ])
+
+    # start the start event index
+    if start_event > 0:
+        process.source.skipEvents = cms.untracked.uint32(start_event)
+        print(f"start processing after event index {start_event}")
+
+    # set specific events to be skipped
+    if skip_events:
+        # https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuidePoolInputSources#Example_6_Selecting_Input_Lumi_B  # noqa
+        fmt_range = lambda t: f"{t[0]}:{t[1]}-{t[0]}:{t[2 if len(t) == 3 else 1]}"
+        process.source.eventsToSkip = cms.untracked.VEventRange(*map(fmt_range, skip_events))
+        print(f"skipping events {process.source.eventsToSkip.value()}")
 
     # set output file
     out_module = process.NANOAODSIMoutput if dataset_kind == "mc" else process.NANOAODoutput

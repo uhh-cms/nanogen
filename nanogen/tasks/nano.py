@@ -159,6 +159,12 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         "this only works for xrootd targets since gfal plugins fail inside the cmssw sandbox; "
         "when 'auto', only lfns located at sites known to be unstable are prefetched; default: auto",
     )
+    skip_events = law.MultiCSVParameter(
+        default=(),
+        significant=False,
+        description="colon-separated events to skip, each one in the format "
+        "'run_number,event_number[,end_event_number]'; empty default",
+    )
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -282,6 +288,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             output_file="nano.root",
             compression=("ZSTD", 1),
             max_events=self.n_events,
+            skip_events=list(self.skip_events) or None,
             custom_hook=custom_hook,
             custom_kwargs=dict(custom_kwargs),
         )
