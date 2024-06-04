@@ -132,12 +132,6 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
     def requires(self):
         return law.util.DotDict({"lfns": GetDatasetLFNs.req(self)})
 
-    def htcondor_destination_info(self, info):
-        info = super().htcondor_destination_info(info)
-        info["config"] = self.config_name
-        info["dataset"] = self.dataset_name
-        return info
-
 
 class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 

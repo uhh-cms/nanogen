@@ -190,6 +190,14 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         # remote jobs should not communicate with ther central scheduler but with a local one
         return True
 
+    def htcondor_destination_info(self, info):
+        info = super().htcondor_destination_info(info)
+        if getattr(self, "config_name", None):
+            info["config"] = self.config_name
+        if getattr(self, "dataset_name", None):
+            info["dataset"] = self.dataset_name
+        return info
+
 
 default_slurm_flavor = law.config.get_expanded("analysis", "slurm_flavor", "maxwell")
 default_slurm_partition = law.config.get_expanded("analysis", "slurm_partition", "cms-uhh")
@@ -290,6 +298,14 @@ class SlurmWorkflow(Task, law.slurm.SlurmWorkflow):
         config.render_variables["law_job_tmp"] = "/tmp/law_$( basename \"$LAW_JOB_HOME\" )"  # noqa
 
         return config
+
+    def slurm_destination_info(self, info):
+        info = super().slurm_destination_info(info)
+        if getattr(self, "config_name", None):
+            info["config"] = self.config_name
+        if getattr(self, "dataset_name", None):
+            info["dataset"] = self.dataset_name
+        return info
 
 
 class RemoteWorkflow(HTCondorWorkflow, SlurmWorkflow):
