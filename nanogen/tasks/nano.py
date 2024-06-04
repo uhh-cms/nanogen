@@ -349,7 +349,15 @@ CreateNanoWrapper = wrapper_factory(
 
 class CollectNanoSizes(DatasetTask):
 
+    workflow = luigi.Parameter(
+        default=law.NO_STR,
+        significant=False,
+        description="just for paramter forwarding purposes; do not use",
+    )
+    effective_workflow = workflow
     user = user_parameter
+
+    exclude_params_cli = {"workflow", "effective_workflow"}
 
     def requires(self):
         return CreateNano.req(self)
