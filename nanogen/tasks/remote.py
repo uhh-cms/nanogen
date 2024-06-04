@@ -91,7 +91,7 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
     )
 
     exclude_params_branch = {"max_runtime", "htcondor_logs", "htcondor_memory", "htcondor_flavor"}
-
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -105,6 +105,9 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         reqs["repo"].checksum
 
         return reqs
+    
+    def htcondor_resources(self):
+        return {"{}_htcondor_{}".format(self.htcondor_flavor, os.environ["USER"]): 4}
 
     def htcondor_output_directory(self):
         # the directory where submission meta data and logs should be stored
@@ -313,3 +316,6 @@ class RemoteWorkflow(HTCondorWorkflow, SlurmWorkflow):
     """
     Workflow that can be submitted to a remote batch system like HTCondor or Slurm.
     """
+    # @property
+    # def resources(self):
+    #     return super(RemoteWorkflow, self).resources

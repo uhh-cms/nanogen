@@ -163,6 +163,12 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         "'run_number,event_number[,end_event_number]'; empty default",
     )
 
+    @property
+    def resources(self):
+        from IPython import embed
+        embed(header="resources in CreateNano")
+        return super().resources
+    
     def workflow_requires(self):
         reqs = super().workflow_requires()
         reqs.cfg = CreateCMSRunConfig.req(
