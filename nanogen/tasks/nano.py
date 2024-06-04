@@ -490,3 +490,11 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
             if code == 0:
                 return
         self.output().move_from_local(output_path)
+
+
+MergeNanoWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=MergeNano,
+    cls_name="MergeNanoWrapper",
+    enable=["datasets", "skip_datasets"],
+)
