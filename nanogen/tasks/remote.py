@@ -10,7 +10,7 @@ import math
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import Task
+from nanogen.tasks.base import Task, user_parameter
 
 
 class BundleRepo(Task, law.git.BundleGitRepository, law.tasks.TransferLocalFile):
@@ -19,8 +19,9 @@ class BundleRepo(Task, law.git.BundleGitRepository, law.tasks.TransferLocalFile)
         default=3,
         description="number of replicas to generate; default: 3",
     )
-    version = None
+    user = user_parameter
 
+    version = None
     exclude_files = [".law", ".github"]
 
     def get_repo_path(self):

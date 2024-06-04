@@ -9,6 +9,7 @@ from __future__ import annotations
 import os
 import re
 import enum
+import getpass
 import inspect
 from typing import Type, Callable
 
@@ -23,6 +24,14 @@ from nanogen.util import (
 
 default_config = law.config.get_expanded("analysis", "default_config")
 default_dataset = law.config.get_expanded("analysis", "default_dataset")
+
+
+user_parameter = luigi.Parameter(
+    default=getpass.getuser(),
+    description="the user running the current task, mainly for central schedulers to distinguish "
+    "between tasks that should or should not be run in parallel by multiple users; "
+    "default: current user",
+)
 
 
 class OutputLocation(enum.Enum):
@@ -473,6 +482,8 @@ def wrapper_factory(
                 description="names or name patterns of datasets to skip; empty default",
                 brace_expand=True,
             )
+
+        user = user_parameter
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)

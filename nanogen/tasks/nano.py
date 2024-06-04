@@ -13,7 +13,9 @@ import urllib.parse
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory
+from nanogen.tasks.base import (
+    ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+)
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
 from nanogen.nano_util import (
@@ -39,6 +41,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         description="the global tag to use; when empty, the global tag defined in the config is "
         "used; empty default",
     )
+    user = user_parameter
 
     # versioning not required
     version = None
@@ -345,6 +348,8 @@ CreateNanoWrapper = wrapper_factory(
 
 
 class CollectNanoSizes(DatasetTask):
+
+    user = user_parameter
 
     def requires(self):
         return CreateNano.req(self)

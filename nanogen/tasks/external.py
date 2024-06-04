@@ -11,7 +11,7 @@ from multiprocessing.dummy import Pool as ThreadPool
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory
+from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory, user_parameter
 from nanogen.nano_util import (
     das_query, load_dataset_stats, locate_lfn, fetch_lfn, sort_sites_opinionated,
     MissingLFNException,
@@ -42,6 +42,7 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
         significant=False,
         description="the format of the 'tabular' table; default: fancy_grid",
     )
+    user = user_parameter
 
     version = None
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
@@ -142,6 +143,7 @@ class GetDatasetLFNs(DatasetTask):
         description="whether to validate the presence of every lfn in the dataset and remove them "
         "in case they are not available; default: False",
     )
+    user = user_parameter
 
     version = None
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
@@ -230,6 +232,7 @@ class FetchLFN(Task):
     )
     locations = law.CSVParameter(
         default=(),
+        significant=False,
         description="comma-separated locations to fetch the lfn from; can refer to a 'fs' in the "
         "law config, an uri of a location (including protocol), or a site name (e.g. T2_DE_DESY); "
         "when empty, DAS is queried for locations; no default",
@@ -279,6 +282,7 @@ class FetchLFNWrapper(Task, law.WrapperTask):
         "when only a single sequence is passed, it is used for all lfns; otherwise, the number of "
         "sequences must match the number of lfns; no default",
     )
+    user = user_parameter
 
     version = None
 

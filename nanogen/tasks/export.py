@@ -12,13 +12,17 @@ import re
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory
+from nanogen.tasks.base import (
+    ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+)
 from nanogen.tasks.nano import CreateNano, MergeNano
 from nanogen.nano_util import load_dataset_stats, mini_to_nano_dataset, load_lfn_stats
 from nanogen.util import expand_path
 
 
 class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
+
+    user = user_parameter
 
     def requires(self):
         return CreateNano.req(self, branch=0)
@@ -90,6 +94,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         default=False,
         description="whether to skip dataset extensions; default: False",
     )
+    user = user_parameter
 
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
