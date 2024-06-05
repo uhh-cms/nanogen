@@ -163,6 +163,10 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         "'run_number,event_number[,end_event_number]'; empty default",
     )
 
+    # change the priority value to 10 (from the default 0) so that this task
+    # is executed before other tasks when interacting with a central scheduler
+    priority = 10
+
     def workflow_requires(self):
         reqs = super().workflow_requires()
         reqs.cfg = CreateCMSRunConfig.req(
