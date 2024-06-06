@@ -6,6 +6,7 @@ Base classes and tools for working with remote tasks and targets.
 
 import os
 import math
+import getpass
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -91,6 +92,9 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
     )
 
     exclude_params_branch = {"max_runtime", "htcondor_logs", "htcondor_memory", "htcondor_flavor"}
+
+    # TODO: implement live resources
+    resources = {f"naf_{getpass.getuser()}": 1}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
