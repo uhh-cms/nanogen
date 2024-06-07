@@ -361,6 +361,8 @@ class CollectNanoSizes(DatasetTask):
     effective_workflow = workflow
     user = user_parameter
 
+    priority = 15
+
     exclude_params_cli = {"workflow", "effective_workflow"}
 
     def requires(self):

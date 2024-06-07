@@ -346,6 +346,9 @@ st_twchannel_t_fh_powheg:
 
 st_twchannel_t_fh_powheg_ext1:
   key: /TWminusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v2/MINIAODSIM
+  skip_lfns:
+    # corrupt file, lzma decompression error
+    - /store/mc/Run3Summer22MiniAODv4/TWminusto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_v5_ext1-v2/50000/b4eb6ca4-0652-4149-9b50-f790b57e40e4.root
 
 st_twchannel_tbar_fh_powheg:
   key: /TbarWplusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
@@ -680,6 +683,8 @@ data_tau_c:
 data_tau_d:
   key: /Tau/Run2022D-22Sep2023-v1/MINIAOD
 
+# misses around 901 events in LFN at index 742 due to a lzma compression error
+# but no lumi adjustment is needed as this would be a change behind the 5th or 6th digit
 data_met_c:
   key: /JetMET/Run2022C-19Dec2023-v1/MINIAOD
 
