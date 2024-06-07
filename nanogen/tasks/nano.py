@@ -93,7 +93,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         self.output().copy_from_local(tmp_dir.child("NANO_NANO.py"))
 
 
-class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
+class NanoDatasetWorkflow(DatasetTask, RemoteWorkflow, law.LocalWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -361,7 +361,7 @@ class CollectNanoSizes(DatasetTask):
     effective_workflow = workflow
     user = user_parameter
 
-    priority = 15
+    priority = 5
 
     exclude_params_cli = {"workflow", "effective_workflow"}
 
@@ -411,7 +411,7 @@ CollectNanoSizesWrapper = wrapper_factory(
 )
 
 
-class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow):
+class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow):
 
     n_events = CreateNano.n_events
     merged_size = law.BytesParameter(
