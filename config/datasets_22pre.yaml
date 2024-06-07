@@ -475,19 +475,19 @@ st_twchannel_tbar_fh_powheg_tune_up:
 # ttbar + V
 #
 
-# tt_w not existing
-# tt_z not existing
+# ttw not existing
+# ttz not existing
 
 #
 # ttbar + VV
 #
 
-tt_ww_madgraph:
+ttww_madgraph:
   key: /TTWW_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-# tt_wz not existing
+# ttwz not existing
 
-tt_zz_madgraph:
+ttzz_madgraph:
   key: /TTZZ_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
 #
