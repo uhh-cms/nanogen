@@ -93,14 +93,15 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
 
     exclude_params_branch = {"max_runtime", "htcondor_logs", "htcondor_memory", "htcondor_flavor"}
 
-    # TODO: implement live resources
-    resources = {f"naf_{getpass.getuser()}": 1}
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # cached BundleRepo requirement to avoid race conditions during checksum calculation
         self.bundle_repo_req = BundleRepo.req(self)
+
+    def htcondor_job_resources(self, job_num, branches):
+        # one "naf_<username>" resource per job, indendent of the number of branches in the job
+        return {f"naf_{getpass.getuser()}": 1}
 
     def htcondor_workflow_requires(self):
         reqs = law.htcondor.HTCondorWorkflow.htcondor_workflow_requires(self)

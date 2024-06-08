@@ -253,7 +253,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             era = self.dataset_name.split("_")[-1].upper()
             entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
         entry += "    },\n"
-        entry += ")"
+        entry += ")\n"
 
         # save and print the entry
         self.output().dump(entry, formatter="text")
