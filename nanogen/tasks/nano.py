@@ -415,9 +415,9 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
 
     n_events = CreateNano.n_events
     merged_size = law.BytesParameter(
-        default=1024,
+        default=2048,
         unit="MB",
-        description="approximate size of merged nano files; default unit is MB; default: 1024MB",
+        description="approximate size of merged nano files; default unit is MB; default: 2048MB",
     )
 
     def workflow_requires(self):
@@ -459,15 +459,10 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
 
     @workflow_condition.output
     def output(self):
-        # when the input consists of only a single file, reuse its nano hash
-        col = self.input().collection
-        if len(col) == 1:
-            name = os.path.splitext(list(col.targets.values())[0].basename)[0]
-        else:
-            hash_parts = [[inp.basename for inp in col.targets.values()]]
-            if self.n_events >= 0:
-                hash_parts.append(f"n{self.n_events}")
-            name = nano_file_hash(hash_parts)
+        hash_parts = [[inp.basename for inp in self.input().collection.targets.values()]]
+        if self.n_events >= 0:
+            hash_parts.append(f"n{self.n_events}")
+        name = nano_file_hash(hash_parts)
 
         return self.target(f"{name}.root", cms_store=True)
 

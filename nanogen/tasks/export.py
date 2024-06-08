@@ -203,6 +203,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if self.nano_info.data:
             entry += "    is_data=True,\n"
         entry += f"    processes=[procs.{process_name}],\n"
+        # keys, n_files and n_events, depending on wether the dataset has variations
         if set(inputs.keys()) == {"nominal"}:
             # prepare values
             n_files, n_events = law.util.unzip([
@@ -234,9 +235,20 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 entry += f"            n_events={fmt_sum(n_events)},\n"
                 entry += "        ),\n"
             entry += "    ),\n"
+        # auxiliary info
         entry += "    aux={\n"
-        merging_factor = len(reqs.nominal[self.dataset_name].branch_map[0])
-        entry += f"        \"nominal_merging_factor\": {merging_factor},\n"  # noqa: Q003
+        # merging factors
+        entry += "        \"merging_factors\": {\n"  # noqa: Q003
+        for shift_name, _reqs in reqs.items():
+            for i, (dataset_name, req) in enumerate(_reqs.items()):
+                factor = len(req.branch_map[0])
+                key = shift_name
+                # add extension postfix
+                if i > 0:
+                    key += f"_{dataset_name.rsplit('_', 1)[-1]}"
+                entry += f"            \"{key}\": {factor},\n"  # noqa: Q003
+        entry += "        },\n"
+        # data era
         if self.nano_info.data:
             era = self.dataset_name.split("_")[-1].upper()
             entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003

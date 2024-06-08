@@ -189,6 +189,12 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         ]:
             config.render_variables[var.lower()] = os.environ[var]
 
+        # batch name for display in condor_q
+        batch_name = self.task_family
+        if (dataset_name := getattr(self, "dataset_name", None)):
+            batch_name += f"_{dataset_name}"
+        config.custom_content.append(("batch_name", batch_name))
+
         return config
 
     def htcondor_use_local_scheduler(self):
