@@ -3,16 +3,16 @@
 #
 
 # for this SM sample, there is also a version without LHE weights but its way smaller
-hh_ggf_hbb_htt_kl1_kt1_c20_powheg:
+hh_ggf_hbb_htt_kl1_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-hh_ggf_hbb_htt_kl0_kt1_c20_powheg:
+hh_ggf_hbb_htt_kl0_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-hh_ggf_hbb_htt_kl2p45_kt1_c20_powheg:
+hh_ggf_hbb_htt_kl2p45_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-2p45_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-hh_ggf_hbb_htt_kl5_kt1_c20_powheg:
+hh_ggf_hbb_htt_kl5_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
 hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
@@ -326,7 +326,7 @@ st_twchannel_t_sl_powheg_ext1:
 st_twchannel_tbar_sl_powheg:
   key: /TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-st_twchannel_tbar_sl_powheg_ex1:
+st_twchannel_tbar_sl_powheg_ext1:
   key: /TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5_ext1-v2/MINIAODSIM
 
 st_twchannel_t_dl_powheg:
