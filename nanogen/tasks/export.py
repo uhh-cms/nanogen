@@ -191,7 +191,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if self.nano_info.data:
             process_name = "_".join(self.dataset_name.split("_")[:2])
         else:
-            process_name = re.sub(r"_(powheg|madgraph|amcatnlo)$", "", self.dataset_name)
+            process_name = re.sub(r"_(powheg|madgraph|amcatnlo|pythia)$", "", self.dataset_name)
 
         # helper to format summation of numbers
         fmt_sum = lambda nums: " + ".join(f"{n:_}" for n in nums)
