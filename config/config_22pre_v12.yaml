@@ -9,8 +9,8 @@
 #   - https://docs.google.com/presentation/d/1F4ndU7DBcyvrEEyLfYqb29NGkBPs20EAnBxe_l7AEII/edit#slide=id.g289f499aa6b_2_52
 
 # cmssw setup
-cmssw_version: CMSSW_13_0_18
-scram_arch: slc7_amd64_gcc920
+cmssw_version: CMSSW_13_0_19
+scram_arch: el9_amd64_gcc11
 cmssw_env_name: nanogen
 sandbox_script: cmssw_nanogen.sh
 

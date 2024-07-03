@@ -159,10 +159,10 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
             cern_os = {"cern_el7": "el7", "cern_el8": "el8"}.get(self.htcondor_flavor, "el9")
             config.custom_content.append(("MY.WantOS", cern_os))
 
-        # use cc7 on naf
+        # use el9 on naf
         # https://confluence.desy.de/display/IS/BIRD
         if self.htcondor_flavor == "naf":
-            config.custom_content.append(("requirements", "(OpSysAndVer == \"CentOS7\")"))  # noqa
+            config.custom_content.append(("Request_OpSysAndVer", "\"RedHat9\""))  # noqa
 
         # maximum runtime, compatible with multiple batch systems
         if self.max_runtime is not None and self.max_runtime > 0:

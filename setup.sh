@@ -4,6 +4,14 @@ setup_ng() {
     # Runs the entire project setup, leading to a collection of environment variables starting with
     # "NG_", the installation of the software stack via virtual environments.
 
+    # force running on el9
+    local os="$( hostnamectl | grep -Po "Operating System:\s\K.*" )"
+    if [[ "${os}" != "Red Hat Enterprise Linux 9"* ]]; then
+        >&2 echo "nanogen requires Red Hat Enterprise Linux 9, but you are running on ${os}"
+        return "1"
+    fi
+
+
     #
     # prepare local variables
     #
