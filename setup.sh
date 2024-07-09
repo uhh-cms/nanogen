@@ -53,7 +53,7 @@ setup_ng() {
     export NG_JOB_BASE="${NG_JOB_BASE:-${NG_DATA_BASE}/jobs}"
     export NG_STORE_LOCAL="${NG_STORE_LOCAL:-${NG_DATA_BASE}/store}"
     export NG_LOCAL_SCHEDULER="${NG_LOCAL_SCHEDULER:-true}"
-    export NG_SCHEDULER_HOST="${NG_SCHEDULER_HOST:-naf-cms14.desy.de}"
+    export NG_SCHEDULER_HOST="${NG_SCHEDULER_HOST:-naf-cms18.desy.de}"
     export NG_SCHEDULER_PORT="${NG_SCHEDULER_PORT:-8088}"
     export NG_WORKER_KEEP_ALIVE="${NG_WORKER_KEEP_ALIVE:-$( ${remote_env} && echo "false" || echo "true" )}"
     export NG_HTCONDOR_FLAVOR="${NG_HTCONDOR_FLAVOR:-naf}"
