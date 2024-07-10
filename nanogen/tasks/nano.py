@@ -359,7 +359,6 @@ class CollectNanoSizes(DatasetTask):
         description="just for paramter forwarding purposes; do not use",
     )
     effective_workflow = workflow
-    user = user_parameter
 
     priority = 5
 
