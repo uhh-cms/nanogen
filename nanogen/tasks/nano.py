@@ -394,7 +394,7 @@ class CollectNanoSizes(DatasetTask):
         # some logs
         if missing_branches:
             self.publish_message(
-                f"found {len(missing_branches)} missing branch(es) in dataset {self.dataet_name}: "
+                f"found {len(missing_branches)} missing branch(es) in dataset {self.dataset_name}: "
                 f"{missing_branches}",
             )
         size_str = law.util.human_bytes(data["sum_sizes"], fmt=True)
@@ -435,7 +435,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         size_data = self.input().sizes.load(formatter="json")
         if size_data["missing_branches"]:
             raise ValueError(
-                f"cannot defined branch map when CollectNanoSizes reported missing branches, found "
+                f"cannot define branch map when CollectNanoSizes reported missing branches, found "
                 f"{size_data['missing_branches']}",
             )
 
