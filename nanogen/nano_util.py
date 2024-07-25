@@ -275,7 +275,9 @@ def resolve_lfn_to_site(lfn: str, site: str) -> list[str]:
         for proto_entry in entry.get("protocols", []):
             # skip certain protocols (mixed refers to xcache, xrootd-module and file to site local)
             proto = proto_entry.get("protocol", "")
-            if proto.lower() in {"mixed", "mixed-fuse", "mixed-xrootd", "xrootd-module", "file"}:
+            if proto.lower() in {
+                "mixed", "mixed-fuse", "mixed-xrootd", "xrootd-module", "file", "myread",
+            }:
                 continue
 
             # skip certain access types
