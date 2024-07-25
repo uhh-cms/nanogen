@@ -17,9 +17,7 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.nano_util import DatasetInfo, mini_to_nano_dataset
-from nanogen.util import (
-    expand_path, DCacheFileTarget, DCacheDirectoryTarget, maybe_wait_for_dcache,
-)
+from nanogen.util import expand_path, maybe_wait_for_dcache
 
 
 default_config = law.config.get_expanded("analysis", "default_config")
@@ -148,30 +146,6 @@ class Task(law.SandboxTask):
         # create the target instance and return it
         return cls(path, fs=fs, **kwargs)
 
-    def dcache_target(
-        self,
-        *path,
-        dir=False,
-        cms_store=False,
-        wlcg_fs=None,
-        local_fs=None,
-        **kwargs,
-    ):
-        # default fs
-        if wlcg_fs is None:
-            wlcg_fs = self.default_wlcg_fs
-        if local_fs is None:
-            local_fs = "local_fs_dcache_store"
-
-        # select the target class
-        cls = DCacheDirectoryTarget if dir else DCacheFileTarget
-
-        # create the path
-        path = self.store_path(*path, cms_store=cms_store)
-
-        # create the target instance and return it
-        return cls(path, wlcg_fs=wlcg_fs, local_fs=local_fs, **kwargs)
-
     def get_task_output_location_options(self):
         return [self.task_family]
 
@@ -212,10 +186,27 @@ class Task(law.SandboxTask):
 
         if location[0] == OutputLocation.dcache:
             # get other options
-            wlcg_fs, local_fs = (location[1:] + [None, None])[:2]
-            kwargs.setdefault("wlcg_fs", wlcg_fs)
-            kwargs.setdefault("local_fs", local_fs)
-            return self.dcache_target(*path, **kwargs)
+            loc, wlcg_fs = (location[1:] + [None, None])[:2]
+            # create the local target
+            local_kwargs = kwargs.copy()
+            loc_key = "fs" if (loc and law.config.has_section(loc)) else "store"
+            local_kwargs.setdefault(loc_key, loc or "local_fs_dcache_store")
+            local_target = self.local_target(*path, **local_kwargs)
+            # create the wlcg target
+            wlcg_kwargs = kwargs.copy()
+            wlcg_kwargs.setdefault("fs", wlcg_fs or self.default_wlcg_fs)
+            wlcg_target = self.wlcg_target(*path, **wlcg_kwargs)
+            # build the mirrored target from these two
+            mirrored_target_cls = (
+                law.MirroredFileTarget
+                if isinstance(local_target, law.LocalFileTarget)
+                else law.MirroredDirectoryTarget
+            )
+            return mirrored_target_cls(
+                path=local_target.path,
+                remote_target=wlcg_target,
+                local_target=local_target,
+            )
 
         raise Exception(f"cannot determine output location based on '{location}'")
 
