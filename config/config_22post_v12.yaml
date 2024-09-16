@@ -9,6 +9,8 @@
 #   - https://docs.google.com/presentation/d/1F4ndU7DBcyvrEEyLfYqb29NGkBPs20EAnBxe_l7AEII/edit#slide=id.g289f499aa6b_2_52
 
 # cmssw setup
+# from https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis#Recipes_for_Run3Summer22_and_Run
+# CMSSW version should be CMSSW_13_0_13 maybe?
 cmssw_version: CMSSW_13_0_19
 scram_arch: el9_amd64_gcc11
 cmssw_env_name: nanogen
@@ -16,11 +18,19 @@ sandbox_script: cmssw_nanogen.sh
 
 # arguments for cmsDriver.py that creates the cmsRun config
 global_tag:
-  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_mcRun3_2022_realistic_v5
-  mc: 130X_mcRun3_2022_realistic_v5
+  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_mcRun3_2022_realistic_postEE_v6
+  mc: 130X_mcRun3_2022_realistic_postEE_v6
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_dataRun3_v4
-  # v2 supersedes the recommended v2 GT and the proposed 130X_dataRun3_PromptAnalysis_v1
-  data: 130X_dataRun3_v4
+  # from Marcel: v2 supersedes the recommended v2 GT and the proposed 130X_dataRun3_PromptAnalysis_v1
+  # from Nathan: really? 1) should be v4 in the comment, 2) nowhere to see that this is superseded
+  # TODO:
+  # recommendation is still 130X_dataRun3_PromptAnalysis_v1 according to presentation,
+  # might be 130X_dataRun3_Prompt_HcalSiPM_v1 because of the Hcal SiPM issue
+  # https://cms-talk.web.cern.ch/t/gt-offline-update-of-hcal-offline-sipmcharacteristics-for-run3-re-reco/32748
+  # or 130X_dataRun3_v4 if this also contains the Hcal SiPM fix for 2022 postEE
+  # waiting for answer in https://cms-talk.web.cern.ch/t/nanoaod-custom-production-for-2022-post-ee-data/49043/1
+  # TODO: 2: era E still has 2022 pre tag, so it should be 130X_dataRun3_v4
+  data: 130X_dataRun3_PromptAnalysis_v1
 era:
   mc: &era Run3
   data: *era
