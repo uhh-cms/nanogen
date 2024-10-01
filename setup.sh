@@ -93,12 +93,12 @@ setup_ng() {
         rm -rf "${NG_CONDA_BASE}"
     fi
     if [ "${NG_REINSTALL_VENV}" = "1" ] || ( [ -z "${NG_REINSTALL_VENV}" ] && [ "${NG_REINSTALL_SOFTWARE}" = "1" ] ); then
-        echo "removing venvs at ${ML_VENV_BASE}"
-        rm -rf "${ML_VENV_BASE}"
+        echo "removing venvs at ${NG_VENV_BASE}"
+        rm -rf "${NG_VENV_BASE}"
     fi
     if [ "${NG_REINSTALL_CMSSW}" = "1" ] || ( [ -z "${NG_REINSTALL_CMSSW}" ] && [ "${NG_REINSTALL_SOFTWARE}" = "1" ] ); then
-        echo "removing cmssw at ${ML_CMSSW_BASE}"
-        rm -rf "${ML_CMSSW_BASE}"
+        echo "removing cmssw at ${NG_CMSSW_BASE}"
+        rm -rf "${NG_CMSSW_BASE}"
     fi
 
     # conda base environment
@@ -109,7 +109,7 @@ setup_ng() {
             mkdir -p "${NG_CONDA_BASE}"
             cd "${NG_CONDA_BASE}"
             curl -Ls "${micromamba_url}" | tar -xvj -C . "bin/micromamba"
-            ./bin/micromamba shell hook -y --prefix="${NG_CONDA_BASE}" &> "micromamba.sh"
+            ./bin/micromamba shell hook -y --root-prefix="${NG_CONDA_BASE}" &> "micromamba.sh"
             mkdir -p "etc/profile.d"
             mv "micromamba.sh" "etc/profile.d"
             cat << EOF > ".mambarc"
