@@ -45,7 +45,7 @@ class OutputLocation(enum.Enum):
 
 class Task(law.SandboxTask):
 
-    version = luigi.Parameter(
+    version: luigi.Parameter | None = luigi.Parameter(
         description="mandatory version that is encoded into output paths",
     )
 
