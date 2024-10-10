@@ -6,7 +6,10 @@ setup_ng() {
 
     # force running on el9
     local os="$( hostnamectl | grep -Po "Operating System:\s\K.*" )"
-    if [[ "${os}" != "Red Hat Enterprise Linux 9"* ]]; then
+    local ret="$?"
+    if [ "${ret}" != "0" ]; then
+        >&2 echo "failed to determine operating system (exit code ${ret}), skipping check"
+    elif [[ "${os}" != "Red Hat Enterprise Linux 9"* ]]; then
         >&2 echo "nanogen requires Red Hat Enterprise Linux 9, but you are running on ${os}"
         return "1"
     fi
