@@ -383,11 +383,11 @@ st_twchannel_tbar_fh_powheg_ext1:
 #
 
 # st tw channel t_sl HDAMP has no 130x processed file... TODO: check if usable with our setup
-st_twchannel_t_sl_powheg_hdamp_down:
-  key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
+# st_twchannel_t_sl_powheg_hdamp_down:
+#   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
 
-st_twchannel_t_sl_powheg_hdamp_up:
-  key: /TWminustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
+# st_twchannel_t_sl_powheg_hdamp_up:
+#   key: /TWminustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
 
 st_twchannel_t_sl_powheg_mtop_down:
   key: /TWminustoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
