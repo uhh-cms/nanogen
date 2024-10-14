@@ -330,7 +330,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             self.publish_message(f"nano size after skimming is {nano_size}")
 
         # move the output
-        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
+        # hotfix: the webdav and xrood gfal plugins do not work inside the cmssw sandbox
         # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
         # otherwise let the configured target protocol handle the move
         uri = self.output().uri(base_name="xrootd")
@@ -466,6 +466,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         return self.target(f"{name}.root", cms_store=True)
 
     @maybe_wait_for_dcache
+    @law.decorator.localize(output=False)
     def run(self):
         # run in a tmp dir
         tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
@@ -486,7 +487,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         )
 
         # move the output
-        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
+        # hotfix: the webdav and xrood gfal plugins do not work inside the cmssw sandbox
         # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
         # otherwise let the configured target protocol handle the move
         uri = self.output().uri(base_name="xrootd")

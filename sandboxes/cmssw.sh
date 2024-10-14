@@ -219,6 +219,10 @@ setup_cmssw() {
 
     cd "${orig_dir}"
 
+    # prepend persistent path fragments again to ensure priority for local packages and
+    export PYTHONPATH="${NG_PERSISTENT_PYTHONPATH}:${PYTHONPATH}"
+    export PATH="${NG_PERSISTENT_PATH}:${PATH}"
+
     # mark this as a bash sandbox for law
     export LAW_SANDBOX="bash::\$NG_BASE/sandboxes/$( basename "${this_file}" )"
 

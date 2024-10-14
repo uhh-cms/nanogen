@@ -330,6 +330,7 @@ class CMSSWSandboxTask(ConfigTask):
 
         return self.sandbox_inst._build_export_commands({
             # use a custom gfal plugin dir with plugins removed that lead to plenty of warnings
+            # note after el9 upgrade: seems to not be needed anymore
             "GFAL_PLUGIN_DIR": "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw",
             # potentially updated cms related paths
             "CMS_PATH": "${NG_CMS_PATH}",
