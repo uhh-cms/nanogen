@@ -81,6 +81,6 @@ tt_dl_tune_up:
 
 ## References
 
-- General nano docs: https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc
-- Private productions: https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Instructions/Private-production
-- CMS DAS: https://cmsweb.cern.ch/das
+- General nano docs: [https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc](https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc)
+- Private productions: [https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Instructions/Private-production](https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Instructions/Private-production)
+- CMS DAS: [https://cmsweb.cern.ch/das](https://cmsweb.cern.ch/das)
