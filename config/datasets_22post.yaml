@@ -288,6 +288,9 @@ tt_sl_powheg_mtop_up:
 
 tt_sl_powheg_tune_down:
   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+  skip_lfns:
+    # corrupt file, does not open or even copy
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/2e813f23-1405-4755-9294-29c6ff779a72.root
 
 tt_sl_powheg_tune_up:
   key: /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
