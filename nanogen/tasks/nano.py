@@ -166,6 +166,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         description="colon-separated events to skip, each one in the format "
         "'run_number,event_number[,end_event_number]'; empty default",
     )
+    htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(default=2560)
 
     # change the priority value to 10 (from the default 0) so that this task
     # is executed before other tasks when interacting with a central scheduler

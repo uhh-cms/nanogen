@@ -29,7 +29,6 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 hh_ggf_hbb_htt_kl1_kt1_c2m2_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-m2p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-
 #
 # vbf hh -> bbtautau (LO)
 #
@@ -69,7 +68,6 @@ hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_madgraph:
 
 hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
   key: /VBFHHto2B2Tau_CV-m2p12_C2V-3p87_C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-
 
 #
 # ggf graviton -> hh -> bbtautau
@@ -140,30 +138,6 @@ graviton_hh_ggf_hbb_htt_m4000_madgraph:
 
 graviton_hh_ggf_hbb_htt_m5000_madgraph:
   key:  /GluGlutoBulkGravitontoHHto2B2Tau_M-5000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
-
-
-hhh_4b_2tau_c3-1_d4-0_madgraph:
-  key: /HHHto4B2Tau_c3-1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-4_d4-9_madgraph:
-  key: /HHHto4B2Tau_c3-4_d4-9_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-minus1_d4-0_madgraph:
-  key: /HHHto4B2Tau_c3-minus1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-1_d4-2_madgraph:
-  key: /HHHto4B2Tau_c3-1_d4-2_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-2_d4-minus1_madgraph:
-  key: /HHHto4B2Tau_c3-2_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-0_d4-0_madgraph:
-  key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-0_d4-99_madgraph:
-  key: /HHHto4B2Tau_c3-0_d4-99_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-0_d4-minus1_madgraph:
-  key: /HHHto4B2Tau_c3-0_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-19_d4-19_madgraph:
-  key: /HHHto4B2Tau_c3-19_d4-19_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-minus1_d4-minus1_madgraph:
-  key: /HHHto4B2Tau_c3-minus1_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-hhh_4b_2tau_c3-minus1p5_d4-minus0p5_madgraph:
-  key: /HHHto4B2Tau_c3-minus1p5_d4-minus0p5_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
 #
 # vbf graviton -> hh -> bbtautau
@@ -246,6 +220,43 @@ radion_hh_ggf_hbb_htt_m5000_madgraph:
 #
 
 # not existing for now
+
+#
+# hhh -> bbbbtautau
+#
+
+hhh_4b_2tau_c3-1_d4-0_madgraph:
+  key: /HHHto4B2Tau_c3-1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-4_d4-9_madgraph:
+  key: /HHHto4B2Tau_c3-4_d4-9_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-minus1_d4-0_madgraph:
+  key: /HHHto4B2Tau_c3-minus1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-1_d4-2_madgraph:
+  key: /HHHto4B2Tau_c3-1_d4-2_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-2_d4-minus1_madgraph:
+  key: /HHHto4B2Tau_c3-2_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-0_d4-0_madgraph:
+  key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-0_d4-99_madgraph:
+  key: /HHHto4B2Tau_c3-0_d4-99_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-0_d4-minus1_madgraph:
+  key: /HHHto4B2Tau_c3-0_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-19_d4-19_madgraph:
+  key: /HHHto4B2Tau_c3-19_d4-19_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-minus1_d4-minus1_madgraph:
+  key: /HHHto4B2Tau_c3-minus1_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+hhh_4b_2tau_c3-minus1p5_d4-minus0p5_madgraph:
+  key: /HHHto4B2Tau_c3-minus1p5_d4-minus0p5_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
 #
 # ttbar
@@ -385,7 +396,8 @@ st_twchannel_tbar_fh_powheg_ext1:
 # single top systematics
 #
 
-# st tw channel t_sl HDAMP has no 130x processed file... TODO: check if usable with our setup
+# st tw channel t_sl HDAMP has no 130X version yet, and 124X is not compatible with our setup
+# TODO: add when available
 # st_twchannel_t_sl_powheg_hdamp_down:
 #   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
 
@@ -537,7 +549,6 @@ ttzz_madgraph:
 w_lnu_amcatnlo:
   key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-# commented out ?
 w_lnu_0j_amcatnlo:
   key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
@@ -776,10 +787,9 @@ tth_hnonbb_powheg:
 # data
 #
 
-# TODO: be careful, era E probably needs to be processed with different global tag, commented for now
 data_e_e:
   key: /EGamma/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: 130X_dataRun3_v4
+  global_tag: &gt_era_e 130X_dataRun3_v4
 
 data_e_f:
   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
@@ -789,7 +799,7 @@ data_e_g:
 
 data_mu_e:
   key: /Muon/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: 130X_dataRun3_v4
+  global_tag: *gt_era_e
 
 data_mu_f:
   key: /Muon/Run2022F-22Sep2023-v2/MINIAOD
@@ -799,7 +809,7 @@ data_mu_g:
 
 data_tau_e:
   key: /Tau/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: 130X_dataRun3_v4
+  global_tag: *gt_era_e
 
 data_tau_f:
   key: /Tau/Run2022F-22Sep2023-v1/MINIAOD
@@ -809,7 +819,7 @@ data_tau_g:
 
 data_met_e:
   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: 130X_dataRun3_v4
+  global_tag: *gt_era_e
 
 data_met_f:
   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
