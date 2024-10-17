@@ -55,6 +55,10 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         if self.global_tag in {law.NO_STR, "", None}:
             self.global_tag = self.config.global_tag[self.dataset_kind]
 
+    def sandbox_stageout(self, sandbox_outputs):
+        # stageout all outputs
+        return True
+
     def output(self):
         era_str = self.era.replace(",", "_")
         gt_str = self.global_tag.replace(":", "_")
@@ -89,8 +93,8 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         self.publish_message(f"cwd: {tmp_dir.abspath}")
         law.util.interruptable_popen(driver_cmd, shell=True, cwd=tmp_dir.abspath)
 
-        # copy the file to the output
-        self.output().copy_from_local(tmp_dir.child("NANO_NANO.py"))
+        # move the file to the output
+        self.output().move_from_local(tmp_dir.child("NANO_NANO.py"))
 
 
 class NanoDatasetWorkflow(DatasetTask, RemoteWorkflow, law.LocalWorkflow):
@@ -162,10 +166,15 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         description="colon-separated events to skip, each one in the format "
         "'run_number,event_number[,end_event_number]'; empty default",
     )
+    htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(default=2560)
 
     # change the priority value to 10 (from the default 0) so that this task
     # is executed before other tasks when interacting with a central scheduler
     priority = 10
+
+    def sandbox_stageout(self, sandbox_outputs):
+        # stageout all outputs
+        return True
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -329,17 +338,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             nano_size = law.util.human_bytes(nano_file.stat().st_size, fmt=True)
             self.publish_message(f"nano size after skimming is {nano_size}")
 
-        # move the output
-        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
-        # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
-        # otherwise let the configured target protocol handle the move
-        uri = self.output().uri(base_name="xrootd")
-        if law.target.file.get_scheme(uri) == "root":
-            self.publish_message("copying output via xrdcp")
-            cmd = f"xrdcp {nano_file.abspath} {uri}"
-            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
-            if code == 0:
-                return
+        # move the output file to the output location
         self.output().move_from_local(nano_file)
 
 
@@ -419,6 +418,10 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         description="approximate size of merged nano files; default unit is MB; default: 2048MB",
     )
 
+    def sandbox_stageout(self, sandbox_outputs):
+        # stageout all outputs
+        return True
+
     def workflow_requires(self):
         reqs = super().workflow_requires()
         reqs["nano"] = CreateNano.req(self)
@@ -467,36 +470,21 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
 
     @maybe_wait_for_dcache
     def run(self):
-        # run in a tmp dir
-        tmp_dir = law.LocalDirectoryTarget(is_tmp=True)
-        tmp_dir.touch()
-
         # get input file paths
         input_paths = [inp.abspath for inp in self.input().collection.targets.values()]
 
+        # prepare the output
+        output = self.output()
+        output.parent.touch()
+
         # hadd
-        output_path = tmp_dir.child("merged.root", type="f").abspath
         law.root.hadd_task(
             self,
             input_paths,
-            output_path,
-            cwd=tmp_dir.abspath,
+            output.abspath,
             local=True,
             hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
         )
-
-        # move the output
-        # hotfix: in slc7, the webdav and xrood gfal plugins do not work inside the cmssw sandbox
-        # so in case the output is accessible via xrootd, copy the file via xrdcp for now, and
-        # otherwise let the configured target protocol handle the move
-        uri = self.output().uri(base_name="xrootd")
-        if law.target.file.get_scheme(uri) == "root":
-            self.publish_message("copying output via xrdcp")
-            cmd = f"xrdcp {output_path} {uri}"
-            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
-            if code == 0:
-                return
-        self.output().move_from_local(output_path)
 
 
 MergeNanoWrapper = wrapper_factory(

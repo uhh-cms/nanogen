@@ -4,17 +4,6 @@ setup_ng() {
     # Runs the entire project setup, leading to a collection of environment variables starting with
     # "NG_", the installation of the software stack via virtual environments.
 
-    # force running on el9
-    local os="$( hostnamectl | grep -Po "Operating System:\s\K.*" )"
-    local ret="$?"
-    if [ "${ret}" != "0" ]; then
-        >&2 echo "failed to determine operating system (exit code ${ret}), skipping check"
-    elif [[ "${os}" != "Red Hat Enterprise Linux 9"* ]]; then
-        >&2 echo "nanogen requires Red Hat Enterprise Linux 9, but you are running on ${os}"
-        return "1"
-    fi
-
-
     #
     # prepare local variables
     #
@@ -104,6 +93,20 @@ setup_ng() {
         rm -rf "${NG_CMSSW_BASE}"
     fi
 
+    # empty the PYTHONPATH
+    export PYTHONPATH=""
+
+    # persistent PATH and PYTHONPATH parts that should be
+    # priotized over any additions made in sandboxes later on
+    export NG_PERSISTENT_PATH="${NG_BASE}/bin:${NG_BASE}/modules/law/bin"
+    export NG_PERSISTENT_PYTHONPATH="${NG_BASE}:${NG_BASE}/modules/law"
+    # also append the conda path for propagation to sandboxes that bring their own python (e.g. cmssw)
+    export NG_PERSISTENT_PYTHONPATH="${NG_PERSISTENT_PYTHONPATH}:${NG_CONDA_BASE}/lib/python${pyv}/site-packages"
+
+    # prepend them
+    export PATH="${NG_PERSISTENT_PATH}:${PATH}"
+    export PYTHONPATH="${NG_PERSISTENT_PYTHONPATH}:${PYTHONPATH}"
+
     # conda base environment
     local conda_missing="$( [ -d "${NG_CONDA_BASE}" ] && echo "false" || echo "true" )"
     if ${conda_missing}; then
@@ -159,21 +162,18 @@ EOF
         pip install --no-cache-dir -U -r "${NG_BASE}/requirements.txt" || return "$?"
 
         # create a custom gfal plugin directory for use in cmssw sandboxes that might provide an
-        # incompatible glibcxx version (to be checked again after upgrading to el9)
-        mkdir "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+        # incompatible glibcxx version (still present on el9)
+        local gfal_plugins_cmssw="${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+        mkdir -p "${gfal_plugins_cmssw}"
         (
-            cd "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+            cd "${gfal_plugins_cmssw}"
             for f in $( find ../gfal2-plugins -name "*.so" ); do
                 ln -s "${f}" .
             done
-            # the http and xrootd plugins were incompatible last time
+            # the http and xrootd plugins seem incompatible
             rm -f libgfal_plugin_{http,xrootd}.so
         ) || return "$?"
     fi
-
-    # adjust paths
-    export PATH="${NG_BASE}/bin:${NG_BASE}/modules/law/bin:${NG_SOFTWARE_BASE}/bin:${PATH}"
-    export PYTHONPATH="${NG_BASE}:${NG_BASE}/modules/law:${MAMBA_ROOT_PREFIX}/lib/python${pyv}/site-packages:${PYTHONPATH}"
 
 
     #
