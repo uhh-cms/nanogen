@@ -644,6 +644,9 @@ dy_m50toinf_2j_pt40to100_amcatnlo:
 
 dy_m50toinf_2j_pt100to200_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # corrupt file, lzma decompression error
+    - /store/mc/Run3Summer22EEMiniAODv4/DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/45203af3-b359-469b-8261-a50ca898332d.root
 
 dy_m50toinf_2j_pt200to400_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
