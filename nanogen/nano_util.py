@@ -219,8 +219,10 @@ class MissingLFNException(Exception):
         super().__init__(msg)
 
 
-def sort_sites_opinionated(sites: list[str]) -> list[str]:
-    # sort DESY -> DE -> CH -> Rest -> US -> T3 -> TW -> IN -> RU
+def sort_sites_opinionated(sites: list[str], skip_desy: bool = False) -> list[str]:
+    # sort [DESY ->] DE -> CH -> *Rest* -> US -> T3 -> TW -> IN -> RU
+    if skip_desy and (desy_site := "T2_DE_DESY") in sites:
+        sites.remove(desy_site)
     return sorted(sites, key=lambda l: (
         -("DESY" in l),
         -((country := l.split("_")[1]) == "DE"),
