@@ -14,18 +14,23 @@ hh_ggf_hbb_htt_kl2p45_kt1_powheg:
 hh_ggf_hbb_htt_kl5_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
   key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-1p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl1_kt1_c20p10_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p10_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl1_kt1_c20p35_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p35_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-3p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl1_kt1_c2m2_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-m2p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
@@ -36,9 +41,11 @@ hh_ggf_hbb_htt_kl1_kt1_c2m2_powheg:
 hh_vbf_hbb_htt_kv1_k2v1_kl1_madgraph:
   key: /VBFHHto2B2Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_vbf_hbb_htt_kv1_k2v1_kl2_madgraph:
   key: /VBFHHto2B2Tau_CV-1_C2V-1_C3-2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 hh_vbf_hbb_htt_kv1_k2v2_kl1_madgraph:
   key: /VBFHHto2B2Tau_CV-1_C2V-2_C3-1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-Poisson60KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
@@ -644,6 +651,9 @@ dy_m50toinf_2j_pt40to100_amcatnlo:
 
 dy_m50toinf_2j_pt100to200_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # corrupt file, lzma decompression error
+    - /store/mc/Run3Summer22EEMiniAODv4/DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/45203af3-b359-469b-8261-a50ca898332d.root
 
 dy_m50toinf_2j_pt200to400_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
@@ -682,8 +692,6 @@ z_qq_pt600toinf_1j_amcatnlo:
 z_qq_pt600toinf_2j_amcatnlo:
   key:  /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
-# TODO: Discussion: add Z to nunu here?
-
 #
 # di boson
 #
@@ -716,10 +724,12 @@ zzz_amcatnlo:
 #
 # higgs
 #
-# only versions Poisson60KeepRAW or Poisson70KeepRAW are currently available, chose the largest one
+
+# TODO: update to new PU scenario when available
 h_ggf_htt_powheg:
   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson70KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+# TODO: update to new PU scenario when available
 h_vbf_htt_powheg:
   key: /VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson70KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
@@ -803,8 +813,13 @@ data_e_e:
   key: /EGamma/Run2022E-22Sep2023-v1/MINIAOD
   global_tag: &gt_era_e 130X_dataRun3_v2
 
+# TODO: re-merge in case broken lfns are replaced
 data_e_f:
   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
+  skip_lfns:
+    # all files with lzma issues, X of Y events missing -> 0.02% of events
+    # lfn index 2196: event 2934264499 (after record 21500)
+    - /store/data/Run2022F/EGamma/MINIAOD/22Sep2023-v1/2520002/96483ccc-2444-440d-ba18-8fdc07a412d5.root
 
 data_e_g:
   key: /EGamma/Run2022G-22Sep2023-v2/MINIAOD
@@ -833,8 +848,21 @@ data_met_e:
   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
   global_tag: *gt_era_e
 
+# TODO: re-merge in case broken lfns are replaced
 data_met_f:
   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
+  skip_lfns:
+    # all files with lzma issues, 285k of 514M events missing -> 0.06% of events
+    # lfn index 4199: event 199521691 (after record 12500)
+    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560000/5b8c2ece-ca3e-47e7-82ad-442920060875.root
+    # lfn index 5347: event 1772083178 (after record 8000)
+    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560001/58c483f3-053d-41d4-9147-ecbf38ab53fe.root
+    # lfn index 7374: event 344393505 (after record 13500)
+    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/863543ac-79c1-4887-87da-4985eb3bc809.root
+    # lfn index 7462: event 4019831144 (after record 3500)
+    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/ad9dfc30-05b9-4cbf-ac12-876116048118.root
+    # lfn index 7491, event 678912537 (after record 42000)
+    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/ba0f1dc7-f4cd-4ac4-92ec-82bb7a280922.root
 
 data_met_g:
   key: /JetMET/Run2022G-22Sep2023-v2/MINIAOD
