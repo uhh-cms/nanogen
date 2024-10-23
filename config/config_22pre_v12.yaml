@@ -18,9 +18,9 @@ sandbox_script: cmssw_nanogen.sh
 global_tag:
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_mcRun3_2022_realistic_v5
   mc: 130X_mcRun3_2022_realistic_v5
-  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_dataRun3_v4
-  # v2 supersedes the recommended v2 GT
-  data: 130X_dataRun3_v4
+  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/130X_dataRun3_v2
+  # recommended v2 GT
+  data: 130X_dataRun3_v2
 era:
   mc: &era Run3
   data: *era
