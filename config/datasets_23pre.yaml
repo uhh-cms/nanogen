@@ -519,10 +519,8 @@ data_e_c_ext1:
 data_mu_c:
   key: /Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD
 
-# TODO /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD also exists and is larger
-# https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun3Analysis#2023_Era_definition
 data_mu_c_ext1:
-  key: /Muon1/Run2023C-22Sep2023_v4-v1/MINIAOD
+  key: /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
 
 data_tau_c:
   key: /Tau/Run2023C-22Sep2023_v4-v1/MINIAOD
