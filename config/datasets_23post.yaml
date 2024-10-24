@@ -656,42 +656,4 @@ tth_hnonbb_powheg:
 # data
 #
 
-# data_e_e:
-#   key: /EGamma/Run2022E-22Sep2023-v1/MINIAOD
-#   global_tag: &gt_era_e 130X_dataRun3_v4
-
-# data_e_f:
-#   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
-
-# data_e_g:
-#   key: /EGamma/Run2022G-22Sep2023-v2/MINIAOD
-
-# data_mu_e:
-#   key: /Muon/Run2022E-22Sep2023-v1/MINIAOD
-#   global_tag: *gt_era_e
-
-# data_mu_f:
-#   key: /Muon/Run2022F-22Sep2023-v2/MINIAOD
-
-# data_mu_g:
-#   key: /Muon/Run2022G-22Sep2023-v1/MINIAOD
-
-# data_tau_e:
-#   key: /Tau/Run2022E-22Sep2023-v1/MINIAOD
-#   global_tag: *gt_era_e
-
-# data_tau_f:
-#   key: /Tau/Run2022F-22Sep2023-v1/MINIAOD
-
-# data_tau_g:
-#   key: /Tau/Run2022G-22Sep2023-v1/MINIAOD
-
-# data_met_e:
-#   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
-#   global_tag: *gt_era_e
-
-# data_met_f:
-#   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
-
-# data_met_g:
-#   key: /JetMET/Run2022G-22Sep2023-v2/MINIAOD
+# not available, should be Run2023D
