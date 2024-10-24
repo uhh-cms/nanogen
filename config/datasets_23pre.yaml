@@ -349,7 +349,7 @@ ttz_zll_m50toinf_amcatnlo:
   key: /TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v2/MINIAODSIM
 
 ttz_znunu_amcatnlo:
-  key: /TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v3/MINIAODSIM
+  key: /TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v3/MINIAODSIM
 
 #
 # ttbar + VV
