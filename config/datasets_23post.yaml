@@ -162,9 +162,6 @@ tt_sl_powheg_mtop_up:
 
 tt_sl_powheg_tune_down:
   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
-  skip_lfns:
-    # # corrupt file, does not open or even copy
-    # - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v2-v3/40000/2e813f23-1405-4755-9294-29c6ff779a72.root
 
 tt_sl_powheg_tune_up:
   key: /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
@@ -579,7 +576,6 @@ zzz_amcatnlo:
 #
 # higgs
 #
-# only versions Poisson60KeepRAW or Poisson70KeepRAW are currently available, chose the largest one
 h_ggf_htt_powheg:
   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
