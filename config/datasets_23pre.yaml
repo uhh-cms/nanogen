@@ -447,10 +447,10 @@ zz_pythia:
 # triple boson
 #
 
-www_amcatnlo:
+www_4f_amcatnlo:
   key: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
 
-wwz_amcatnlo:
+wwz_4f_amcatnlo:
   key: /WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
 
 wzz_amcatnlo:
