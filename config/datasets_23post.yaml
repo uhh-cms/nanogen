@@ -6,13 +6,13 @@ hh_ggf_hbb_htt_kl1_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 hh_ggf_hbb_htt_kl0_kt1_powheg:
-  key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-ggHH_powheg_bugfix_130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 hh_ggf_hbb_htt_kl2p45_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 hh_ggf_hbb_htt_kl5_kt1_powheg:
-  key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-ggHH_powheg_bugfix_130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
   key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-1p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
@@ -164,9 +164,6 @@ tt_sl_powheg_mtop_up:
 
 tt_sl_powheg_tune_down:
   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
-  skip_lfns:
-    # # corrupt file, does not open or even copy
-    # - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v2-v3/40000/2e813f23-1405-4755-9294-29c6ff779a72.root
 
 tt_sl_powheg_tune_up:
   key: /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
@@ -261,13 +258,11 @@ st_twchannel_tbar_fh_powheg:
 # single top systematics
 #
 
-# st tw channel t_sl HDAMP has no 130X version yet, and 124X is not compatible with our setup
-# TODO: add when available
-# st_twchannel_t_sl_powheg_hdamp_down:
-#   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
+st_twchannel_t_sl_powheg_hdamp_down:
+  key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-# st_twchannel_t_sl_powheg_hdamp_up:
-#   key: /TWminustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv3-124X_mcRun3_2022_realistic_postEE_v1-v2/MINIAODSIM
+st_twchannel_t_sl_powheg_hdamp_up:
+  key: /TWminustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 st_twchannel_t_sl_powheg_mtop_down:
   key: /TWminustoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
@@ -582,7 +577,6 @@ zzz_amcatnlo:
 #
 # higgs
 #
-# only versions Poisson60KeepRAW or Poisson70KeepRAW are currently available, chose the largest one
 h_ggf_htt_powheg:
   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
@@ -604,6 +598,12 @@ wph_wlnu_hbb_powheg:
 
 # wph_wlnu_hbb_powheg_ext1:
 #   key: /WplusH_Hto2B_WtoLNu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
+
+wmh_wqq_hbb_powheg:
+  key: /WminusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+  
+wph_wqq_hbb_powheg:
+  key: /WplusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
 wph_htt_powheg:
   key: /WplusHTo2TauUncorrelatedDecay_M-125_TuneCP5_13p6TeV_powheg-minnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
