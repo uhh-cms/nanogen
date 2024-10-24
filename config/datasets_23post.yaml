@@ -656,4 +656,24 @@ tth_hnonbb_powheg:
 # data
 #
 
-# not available, should be Run2023D
+data_e_c:
+  key: /EGamma0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_e_c_ext1:
+  key: /EGamma1/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_mu_c:
+  key: /Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_mu_c_ext1:
+  key: /Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_tau_c:
+  key: /Tau/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_met_c:
+  key: /JetMET0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_met_c_ext1:
+  key: /JetMET1/Run2023D-22Sep2023_v2-v1/MINIAOD
+
