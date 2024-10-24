@@ -75,62 +75,32 @@ hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
 # ggf graviton -> hh -> bbtautau
 #
 
-# not existing for now
+# Not existing for now
 
 #
 # vbf graviton -> hh -> bbtautau
 #
 
-# not existing for now
+# Not existing for now
 
 #
 # ggf radion -> hh -> bbtautau
 #
 
-# not existing for now
+# Not existing for now
 
 #
 # vbf radion -> hh -> bbtautau
 #
 
-# not existing for now
+# Not existing for now
 
 #
 # hhh -> bbbbtautau
 #
 
-# hhh_4b_2tau_c3-1_d4-0_madgraph:
-#   key: /HHHto4B2Tau_c3-1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-4_d4-9_madgraph:
-#   key: /HHHto4B2Tau_c3-4_d4-9_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-minus1_d4-0_madgraph:
-#   key: /HHHto4B2Tau_c3-minus1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-1_d4-2_madgraph:
-#   key: /HHHto4B2Tau_c3-1_d4-2_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-2_d4-minus1_madgraph:
-#   key: /HHHto4B2Tau_c3-2_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
 hhh_4b_2tau_c3-0_d4-0_madgraph:
   key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-0_d4-99_madgraph:
-#   key: /HHHto4B2Tau_c3-0_d4-99_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-0_d4-minus1_madgraph:
-#   key: /HHHto4B2Tau_c3-0_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-19_d4-19_madgraph:
-#   key: /HHHto4B2Tau_c3-19_d4-19_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-minus1_d4-minus1_madgraph:
-#   key: /HHHto4B2Tau_c3-minus1_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
-# hhh_4b_2tau_c3-minus1p5_d4-minus0p5_madgraph:
-#   key: /HHHto4B2Tau_c3-minus1p5_d4-minus0p5_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
 # ttbar
