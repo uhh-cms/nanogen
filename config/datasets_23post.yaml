@@ -312,7 +312,6 @@ st_twchannel_tbar_fh_powheg_mtop_down:
 st_twchannel_tbar_fh_powheg_mtop_up:
   key: /TbarWplusto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
-# dataset exists but is empty
 st_twchannel_tbar_fh_powheg_tune_down:
   key: /TbarWplusto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
 
