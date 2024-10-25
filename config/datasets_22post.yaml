@@ -563,9 +563,21 @@ w_lnu_0j_amcatnlo:
 
 w_lnu_1j_amcatnlo:
   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+  skip_lfns:
+    # lfn index 557
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2540000/92da14f8-cbf6-4f76-a801-dedaf2b6e0c7.root
+    # lfn index 3804
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2560000/724e099c-61d8-4803-91c3-83599feed19d.root
+    # lfn index 8589
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/80000/f241c4b5-d1d6-4532-a559-882ead29cbe2.root
 
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+  skip_lfns:
+    # lfn index 399
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2550000/36604704-aefa-4755-b2a6-7b151132efd6.root
+    # lfn index 585
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2550000/cf41aa2f-fd17-422d-93cf-cbfc20805ce2.root
 
 w_lnu_pt40to100_1j_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
@@ -575,6 +587,9 @@ w_lnu_pt40to100_2j_amcatnlo:
 
 w_lnu_pt100to200_1j_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # lfn index 3277
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/71176a5a-e3a5-4c7c-ba0f-d75b2b94bc8f.root
 
 w_lnu_pt100to200_2j_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
@@ -815,11 +830,10 @@ data_e_e:
   key: /EGamma/Run2022E-22Sep2023-v1/MINIAOD
   global_tag: &gt_era_e 130X_dataRun3_v2
 
-# TODO: re-merge in case broken lfns are replaced
 data_e_f:
   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
   skip_lfns:
-    # all files with lzma issues, X of Y events missing -> 0.02% of events
+    # all files with lzma issues already on tape, 75671 of 464153125 events missing -> 0.02% of events
     # lfn index 2196: event 2934264499 (after record 21500)
     - /store/data/Run2022F/EGamma/MINIAOD/22Sep2023-v1/2520002/96483ccc-2444-440d-ba18-8fdc07a412d5.root
 
@@ -850,11 +864,10 @@ data_met_e:
   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
   global_tag: *gt_era_e
 
-# TODO: re-merge in case broken lfns are replaced
 data_met_f:
   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
   skip_lfns:
-    # all files with lzma issues, 285k of 514M events missing -> 0.06% of events
+    # all files with lzma issues already on tape, 285k of 514M events missing -> 0.06% of events
     # lfn index 4199: event 199521691 (after record 12500)
     - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560000/5b8c2ece-ca3e-47e7-82ad-442920060875.root
     # lfn index 5347: event 1772083178 (after record 8000)
