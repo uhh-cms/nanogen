@@ -340,8 +340,11 @@ st_twchannel_tbar_fh_powheg_tune_up:
 # ttbar + V
 #
 
-# ttw not existing
-# ttz not existing
+ttw_wlnu_amcatnlo:
+  key: /TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v2/MINIAODSIM
+       
+# ttz not yet existing
+
 ttz_zll_m4to50_amcatnlo:
   key: /TTLL_MLL-4to50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v2/MINIAODSIM
 
