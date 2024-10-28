@@ -235,37 +235,37 @@ radion_hh_ggf_hbb_htt_m5000_madgraph:
 # hhh -> bbbbtautau
 #
 
-hhh_4b2tau_c31_d40_madgraph:
+hhh_4b2tau_c31_d40_amcatnlo:
   key: /HHHto4B2Tau_c3-1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c34_d49_madgraph:
+hhh_4b2tau_c34_d49_amcatnlo:
   key: /HHHto4B2Tau_c3-4_d4-9_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c3m1_d40_madgraph:
+hhh_4b2tau_c3m1_d40_amcatnlo:
   key: /HHHto4B2Tau_c3-minus1_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c31_d42_madgraph:
+hhh_4b2tau_c31_d42_amcatnlo:
   key: /HHHto4B2Tau_c3-1_d4-2_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c32_d4m1_madgraph:
+hhh_4b2tau_c32_d4m1_amcatnlo:
   key: /HHHto4B2Tau_c3-2_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c30_d40_madgraph:
+hhh_4b2tau_c30_d40_amcatnlo:
   key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c30_d499_madgraph:
+hhh_4b2tau_c30_d499_amcatnlo:
   key: /HHHto4B2Tau_c3-0_d4-99_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c30_d4m1_madgraph:
+hhh_4b2tau_c30_d4m1_amcatnlo:
   key: /HHHto4B2Tau_c3-0_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c319_d419_madgraph:
+hhh_4b2tau_c319_d419_amcatnlo:
   key: /HHHto4B2Tau_c3-19_d4-19_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c3m1_d4m1_madgraph:
+hhh_4b2tau_c3m1_d4m1_amcatnlo:
   key: /HHHto4B2Tau_c3-minus1_d4-minus1_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-hhh_4b2tau_c3m1p5_d4m0p5_madgraph:
+hhh_4b2tau_c3m1p5_d4m0p5_amcatnlo:
   key: /HHHto4B2Tau_c3-minus1p5_d4-minus0p5_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
 #
