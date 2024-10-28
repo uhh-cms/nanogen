@@ -569,24 +569,45 @@ tth_hnonbb_powheg:
 # data
 #
 
-data_e_c:
+data_e_d_1:
+  key: /EGamma0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_e_d_1_ext1:
+  key: /EGamma1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_e_d_2:
   key: /EGamma0/Run2023D-22Sep2023_v2-v1/MINIAOD
 
-data_e_c_ext1:
+data_e_d_2_ext1:
   key: /EGamma1/Run2023D-22Sep2023_v2-v1/MINIAOD
 
-data_mu_c:
+data_mu_d_1:
+  key: /Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_mu_d_1_ext1:
+  key: /Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_mu_d_2:
   key: /Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD
 
-data_mu_c_ext1:
+data_mu_d_2_ext1:
   key: /Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD
 
-data_tau_c:
-  key: /Tau/Run2023D-22Sep2023_v2-v1/MINIAOD
+data_tau_d_1:
+  key: /Tau/Run2023D-22Sep2023_v1-v1/MINIAOD
 
-data_met_c:
+data_tau_d_2:
+  key: /Tau/Run2023D-22Sep2023_v2-v1/MINIAOD
+  
+  data_met_d_1:
+  key: /JetMET0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_met_d_1_ext1:
+  key: /JetMET1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_met_d_2:
   key: /JetMET0/Run2023D-22Sep2023_v2-v1/MINIAOD
 
-data_met_c_ext1:
+data_met_d_2_ext1:
   key: /JetMET1/Run2023D-22Sep2023_v2-v1/MINIAOD
 

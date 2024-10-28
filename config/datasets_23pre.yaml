@@ -568,25 +568,89 @@ tth_hnonbb_powheg:
 # data
 #
 
-data_e_c:
+data_e_c_1:
+  key: /EGamma0/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_e_c_1_ext1:
+  key: /EGamma1/Run2023C-22Sep2023_v1-v1/MINIAOD
+  
+data_e_c_2:
+  key: /EGamma0/Run2023C-22Sep2023_v2-v1/MINIAOD
+
+data_e_c_2_ext1:
+  key: /EGamma1/Run2023C-22Sep2023_v2-v1/MINIAOD
+  
+data_e_c_3:
+  key: /EGamma0/Run2023C-22Sep2023_v3-v1/MINIAOD
+
+data_e_c_3_ext1:
+  key: /EGamma1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  
+data_e_c_4:
   key: /EGamma0/Run2023C-22Sep2023_v4-v1/MINIAOD
 
-data_e_c_ext1:
+data_e_c_4_ext1:
   key: /EGamma1/Run2023C-22Sep2023_v4-v1/MINIAOD
 
-data_mu_c:
+data_mu_c_1:
+  key: /Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_mu_c_1_ext1:
+  key: /Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_mu_c_2:
+  key: /Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD
+
+data_mu_c_2_ext1:
+  key: /Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD
+  
+data_mu_c_3:
+  key: /Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD
+
+data_mu_c_3_ext1:
+  key: /Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  
+data_mu_c_4:
   key: /Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD
 
 # advice from the TWiki summary ( https://docs.google.com/presentation/d/1TjPem5jX0fzqvTGl271_nQFoVBabsrdrO0i8Qo1uD5E/edit?usp=sharing )
 # is to take latest version number for non-prompt, so use v4-v2 here
-data_mu_c_ext1:
+data_mu_c_4_ext1:
   key: /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
 
-data_tau_c:
+data_tau_c_1:
+  key: /Tau/Run2023C-22Sep2023_v1-v2/MINIAOD
+  
+data_tau_c_2:
+  key: /Tau/Run2023C-22Sep2023_v2-v1/MINIAOD
+  
+data_tau_c_3:
+  key: /Tau/Run2023C-22Sep2023_v3-v1/MINIAOD
+  
+data_tau_c_4:
   key: /Tau/Run2023C-22Sep2023_v4-v1/MINIAOD
 
-data_met_c:
+data_met_c_1:
+  key: /JetMET0/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_met_c_1_ext1:
+  key: /JetMET1/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_met_c_2:
+  key: /JetMET0/Run2023C-22Sep2023_v2-v1/MINIAOD
+
+data_met_c_2_ext1:
+  key: /JetMET1/Run2023C-22Sep2023_v2-v1/MINIAOD
+
+data_met_c_3:
+  key: /JetMET0/Run2023C-22Sep2023_v3-v1/MINIAOD
+
+data_met_c_3_ext1:
+  key: /JetMET1/Run2023C-22Sep2023_v3-v1/MINIAOD
+
+data_met_c_4:
   key: /JetMET0/Run2023C-22Sep2023_v4-v1/MINIAOD
 
-data_met_c_ext1:
+data_met_c_4_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v4-v1/MINIAOD
+  
