@@ -99,7 +99,7 @@ hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
 # hhh -> bbbbtautau
 #
 
-hhh_4b_2tau_c3-0_d4-0_madgraph:
+hhh_4b2tau_c30_d40_amcatnlo:
   key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
 #
