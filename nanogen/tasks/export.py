@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import re
+import functools
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -83,7 +84,7 @@ GenerateNanoDocsWrapper = wrapper_factory(
 )
 
 
-class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
+class CreateDBEntry(DatasetTask):
 
     merged_size = MergeNano.merged_size
     skip_shifts = luigi.BoolParameter(
@@ -152,10 +153,13 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         reqs = self.requires()
         inputs = self.input()
 
+        # dataset stats loading cached by arguments (dataset key)
+        load_dataset_stats_cached = functools.cache(load_dataset_stats)
+
         # helper to determine the number of files and events
         def get_stats(dataset_name, shift_name):
             # get das stats
-            stats = load_dataset_stats(self.datasets[dataset_name].key)
+            stats = load_dataset_stats_cached(self.datasets[dataset_name].key)
 
             # sanity check: the collection should be as long as the number of files minus lfns to
             # skip, otherwise DAS might have temporarily returned a shorter list (which happens)
@@ -185,7 +189,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return mini_to_nano_dataset(dataset.key, campaign_postfix=campaign_postfix)
 
         # get the id of the original dataset
-        dataset_id = load_dataset_stats(self.dataset.key)["dataset_id"]
+        dataset_id = load_dataset_stats_cached(self.dataset.key)["dataset_id"]
 
         # estimate the process name
         if self.nano_info.data:
@@ -213,7 +217,8 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             # add entries
             entry += "    keys=[\n"
             for dataset_name in inputs["nominal"]:
-                entry += f"        \"{nano_key(dataset_name)}\",  # noqa\n"  # noqa: Q003
+                key_line = f"        \"{nano_key(dataset_name)}\","  # noqa: Q003
+                entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
             entry += "    ],\n"
             entry += f"    n_files={fmt_sum(n_files)},\n"
             entry += f"    n_events={fmt_sum(n_events)},\n"
@@ -229,7 +234,8 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 entry += f"        {shift_name}=DatasetInfo(\n"
                 entry += "            keys=[\n"
                 for dataset_name in inputs[shift_name]:
-                    entry += f"                \"{nano_key(dataset_name)}\",  # noqa\n"
+                    key_line = f"                \"{nano_key(dataset_name)}\","  # noqa: Q003
+                    entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
                 entry += "            ],\n"
                 entry += f"            n_files={fmt_sum(n_files)},\n"
                 entry += f"            n_events={fmt_sum(n_events)},\n"

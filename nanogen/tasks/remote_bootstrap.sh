@@ -62,7 +62,7 @@ bootstrap_slurm() {
     export NG_WLCG_CACHE_CLEANUP="true"
     export KRB5CCNAME="FILE:{{kerberosproxy_file}}"
     [ ! -z "{{ng_dasmaps_base}}" ] && export NG_DASMAPS_BASE="{{ng_dasmaps_base}}"
-    [ ! -z "{{vomsproxy_file}}" ] && export X509_USER_PROXY="{{vomsproxy_file}}"
+    [ ! -z "{{vomsproxy_file}}" ] && export X509_USER_PROXY="${PWD}/{{vomsproxy_file}}"
 
     # optional custom command before the setup is sourced
     {{ng_pre_setup_command}}

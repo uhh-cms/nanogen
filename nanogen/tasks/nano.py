@@ -55,10 +55,6 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         if self.global_tag in {law.NO_STR, "", None}:
             self.global_tag = self.config.global_tag[self.dataset_kind]
 
-    def sandbox_stageout(self, sandbox_outputs):
-        # stageout all outputs
-        return True
-
     def output(self):
         era_str = self.era.replace(",", "_")
         gt_str = self.global_tag.replace(":", "_")
@@ -97,7 +93,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         self.output().move_from_local(tmp_dir.child("NANO_NANO.py"))
 
 
-class NanoDatasetWorkflow(DatasetTask, RemoteWorkflow, law.LocalWorkflow):
+class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -107,7 +103,7 @@ class NanoDatasetWorkflow(DatasetTask, RemoteWorkflow, law.LocalWorkflow):
     @law.workflow_property(cache=True)
     def lfns(self) -> list[str]:
         # get the lfns target
-        lfns_input = self.requires().lfns.output().lfns
+        lfns_input = GetDatasetLFNs.req(self).output().lfns
         if not lfns_input.exists():
             raise Exception(
                 f"{self.task_family} requires GetDatasetLFNs for dataset {self.dataset_name} to be "
@@ -166,15 +162,10 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         description="colon-separated events to skip, each one in the format "
         "'run_number,event_number[,end_event_number]'; empty default",
     )
-    htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(default=2560)
 
     # change the priority value to 10 (from the default 0) so that this task
     # is executed before other tasks when interacting with a central scheduler
     priority = 10
-
-    def sandbox_stageout(self, sandbox_outputs):
-        # stageout all outputs
-        return True
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -409,7 +400,7 @@ CollectNanoSizesWrapper = wrapper_factory(
 )
 
 
-class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow):
+class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow):
 
     n_events = CreateNano.n_events
     merged_size = law.BytesParameter(
@@ -417,10 +408,6 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         unit="MB",
         description="approximate size of merged nano files; default unit is MB; default: 2048MB",
     )
-
-    def sandbox_stageout(self, sandbox_outputs):
-        # stageout all outputs
-        return True
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -450,6 +437,10 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
         # build the branch map from a sequence
         return list(law.util.iter_chunks(len(size_data["sizes"]), merge_factor))
 
+    @workflow_condition.requires_eager
+    def requires_eager(self):
+        return CollectNanoSizes.req(self)
+
     @workflow_condition.requires
     def requires(self):
         return CreateNano.req_different_branching(
@@ -461,7 +452,8 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, RemoteWorkflow, law.LocalWorkflow
 
     @workflow_condition.output
     def output(self):
-        hash_parts = [[inp.basename for inp in self.input().collection.targets.values()]]
+        nano_basename = lambda inp: inp.basename[-41:]  # uuidv4 + ".root"
+        hash_parts = [list(map(nano_basename, self.input().collection.targets.values()))]
         if self.n_events >= 0:
             hash_parts.append(f"n{self.n_events}")
         name = nano_file_hash(hash_parts)

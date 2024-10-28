@@ -97,7 +97,8 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         super().__init__(*args, **kwargs)
 
         # cached BundleRepo requirement to avoid race conditions during checksum calculation
-        self.bundle_repo_req = BundleRepo.req(self)
+        if self.is_workflow():
+            self.bundle_repo_req = BundleRepo.req(self)
 
     def htcondor_job_resources(self, job_num, branches):
         # one "naf_<username>" resource per job, indendent of the number of branches in the job

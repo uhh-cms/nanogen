@@ -14,7 +14,7 @@ setup_ng() {
     local orig="${PWD}"
     local micromamba_url="https://micro.mamba.pm/api/micromamba/linux-64/latest"
     local pyv="3.9"
-    local remote_env="$( [ -z "${NG_REMOTE_ENV}" ] && echo "false" || echo "true" )"
+    local remote_env="$( [ "${NG_REMOTE_ENV}" = "1" ] && echo "true" || echo "false" )"
 
 
     #
@@ -93,8 +93,9 @@ setup_ng() {
         rm -rf "${NG_CMSSW_BASE}"
     fi
 
-    # empty the PYTHONPATH
+    # empty the PYTHONPATH and LD_LIBRARY_PATH
     export PYTHONPATH=""
+    export LD_LIBRARY_PATH=""
 
     # persistent PATH and PYTHONPATH parts that should be
     # priotized over any additions made in sandboxes later on

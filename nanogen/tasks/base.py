@@ -17,7 +17,7 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.nano_util import DatasetInfo, mini_to_nano_dataset
-from nanogen.util import expand_path, maybe_wait_for_dcache
+from nanogen.util import is_remote_env, expand_path, maybe_wait_for_dcache
 
 
 default_config = law.config.get_expanded("analysis", "default_config")
@@ -187,15 +187,18 @@ class Task(law.SandboxTask):
         if location[0] == OutputLocation.dcache:
             # get other options
             loc, wlcg_fs = (location[1:] + [None, None])[:2]
+            # create the wlcg target
+            wlcg_kwargs = kwargs.copy()
+            wlcg_kwargs.setdefault("fs", wlcg_fs or self.default_wlcg_fs)
+            wlcg_target = self.wlcg_target(*path, **wlcg_kwargs)
+            # in remote envs, mirrored targets are not supported and default to the wlcg component
+            if is_remote_env:
+                return wlcg_target
             # create the local target
             local_kwargs = kwargs.copy()
             loc_key = "fs" if (loc and law.config.has_section(loc)) else "store"
             local_kwargs.setdefault(loc_key, loc or "local_fs_dcache_store")
             local_target = self.local_target(*path, **local_kwargs)
-            # create the wlcg target
-            wlcg_kwargs = kwargs.copy()
-            wlcg_kwargs.setdefault("fs", wlcg_fs or self.default_wlcg_fs)
-            wlcg_target = self.wlcg_target(*path, **wlcg_kwargs)
             # build the mirrored target from these two
             mirrored_target_cls = (
                 law.MirroredFileTarget
@@ -311,6 +314,32 @@ class ConfigTask(Task):
 
 
 class CMSSWSandboxTask(ConfigTask):
+
+    def sandbox_stagein(self, sandbox_inputs):
+        def can_read_locally(inp):
+            if isinstance(inp, (law.LocalTarget, law.MirroredTarget)):
+                return True
+            if isinstance(inp, law.SiblingFileCollection):
+                return isinstance(inp.dir, (law.LocalDirectoryTarget, law.MirroredDirectoryTarget))
+            if isinstance(inp, law.TargetCollection):
+                raise NotImplementedError("generic collections are not supported")
+            return False
+
+        # stage all inputs that are not locally accessible
+        return law.util.map_struct(lambda inp: not can_read_locally(inp), sandbox_inputs)
+
+    def sandbox_stageout(self, sandbox_outputs):
+        def can_write_locally(outp):
+            if isinstance(outp, law.LocalTarget):
+                return True
+            if isinstance(outp, law.SiblingFileCollection):
+                return isinstance(outp.dir, law.LocalDirectoryTarget)
+            if isinstance(outp, law.TargetCollection):
+                raise NotImplementedError("generic collections are not supported")
+            return False
+
+        # stage all outputs that are not locally accessible
+        return law.util.map_struct(lambda outp: not can_write_locally(outp), sandbox_outputs)
 
     @property
     def sandbox(self) -> str:  # type: ignore[override]
