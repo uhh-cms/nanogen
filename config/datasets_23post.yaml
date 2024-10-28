@@ -367,34 +367,34 @@ w_lnu_1j_amcatnlo:
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
-w_lnu_pt40to100_1j_amcatnlo:
+w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt40to100_2j_amcatnlo:
+w_lnu_2j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt100to200_1j_amcatnlo:
+w_lnu_1j_pt100to200_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt100to200_2j_amcatnlo:
+w_lnu_2j_pt100to200_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt200to400_1j_amcatnlo:
+w_lnu_1j_pt200to400_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt200to400_2j_amcatnlo:
+w_lnu_2j_pt200to400_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt400to600_1j_amcatnlo:
+w_lnu_1j_pt400to600_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt400to600_2j_amcatnlo:
+w_lnu_2j_pt400to600_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt600toinf_1j_amcatnlo:
+w_lnu_1j_pt600toinf_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-w_lnu_pt600toinf_2j_amcatnlo:
+w_lnu_2j_pt600toinf_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 #
@@ -456,28 +456,28 @@ dy_m50toinf_2j_pt600toinf_amcatnlo:
 # Z + jets
 #
 
-z_qq_pt100to200_1j_amcatnlo:
+z_qq_1j_pt100to200_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt100to200_2j_amcatnlo:
+z_qq_2j_pt100to200_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt200to400_1j_amcatnlo:
+z_qq_1j_pt200to400_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt200to400_2j_amcatnlo:
+z_qq_2j_pt200to400_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt400to600_1j_amcatnlo:
+z_qq_1j_pt400to600_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt400to600_2j_amcatnlo:
+z_qq_2j_pt400to600_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt600toinf_1j_amcatnlo:
+z_qq_1j_pt600toinf_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-z_qq_pt600toinf_2j_amcatnlo:
+z_qq_2j_pt600toinf_amcatnlo:
   key:  /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 # TODO: Discussion: add Z to nunu here?
