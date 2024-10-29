@@ -559,6 +559,9 @@ w_lnu_0j_amcatnlo:
 
 w_lnu_1j_amcatnlo:
   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+  skip_lfns:
+    # corrupt file, lzma decompression error after 28500 events
+    - /store/mc/Run3Summer22MiniAODv4/WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_v5-v2/50001/c5639943-0f92-4263-ac13-5aca37265edf.root
 
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
