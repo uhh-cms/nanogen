@@ -206,6 +206,13 @@ st_twchannel_t_fh_powheg:
 st_twchannel_tbar_fh_powheg:
   key: /TbarWplusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
+# s channel
+st_schannel_t_lep_4f_amcatnlo:
+  key: /TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+st_schannel_tbar_lep_4f_amcatnlo:
+  key: /TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
 #
 # single top systematics
 #
@@ -327,7 +334,9 @@ st_twchannel_tbar_fh_powheg_tune_up:
 ttw_wlnu_amcatnlo:
   key: /TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
-# ttz not yet existing
+# ttz
+ttz_zqq_amcatnlo:
+  key: /TTZ-ZtoQQ-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 ttz_zll_m4to50_amcatnlo:
   key: /TTLL_MLL-4to50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
@@ -512,6 +521,7 @@ zzz_amcatnlo:
 #
 # higgs
 #
+
 h_ggf_htt_powheg:
   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
