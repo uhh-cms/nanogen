@@ -259,7 +259,6 @@ hhh_4b2tau_c3m1_d4m1_amcatnlo:
 hhh_4b2tau_c3m1p5_d4m0p5_amcatnlo:
   key: /HHHto4B2Tau_c3-minus1p5_d4-minus0p5_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
-
 #
 # ttbar
 #
@@ -799,7 +798,6 @@ tth_hbb_powheg:
 
 tth_hnonbb_powheg:
   key: /TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v4/MINIAODSIM
-
 
 #
 # data
