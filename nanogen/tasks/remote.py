@@ -80,8 +80,15 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         default=law.NO_FLOAT,
         unit="MB",
         significant=False,
-        description="requested memeory in MB; empty value leads to the cluster default setting; "
+        description="requested memory in MB; empty value leads to the cluster default setting; "
         "empty default",
+    )
+    htcondor_disk = law.BytesParameter(
+        default=3,
+        unit="GB",
+        significant=False,
+        description="requested disk space in GB; empty value leads to the cluster default setting; "
+        "default: 3",
     )
     htcondor_flavor = luigi.ChoiceParameter(
         default=default_htcondor_flavor,
@@ -174,6 +181,11 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         # request memory
         if self.htcondor_memory is not None and self.htcondor_memory > 0:
             config.custom_content.append(("Request_Memory", self.htcondor_memory))
+
+        # request disk space
+        if self.htcondor_disk is not None and self.htcondor_disk > 0:
+            # https://confluence.desy.de/pages/viewpage.action?pageId=128354529
+            config.custom_content.append(("RequestDisk", self.htcondor_disk * 1024**2))
 
         # render variables
         config.render_variables["ng_bootstrap_name"] = "htcondor"
