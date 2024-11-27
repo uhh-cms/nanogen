@@ -813,6 +813,9 @@ data_e_d:
   key: /EGamma/Run2022D-22Sep2023-v1/MINIAOD
 
 data_mu_c:
+  key: /SingleMuon/Run2022C-22Sep2023-v1/MINIAOD
+
+data_mu_c_ext1:
   key: /Muon/Run2022C-22Sep2023-v1/MINIAOD
 
 data_mu_d:
