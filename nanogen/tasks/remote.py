@@ -5,6 +5,7 @@ Base classes and tools for working with remote tasks and targets.
 """
 
 import os
+import re
 import math
 import getpass
 
@@ -222,6 +223,33 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         if getattr(self, "dataset_name", None):
             info["dataset"] = self.dataset_name
         return info
+
+    def handle_scheduler_message(self, msg, _attr_value=None):
+        attr, value = _attr_value or (None, None)
+
+        # handle "htcondor_memory"
+        if attr is None:
+            m = re.match(r"^\s*(htcondor\_memory)\s*(\=|\:)\s*(.*)\s*$", str(msg))
+            if m:
+                attr = m.group(1)
+                try:
+                    self.htcondor_memory = self.__class__.htcondor_memory.parse(m.group(3))
+                    value = self.__class__.htcondor_memory.serialize(self.htcondor_memory)
+                except ValueError as e:
+                    value = e
+
+        # handle "htcondor_disk"
+        if attr is None:
+            m = re.match(r"^\s*(htcondor\_disk)\s*(\=|\:)\s*(.*)\s*$", str(msg))
+            if m:
+                attr = m.group(1)
+                try:
+                    self.htcondor_disk = self.__class__.htcondor_disk.parse(m.group(3))
+                    value = self.__class__.htcondor_disk.serialize(self.htcondor_disk)
+                except ValueError as e:
+                    value = e
+
+        return super().handle_scheduler_message(msg, (attr, value))
 
 
 default_slurm_flavor = law.config.get_expanded("analysis", "slurm_flavor", "maxwell")
