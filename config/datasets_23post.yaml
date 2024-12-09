@@ -217,6 +217,11 @@ st_schannel_tbar_lep_4f_amcatnlo:
 # single top systematics
 #
 
+# no s channel
+
+# no t channel
+
+# tw channel
 st_twchannel_t_sl_powheg_hdamp_down:
   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
@@ -324,7 +329,6 @@ st_twchannel_tbar_fh_powheg_tune_down:
 
 st_twchannel_tbar_fh_powheg_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
-
 
 #
 # ttbar + V
@@ -487,8 +491,6 @@ z_qq_1j_pt600toinf_amcatnlo:
 z_qq_2j_pt600toinf_amcatnlo:
   key:  /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-# TODO: Discussion: add Z to nunu here?
-
 #
 # di boson
 #
@@ -539,7 +541,7 @@ wph_wlnu_hbb_powheg:
 
 wmh_wqq_hbb_powheg:
   key: /WminusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
-  
+
 wph_wqq_hbb_powheg:
   key: /WplusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
@@ -569,8 +571,6 @@ zh_gg_znunu_hbb_powheg:
 
 tth_hbb_powheg:
   key: /TTHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
-# also a lowercase version: /ttHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
-# also a TTHto2C version /TTHto2C_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 tth_hnonbb_powheg:
   key: /TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
@@ -608,7 +608,7 @@ data_tau_d_1:
 
 data_tau_d_2:
   key: /Tau/Run2023D-22Sep2023_v2-v1/MINIAOD
-  
+
 data_met_d_1:
   key: /JetMET0/Run2023D-22Sep2023_v1-v1/MINIAOD
 
@@ -620,4 +620,3 @@ data_met_d_2:
 
 data_met_d_2_ext1:
   key: /JetMET1/Run2023D-22Sep2023_v2-v1/MINIAOD
-

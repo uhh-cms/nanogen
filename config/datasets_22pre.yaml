@@ -404,6 +404,11 @@ st_schannel_tbar_lep_4f_amcatnlo:
 # single top systematics
 #
 
+# no s channel
+
+# no t channel
+
+# tw channel
 st_twchannel_t_sl_powheg_hdamp_down:
   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 

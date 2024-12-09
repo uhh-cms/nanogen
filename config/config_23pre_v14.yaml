@@ -1,0 +1,34 @@
+# Custom NanoAOD v14, Run3, 2023, preBPix
+#
+# "pre" refers to the era in 2023 before the barrel pixel (BPix) adjustment
+#  which is commonly denoted as "Run3Summer23" in DAS.
+#
+# Links:
+#   - https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Releases/NanoAODv14
+#   - https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun3Analysis
+#   - https://docs.google.com/presentation/d/1TjPem5jX0fzqvTGl271_nQFoVBabsrdrO0i8Qo1uD5E/edit?usp=sharing
+
+# cmssw setup
+# from https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis#Recipes_for_Run3Summer23_and_Run
+# CMSSW version should be at least CMSSW_14_0_6_patch1 (but 140X)
+cmssw_version: CMSSW_14_0_19
+scram_arch: el9_amd64_gcc12
+cmssw_env_name: nanogen
+sandbox_script: cmssw_nanogen.sh
+
+# arguments for cmsDriver.py that creates the cmsRun config
+global_tag:
+  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/140X_mcRun3_2023_realistic_v9
+  mc: 140X_mcRun3_2023_realistic_v9
+  # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/140X_dataRun3_Prompt_v4
+  data: 140X_dataRun3_Prompt_v4
+era:
+  mc: &era Run3
+  data: *era
+
+# postfix for produced nano datasets in the cms-store-like path
+campaign_postfix: NanoAODv14UHH
+
+# references to dataset and nano configs
+dataset_config: datasets_23pre.yaml
+nano_config: nano_run3_v14.yaml

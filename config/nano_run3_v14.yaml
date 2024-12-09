@@ -1,0 +1,30 @@
+# nano customonization hook to be injected into the cmsRun config
+customization:
+  module: nanogen.customizations.default
+  function: customize_run3_v14_uhh
+  arguments:
+    pf_candidates: true
+
+# objects to by bypassed in skimming process and copied as is
+bypass:
+  - LuminosityBlocks
+  - Runs
+
+# skimming configs
+skim:
+  - input_tree: Events
+    output_tree: Events
+    selection: "return true;"
+    column_filters:
+      # drop some object collections alltogether
+      - drop ^n?CaloMET.*$
+      - drop ^n?CorrT1METJet.*$
+      - drop ^n?TkMET.*$
+      - drop ^n?FsrPhoton.*$
+      - drop ^n?GenDressedLepton.*$
+      - drop ^n?GenIsolatedPhoton.*$
+      - drop ^n?GenProton.*$
+      - drop ^n?IsoTrack.*$
+      - drop ^n?LowPtElectron.*$
+      - drop ^n?OtherPV.*$
+      - drop ^n?SoftActivityJet.*$

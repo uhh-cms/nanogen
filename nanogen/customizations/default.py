@@ -41,7 +41,7 @@ def no_customization(process, *, dataset_kind: str, **kwargs):
     return process
 
 
-def _customize_v12_uhh(
+def _customize_uhh(
     process,
     run: Run,
     nano_version: NanoVersion,
@@ -68,11 +68,15 @@ def _customize_v12_uhh(
 
 
 def customize_run2_v12_uhh(process, **kwargs):
-    return _customize_v12_uhh(process, Run.II, NanoVersion.V12, **kwargs)
+    return _customize_uhh(process, Run.II, NanoVersion.V12, **kwargs)
 
 
 def customize_run3_v12_uhh(process, **kwargs):
-    return _customize_v12_uhh(process, Run.III, NanoVersion.V12, **kwargs)
+    return _customize_uhh(process, Run.III, NanoVersion.V12, **kwargs)
+
+
+def customize_run3_v14_uhh(process, **kwargs):
+    return _customize_uhh(process, Run.III, NanoVersion.V14, **kwargs)
 
 
 #

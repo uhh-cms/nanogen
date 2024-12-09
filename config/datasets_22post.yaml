@@ -413,6 +413,11 @@ st_schannel_tbar_lep_4f_amcatnlo:
 # single top systematics
 #
 
+# no s channel
+
+# no t channel
+
+# tw channel
 # st tw channel t_sl HDAMP has no 130X version yet, and 124X is not compatible with our setup
 # check via https://cmsweb.cern.ch/das/request?view=list&limit=50&instance=prod%2Fglobal&input=dataset%3D%2FTWminustoLNu2Q_Hdamp*%2FRun3Summer22EEMiniAODv4-130X_*%2FMINIAODSIM
 # TODO: add when available
@@ -523,7 +528,6 @@ st_twchannel_tbar_fh_powheg_tune_down:
 
 st_twchannel_tbar_fh_powheg_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
-
 
 #
 # ttbar + V
