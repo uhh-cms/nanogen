@@ -54,6 +54,9 @@ def _customize_uhh(
     if dataset_kind == "mc":
         process = update_gen_particles(process, run, nano_version)
 
+    # add pv variables
+    process = add_pv_variables(process, run, nano_version)
+
     # add tau variables
     process = add_tau_variables(process, run, nano_version)
 
@@ -88,28 +91,28 @@ def pdg_abs_or(pdgs: list[int]) -> str:
     return f"({abs_or})"
 
 
-def var_f8(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, float, precision=8, **({"doc": doc} if doc else {}))
+def var_f8(expr: str, **kwargs) -> Var:
+    return Var(expr, float, precision=8, **kwargs)
 
 
-def var_f10(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, float, precision=10, **({"doc": doc} if doc else {}))
+def var_f10(expr: str, **kwargs) -> Var:
+    return Var(expr, float, precision=10, **kwargs)
 
 
-def var_i32(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, int, **({"doc": doc} if doc else {}))
+def var_i32(expr: str, **kwargs) -> Var:
+    return Var(expr, int, **kwargs)
 
 
-def var_i16(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, "int16", **({"doc": doc} if doc else {}))
+def var_i16(expr: str, **kwargs) -> Var:
+    return Var(expr, "int16", **kwargs)
 
 
-def var_ui32(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, "uint", **({"doc": doc} if doc else {}))
+def var_ui32(expr: str, **kwargs) -> Var:
+    return Var(expr, "uint", **kwargs)
 
 
-def var_b(expr: str, *, doc: str = "") -> Var:
-    return Var(expr, bool, **({"doc": doc} if doc else {}))
+def var_b(expr: str, **kwargs) -> Var:
+    return Var(expr, bool, **kwargs)
 
 
 #
@@ -140,6 +143,16 @@ def update_gen_particles(process, run: Run, nano_version: NanoVersion):
     return process
 
 
+def add_pv_variables(process, run: Run, nano_version: NanoVersion):
+    if cmssw_version >= (14, 0, 0):
+        from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addExtendVertexInfo  # type: ignore[import-not-found] # noqa
+        addExtendVertexInfo(process)
+        process.pvbsTable.variables.ndof = var_f8("ndof()", doc="number of degrees of freedom")
+        process.pvbsTable.variables.valid = var_b("isValid()", doc="PV fit is valid")
+
+    return process
+
+
 def add_tau_variables(process, run: Run, nano_version: NanoVersion):
     """
     Taken from TAU POG.
@@ -147,19 +160,11 @@ def add_tau_variables(process, run: Run, nano_version: NanoVersion):
     # additional variables
     tau_vars = process.tauTable.variables
     tau_vars.dxyErr = var_f10("dxy_error", doc="dxy error")
-    if cmssw_version < (14, 0, 0):
-        tau_vars.dzErr = var_f10(
-            "?leadChargedHadrCand.isNonnull() && leadChargedHadrCand.hasTrackDetails() ? leadChargedHadrCand.dzError() : 1000.0",  # noqa
-            doc="dz error",
-        )
-    else:
-        # as of 14_0_0, leadChargedHadrCand is not downcasted to a packed candidate but sticks with
-        # a normal candidate, which does not have hasTrackDetails(), so skip the check here and
-        # assume that dzError is returning sensible values
-        tau_vars.dzErr = var_f10(
-            "?leadChargedHadrCand.isNonnull() ? leadChargedHadrCand.dzError() : 1000.0",  # noqa
-            doc="dz error",
-        )
+    tau_vars.dzErr = var_f10(
+        "?leadChargedHadrCand.isNonnull() && leadChargedHadrCand.hasTrackDetails() ? leadChargedHadrCand.dzError() : 1000.0",  # noqa
+        doc="dz error",
+        **({"lazyEval": True} if cmssw_version >= (14, 0, 0) else {}),
+    )
     tau_vars.ip3d = var_f10("ip3d", doc="3D impact parameter")
     tau_vars.ip3dErr = var_f10("ip3d_error", doc="3D impact parameter error")
     tau_vars.hasSV = var_b("hasSecondaryVertex", doc="has secondary vertex")
@@ -170,11 +175,10 @@ def add_tau_variables(process, run: Run, nano_version: NanoVersion):
     tau_vars.leadTkNormChi2 = var_f10("leadingTrackNormChi2()", doc="normalized chi2 of the leading track")  # noqa
     tau_vars.leadChCandEtaAtEcalEntrance = var_f10("etaAtEcalEntranceLeadChargedCand", doc="eta of the leading charged candidate at the entrance of the ECAL")  # noqa
 
-    # lifetime variables
-    # not available in V12, already present in V14
-    # if add_lifetime_vars:
-    #     from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addTimeLifeInfoToTaus  # type: ignore[import-not-found] # noqa
-    #     addTimeLifeInfoToTaus(process)
+    # lifetime variables (only available above 14_0_X)
+    if cmssw_version >= (14, 0, 0):
+        from PhysicsTools.NanoAOD.leptonTimeLifeInfo_common_cff import addTrackVarsToTimeLifeInfo  # type: ignore[import-not-found] # noqa
+        addTrackVarsToTimeLifeInfo(process)
 
     return process
 
