@@ -162,6 +162,14 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         description="colon-separated events to skip, each one in the format "
         "'run_number,event_number[,end_event_number]'; empty default",
     )
+    htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
+        default=3 * 1024,  # MB
+        add_default_to_description=True,
+    )
+    htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
+        default=5,  # GB
+        add_default_to_description=True,
+    )
 
     # change the priority value to 10 (from the default 0) so that this task
     # is executed before other tasks when interacting with a central scheduler
@@ -407,6 +415,14 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
         default=2048,
         unit="MB",
         description="approximate size of merged nano files; default unit is MB; default: 2048MB",
+    )
+    htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
+        default=3 * 1024,  # MB
+        add_default_to_description=True,
+    )
+    htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
+        default=10,  # GB
+        add_default_to_description=True,
     )
 
     def workflow_requires(self):

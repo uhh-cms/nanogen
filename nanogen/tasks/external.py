@@ -241,9 +241,7 @@ class FetchLFN(Task):
     version = None
     sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
-    @property
-    def priority(self):
-        return 10
+    priority = 20
 
     def output(self):
         return self.target(self.lfn)

@@ -6,7 +6,7 @@ Set environment variables before sourcing `setup.sh` and consider creating an al
 
 ```shell
 export NG_CERN_USER="your_cern_username"
-export NG_DATA_BASE="/nfs/dust/cms/user/$( whoami )/nanogen"  # e.g. dust
+export NG_DATA_BASE="/data/dust/cms/user/$( whoami )/nanogen"  # e.g. dust
 source setup.sh ""
 ```
 
