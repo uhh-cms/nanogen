@@ -162,6 +162,10 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         description="colon-separated events to skip, each one in the format "
         "'run_number,event_number[,end_event_number]'; empty default",
     )
+    max_runtime = NanoDatasetWorkflow.max_runtime.copy(
+        default=4,  # hours  # TODO: maybe 3 when MiniAODs are local
+        add_default_to_description=True,
+    )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
         default=3,  # GB
         add_default_to_description=True,
@@ -187,6 +191,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
     def requires(self):
         reqs = super().requires()
+
         reqs.cfg = CreateCMSRunConfig.req(
             self,
             dataset_kind=self.mini_info.kind,
@@ -240,11 +245,9 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
                         uri = local_path
                 input_files.append(uri)
                 continue
-
             # use the lfn as is
             lfn = lfns[i]
             input_files.append(lfn)
-
             # check if we should fetch it temporarily though
             if self.tmp_fetch_lfns.lower() == "false":
                 continue

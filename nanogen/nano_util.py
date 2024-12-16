@@ -10,7 +10,6 @@ __all__: list[str] = []
 
 import os
 import re
-import gc
 import math
 import json
 import shutil
@@ -343,6 +342,12 @@ class LFNLocation(object):
         return get_scheme(self.pfn)
 
     @property
+    def source_name(self) -> str:
+        if self.fs or self.site:
+            return f"{self.fs or self.site}:{self.scheme}"
+        return self.pfn  # type: ignore[return-value]
+
+    @property
     def is_local(self) -> bool:
         base = law.config.get_expanded(self.fs, "base") if self.fs else self.pfn
         return get_scheme(base) in (None, "file")
@@ -383,7 +388,6 @@ def locate_lfn(
         # complain when there are no locations to check
         if not locations:
             raise MissingLFNException(lfn, "DAS reported no available sites")
-        log_info(f"DAS reported {len(locations)} location(s): {', '.join(locations)}")
 
     # create location objects
     lfn_locations = []
@@ -402,6 +406,10 @@ def locate_lfn(
 
     if not lfn_locations:
         raise MissingLFNException(lfn, "no locations found")
+
+    log_info(
+        f"found {len(lfn_locations)} location(s): {', '.join(l.source_name for l in lfn_locations)}",
+    )
 
     return lfn_locations
 
@@ -765,9 +773,6 @@ def iter_root_coffea_events(
     branches: list[str] | None = None,
     callback: Callable[[int, int, int, int], Any] | None = None,
 ):
-    """
-    TODO: coffea.nanoevents.NanoEventsFactory leaks memory, which is known but unresolved?
-    """
     import uproot  # type: ignore[import-untyped]
     import coffea.nanoevents  # type: ignore[import-untyped]
 
@@ -775,7 +780,6 @@ def iter_root_coffea_events(
     @contextlib.contextmanager
     def uproot_open_target(target):
         with target.localize("r") as tmp:
-            # print(f"localized {target.uri()}")
             try:
                 yield uproot.open(tmp.abspath)
             except:
@@ -807,8 +811,6 @@ def iter_root_coffea_events(
                     persistent_cache=None,
                     iteritems_options={"filter_name": branches},
                 ).events()
-
-                gc.collect()
 
                 if callable(callback):
                     callback(i, len(sources), j, n_chunks)
