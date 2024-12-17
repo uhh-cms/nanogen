@@ -163,11 +163,11 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         "'run_number,event_number[,end_event_number]'; empty default",
     )
     max_runtime = NanoDatasetWorkflow.max_runtime.copy(
-        default=4,  # hours  # TODO: maybe 3 when MiniAODs are local
+        default=4,  # hours
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
-        default=3,  # GB
+        default=4.5,  # GB
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
