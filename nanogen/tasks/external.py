@@ -6,6 +6,7 @@ Tasks dealing with external data.
 
 from __future__ import annotations
 
+import os
 from multiprocessing.dummy import Pool as ThreadPool
 
 import luigi  # type: ignore[import-untyped]
@@ -65,6 +66,7 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
             for dataset_name in self.selected_dataset_names
         })
 
+    @law.tasks.RunOnceTask.complete_on_success
     @law.decorator.log
     def run(self):
         from tabulate import tabulate  # type: ignore[import-untyped]
@@ -297,3 +299,61 @@ class FetchLFNWrapper(Task, law.WrapperTask):
             lfn: FetchLFN(lfn=lfn, locations=locs)
             for lfn, locs in zip(self.lfns, self.locations or ([()] * len(self.lfns)))
         }
+
+
+class CheckLocalPFNs(DatasetTask, law.tasks.RunOnceTask):
+
+    PREFIX_NAF = "/pnfs/desy.de/cms/tier2/"
+
+    prefix = luigi.Parameter(
+        default=PREFIX_NAF,
+        description=f"the prefix to prepend to lfns to obtain a pfn; default: {PREFIX_NAF}",
+    )
+    show_lfn = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to show the lfns in the output rather than pfns; default: False",
+    )
+    only_missing = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to only show missing pfns; default: False",
+    )
+    user = user_parameter
+
+    version = None
+
+    def requires(self):
+        return GetDatasetLFNs(dataset_name=self.dataset_name)
+
+    @law.tasks.RunOnceTask.complete_on_success
+    def run(self):
+        lfns = self.input().lfns.load(formatter="json")
+
+        n = 0
+        with self.publish_step(f"checking {len(lfns)} local PFNs ..."):
+            for i, lfn in enumerate(lfns):
+                pfn = f"{self.prefix.rstrip('/')}/{lfn.lstrip('/')}"
+                exists = int(os.path.exists(pfn))
+                if exists and self.only_missing:
+                    continue
+                if not exists:
+                    n += 1
+                key = law.util.colored(
+                    ["missing", "exists "][exists],
+                    color=["red", "green"][exists],
+                    style="bright",
+                )
+                self.publish_message(f"{key}: {lfn if self.show_lfn else pfn} ({i})")
+
+        n_str = law.util.colored(n, color="red" if n else "green")
+        self.publish_message(f"missing: {n_str} of {len(lfns)}")
+
+
+CheckLocalPFNsWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=CheckLocalPFNs,
+    cls_name="CheckLocalPFNsWrapper",
+    enable=["datasets", "skip_datasets"],
+    attributes={"version": None},
+)
