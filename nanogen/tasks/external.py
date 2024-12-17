@@ -7,6 +7,7 @@ Tasks dealing with external data.
 from __future__ import annotations
 
 import os
+from collections import defaultdict
 from multiprocessing.dummy import Pool as ThreadPool
 
 import luigi  # type: ignore[import-untyped]
@@ -148,7 +149,6 @@ class GetDatasetLFNs(DatasetTask):
     user = user_parameter
 
     version = None
-    sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
     def output(self):
         outputs = law.util.DotDict()
@@ -303,11 +303,11 @@ class FetchLFNWrapper(Task, law.WrapperTask):
 
 class CheckLocalPFNs(DatasetTask, law.tasks.RunOnceTask):
 
-    PREFIX_NAF = "/pnfs/desy.de/cms/tier2/"
+    PREFIX_DESY = "/pnfs/desy.de/cms/tier2"
 
     prefix = luigi.Parameter(
-        default=PREFIX_NAF,
-        description=f"the prefix to prepend to lfns to obtain a pfn; default: {PREFIX_NAF}",
+        default=PREFIX_DESY,
+        description=f"the prefix to prepend to lfns to obtain a pfn; default: {PREFIX_DESY}",
     )
     show_lfn = luigi.BoolParameter(
         default=False,
@@ -319,16 +319,24 @@ class CheckLocalPFNs(DatasetTask, law.tasks.RunOnceTask):
         significant=False,
         description="whether to only show missing pfns; default: False",
     )
+    locate = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to print locations of lfns; default: False",
+    )
     user = user_parameter
 
     version = None
 
     def requires(self):
-        return GetDatasetLFNs(dataset_name=self.dataset_name)
+        return GetDatasetLFNs.req(self)
 
     @law.tasks.RunOnceTask.complete_on_success
     def run(self):
         lfns = self.input().lfns.load(formatter="json")
+
+        # color helper
+        c = law.util.colored
 
         n = 0
         with self.publish_step(f"checking {len(lfns)} local PFNs ..."):
@@ -339,14 +347,29 @@ class CheckLocalPFNs(DatasetTask, law.tasks.RunOnceTask):
                     continue
                 if not exists:
                     n += 1
-                key = law.util.colored(
+                key = c(
                     ["missing", "exists "][exists],
                     color=["red", "green"][exists],
                     style="bright",
                 )
                 self.publish_message(f"{key}: {lfn if self.show_lfn else pfn} ({i})")
+                if self.locate:
+                    locs = defaultdict(set)
+                    for loc in locate_lfn(lfn, silent=True):
+                        locs[loc.fs or loc.site].add(loc.scheme)
+                    if locs:
+                        msg = f"locations ({c(len(locs), color='green' if locs else 'red')}): "
+                        msg += ", ".join(
+                            f"{c(site, style='bright')}({'|'.join(filter(bool, schemes))})"
+                            for site, schemes in locs.items()
+                        )
+                        if "T2_DE_DESY" not in locs:
+                            msg += f" ({c('not at DESY', color='red')})"
+                    else:
+                        msg = c("no locations found", color="red", style="bright")
+                    self.publish_message(f"  -> {msg}")
 
-        n_str = law.util.colored(n, color="red" if n else "green")
+        n_str = c(n, color="red" if n else "green")
         self.publish_message(f"missing: {n_str} of {len(lfns)}")
 
 

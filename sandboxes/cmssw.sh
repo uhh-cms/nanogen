@@ -208,7 +208,7 @@ setup_cmssw() {
     export SCRAM_ARCH="${NG_SCRAM_ARCH}"
     export CMSSW_VERSION="${NG_CMSSW_VERSION}"
     cd "${install_path}/src"
-    echo "using CMSSW in ${install_path}"
+    # echo "using CMSSW in ${install_path}"
     eval "$( scramv1 runtime -sh )" || return "$?"
 
     # custom setup

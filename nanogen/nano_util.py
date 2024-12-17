@@ -150,7 +150,7 @@ def das_query(
     log = log or print
 
     # build the command
-    cmd = f"dasgoclient -query='{query}'"
+    cmd = f"/cvmfs/cms.cern.ch/common/dasgoclient -query='{query}'"
     if args:
         cmd += f" {law.util.quote_cmd(law.util.make_list(args))}"
     if "-limit" not in cmd:
@@ -369,11 +369,14 @@ def locate_lfn(
     lfn: str,
     locations: str | list[str] | None = None,
     per_site: int = -1,
+    silent: bool = False,
     logger: logging.Logger | Callable | None = None,
 ) -> list[LFNLocation]:
     # prepare logging
-    log_debug = log_info = print
-    if logger:
+    log_debug = log_debug = print
+    if silent:
+        log_debug = log_info = (lambda *args, **kwargs: None)
+    elif logger:
         log_debug = getattr(logger, "debug", logger)  # type: ignore[arg-type]
         log_info = getattr(logger, "info", logger)  # type: ignore[arg-type]
 
@@ -408,7 +411,7 @@ def locate_lfn(
         raise MissingLFNException(lfn, "no locations found")
 
     log_info(
-        f"found {len(lfn_locations)} location(s): {', '.join(l.source_name for l in lfn_locations)}",
+        f"found {len(lfn_locations)} locations: {', '.join(l.source_name for l in lfn_locations)}",
     )
 
     return lfn_locations

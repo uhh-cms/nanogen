@@ -179,6 +179,13 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
     # is executed before other tasks when interacting with a central scheduler
     priority = 10
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # cached FetchLFN requirements for branches
+        if self.is_branch:
+            self._fetched_lfns = None
+
     def workflow_requires(self):
         reqs = super().workflow_requires()
         reqs.cfg = CreateCMSRunConfig.req(
@@ -201,12 +208,14 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         # check if lfns were maybe already fetched, and if so, use them
         # otherwise make the decision dependent on the fetch_lfns flag
-        lfns = self.lfns
-        reqs.fetched_lfns = {
-            i: task
-            for i, task in ((i, FetchLFN.req(self, lfn=lfns[i])) for i in self.branch_data)
-            if self.fetch_lfns or task.complete()
-        }
+        if self._fetched_lfns is None:
+            lfns = self.lfns
+            self._fetched_lfns = {
+                i: task
+                for i, task in ((i, FetchLFN.req(self, lfn=lfns[i])) for i in self.branch_data)
+                if self.fetch_lfns or task.complete()
+            }
+        reqs.fetched_lfns = self._fetched_lfns
 
         return reqs
 
