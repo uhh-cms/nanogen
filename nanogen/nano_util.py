@@ -470,7 +470,11 @@ def fetch_lfn(
             cmd = f"xrdcp -f {lfn_location.pfn} {abs_dst}"
             code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
             if code == 0:
-                break
+                # check if the local file really exists since xrdcp does not always have non-zero
+                # exit codes signaling a failure
+                if os.path.exists(abs_dst):
+                    break
+                log_warning(f"xrdcp return exit code 0 but local file {abs_dst} does not exist")
             log_warning(f"xrdcp failed for {lfn_location.pfn}")
 
         else:
