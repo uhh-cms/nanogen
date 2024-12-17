@@ -99,7 +99,9 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
         f"naf,cern,cern_el7,cern_el8,cern_el9,NO_STR; default: '{default_htcondor_flavor}'",
     )
 
-    exclude_params_branch = {"max_runtime", "htcondor_logs", "htcondor_memory", "htcondor_flavor"}
+    exclude_params_branch = {
+        "max_runtime", "htcondor_logs", "htcondor_memory", "htcondor_disk", "htcondor_flavor",
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

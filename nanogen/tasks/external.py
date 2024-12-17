@@ -96,7 +96,7 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
             return stats
 
         # load stats in parallel
-        with ThreadPool(3) as pool:
+        with ThreadPool(5) as pool:
             stats = dict(zip(
                 self.selected_dataset_names,
                 pool.map(load_stats, self.selected_dataset_names),

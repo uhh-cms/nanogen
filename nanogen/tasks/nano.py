@@ -167,7 +167,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
-        default=4.5,  # GB
+        default=4.75,  # GB
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
@@ -257,32 +257,35 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             # use the lfn as is
             lfn = lfns[i]
             input_files.append(lfn)
-            # check if we should fetch it temporarily though
+
+            # all checks below this point determine whether inputs should be fetched temporily
+
+            # disabled altogether
             if self.tmp_fetch_lfns.lower() == "false":
                 continue
             # locate it
             try:
-                lfn_locations = locate_lfn(lfn, per_site=1, logger=self.logger)
+                lfn_locs = locate_lfn(lfn, per_site=1, logger=self.logger)
             except MissingLFNException:
                 continue
-            # hotfix: usually, cmssw tries to open files on the local site if they exist, but for
-            # some reason, the dcache reports that - actually existing - files are missing when
-            # queried via dcap:// which seems to be the default protocol for cmssw's local lookup
-            if lfn_locations and lfn_locations[0].site == "T2_DE_DESY":
-                input_files[-1] = lfn_locations[0].pfn
-                continue
+            # hotfix on T2_DE_DESY: cmssw usually tries to open files on the local site if possible,
+            # but for some reason, the dcache reports that - actually existing - files are missing
+            # when queried via dcap:// which seems to be the default for cmssw's local lookup
+            if lfn_locs and (lfn_locs[0].site, lfn_locs[0].scheme) == ("T2_DE_DESY", "root"):
+                input_files[-1] = lfn_locs[0].pfn
             # select only xrootd locations
-            lfn_locations = list(filter((lambda l: l.scheme == "root"), lfn_locations))
-            if not lfn_locations:
+            lfn_locs = list(filter((lambda l: l.scheme == "root"), lfn_locs))
+            if not lfn_locs:
                 continue
             # in "auto" mode, check the primary location
             if self.tmp_fetch_lfns.lower() == "auto":
-                country = lfn_locations[0].site.split("_", 2)[1]
+                country = lfn_locs[0].site.split("_", 2)[1]
                 if country.lower() not in {"us", "kr", "in"}:
                     continue
-            # fetch and replace
+
+            # actually fetch and replace with the local path
             input_files[-1] = fetch_lfn(
-                lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locations,
+                lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locs,
             )
 
         # determine custom hook and arguments from config, or dataset of they exist
