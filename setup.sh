@@ -184,21 +184,23 @@ EOF
 
     export NG_CMS_PATH="/cvmfs/cms.cern.ch"
     local local_conf="/cvmfs/cms.cern.ch/SITECONF/local"
-    if [ ! -d "${local_conf}" ] || [ -z "$( readlink "${local_conf}" )" ]; then
-        local cms_path="${NG_SOFTWARE_BASE}/cms"
-        local dst_conf="${cms_path}/SITECONF/local"
-        if [ ! -d "${dst_conf}" ]; then
-            local src_conf="$( dirname "${local_conf}" )/${NG_CMS_SITE}"
-            if [ ! -d "${src_conf}" ]; then
-                >&2 echo "CMS site configuration not found at ${src_conf}"
-                return "1"
+    if [ "${NG_ON_HTCONDOR}" != "1" ]; then
+        if [ ! -d "${local_conf}" ] || [ -z "$( readlink "${local_conf}" )" ]; then
+            local cms_path="${NG_SOFTWARE_BASE}/cms"
+            local dst_conf="${cms_path}/SITECONF/local"
+            if [ ! -d "${dst_conf}" ]; then
+                local src_conf="$( dirname "${local_conf}" )/${NG_CMS_SITE}"
+                if [ ! -d "${src_conf}" ]; then
+                    >&2 echo "CMS site configuration not found at ${src_conf}"
+                    return "1"
+                fi
+                echo "local SITECONF not found, creating symlink"
+                echo "${src_conf} -> ${dst_conf}"
+                mkdir -p "$( dirname "${dst_conf}" )"
+                ln -s "${src_conf}" "${dst_conf}"
             fi
-            echo "local SITECONF not found, creating symlink"
-            echo "${src_conf} -> ${dst_conf}"
-            mkdir -p "$( dirname "${dst_conf}" )"
-            ln -s "${src_conf}" "${dst_conf}"
+            export NG_CMS_PATH="${cms_path}"
         fi
-        export NG_CMS_PATH="${cms_path}"
     fi
 
 
@@ -206,24 +208,26 @@ EOF
     # initialize / update submodules
     #
 
-    for mpath in modules/law; do
-        # do nothing when the path does not exist or it is not a submodule
-        if [ ! -d "${mpath}" ] || [ ! -f "${mpath}/.git" ] ; then
-            continue
-        fi
-
-        # initialize the submodule when the directory is empty
-        if [ "$( ls -1q "${mpath}" | wc -l )" = "0" ]; then
-            git submodule update --init --recursive "${mpath}"
-        else
-            # update when not on a working branch and there are no changes
-            local detached_head="$( ( cd "${mpath}"; git symbolic-ref -q HEAD &> /dev/null ) && echo "true" || echo "false" )"
-            local changed_files="$( cd "${mpath}"; git status --porcelain=v1 2> /dev/null | wc -l )"
-            if ! ${detached_head} && [ "${changed_files}" = "0" ]; then
-                git submodule update --init --recursive "${mpath}"
+    if ! ${remote_env}; then
+        for mpath in modules/law; do
+            # do nothing when the path does not exist or it is not a submodule
+            if [ ! -d "${mpath}" ] || [ ! -f "${mpath}/.git" ] ; then
+                continue
             fi
-        fi
-    done
+
+            # initialize the submodule when the directory is empty
+            if [ "$( ls -1q "${mpath}" | wc -l )" = "0" ]; then
+                git submodule update --init --recursive "${mpath}"
+            else
+                # update when not on a working branch and there are no changes
+                local detached_head="$( ( cd "${mpath}"; git symbolic-ref -q HEAD &> /dev/null ) && echo "true" || echo "false" )"
+                local changed_files="$( cd "${mpath}"; git status --porcelain=v1 2> /dev/null | wc -l )"
+                if ! ${detached_head} && [ "${changed_files}" = "0" ]; then
+                    git submodule update --init --recursive "${mpath}"
+                fi
+            fi
+        done
+    fi
 
 
     #
@@ -233,7 +237,7 @@ EOF
     export LAW_HOME="${NG_BASE}/.law"
     export LAW_CONFIG_FILE="${NG_BASE}/law.cfg"
 
-    if which law &> /dev/null; then
+    if ! ${remote_env} && which law &> /dev/null; then
         # source law's bash completion scipt
         source "$( law completion )" ""
 

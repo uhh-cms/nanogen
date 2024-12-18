@@ -47,7 +47,6 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
     user = user_parameter
 
     version = None
-    sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,7 +62,11 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
 
     def output(self):
         return law.SiblingFileCollection({
-            dataset_name: self.target(f"stats_{dataset_name}.json")
+            dataset_name: law.util.DotDict({
+                key: self.target(f"sites_{dataset_name}.json")
+                for key in ["stats", "sites"]
+                if key == "stats" or self.sites
+            })
             for dataset_name in self.selected_dataset_names
         })
 
@@ -77,26 +80,31 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
 
         # helper to load stats, either from cache or by querying DAS
         def load_stats(dataset_name):
-            if outputs[dataset_name].exists():
-                return outputs[dataset_name].load(formatter="json")
-
-            # fetch info
-            dataset_key = self.datasets[dataset_name].key
-            stats = load_dataset_stats(dataset_key)
+            if outputs[dataset_name].stats.exists():
+                stats = outputs[dataset_name].stats.load(formatter="json")
+            else:
+                # fetch info
+                dataset_key = self.datasets[dataset_name].key
+                stats = load_dataset_stats(dataset_key)
+                outputs[dataset_name].stats.dump(stats, indent=4, formatter="json")
 
             # add sites
-            stats["sites"] = [
-                site
-                for site in das_query(f"site dataset={dataset_key}").split("\n")
-                if not site.lower().endswith(("_tape", "_disk"))
-            ]
+            if self.sites:
+                if outputs[dataset_name].sites.exists():
+                    sites = outputs[dataset_name].sites.load(formatter="json")
+                else:
+                    sites = [
+                        site
+                        for site in das_query(f"site dataset={dataset_key}").split("\n")
+                        if not site.lower().endswith(("_tape", "_disk"))
+                    ]
+                    outputs[dataset_name].sites.dump(sites, indent=4, formatter="json")
+                stats["sites"] = sites
 
-            # save and return
-            outputs[dataset_name].dump(stats, indent=4, formatter="json")
             return stats
 
         # load stats in parallel
-        with ThreadPool(5) as pool:
+        with ThreadPool(4) as pool:
             stats = dict(zip(
                 self.selected_dataset_names,
                 pool.map(load_stats, self.selected_dataset_names),
@@ -133,7 +141,9 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
                 )
 
         # create the table
-        headers = ["Dataset", "Size / GB", "Files", "Events", "Sites"]
+        headers = ["Dataset", "Size / GB", "Files", "Events"]
+        if self.sites:
+            headers.append("Sites")
         print(tabulate(
             rows, headers=headers, tablefmt=self.table_format, floatfmt="_.1f", intfmt="_",
         ))
