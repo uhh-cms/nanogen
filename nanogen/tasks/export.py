@@ -84,7 +84,7 @@ GenerateNanoDocsWrapper = wrapper_factory(
 )
 
 
-class CreateDBEntry(DatasetTask):
+class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
     merged_size = MergeNano.merged_size
     skip_shifts = luigi.BoolParameter(
@@ -95,9 +95,11 @@ class CreateDBEntry(DatasetTask):
         default=False,
         description="whether to skip dataset extensions; default: False",
     )
+    recreate = luigi.BoolParameter(
+        default=False,
+        description="whether to recreate existing entries before printing them; default: False",
+    )
     user = user_parameter
-
-    sandbox = "bash::/cvmfs/cms.cern.ch/cmsset_default.sh"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -139,7 +141,7 @@ class CreateDBEntry(DatasetTask):
 
         return reqs
 
-    def output(self):
+    def cached_output(self):
         postfixes = []
         if self.skip_shifts:
             postfixes.append("noshifts")
@@ -148,8 +150,17 @@ class CreateDBEntry(DatasetTask):
         postfix = ("_" + "_".join(postfixes)) if postfixes else ""
         return self.target(f"cmsdb_entry{postfix}.txt")
 
+    @law.tasks.RunOnceTask.complete_on_success
     @law.decorator.log
     def run(self):
+        output = self.cached_output()
+
+        # print existing entry if not recreating
+        if not self.recreate and output.exists():
+            self.publish_message("showing previously created entry")
+            self.publish_message(f"\n{output.load(formatter='text')}\n")
+            return
+
         reqs = self.requires()
         inputs = self.input()
 
@@ -262,8 +273,8 @@ class CreateDBEntry(DatasetTask):
         entry += ")\n"
 
         # save and print the entry
-        self.output().dump(entry, formatter="text")
-        self.publish_message("\n" + entry + "\n")
+        output.dump(entry, formatter="text")
+        self.publish_message(f"\n{entry}\n")
 
 
 def db_entry_wrapper_reduce_params(self, params):
