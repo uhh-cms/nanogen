@@ -167,7 +167,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
-        default=3,  # GB
+        default=4,  # GB
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
@@ -254,6 +254,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
                         uri = local_path
                 input_files.append(uri)
                 continue
+
             # use the lfn as is
             lfn = lfns[i]
             input_files.append(lfn)
@@ -268,15 +269,26 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
                 lfn_locs = locate_lfn(lfn, per_site=1, logger=self.logger)
             except MissingLFNException:
                 continue
-            # hotfix on T2_DE_DESY: cmssw usually tries to open files on the local site if possible,
-            # but for some reason, the dcache reports that - actually existing - files are missing
-            # when queried via dcap:// which seems to be the default for cmssw's local lookup
+
+            # adjustments specifically for T2_DE_DESY:
+            # 1. if existing, T2_DE_DESY:root is at the front of lfn_locs; if so, exchange the input
+            #    lfn with the corresponding pfn to prefer xrootd over dcap, which is the default
+            #    when just passing the raw lfn, but often fails
+            # 2. when a local mount is available, use it instead
             if lfn_locs and (lfn_locs[0].site, lfn_locs[0].scheme) == ("T2_DE_DESY", "root"):
+                # check if local (2)
+                local_path = os.path.join("/pnfs/desy.de/cms/tier2", input_files[-1].lstrip("/"))
+                if os.path.exists(local_path):
+                    input_files[-1] = local_path
+                    continue
+                # otherwise use xrootd based pfn (1)
                 input_files[-1] = lfn_locs[0].pfn
+
             # select only xrootd locations
             lfn_locs = list(filter((lambda l: l.scheme == "root"), lfn_locs))
             if not lfn_locs:
                 continue
+
             # in "auto" mode, check the primary location
             if self.tmp_fetch_lfns.lower() == "auto":
                 country = lfn_locs[0].site.split("_", 2)[1]
