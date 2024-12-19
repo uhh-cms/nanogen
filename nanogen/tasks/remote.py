@@ -207,6 +207,8 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
 
         # batch name for display in condor_q
         batch_name = self.task_family
+        if (config_name := getattr(self, "config_name", None)):
+            batch_name += f"_{config_name[7:]}"
         if (dataset_name := getattr(self, "dataset_name", None)):
             batch_name += f"_{dataset_name}"
         config.custom_content.append(("batch_name", batch_name))
