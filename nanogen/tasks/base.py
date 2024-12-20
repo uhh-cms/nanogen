@@ -320,7 +320,10 @@ class CMSSWSandboxTask(ConfigTask):
             if isinstance(inp, (law.LocalTarget, law.MirroredTarget)):
                 return True
             if isinstance(inp, law.SiblingFileCollection):
-                return isinstance(inp.dir, (law.LocalDirectoryTarget, law.MirroredDirectoryTarget))
+                return (
+                    isinstance(inp.dir, law.LocalDirectoryTarget) or
+                    (isinstance(inp.dir, law.MirroredDirectoryTarget) and inp.dir._local_root_exists())  # noqa: E501
+                )
             if isinstance(inp, law.TargetCollection):
                 raise NotImplementedError("generic collections are not supported")
             return False
