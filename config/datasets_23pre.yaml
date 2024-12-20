@@ -129,6 +129,9 @@ tt_sl_powheg_mtop_down:
 
 tt_sl_powheg_mtop_up:
   key: /TTtoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+  skip_lfns:
+    # lzma compression error
+    - /store/mc/Run3Summer23MiniAODv4/TTtoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/60000/87161c4a-b9a8-4053-88b9-eba3e61dd81d.root
 
 tt_sl_powheg_tune_down:
   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM

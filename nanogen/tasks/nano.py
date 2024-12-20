@@ -452,7 +452,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
-        default=8,  # GB
+        default=10,  # GB
         add_default_to_description=True,
     )
 

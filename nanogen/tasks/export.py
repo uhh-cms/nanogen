@@ -113,6 +113,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
 
     def requires(self):
+        if not self.recreate and self.cached_output().exists():
+            return []
+
         def maybe_include_extensions(dataset_name):
             yield dataset_name
             if not self.skip_extensions:
