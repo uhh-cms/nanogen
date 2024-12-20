@@ -228,6 +228,9 @@ class ConfigTask(Task):
 
     @classmethod
     def resolve_param_values(cls, params: dict) -> dict:
+        # prepend "config_" to config name if needed
+        if "config_name" in params and not params["config_name"].startswith("config_"):
+            params["config_name"] = f"config_{params['config_name']}"
         # resolve the config file path
         if "config_file" in params:
             params["config_file"] = os.path.splitext(params["config_file"])[0]

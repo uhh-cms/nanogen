@@ -113,7 +113,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
 
     def requires(self):
-        if not self.recreate and self.cached_output().exists():
+        if not self.recreate and self.output().exists():
             return []
 
         def maybe_include_extensions(dataset_name):
@@ -144,7 +144,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
         return reqs
 
-    def cached_output(self):
+    def output(self):
         postfixes = []
         if self.skip_shifts:
             postfixes.append("noshifts")
@@ -153,10 +153,13 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         postfix = ("_" + "_".join(postfixes)) if postfixes else ""
         return self.target(f"cmsdb_entry{postfix}.txt")
 
+    def complete(self):
+        return law.tasks.RunOnceTask.complete(self)
+
     @law.tasks.RunOnceTask.complete_on_success
     @law.decorator.log
     def run(self):
-        output = self.cached_output()
+        output = self.output()
 
         # print existing entry if not recreating
         if not self.recreate and output.exists():

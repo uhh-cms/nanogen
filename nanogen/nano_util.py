@@ -347,10 +347,20 @@ class LFNLocation(object):
             return f"{self.fs or self.site}:{self.scheme}"
         return self.pfn  # type: ignore[return-value]
 
+    def _check_local(self, *, check_exist: bool) -> bool:
+        base = law.config.get_expanded(self.fs, "base") if self.fs else self.pfn
+        return (
+            get_scheme(base) in (None, "file") and
+            (not check_exist or os.path.exists(remove_scheme(base)))
+        )
+
     @property
     def is_local(self) -> bool:
-        base = law.config.get_expanded(self.fs, "base") if self.fs else self.pfn
-        return get_scheme(base) in (None, "file")
+        return self._check_local(check_exist=False)
+
+    @property
+    def exists_locally(self) -> bool:
+        return self._check_local(check_exist=True)
 
     def create_target(self) -> law.LocalFileTarget | law.wlcg.WLCGFileTarget:
         if self.fs:
@@ -463,11 +473,14 @@ def fetch_lfn(
 
     # when there is a local location, just return the path
     for lfn_location in lfn_locations:
-        if lfn_location.is_local and not fetch_local:
+        if lfn_location.exists_locally and not fetch_local:
             return remove_scheme(lfn_location.pfn)
 
     # fetch the file
     for attempt, lfn_location in sum([list(enumerate(attempts * [l])) for l in lfn_locations], []):
+        if lfn_location.is_local and not lfn_location.exists_locally:
+            continue
+
         log_info(f"fetching {lfn_location.pfn} to {abs_dst}, attempt {attempt} ...")
         if lfn_location.scheme == "root" and enable_xrd:
             cmd = f"xrdcp -f {lfn_location.pfn} {abs_dst}"
