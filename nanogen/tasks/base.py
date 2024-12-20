@@ -363,14 +363,20 @@ class CMSSWSandboxTask(ConfigTask):
         if not self.sandbox_inst or not self.sandbox_inst.sandbox_type:
             return []
 
-        return self.sandbox_inst._build_export_commands({
-            # use a custom gfal plugin dir with plugins removed that lead to plenty of warnings
-            # note after el9 upgrade: seems to not be needed anymore
-            "GFAL_PLUGIN_DIR": "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw",
+        # env variables to be set in the sandbox
+        env = {
             # potentially updated cms related paths
             "CMS_PATH": "${NG_CMS_PATH}",
             "SITECONFIG_PATH": "${NG_CMS_PATH}/SITECONF/local",
-        })
+        }
+
+        # for old cmssw versions, use a custom gfal plugin dir with plugins removed that lead to
+        # plenty of warnings
+        cmssw_major = int(self.cmssw_sandbox_version.split("_", 2)[1])
+        if cmssw_major < 14:
+            env["GFAL_PLUGIN_DIR"] = "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
+
+        return self.sandbox_inst._build_export_commands(env)
 
     @property
     def cmssw_sandbox_version(self) -> str:
