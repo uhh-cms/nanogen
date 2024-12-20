@@ -320,13 +320,16 @@ class CMSSWSandboxTask(ConfigTask):
 
     def sandbox_stagein(self, sandbox_inputs):
         def can_read_locally(inp):
-            if isinstance(inp, (law.LocalTarget, law.MirroredTarget)):
+            if isinstance(inp, law.LocalTarget):
                 return True
+            if isinstance(inp, law.MirroredTarget):
+                return inp._local_root_exists()
             if isinstance(inp, law.SiblingFileCollection):
-                return (
-                    isinstance(inp.dir, law.LocalDirectoryTarget) or
-                    (isinstance(inp.dir, law.MirroredDirectoryTarget) and inp.dir._local_root_exists())  # noqa: E501
-                )
+                if isinstance(inp.dir, law.LocalDirectoryTarget):
+                    return True
+                if isinstance(inp.dir, law.MirroredDirectoryTarget):
+                    return inp.dir._local_root_exists()
+                return False
             if isinstance(inp, law.TargetCollection):
                 raise NotImplementedError("generic collections are not supported")
             return False
@@ -363,20 +366,16 @@ class CMSSWSandboxTask(ConfigTask):
         if not self.sandbox_inst or not self.sandbox_inst.sandbox_type:
             return []
 
-        # env variables to be set in the sandbox
-        env = {
-            # potentially updated cms related paths
+        # set the gfal plugin dir depending on the cmssw version
+        cmssw_major = int(self.cmssw_sandbox_version.split("_", 2)[1])
+        plugin_suffix = "14" if cmssw_major >= 14 else "legacy"
+
+        # build the export commands
+        return self.sandbox_inst._build_export_commands({
             "CMS_PATH": "${NG_CMS_PATH}",
             "SITECONFIG_PATH": "${NG_CMS_PATH}/SITECONF/local",
-        }
-
-        # for old cmssw versions, use a custom gfal plugin dir with plugins removed that lead to
-        # plenty of warnings
-        cmssw_major = int(self.cmssw_sandbox_version.split("_", 2)[1])
-        if cmssw_major < 14:
-            env["GFAL_PLUGIN_DIR"] = "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
-
-        return self.sandbox_inst._build_export_commands(env)
+            "GFAL_PLUGIN_DIR": f"${{NG_CONDA_BASE}}/lib/gfal2-plugins-cmssw-{plugin_suffix}",
+        })
 
     @property
     def cmssw_sandbox_version(self) -> str:

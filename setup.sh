@@ -164,16 +164,21 @@ EOF
 
         # create a custom gfal plugin directory for use in cmssw sandboxes that might provide an
         # incompatible glibcxx version (still present on el9)
-        local gfal_plugins_cmssw="${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw"
-        mkdir -p "${gfal_plugins_cmssw}"
-        (
-            cd "${gfal_plugins_cmssw}"
-            for f in $( find ../gfal2-plugins -name "*.so" ); do
-                ln -s "${f}" .
-            done
-            # the http and xrootd plugins seem incompatible
-            rm -f libgfal_plugin_{http,xrootd}.so
-        ) || return "$?"
+        local cmssw_suffix
+        for cmssw_suffix in legacy 14; do
+            local gfal_plugins_cmssw="${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw-${cmssw_suffix}"
+            mkdir -p "${gfal_plugins_cmssw}"
+            (
+                cd "${gfal_plugins_cmssw}"
+                for f in $( find ../gfal2-plugins -name "*.so" ); do
+                    ln -s "${f}" .
+                done
+                # the http plugin never works
+                rm -f libgfal_plugin_http.so
+                # the xrootd plugin does not work in legacy setups
+                [ "${cmssw_suffix}" != "legacy" ] || rm -f libgfal_plugin_xrootd.so
+            ) || return "$?"
+        done
     fi
 
 
