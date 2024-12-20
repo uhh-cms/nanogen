@@ -5,8 +5,11 @@
 Set environment variables before sourcing `setup.sh` and consider creating an alias.
 
 ```shell
+# required
 export NG_CERN_USER="your_cern_username"
-export NG_DATA_BASE="/data/dust/cms/user/$( whoami )/nanogen"  # e.g. dust
+# optional (storage location of software and local files; defaults to "/data" in the repo)
+export NG_DATA_BASE="/data/dust/cms/user/$( whoami )/nanogen_data"
+# setup
 source setup.sh ""
 ```
 

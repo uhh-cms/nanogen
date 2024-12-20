@@ -417,6 +417,12 @@ def locate_lfn(
         else:
             lfn_locations.append(LFNLocation(lfn=lfn, fs=location))
 
+    # late filtering using env variable
+    if "NG_SKIP_SITES" in os.environ:
+        skip_sites = [site.strip() for site in os.environ["NG_SKIP_SITES"].split(",")]
+        lfn_locations = [l for l in lfn_locations if not law.util.multi_match(l.site, skip_sites)]
+
+    # check if locations exist
     if not lfn_locations:
         raise MissingLFNException(lfn, "no locations found")
 
@@ -491,7 +497,7 @@ def fetch_lfn(
                 if os.path.exists(abs_dst):
                     break
                 log_warning(f"xrdcp return exit code 0 but local file {abs_dst} does not exist")
-            log_warning(f"xrdcp failed for {lfn_location.pfn}")
+            log_warning(f"xrdcp failed for {lfn_location.pfn}, trying next location")
 
         else:
             try:
