@@ -17,31 +17,60 @@ source setup.sh ""
 
 ```mermaid
 flowchart TD
-    CN([CreateNano])
-    MN([MergeNano])
-    GetDatasetLFNs --> CN
-    BundleRepo -- for remote<br />workflows --> CN
-    CreateCMSRunConfig --> CN
-    FetchLFN -. optional .-> CN
-    FetchLFN --> FetchLFNWrapper
-    CN ----> GenerateNanoDocs
-    CN --> CollectNanoSizes
-    CollectNanoSizes --> MN
-    CN --> MN
-    MN --> CreateDBEntry
-    MN -. custom .-> bbtt.ReduceEvents
-    ListDatasetStats
+  FetchLumiMask --> PrepareForConfig
+  GetDatasetLFNs == many ==> PrepareForConfig["PrepareForConfig ❗️"]
+  GetDatasetLFNs --> CreateNano
+  CreateCMSRunConfig --> CreateNano
+  BundleRepo -- htcondor<br />workflow --> CreateNano
+  FetchLFN -. optional .-> CreateNano
+  FetchLumiMask -. data only .-> CreateNano
+  CreateNano ----> GenerateNanoDocs
+  CreateNano --> CollectNanoSizes
+  CollectNanoSizes --> MergeNano
+  CreateNano -- many --> MergeNano
+  MergeNano --> CreateDBEntry
+  MergeNano -. custom .-> bbtt.ReduceEvents
 ```
 
 Almost all tasks have an accompanying `*Wrapper` task that adds functionality like `--dataset-names PATTERNS`, `--skip-dataset-names PATTERNS` to trigger multiple *wrapped* tasks at once.
 
-**Note:** `GetDatasetLFNs` should be run **manually** before `CreateNano` or any other task downstream, since dynamic dependency generation can be costly in this case.
+**❗️ Note:** `PrepareForConfig --config-name ...` should be run **manually** before `CreateNano` or any other task downstream, mainly to have the list of LFNs available a-priori, since dynamic dependency generation can be costly in this case.
 
 ## Yaml configs
 
 ### General config
 
-TODO.
+The name of general configs **must be in the format** `config_<ERA>_<VNANO>.yaml`.
+
+```yaml
+# example
+
+# cmssw setup
+cmssw_version: CMSSW_X_Y_Z
+scram_arch: el9_amd64_gccXYZ
+cmssw_env_name: nanogen
+sandbox_script: cmssw_nanogen.sh
+
+# arguments for cmsDriver.py that creates the cmsRun config
+global_tag:
+  mc: ...
+  data: ...
+era:
+  # use anchor if same era
+  mc: &era Run3
+  data: *era
+
+# lumi mask for data
+lumi_mask: /path/or/url/to/lumi_mask.json
+
+# postfix for produced nano datasets in the cms-store-like path
+campaign_postfix: NanoAODv<VNANO>UHH
+
+# references to dataset and nano configs
+dataset_config: datasets_<ERA>.yaml
+nano_config: nano_run3_<VNANO>.yaml
+
+```
 
 ### Dataset entries in `datasets_*.yaml` files
 

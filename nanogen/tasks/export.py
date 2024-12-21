@@ -273,7 +273,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         entry += "        },\n"
         # data era
         if self.nano_info.data:
-            era = self.dataset_name.split("_")[-1].upper()
+            # the era is usually at the end, except for versioned datasets
+            parts = self.dataset_name.split("_")
+            era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
             entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
         entry += "    },\n"
         entry += ")\n"

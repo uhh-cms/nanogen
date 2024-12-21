@@ -17,7 +17,7 @@ from nanogen.tasks.base import (
     ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
 )
 from nanogen.tasks.remote import RemoteWorkflow
-from nanogen.tasks.external import GetDatasetLFNs, FetchLFN
+from nanogen.tasks.external import GetDatasetLFNs, FetchLumiMask, FetchLFN
 from nanogen.nano_util import (
     SkimConfig, inject_customizations, nano_file_hash, skim_nano_file, locate_lfn, fetch_lfn,
     MissingLFNException,
@@ -138,6 +138,10 @@ class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
 
 class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
+    start_event = luigi.IntParameter(
+        default=0,
+        description="index of first event to process; default: 0",
+    )
     n_events = luigi.IntParameter(
         default=-1,
         description="maximum number of events to process; -1 for all; default: -1",
@@ -188,12 +192,17 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
+
         reqs.cfg = CreateCMSRunConfig.req(
             self,
             dataset_kind=self.mini_info.kind,
             era=self.dataset.get("era", law.NO_STR),
             global_tag=self.dataset.get("global_tag", law.NO_STR),
         )
+
+        if self.mini_info.data:
+            reqs.lumi_mask = FetchLumiMask.req(self)
+
         return reqs
 
     def requires(self):
@@ -205,6 +214,9 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             era=self.dataset.get("era", law.NO_STR),
             global_tag=self.dataset.get("global_tag", law.NO_STR),
         )
+
+        if self.mini_info.data:
+            reqs.lumi_mask = FetchLumiMask.req(self)
 
         # check if lfns were maybe already fetched, and if so, use them
         # otherwise make the decision dependent on the fetch_lfns flag
@@ -222,10 +234,12 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
     def output(self):
         # when only a single input lfn is processed and the number of events is unlimited,
         # reuse the nano file hash, otherwise create a new one
-        if len(self.branch_data) == 1 and self.n_events < 0:
+        if len(self.branch_data) == 1 and self.n_events < 0 and self.start_event == 0:
             name = os.path.splitext(os.path.basename(self.lfns[self.branch_data[0]]))[0]
         else:
             hash_parts = [[self.lfns[i] for i in self.branch_data]]
+            if self.start_event > 0:
+                hash_parts.append(f"s{self.start_event}")
             if self.n_events >= 0:
                 hash_parts.append(f"n{self.n_events}")
             name = nano_file_hash(hash_parts)
@@ -323,7 +337,9 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             input_files=input_files,
             output_file="nano.root",
             compression=("ZSTD", 1),
+            lumi_mask=inputs.lumi_mask.abspath if "lumi_mask" in inputs else None,
             max_events=self.n_events,
+            start_event=self.start_event,
             skip_events=list(self.skip_events) or None,
             custom_hook=custom_hook,
             custom_kwargs=dict(custom_kwargs),

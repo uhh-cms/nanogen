@@ -561,6 +561,7 @@ def customize_nano_process(
     max_events: int = -1,
     start_event: int = 0,
     skip_events: list[tuple[int, int] | tuple[int, int, int]] | None = None,
+    lumi_mask: str | None = None,
     custom_hook: tuple[str, str] | None = None,
     custom_kwargs: dict[str, Any] | None = None,
 ):
@@ -579,6 +580,13 @@ def customize_nano_process(
             )
             for input_file in input_files
         ])
+
+    # add a lumi mask (usually for data)
+    if lumi_mask:
+        import FWCore.PythonUtilities.LumiList as LumiList  # type: ignore[import-not-found]
+        path = expand_path(lumi_mask)
+        process.source.lumisToProcess = LumiList.LumiList(filename=path).getVLuminosityBlockRange()
+        print(f"using lumi mask from {path}")
 
     # start the start event index
     if start_event > 0:

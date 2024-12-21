@@ -18,6 +18,9 @@ era:
   mc: &era Run2_2017,run2_nanoAOD_106Xv2
   data: *era
 
+# lumi mask for data
+lumi_mask: /afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/Legacy_2017/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt
+
 # postfix for produced nano datasets in the cms-store-like path
 campaign_postfix: NanoAODv12UHH
 

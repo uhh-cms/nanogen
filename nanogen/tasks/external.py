@@ -18,7 +18,7 @@ from nanogen.nano_util import (
     das_query, load_dataset_stats, locate_lfn, fetch_lfn, sort_sites_opinionated,
     MissingLFNException,
 )
-from nanogen.util import maybe_wait_for_dcache
+from nanogen.util import wget, maybe_wait_for_dcache
 
 
 class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
@@ -235,6 +235,47 @@ GetDatasetLFNsWrapper = wrapper_factory(
     enable=["datasets", "skip_datasets"],
     attributes={"version": None},
 )
+
+
+class FetchLumiMask(ConfigTask):
+
+    user = user_parameter
+    version = None
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        self.src_file = self.config.lumi_mask
+
+    def output(self):
+        return self.target(f"lumi_mask_{law.util.create_hash(self.src_file, 8)}.json")
+
+    @law.decorator.log
+    def run(self):
+        # prepare the output
+        output = self.output()
+        output.parent.touch()
+
+        # fetch
+        if self.src_file.startswith(("http://", "https://")):
+            # download via wget
+            wget(self.src_file, output.abspath)
+        else:
+            # must be a local file
+            output.copy_from_local(self.src_file)
+        self.publish_message(f"fetched {self.src_file}")
+
+
+class PrepareForConfig(ConfigTask, law.WrapperTask):
+
+    user = user_parameter
+    version = None
+
+    def requires(self):
+        return {
+            "lumi_mask": FetchLumiMask.req(self),
+            "lfns": GetDatasetLFNsWrapper.req(self),
+        }
 
 
 class FetchLFN(Task):

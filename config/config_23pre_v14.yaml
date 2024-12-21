@@ -26,6 +26,10 @@ era:
   mc: &era Run3
   data: *era
 
+# lumi mask for data
+# https://twiki.cern.ch/twiki/bin/view/CMS/PdmVRun3Analysis?rev=161#Year_2023
+lumi_mask: https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions23/Cert_Collisions2023_366442_370790_Golden.json
+
 # postfix for produced nano datasets in the cms-store-like path
 campaign_postfix: NanoAODv14UHH
 

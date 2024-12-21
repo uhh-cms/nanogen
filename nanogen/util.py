@@ -6,6 +6,7 @@ __all__: list[str] = []
 
 import os
 import time
+import subprocess
 from typing import Any
 
 import law  # type: ignore[import-untyped]
@@ -24,6 +25,44 @@ def expand_path(*path: str, abs: bool = False, real: bool = False, dir: bool = F
     if dir:
         p = os.path.dirname(p)
     return p
+
+
+def wget(src: str, dst: str, force: bool = False) -> str:
+    """
+    Downloads a file from a remote *src* to a local destination *dst*, creating intermediate
+    directories when needed. When *dst* refers to an existing file, an exception is raised unless
+    *force* is *True*.
+
+    The full, normalized destination path is returned.
+    """
+    # check if the target directory exists
+    dst = expand_path(dst)
+    if os.path.isdir(dst):
+        dst = os.path.join(dst, os.path.basename(src))
+    else:
+        dst_dir = os.path.dirname(dst)
+        if not os.path.exists(dst_dir):
+            raise IOError(f"target directory '{dst_dir}' does not exist")
+
+    # remove existing dst or complain
+    if os.path.exists(dst):
+        if force:
+            os.remove(dst)
+        else:
+            raise IOError(f"target '{dst}' already exists")
+
+    # actual download
+    cmd = ["wget", src, "-O", dst]
+    code, _, error = law.util.interruptable_popen(
+        law.util.quote_cmd(cmd),
+        shell=True,
+        executable="/bin/bash",
+        stderr=subprocess.PIPE,
+    )
+    if code != 0:
+        raise Exception(f"wget failed: {error}")
+
+    return dst
 
 
 @law.decorator.factory(missing=False, seconds=120, accept_generator=True)
