@@ -47,7 +47,7 @@ setup_ng() {
     export NG_LOCAL_SCHEDULER="${NG_LOCAL_SCHEDULER:-true}"
     export NG_SCHEDULER_HOST="${NG_SCHEDULER_HOST:-naf-cms-gpu01.desy.de}"
     export NG_SCHEDULER_PORT="${NG_SCHEDULER_PORT:-8088}"
-    export NG_WORKER_KEEP_ALIVE="${NG_WORKER_KEEP_ALIVE:-$( ${remote_env} && echo "false" || echo "true" )}"
+    export NG_WORKER_KEEP_ALIVE="${NG_WORKER_KEEP_ALIVE:-$( ${remote_env} && echo "false" || echo "false" )}"
     export NG_HTCONDOR_FLAVOR="${NG_HTCONDOR_FLAVOR:-naf}"
     export NG_SLURM_FLAVOR="${NG_SLURM_FLAVOR:-maxwell}"
     export NG_SLURM_PARTITION="${NG_SLURM_PARTITION:-allcpu}"

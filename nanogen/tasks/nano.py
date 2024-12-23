@@ -278,6 +278,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             # disabled altogether
             if self.tmp_fetch_lfns.lower() == "false":
                 continue
+
             # locate it
             try:
                 lfn_locs = locate_lfn(lfn, per_site=1, logger=self.logger)

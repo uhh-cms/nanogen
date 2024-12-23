@@ -19,9 +19,15 @@ hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
 
 hh_ggf_hbb_htt_kl1_kt1_c20p10_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p10_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  skip_lfns:
+    # branch 3, file fully corrupt
+    - /store/mc/Run3Summer23BPixMiniAODv4/GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p10_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v6-v2/50000/10352936-52d3-48f6-a923-204a13006729.root
 
 hh_ggf_hbb_htt_kl1_kt1_c20p35_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p35_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  skip_lfns:
+    # branch 0, file fully corrupt
+    - /store/mc/Run3Summer23BPixMiniAODv4/GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p35_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v6-v2/2830000/05c495b7-ba0a-4844-a742-d7646b60bd05.root
 
 hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-3p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
