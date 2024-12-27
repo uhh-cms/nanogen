@@ -385,6 +385,9 @@ w_lnu_1j_amcatnlo:
 
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+  skip_lfns:
+    # lzma error, branch 2038
+    - /store/mc/Run3Summer23BPixMiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v2-v2/40000/b0a431d4-d8cd-4bbc-a3c0-aab4324c3a3e.root
 
 w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
@@ -426,6 +429,9 @@ dy_m4to10_amcatnlo:
 # TODO: check if sample without "ext" is added in the future, not existing for now
 dy_m10to50_amcatnlo:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2_ext1-v3/MINIAODSIM
+  skip_lfns:
+    # file fully corrupt, branch 1199
+    - /store/mc/Run3Summer23BPixMiniAODv4/DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v2_ext1-v3/2810001/4800c140-1f5b-4487-b260-83adc2d50626.root
 
 dy_m50toinf_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM

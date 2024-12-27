@@ -371,15 +371,28 @@ ttzz_madgraph:
 
 w_lnu_amcatnlo:
   key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v2/MINIAODSIM
+  skip_lfns:
+    # lzma compression error, branch 1470
+    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v2/80001/394d026c-aa5f-4126-b09c-1d01de079fd5.root
 
 w_lnu_0j_amcatnlo:
   key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM
+  skip_lfns:
+    # lzma compression error, branch 4645
+    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v3/30001/410bc7e0-e5b8-4620-b300-2affec27ea1a.root
 
 w_lnu_1j_amcatnlo:
   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
 
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+  skip_lfns:
+    # file fully corrupt, branch 1424
+    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/636acba3-cf7e-4009-8117-57473785af0c.root
+    # file fully corrupt, branch 1761
+    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/bb6b514c-d7f9-4407-93cc-79137fc0389f.root
+    # lzma compression error, branch 1839
+    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/d00aa6d4-3633-4c16-b986-e4f7461f142a.root
 
 w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM
@@ -417,10 +430,26 @@ w_lnu_2j_pt600toinf_amcatnlo:
 
 dy_m4to10_amcatnlo:
   key: /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
+  skip_lfns:
+    # file fully corrupt, branch 774
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2550000/b9ac5ee3-b99a-487b-84f4-8010f4843f19.root
+    # file fully corrupt, branch 796
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2550000/c1d18647-408c-4f9c-b428-19dbf7900ad3.root
+    # file fully corrupt, branch 812
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2550000/c8b82cb8-3e28-4f3d-a3bb-74244ecb10d7.root
+    # file fully corrupt, branch 817
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2550000/ca78f7d0-7c85-4cd9-bca1-01c8214ea7d8.root
+    # file fully corrupt, branch 861
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2550000/d6bb09ce-81d0-42ba-9df5-b3d02d7de9a5.root
+    # file fully corrupt, branch 1160
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v4/2830000/0f519c46-67da-4bc6-a953-5b68c5d8cc85.root
 
 # TODO: check if sample without "ext" is added in the future, not existing for now
 dy_m10to50_amcatnlo:
   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14_ext1-v3/MINIAODSIM
+  skip_lfns:
+    # file fully corrupt, branch 686
+    - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14_ext1-v3/2820000/1987f490-121d-40bb-a1c3-fc461689d8a0.root
 
 dy_m50toinf_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v1/MINIAODSIM
