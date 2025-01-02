@@ -55,6 +55,7 @@ setup_ng() {
     export NG_WLCG_USE_CACHE="${NG_WLCG_USE_CACHE:-$( [ -z "${NG_WLCG_CACHE_ROOT}" ] && echo "false" || echo "true" )}"
     export NG_WLCG_CACHE_CLEANUP="${NG_WLCG_CACHE_CLEANUP:-false}"
     export NG_DASMAPS_BASE="${NG_DASMAPS_BASE:-${HOME}}"
+    export NG_DUST_ROOT="$( [ -d "/data/dust/cms/user/riegerma" ] && echo "/data/dust" || echo "/nfs/dust" )"
 
     # external variables
     export LANGUAGE="${LANGUAGE:-en_US.UTF-8}"

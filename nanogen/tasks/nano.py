@@ -402,7 +402,7 @@ class CollectNanoSizes(DatasetTask):
     )
     effective_workflow = workflow
 
-    priority = 5
+    priority = 15
 
     exclude_params_cli = {"workflow", "effective_workflow"}
 
