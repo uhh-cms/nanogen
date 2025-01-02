@@ -147,7 +147,7 @@ graviton_hh_ggf_hbb_htt_m4000_madgraph:
   key: /GluGlutoBulkGravitontoHHto2B2Tau_M-4000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
 graviton_hh_ggf_hbb_htt_m5000_madgraph:
-  key:  /GluGlutoBulkGravitontoHHto2B2Tau_M-5000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  key: /GluGlutoBulkGravitontoHHto2B2Tau_M-5000_narrow_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
 #
 # vbf graviton -> hh -> bbtautau
@@ -595,32 +595,32 @@ w_lnu_2j_amcatnlo:
 w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
-w_lnu_2j_pt40to100_amcatnlo:
-  key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
-
 w_lnu_1j_pt100to200_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
   skip_lfns:
     # lfn index 3277
     - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/71176a5a-e3a5-4c7c-ba0f-d75b2b94bc8f.root
 
-w_lnu_2j_pt100to200_amcatnlo:
-  key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
-
 w_lnu_1j_pt200to400_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
-
-w_lnu_2j_pt200to400_amcatnlo:
-  key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
 w_lnu_1j_pt400to600_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
-w_lnu_2j_pt400to600_amcatnlo:
-  key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
-
 w_lnu_1j_pt600toinf_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
+
+w_lnu_2j_pt40to100_amcatnlo:
+  key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+
+w_lnu_2j_pt100to200_amcatnlo:
+  key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+
+w_lnu_2j_pt200to400_amcatnlo:
+  key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
+
+w_lnu_2j_pt400to600_amcatnlo:
+  key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
 w_lnu_2j_pt600toinf_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
@@ -701,26 +701,26 @@ dy_m50toinf_2j_pt600toinf_amcatnlo:
 z_qq_1j_pt100to200_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
-z_qq_2j_pt100to200_amcatnlo:
-  key: /Zto2Q-2Jets_PTQQ-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
-
 z_qq_1j_pt200to400_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
-
-z_qq_2j_pt200to400_amcatnlo:
-  key: /Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
 z_qq_1j_pt400to600_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
-z_qq_2j_pt400to600_amcatnlo:
-  key: /Zto2Q-2Jets_PTQQ-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
-
 z_qq_1j_pt600toinf_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
+z_qq_2j_pt100to200_amcatnlo:
+  key: /Zto2Q-2Jets_PTQQ-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
+
+z_qq_2j_pt200to400_amcatnlo:
+  key: /Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+
+z_qq_2j_pt400to600_amcatnlo:
+  key: /Zto2Q-2Jets_PTQQ-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
+
 z_qq_2j_pt600toinf_amcatnlo:
-  key:  /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
+  key: /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
 #
 # di boson
@@ -841,21 +841,15 @@ tth_hnonbb_powheg:
 
 data_e_e:
   key: /EGamma/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: &gt_era_e 130X_dataRun3_v2
 
 data_e_f:
   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
-  skip_lfns:
-    # all files with lzma issues already on tape, 75671 of 464153125 events missing -> 0.02% of events
-    # lfn index 2196: event 2934264499 (after record 21500)
-    - /store/data/Run2022F/EGamma/MINIAOD/22Sep2023-v1/2520002/96483ccc-2444-440d-ba18-8fdc07a412d5.root
 
 data_e_g:
   key: /EGamma/Run2022G-22Sep2023-v2/MINIAOD
 
 data_mu_e:
   key: /Muon/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: *gt_era_e
 
 data_mu_f:
   key: /Muon/Run2022F-22Sep2023-v2/MINIAOD
@@ -865,7 +859,6 @@ data_mu_g:
 
 data_tau_e:
   key: /Tau/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: *gt_era_e
 
 data_tau_f:
   key: /Tau/Run2022F-22Sep2023-v1/MINIAOD
@@ -875,22 +868,9 @@ data_tau_g:
 
 data_met_e:
   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
-  global_tag: *gt_era_e
 
 data_met_f:
   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
-  skip_lfns:
-    # all files with lzma issues already on tape, 285k of 514M events missing -> 0.06% of events
-    # lfn index 4199: event 199521691 (after record 12500)
-    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560000/5b8c2ece-ca3e-47e7-82ad-442920060875.root
-    # lfn index 5347: event 1772083178 (after record 8000)
-    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560001/58c483f3-053d-41d4-9147-ecbf38ab53fe.root
-    # lfn index 7374: event 344393505 (after record 13500)
-    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/863543ac-79c1-4887-87da-4985eb3bc809.root
-    # lfn index 7462: event 4019831144 (after record 3500)
-    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/ad9dfc30-05b9-4cbf-ac12-876116048118.root
-    # lfn index 7491, event 678912537 (after record 42000)
-    - /store/data/Run2022F/JetMET/MINIAOD/22Sep2023-v2/2560003/ba0f1dc7-f4cd-4ac4-92ec-82bb7a280922.root
 
 data_met_g:
   key: /JetMET/Run2022G-22Sep2023-v2/MINIAOD

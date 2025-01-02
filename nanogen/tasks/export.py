@@ -213,6 +213,8 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             process_name = "_".join(self.dataset_name.split("_")[:2])
         else:
             process_name = re.sub(r"_(powheg|madgraph|amcatnlo|pythia)$", "", self.dataset_name)
+            if process_name.endswith(("_4f", "_5f")):
+                process_name = process_name[:-3]
 
         # helper to format summation of numbers
         fmt_sum = lambda nums: " + ".join(f"{n:_}" for n in nums)

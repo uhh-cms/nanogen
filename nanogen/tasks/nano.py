@@ -175,7 +175,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
-        default=8,  # GB
+        default=10,  # GB
         add_default_to_description=True,
     )
 
@@ -461,7 +461,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
         description="approximate size of merged nano files; default unit is MB; default: 2048MB",
     )
     max_runtime = NanoDatasetWorkflow.max_runtime.copy(
-        default=3,  # hours
+        default=4,  # hours
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(

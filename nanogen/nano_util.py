@@ -420,7 +420,10 @@ def locate_lfn(
     # late filtering using env variable
     if "NG_SKIP_SITES" in os.environ:
         skip_sites = [site.strip() for site in os.environ["NG_SKIP_SITES"].split(",")]
-        lfn_locations = [l for l in lfn_locations if not law.util.multi_match(l.site, skip_sites)]
+        lfn_locations = [
+            l for l in lfn_locations
+            if l.site is None or not law.util.multi_match(l.site, skip_sites)
+        ]
 
     # check if locations exist
     if not lfn_locations:
