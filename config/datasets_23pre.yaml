@@ -194,6 +194,9 @@ st_twchannel_t_sl_powheg:
 
 st_twchannel_tbar_sl_powheg:
   key: /TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v6/MINIAODSIM
+  skip_lfns:
+    # only at T1_RU_JINR and stuck
+    - /store/mc/Run3Summer23MiniAODv4/TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v15-v6/140000/7deb0620-f48e-4c39-9e36-1405830f8698.root
 
 st_twchannel_t_dl_powheg:
   key: /TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
