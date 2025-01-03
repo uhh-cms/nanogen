@@ -146,6 +146,7 @@ def das_query(
     query: str,
     args: str | list[str] | None = None,
     log: Callable[[str], Any] | None = None,
+    attempts: int = 2,
 ) -> str:
     log = log or print
 
@@ -160,14 +161,17 @@ def das_query(
 
     # run it
     log(f"cmd: {cmd}")
-    code, out, _ = law.util.interruptable_popen(
-        cmd,
-        stdout=subprocess.PIPE,
-        shell=True,
-        executable="/bin/bash",
-    )
-    if code != 0:
-        raise Exception(f"dasgoclient query failed:\n{out}")
+    for i in range(attempts):
+        code, out, _ = law.util.interruptable_popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            shell=True,
+            executable="/bin/bash",
+        )
+        if code == 0:
+            break
+        if i + 1 >= attempts:
+            raise Exception(f"dasgoclient query failed after attempt {attempts}:\n{out}")
 
     return out.strip()
 
