@@ -41,6 +41,7 @@ class BundleRepo(Task, law.git.BundleGitRepository, law.tasks.TransferLocalFile)
     def output(self):
         return law.tasks.TransferLocalFile.output(self)
 
+    @law.decorator.notify
     @law.decorator.log
     @law.decorator.safe_output
     def run(self):
@@ -368,3 +369,5 @@ class RemoteWorkflow(HTCondorWorkflow, SlurmWorkflow):
     """
     Workflow that can be submitted to a remote batch system like HTCondor or Slurm.
     """
+
+    workflow_run_decorators = [law.decorator.notify]

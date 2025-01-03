@@ -70,8 +70,9 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
             for dataset_name in self.selected_dataset_names
         })
 
-    @law.tasks.RunOnceTask.complete_on_success
+    @law.decorator.notify
     @law.decorator.log
+    @law.tasks.RunOnceTask.complete_on_success
     def run(self):
         from tabulate import tabulate  # type: ignore[import-untyped]
 
@@ -167,6 +168,7 @@ class GetDatasetLFNs(DatasetTask):
             outputs.missing = self.target("missing.json")
         return outputs
 
+    @law.decorator.notify
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
@@ -250,6 +252,7 @@ class FetchLumiMask(ConfigTask):
     def output(self):
         return self.target(f"lumi_mask_{law.util.create_hash(self.src_file, 8)}.json")
 
+    @law.decorator.notify
     @law.decorator.log
     def run(self):
         # prepare the output
@@ -298,6 +301,7 @@ class FetchLFN(Task):
     def output(self):
         return self.target(self.lfn)
 
+    @law.decorator.notify
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
@@ -382,6 +386,8 @@ class CheckLocalPFNs(DatasetTask, law.tasks.RunOnceTask):
     def requires(self):
         return GetDatasetLFNs.req(self)
 
+    @law.decorator.notify
+    @law.decorator.log
     @law.tasks.RunOnceTask.complete_on_success
     def run(self):
         lfns = self.input().lfns.load(formatter="json")

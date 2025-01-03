@@ -6,7 +6,9 @@ import os
 
 import law  # type: ignore[import-untyped]
 
-law.contrib.load("tasks", "wlcg", "gfal", "git", "cms", "htcondor", "slurm", "root", "awkward")
+law.contrib.load(
+    "tasks", "wlcg", "gfal", "git", "cms", "htcondor", "slurm", "root", "awkward", "mattermost",
+)
 
 
 # global flags from environment variables

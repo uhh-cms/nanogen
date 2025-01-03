@@ -14,7 +14,7 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import (
-    ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+    LocalWorkflow, ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
 )
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLumiMask, FetchLFN
@@ -60,6 +60,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         gt_str = self.global_tag.replace(":", "_")
         return self.target(f"nano_cfg__{self.dataset_kind}__{era_str}__{gt_str}.py")
 
+    @law.decorator.notify
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
@@ -93,7 +94,7 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
         self.output().move_from_local(tmp_dir.child("NANO_NANO.py"))
 
 
-class NanoDatasetWorkflow(DatasetTask, law.LocalWorkflow, RemoteWorkflow):
+class NanoDatasetWorkflow(DatasetTask, LocalWorkflow, RemoteWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
@@ -246,6 +247,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         return self.target(f"{name}.root", cms_store=True)
 
+    @law.decorator.notify
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
@@ -412,6 +414,7 @@ class CollectNanoSizes(DatasetTask):
     def output(self):
         return self.target("sizes.json")
 
+    @law.decorator.notify
     @maybe_wait_for_dcache
     def run(self):
         # collect sizes, taking into account missing files
@@ -452,7 +455,7 @@ CollectNanoSizesWrapper = wrapper_factory(
 )
 
 
-class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow):
+class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
 
     n_events = CreateNano.n_events
     merged_size = law.BytesParameter(
@@ -524,6 +527,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, law.LocalWorkflow, RemoteWorkflow
 
         return self.target(f"{name}.root", cms_store=True)
 
+    @law.decorator.notify
     @maybe_wait_for_dcache
     def run(self):
         # get input file paths

@@ -34,6 +34,7 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
             "sizes": self.target("sizes.html"),
         })
 
+    @law.decorator.notify
     @law.decorator.log
     @law.decorator.localize
     def run(self):
@@ -156,8 +157,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
     def complete(self):
         return law.tasks.RunOnceTask.complete(self)
 
-    @law.tasks.RunOnceTask.complete_on_success
+    @law.decorator.notify
     @law.decorator.log
+    @law.tasks.RunOnceTask.complete_on_success
     def run(self):
         output = self.output()
 

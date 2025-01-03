@@ -43,11 +43,22 @@ class OutputLocation(enum.Enum):
     dcache = "dcache"
 
 
+class LocalWorkflow(law.LocalWorkflow):
+
+    workflow_run_decorators = [law.decorator.notify]
+
+
 class Task(law.SandboxTask):
 
     version: luigi.Parameter | None = luigi.Parameter(
         description="mandatory version that is encoded into output paths",
     )
+    notify_mattermost = law.mattermost.NotifyMattermostParameter(significant=False)
+
+    exclude_params_req = {"notify_slack", "notify_mattermost"}
+    exclude_params_repr = {"notify_slack", "notify_mattermost"}
+    exclude_params_branch = {"notify_slack", "notify_mattermost"}
+    exclude_params_workflow = {"notify_slack", "notify_mattermost"}
 
     allow_empty_sandbox = True
     sandbox: str | None = None
