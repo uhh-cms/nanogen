@@ -172,7 +172,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
-        default=4,  # GB
+        default=2.9,  # GB
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
