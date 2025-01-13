@@ -58,6 +58,7 @@ def wget(src: str, dst: str, force: bool = False) -> str:
         shell=True,
         executable="/bin/bash",
         stderr=subprocess.PIPE,
+        kill_timeout=2,
     )
     if code != 0:
         raise Exception(f"wget failed: {error}")
@@ -65,7 +66,7 @@ def wget(src: str, dst: str, force: bool = False) -> str:
     return dst
 
 
-@law.decorator.factory(missing=False, seconds=120, accept_generator=True)
+@law.decorator.factory(missing=False, seconds=150, accept_generator=True)
 def maybe_wait_for_dcache(fn, opts, task, *args, **kwargs):
     def before_call() -> None:
         # no need for a state

@@ -167,6 +167,7 @@ def das_query(
             stdout=subprocess.PIPE,
             shell=True,
             executable="/bin/bash",
+            kill_timeout=2,
         )
         if code == 0:
             break
@@ -497,7 +498,12 @@ def fetch_lfn(
         log_info(f"fetching {lfn_location.pfn} to {abs_dst}, attempt {attempt} ...")
         if lfn_location.scheme == "root" and enable_xrd:
             cmd = f"xrdcp -f {lfn_location.pfn} {abs_dst}"
-            code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
+            code = law.util.interruptable_popen(
+                cmd,
+                shell=True,
+                executable="/bin/bash",
+                kill_timeout=2,
+            )[0]
             if code == 0:
                 # check if the local file really exists since xrdcp does not always have non-zero
                 # exit codes signaling a failure

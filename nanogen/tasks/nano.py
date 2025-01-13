@@ -168,7 +168,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         "'run_number,event_number[,end_event_number]'; empty default",
     )
     max_runtime = NanoDatasetWorkflow.max_runtime.copy(
-        default=8,  # hours
+        default=4,  # hours
         add_default_to_description=True,
     )
     htcondor_memory = NanoDatasetWorkflow.htcondor_memory.copy(
@@ -176,7 +176,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         add_default_to_description=True,
     )
     htcondor_disk = NanoDatasetWorkflow.htcondor_disk.copy(
-        default=10,  # GB
+        default=8,  # GB
         add_default_to_description=True,
     )
 
@@ -358,6 +358,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
                 shell=True,
                 executable="/bin/bash",
                 cwd=tmp_dir.abspath,
+                kill_timeout=2,
             )[0]
             if code != 0:
                 raise Exception(f"cmsRun failed with exit code {code}")
@@ -463,6 +464,12 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
         unit="MB",
         description="approximate size of merged nano files; default unit is MB; default: 2048MB",
     )
+    raise_on_empty_files = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to raise an exception when empty files are encountered; otherwise, "
+        "only a warning is issued; default: False",
+    )
     max_runtime = NanoDatasetWorkflow.max_runtime.copy(
         default=4,  # hours
         add_default_to_description=True,
@@ -533,6 +540,9 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
         # get input file paths
         input_paths = [inp.abspath for inp in self.input().collection.targets.values()]
 
+        # validate files, skip empty ones
+        input_paths = self.check_empty_files(input_paths)
+
         # prepare the output
         output = self.output()
         output.parent.touch()
@@ -545,6 +555,24 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
             local=True,
             hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
         )
+
+    def check_empty_files(self, paths: list[str]) -> list[str]:
+        import uproot  # type: ignore[import-untyped]
+
+        valid_paths = []
+        for path in paths:
+            n = uproot.open(path)["Events"].num_entries
+            if n > 0:
+                valid_paths.append(path)
+                continue
+            msg = f"file {path} is empty"
+            if self.mini_info.data:
+                msg += " which can happen for real data if no event passes the lumi mask"
+            if self.raise_on_empty_files:
+                raise Exception(msg)
+            self.logger.warning_once(f"{msg}, skipping")
+
+        return valid_paths
 
 
 MergeNanoWrapper = wrapper_factory(
