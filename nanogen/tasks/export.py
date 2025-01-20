@@ -214,9 +214,12 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if self.nano_info.data:
             process_name = "_".join(self.dataset_name.split("_")[:2])
         else:
+            # drop generators
             process_name = re.sub(r"_(powheg|madgraph|amcatnlo|pythia)$", "", self.dataset_name)
-            if process_name.endswith(("_4f", "_5f")):
-                process_name = process_name[:-3]
+            # drop flavor schemes
+            process_name = re.sub(r"_(4|5)f($|_)", r"\2", process_name)
+            # drop fixes
+            process_name = re.sub(r"_fix\d+($|_)", r"\1", process_name)
 
         # helper to format summation of numbers
         fmt_sum = lambda nums: " + ".join(f"{n:_}" for n in nums)
