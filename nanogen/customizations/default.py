@@ -67,6 +67,10 @@ def _customize_uhh(
     if pf_candidates:
         process = add_pf_candidates(process, run, nano_version)
 
+    # test
+    from PhysicsTools.NanoAOD.nano_cff import nanoL1TrigObjCustomizeFull  # type: ignore[import-not-found] # noqa
+    nanoL1TrigObjCustomizeFull(process)
+
     return process
 
 
