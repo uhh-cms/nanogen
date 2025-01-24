@@ -46,8 +46,11 @@ def _customize_uhh(
     run: Run,
     nano_version: NanoVersion,
     *,
+    # added by task
     dataset_kind: str,
-    pf_candidates: bool,
+    # added by nano config yaml
+    pf_candidates: bool = False,
+    l1t_objects: bool = False,
     **kwargs,
 ):
     # update gen particle selection
@@ -68,7 +71,8 @@ def _customize_uhh(
         process = add_pf_candidates(process, run, nano_version)
 
     # add L1 Trigger objects
-    process = add_l1t_objects(process)
+    if l1t_objects:
+        process = add_l1t_objects(process)
 
     return process
 
