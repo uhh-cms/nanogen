@@ -46,8 +46,11 @@ def _customize_uhh(
     run: Run,
     nano_version: NanoVersion,
     *,
+    # added by task
     dataset_kind: str,
-    pf_candidates: bool,
+    # added by nano config yaml
+    pf_candidates: bool = False,
+    l1t_objects: bool = False,
     **kwargs,
 ):
     # update gen particle selection
@@ -66,6 +69,10 @@ def _customize_uhh(
     # add PF candidates
     if pf_candidates:
         process = add_pf_candidates(process, run, nano_version)
+
+    # add L1 Trigger objects
+    if l1t_objects:
+        process = add_l1t_objects(process)
 
     return process
 
@@ -204,6 +211,20 @@ def add_met_variables(process, run: Run, nano_version: NanoVersion):
         "getSignificanceMatrix().At(1,1)",
         doc="yy element of met covariance matrix",
     )
+
+    return process
+
+
+def add_l1t_objects(process):
+    # see https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/l1trig_cff.py#L181
+    from PhysicsTools.NanoAOD.nano_cff import nanoL1TrigObjCustomize  # type: ignore[import-not-found] # noqa
+    process = nanoL1TrigObjCustomize(process)
+    # lower some cuts
+    process.l1EGTable.cut = "pt>=10"
+    process.l1TauTable.cut = "pt>=20"
+    process.l1JetTable.cut = "pt>=20"
+    process.l1MuTable.cut = "pt>=0"  # && hwQual>=8"
+    process.l1EtSumTable.cut = "(getType==8 || getType==1 || getType==2 || getType==3 || getType==21)"  # noqa
 
     return process
 
