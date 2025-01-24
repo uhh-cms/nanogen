@@ -210,18 +210,20 @@ def add_met_variables(process, run: Run, nano_version: NanoVersion):
 
     return process
 
+
 def add_l1t_objects(process):
-    # similar to https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/l1trig_cff.py#L181
+    # see https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/l1trig_cff.py#L181
     from PhysicsTools.NanoAOD.nano_cff import nanoL1TrigObjCustomize  # type: ignore[import-not-found] # noqa
     process = nanoL1TrigObjCustomize(process)
-    # lower some cuts:
-    process.l1EGTable.cut="pt>=10"
-    process.l1TauTable.cut="pt>=20"
-    process.l1JetTable.cut="pt>=20"
-    process.l1MuTable.cut="pt>=0"# && hwQual>=8"
-    process.l1EtSumTable.cut="(getType==8 || getType==1 || getType==2 || getType==3 || getType==21)"
+    # lower some cuts
+    process.l1EGTable.cut = "pt>=10"
+    process.l1TauTable.cut = "pt>=20"
+    process.l1JetTable.cut = "pt>=20"
+    process.l1MuTable.cut = "pt>=0"  # && hwQual>=8"
+    process.l1EtSumTable.cut = "(getType==8 || getType==1 || getType==2 || getType==3 || getType==21)"  # noqa
 
     return process
+
 
 def add_pf_candidates(
     process,
