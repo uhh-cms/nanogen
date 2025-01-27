@@ -13,7 +13,9 @@ from multiprocessing.dummy import Pool as ThreadPool
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
-from nanogen.tasks.base import Task, ConfigTask, DatasetTask, wrapper_factory, user_parameter
+from nanogen.tasks.base import (
+    Task, ConfigTask, DatasetTask, wrapper_factory, user_parameter, table_format_parameter,
+)
 from nanogen.nano_util import (
     das_query, load_dataset_stats, locate_lfn, fetch_lfn, sort_sites_opinionated,
     MissingLFNException,
@@ -39,11 +41,7 @@ class ListDatasetStats(ConfigTask, law.tasks.RunOnceTask):
         significant=False,
         description="whether to list the sites where the datasets are available; default: False",
     )
-    table_format = luigi.Parameter(
-        default="fancy_grid",
-        significant=False,
-        description="the format of the 'tabular' table; default: fancy_grid",
-    )
+    table_format = table_format_parameter
     user = user_parameter
 
     version = None

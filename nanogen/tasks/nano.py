@@ -10,11 +10,14 @@ import os
 import math
 import urllib.parse
 
+import uproot  # type: ignore[import-untyped]
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import (
     LocalWorkflow, ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+    dataset_names_parameter, skip_dataset_names_parameter, filter_dataset_names,
+    table_format_parameter,
 )
 from nanogen.tasks.remote import RemoteWorkflow
 from nanogen.tasks.external import GetDatasetLFNs, FetchLumiMask, FetchLFN
@@ -485,7 +488,8 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
 
     def workflow_requires(self):
         reqs = super().workflow_requires()
-        reqs["nano"] = CreateNano.req(self)
+        if not self.pilot:
+            reqs["nano"] = CreateNano.req_different_branching(self)
         reqs["sizes"] = CollectNanoSizes.req(self)
         return reqs
 
@@ -541,7 +545,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
         input_paths = [inp.abspath for inp in self.input().collection.targets.values()]
 
         # validate files, skip empty ones
-        input_paths = self.check_empty_files(input_paths)
+        input_paths = self.validate_input_files(input_paths)
 
         # prepare the output
         output = self.output()
@@ -556,9 +560,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
             hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
         )
 
-    def check_empty_files(self, paths: list[str]) -> list[str]:
-        import uproot  # type: ignore[import-untyped]
-
+    def validate_input_files(self, paths: list[str]) -> list[str]:
         valid_paths = []
         for path in paths:
             n = uproot.open(path)["Events"].num_entries
@@ -581,3 +583,107 @@ MergeNanoWrapper = wrapper_factory(
     cls_name="MergeNanoWrapper",
     enable=["datasets", "skip_datasets"],
 )
+
+
+class ValidateNano(DatasetTask):
+
+    def requires(self):
+        return MergeNano.req(self)
+
+    def output(self):
+        return self.target("validation.json")
+
+    @law.decorator.notify
+    def run(self):
+        # prepare inputs
+        coll = self.input().collection
+
+        # loop through files and validate them
+        with self.publish_step(f"validating {len(coll)} files"):
+            bad_files = {}
+            for b, inp in self.iter_progress(coll.targets.items(), len(coll)):
+                msg = f"validated file {b} ({inp.basename})"
+                if (err := self.validate_file(b, inp)):
+                    bad_files[b] = err
+                    msg += f" - {law.util.colored('error', color='red')}"
+                else:
+                    msg += f" - {law.util.colored('ok', color='green')}"
+                self.publish_message(msg)
+
+        # show errors
+        if bad_files:
+            msg = f"found {len(bad_files)} bad file(s):"
+            for b, reason in bad_files.items():
+                msg += f"\n  branch {b}: {reason}"
+            self.logger.error(msg)
+
+            branches = list(bad_files.keys())
+            print(f"\nbranch list: {','.join(map(str, branches))}")
+            branch_ranges = law.util.range_join(branches)
+            print(f"--branches : {law.BaseWorkflow.branches.serialize(branch_ranges)}\n")
+
+        # save output
+        data = {
+            "branches": len(coll),
+            "bad_files": bad_files,
+        }
+        self.output().dump(data, formatter="json", indent=4)
+        self.logger.info("all files valid")
+
+    @classmethod
+    def validate_file(cls, branch: int, target: law.FileSystemFileTarget) -> str | None:
+        try:
+            with target.load(formatter="uproot", cache=False) as f:
+                # get the events tree
+                events = f["Events"]
+                # access number of entries
+                n = events.num_entries
+                if n == 0:
+                    raise Exception("file contains no events")
+                # load index branches
+                events.arrays(["event", "run", "luminosityBlock"])
+        except Exception as e:
+            return str(e)
+
+        # success
+        return None
+
+
+class ValidateNanoSummary(ConfigTask, law.tasks.RunOnceTask):
+
+    dataset_names = dataset_names_parameter
+    skip_dataset_names = skip_dataset_names_parameter
+    table_format = table_format_parameter
+
+    def requires(self):
+        datasets = filter_dataset_names(
+            self.config_name,
+            self.dataset_names,
+            self.skip_dataset_names,
+        )
+        return {
+            dataset: ValidateNano.req(self, dataset_name=dataset)
+            for dataset in datasets
+        }
+
+    @law.decorator.notify
+    @law.tasks.RunOnceTask.complete_on_success
+    def run(self) -> None:
+        import tabulate  # type: ignore[import-untyped]
+
+        headers = ["Dataset", "# Files", "# Broken", "--branches"]
+        rows = []
+
+        for dataset, inp in self.input().items():
+            data = inp.load(formatter="json")
+            bad = list(data["bad_files"].keys())
+            joined_bad_branches = law.BaseWorkflow.branches.serialize(law.util.range_join(bad))
+            rows.append([
+                dataset,
+                data["branches"],
+                law.util.colored(len(bad), color="red" if bad else "green"),
+                joined_bad_branches or "-",
+            ])
+
+        table = tabulate.tabulate(rows, headers=headers, tablefmt=self.table_format)
+        self.publish_message(table)

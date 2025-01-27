@@ -11,7 +11,7 @@ import re
 import enum
 import getpass
 import inspect
-from typing import Type, Callable
+from typing import Type, Callable, Sequence
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -29,6 +29,24 @@ user_parameter = luigi.Parameter(
     description="the user running the current task, mainly for central schedulers to distinguish "
     "between tasks that should or should not be run in parallel by multiple users; "
     "default: current user",
+)
+
+table_format_parameter = luigi.Parameter(
+    default="fancy_grid",
+    significant=False,
+    description="the format of the 'tabular' table; default: fancy_grid",
+)
+
+dataset_names_parameter = law.CSVParameter(
+    default=("*",),
+    description="names or name patterns of datasets to use; default: ('*',)",
+    brace_expand=True,
+)
+
+skip_dataset_names_parameter = law.CSVParameter(
+    default=(),
+    description="names or name patterns of datasets to skip; empty default",
+    brace_expand=True,
 )
 
 
@@ -238,10 +256,16 @@ class ConfigTask(Task):
     )
 
     @classmethod
+    def resolve_config_name(cls, config_name: str) -> str:
+        if not config_name.startswith("config_"):
+            config_name = f"config_{config_name}"
+        return config_name
+
+    @classmethod
     def resolve_param_values(cls, params: dict) -> dict:
         # prepend "config_" to config name if needed
-        if "config_name" in params and not params["config_name"].startswith("config_"):
-            params["config_name"] = f"config_{params['config_name']}"
+        if "config_name" in params:
+            params["config_name"] = cls.resolve_config_name(params["config_name"])
         # resolve the config file path
         if "config_file" in params:
             params["config_file"] = os.path.splitext(params["config_file"])[0]
@@ -269,6 +293,7 @@ class ConfigTask(Task):
     @classmethod
     def load_configs(cls, config_name: str) -> tuple[str, dict, str, dict, str, dict]:
         # resolve the config file and check if it was already
+        config_name = cls.resolve_config_name(config_name)
         config_file = cls.resolve_config_file(config_name)
         if config_file not in _config_cache:
             # load the config
@@ -449,6 +474,20 @@ class DatasetTask(ConfigTask):
         return opts
 
 
+def filter_dataset_names(
+    config_name: str,
+    dataset_names: Sequence[str],
+    skip_dataset_names: Sequence[str],
+) -> list[str]:
+    return [
+        name for name in ConfigTask.load_configs(config_name)[3].keys()
+        if (
+            law.util.multi_match(name, dataset_names, mode=any) and
+            not law.util.multi_match(name, skip_dataset_names, mode=any)
+        )
+    ]
+
+
 def wrapper_factory(
     base_cls: Type[Task],
     require_cls: Type[Task],
@@ -514,17 +553,9 @@ def wrapper_factory(
                 brace_expand=True,
             )
         if has_datasets:
-            dataset_names = law.CSVParameter(
-                default=("*",),
-                description="names or name patterns of datasets to use; default: ('*',)",
-                brace_expand=True,
-            )
+            dataset_names = dataset_names_parameter
         if has_skip_datasets:
-            skip_dataset_names = law.CSVParameter(
-                default=(),
-                description="names or name patterns of datasets to skip; empty default",
-                brace_expand=True,
-            )
+            skip_dataset_names = skip_dataset_names_parameter
 
         user = user_parameter
 
@@ -559,25 +590,13 @@ def wrapper_factory(
             # per config, find datasets
             selected_dataset_names = {}
             if self.wrapper_has_dataset_names:
-                def load_dataset_names(config_name):
-                    config_file = ConfigTask.resolve_config_file(config_name)
-                    config = law.LocalFileTarget(config_file).load(formatter="yaml")
-                    dataset_config_file = ConfigTask.resolve_dataset_config(config_file, config)
-                    dataset_config = law.LocalFileTarget(dataset_config_file).load(formatter="yaml")
-                    return list(dataset_config.keys())
-
-                def filter_dataset_names(dataset_names: list[str]) -> list[str]:
-                    return [
-                        name for name in dataset_names
-                        if (
-                            law.util.multi_match(name, self.dataset_names, mode=any) and
-                            not law.util.multi_match(name, self.skip_dataset_names, mode=any)
-                        )
-                    ]
-
                 # load and filter dataset names
                 selected_dataset_names = {
-                    config_name: filter_dataset_names(load_dataset_names(config_name))
+                    config_name: filter_dataset_names(
+                        config_name,
+                        self.dataset_names,
+                        self.skip_dataset_names,
+                    )
                     for config_name in config_names
                 }
 
