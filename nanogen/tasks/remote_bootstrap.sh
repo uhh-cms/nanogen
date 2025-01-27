@@ -21,7 +21,19 @@ bootstrap_htcondor() {
     export NG_WLCG_TOOLS="{{wlcg_tools}}"
     export LAW_CONFIG_FILE="{{law_config_file}}"
     [ ! -z "{{ng_dasmaps_base}}" ] && export NG_DASMAPS_BASE="{{ng_dasmaps_base}}"
-    [ ! -z "{{vomsproxy_file}}" ] && export X509_USER_PROXY="${PWD}/{{vomsproxy_file}}"
+    if [ ! -z "{{vomsproxy_file}}" ]; then
+        local local_voms_proxy="${PWD}/{{vomsproxy_file}}"
+        export X509_USER_PROXY="/tmp/x509up_u$( id -u )"
+        rm -rf "${X509_USER_PROXY}"
+        cp "${local_voms_proxy}" "${X509_USER_PROXY}"
+    fi
+
+    # fix for missing voms/x509 variables
+    export X509_CERT_DIR="/cvmfs/grid.cern.ch/etc/grid-security/certificates"
+    export X509_VOMS_DIR="/cvmfs/grid.cern.ch/etc/grid-security/vomsdir"
+    export X509_VOMSES="/cvmfs/grid.cern.ch/etc/grid-security/vomses"
+    export VOMS_USERCONF="${X509_VOMSES}"
+    export CAPATH="${X509_CERT_DIR}"
 
     # load the repo bundle
     echo -e "\nfetching repository bundle ..."

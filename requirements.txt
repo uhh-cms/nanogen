@@ -10,6 +10,7 @@ zstandard~=0.23.0
 -r modules/law/requirements.txt
 
 # development
+ipython~=8.18.1
 mypy~=1.9.0
 flake8~=7.1.1
 flake8-commas~=4.0.0

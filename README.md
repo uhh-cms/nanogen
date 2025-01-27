@@ -8,7 +8,7 @@ Set environment variables before sourcing `setup.sh` and consider creating an al
 # required
 export NG_CERN_USER="your_cern_username"
 # optional (storage location of software and local files; defaults to "/data" in the repo)
-export NG_DATA_BASE="/data/dust/cms/user/$( whoami )/nanogen_data"
+export NG_DATA_BASE="/data/dust/user/$( whoami )/nanogen_data"
 # setup
 source setup.sh ""
 ```
@@ -28,6 +28,7 @@ flowchart TD
   CreateNano --> CollectNanoSizes
   CollectNanoSizes --> MergeNano
   CreateNano -- many --> MergeNano
+  MergeNano --> ValidateNano
   MergeNano --> CreateDBEntry
   MergeNano -. custom .-> bbtt.ReduceEvents
 ```
