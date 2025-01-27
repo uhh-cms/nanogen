@@ -4,6 +4,7 @@ customization:
   function: customize_run3_v12_uhh
   arguments:
     pf_candidates: true
+    l1t_objects: false
 
 # objects to by bypassed in skimming process and copied as is
 bypass:
