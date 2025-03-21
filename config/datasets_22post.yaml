@@ -712,7 +712,7 @@ dy_2E_m50to120_powheg:
 dy_2E_m120to200_powheg:
   key: /DYto2E_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-dy_2E_m20to400_powheg:
+dy_2E_m200to400_powheg:
   key: /DYto2E_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
 dy_2E_m400to800_powheg:
@@ -745,7 +745,7 @@ dy_2Mu_m50to120_powheg:
 dy_2Mu_m120to200_powheg:
   key: /DYto2Mu_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-dy_2Mu_m20to400_powheg:
+dy_2Mu_m200to400_powheg:
   key: /DYto2Mu_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
 dy_2Mu_m400to800_powheg:
@@ -777,7 +777,7 @@ dy_2Tau_m50to120_powheg:
 dy_2Tau_m120to200_powheg:
   key: /DYto2Tau_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
-dy_2Tau_m20to400_powheg:
+dy_2Tau_m200to400_powheg:
   key: /DYto2Tau_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINAODSIM
 
 dy_2Tau_m400to800_powheg:
