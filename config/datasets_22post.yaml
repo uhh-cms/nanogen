@@ -828,6 +828,16 @@ z_qq_2j_pt600toinf_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
 
 #
+# VBF W/Z
+#
+
+w_vbf_wlnu_madgraph:
+  key: /VBFtoLNu_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
+
+z_vbf_zll_m50toinf_madgraph:
+  key: /VBFto2L_MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
+
+#
 # di boson
 #
 
@@ -864,9 +874,15 @@ zzz_amcatnlo:
 h_ggf_htt_powheg:
   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson70KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
 
+h_ggf_hbb_powheg:
+  key: /GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
 # TODO: update to new PU scenario when available
 h_vbf_htt_powheg:
   key: /VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-Poisson70KeepRAW_130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+
+h_vbf_hbb_powheg:
+  key: /VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
 
 vh_hnonbb_amcatnlo:
   key: /VH_HtoNonbb_M-125_TuneCP5_13p6TeV_amcatnloFXFX-madspin-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
