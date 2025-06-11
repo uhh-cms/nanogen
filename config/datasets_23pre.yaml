@@ -672,6 +672,13 @@ ttzz_madgraph:
   key: /TTZZ_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
 
 #
+# 4 top
+#
+
+tttt_amcatnlo:
+  key: /TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v2/MINIAODSIM
+
+#
 # w + jets
 #
 
@@ -1046,6 +1053,18 @@ wph_wlnu_hbb_powheg:
 
 wmh_wlnu_hbb_powheg:
   key: /WminusH_Hto2B_WtoLNu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
+
+thq_4f_madgraph:
+  key: /THQ_ctcvcp_HIncl_M-125_4FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
+
+thw_madgraph:
+  key: /THW_ctcvcp_HIncl_M-125_5FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v4/MINIAODSIM
+
+ttzh_madgraph:
+  key: /TTZH_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v3/MINIAODSIM
+
+ttwh_madgraph:
+  key: /TTWH_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v15-v3/MINIAODSIM
 
 #
 # data
