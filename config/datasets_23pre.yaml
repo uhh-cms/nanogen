@@ -844,7 +844,6 @@ dy_2e_m4000to6000_powheg:
 dy_2e_m6000toinf_powheg:
   key: /DYto2E_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
 
-
 # 2 mu
 dy_2mu_10to50_powheg:
   key: /DYto2Mu_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
@@ -875,7 +874,6 @@ dy_2mu_m4000to6000_powheg:
 
 dy_2mu_m6000toinf_powheg:
   key: /DYto2Mu_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
-
 
 # 2 tau
 dy_2tau_m10to50_powheg:
