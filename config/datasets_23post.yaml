@@ -768,96 +768,96 @@ dy_m50toinf_madgraph:
 # these are now separated into 2 electron, muon, tau's instead of just 2 leptons
 
 # 2 e
-dy_2e_10to50_powheg:
+dy_ee_m10to50_powheg:
   key: /DYto2E_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m50to120_powheg:
+dy_ee_m50to120_powheg:
   key: /DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m120to200_powheg:
+dy_ee_m120to200_powheg:
   key: /DYto2E_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m200to400_powheg:
+dy_ee_m200to400_powheg:
   key: /DYto2E_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m400to800_powheg:
+dy_ee_m400to800_powheg:
   key: /DYto2E_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m800to1500_powheg:
+dy_ee_m800to1500_powheg:
   key: /DYto2E_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m1500to2500_powheg:
+dy_ee_m1500to2500_powheg:
   key: /DYto2E_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m2500to4000_powheg:
+dy_ee_m2500to4000_powheg:
   key: /DYto2E_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m4000to6000_powheg:
+dy_ee_m4000to6000_powheg:
   key: /DYto2E_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2e_m6000toinf_powheg:
+dy_ee_m6000toinf_powheg:
   key: /DYto2E_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 # 2 mu
-dy_2mu_m10to50_powheg:
+dy_mumu_m10to50_powheg:
   key: /DYto2Mu_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m50to120_powheg:
+dy_mumu_m50to120_powheg:
   key: /DYto2Mu_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m120to200_powheg:
+dy_mumu_m120to200_powheg:
   key: /DYto2Mu_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m200to400_powheg:
+dy_mumu_m200to400_powheg:
   key: /DYto2Mu_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m400to800_powheg:
+dy_mumu_m400to800_powheg:
   key: /DYto2Mu_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m800to1500_powheg:
+dy_mumu_m800to1500_powheg:
   key: /DYto2Mu_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m1500to2500_powheg:
+dy_mumu_m1500to2500_powheg:
   key: /DYto2Mu_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v4/MINIAODSIM
 
-dy_2mu_m2500to4000_powheg:
+dy_mumu_m2500to4000_powheg:
   key: /DYto2Mu_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m4000to6000_powheg:
+dy_mumu_m4000to6000_powheg:
   key: /DYto2Mu_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2mu_m6000toinf_powheg:
+dy_mumu_m6000toinf_powheg:
   key: /DYto2Mu_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 # 2 tau
-dy_2tau_m10to50_powheg:
+dy_tautau_m10to50_powheg:
   key: /DYto2Tau_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m50to120_powheg:
+dy_tautau_m50to120_powheg:
   key: /DYto2Tau_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m120to200_powheg:
+dy_tautau_m120to200_powheg:
   key: /DYto2Tau_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m200to400_powheg:
+dy_tautau_m200to400_powheg:
   key: /DYto2Tau_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m400to800_powheg:
+dy_tautau_m400to800_powheg:
   key: /DYto2Tau_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m800to1500_powheg:
+dy_tautau_m800to1500_powheg:
   key: /DYto2Tau_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m1500to2500_powheg:
+dy_tautau_m1500to2500_powheg:
   key: /DYto2Tau_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m2500to4000_powheg:
+dy_tautau_m2500to4000_powheg:
   key: /DYto2Tau_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m4000to6000_powheg:
+dy_tautau_m4000to6000_powheg:
   key: /DYto2Tau_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-dy_2tau_m6000toinf_powheg:
+dy_tautau_m6000toinf_powheg:
   key: /DYto2Tau_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 #
