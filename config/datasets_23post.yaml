@@ -762,7 +762,7 @@ dy_m50toinf_2j_pt600toinf_amcatnlo:
 
 # LO
 dy_m50toinf_madgraph:
-  keys: /DYto2L-4Jets_MLL-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+  key: /DYto2L-4Jets_MLL-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 # NNLO
 # these are now separated into 2 electron, muon, tau's instead of just 2 leptons
