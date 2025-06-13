@@ -308,3 +308,33 @@ CreateDBEntryWrapper = wrapper_factory(
     enable=["datasets", "skip_datasets"],
     reduce_params=db_entry_wrapper_reduce_params,
 )
+
+
+from nanogen.tasks.base import (
+    dataset_names_parameter, skip_dataset_names_parameter, filter_dataset_names,
+)
+
+
+class MergeDBEntries(ConfigTask, law.tasks.RunOnceTask):
+
+    dataset_names = dataset_names_parameter
+    skip_dataset_names = skip_dataset_names_parameter
+    # table_format = table_format_parameter
+
+    def requires(self):
+        datasets = filter_dataset_names(
+            self.config_name,
+            self.dataset_names,
+            self.skip_dataset_names,
+        )
+        return {
+            dataset: CreateDBEntry.req(self, dataset_name=dataset)
+            for dataset in datasets
+        }
+
+    @law.decorator.notify
+    @law.tasks.RunOnceTask.complete_on_success
+    def run(self) -> None:
+        for dataset, inp in self.input().items():
+            data = inp.load(formatter="text")
+            print(data)

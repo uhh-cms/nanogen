@@ -597,7 +597,6 @@ class ValidateNano(DatasetTask):
     def run(self):
         # prepare inputs
         coll = self.input().collection
-
         # loop through files and validate them
         with self.publish_step(f"validating {len(coll)} files"):
             bad_files = {}
@@ -642,11 +641,32 @@ class ValidateNano(DatasetTask):
                     raise Exception("file contains no events")
                 # load index branches
                 events.arrays(["event", "run", "luminosityBlock"])
+
+                # check lhe weights
+                cls.check_lhe_weights(events)
         except Exception as e:
             return str(e)
 
         # success
         return None
+
+    @classmethod
+    def check_lhe_weights(cls, events):
+        logger = law.logger.get_logger("check_lhe_weights")
+        import awkward as ak
+        nums = ak.num(events.arrays(["LHEScaleWeight", "LHEPdfWeight"]))
+        allowed_unique_num_scale = ({9},)
+        if (unique_num_scale := set(nums["LHEScaleWeight"])) not in allowed_unique_num_scale:
+            # NOTE: quite a lot of files have 8 scale weights instead of 9
+            logger.warning(
+                f"unexpected number of LHEScaleWeight branches: {unique_num_scale}, expected 9"
+            )
+        allowed_unique_num_pdf = ({103}, {101})
+        if (unique_num_pdf := set(nums["LHEPdfWeight"])) not in allowed_unique_num_pdf:
+            logger.warning(
+                f"unexpected number of LHEPdfWeight branches: {unique_num_pdf}, expected 103 or 101"
+            )
+        return
 
 
 class ValidateNanoSummary(ConfigTask, law.tasks.RunOnceTask):
