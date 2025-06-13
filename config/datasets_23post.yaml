@@ -1043,6 +1043,12 @@ data_mu_d2:
 data_mu_d2_ext1:
   key: /Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD
 
+data_muoneg_d1:
+  key: /MuonEG/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+data_muoneg_d2:
+  key: /MuonEG/Run2023D-22Sep2023_v2-v1/MINIAOD
+
 data_tau_d1:
   key: /Tau/Run2023D-22Sep2023_v1-v1/MINIAOD
 

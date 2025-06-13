@@ -1282,6 +1282,15 @@ data_mu_f:
 data_mu_g:
   key: /Muon/Run2022G-22Sep2023-v1/MINIAOD
 
+data_muoneg_e:
+  key: /MuonEG/Run2022E-22Sep2023-v1/MINIAOD
+
+data_muoneg_f:
+  key: /MuonEG/Run2022F-22Sep2023-v1/MINIAOD
+
+data_muoneg_g:
+  key: /MuonEG/Run2022G-22Sep2023-v1/MINIAOD
+
 data_tau_e:
   key: /Tau/Run2022E-22Sep2023-v1/MINIAOD
 
