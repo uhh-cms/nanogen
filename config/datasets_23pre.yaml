@@ -1110,6 +1110,18 @@ data_mu_c4:
 data_mu_c4_ext1:
   key: /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
 
+data_muoneg_c1:
+  key: /MuonEG/Run2023C-22Sep2023_v1-v1/MINIAOD
+
+data_muoneg_c2:
+  key: /MuonEG/Run2023C-22Sep2023_v2-v1/MINIAOD
+
+data_muoneg_c3:
+  key: /MuonEG/Run2023C-22Sep2023_v3-v1/MINIAOD
+
+data_muoneg_c4:
+  key: /MuonEG/Run2023C-22Sep2023_v4-v1/MINIAOD
+
 data_tau_c1:
   key: /Tau/Run2023C-22Sep2023_v1-v2/MINIAOD
 
