@@ -1270,8 +1270,14 @@ data_e_e:
 data_e_f:
   key: /EGamma/Run2022F-22Sep2023-v1/MINIAOD
 
+data_e_reproc_f:
+  key: /EGamma/Run2022F-19Dec2023-v1/MINIAOD
+
 data_e_g:
   key: /EGamma/Run2022G-22Sep2023-v2/MINIAOD
+
+data_e_reproc_g:
+  key: /EGamma/Run2022G-19Dec2023-v1/MINIAOD
 
 data_mu_e:
   key: /Muon/Run2022E-22Sep2023-v1/MINIAOD
@@ -1279,16 +1285,22 @@ data_mu_e:
 data_mu_f:
   key: /Muon/Run2022F-22Sep2023-v2/MINIAOD
 
+data_mu_reproc_f:
+  key: /Muon/Run2022F-19Dec2023-v1/MINIAOD
+
 data_mu_g:
   key: /Muon/Run2022G-22Sep2023-v1/MINIAOD
 
-data_muoneg_e:
+data_mu_reproc_g:
+  key: /Muon/Run2022G-19Dec2023-v2/MINIAOD
+
+data_emu_e:
   key: /MuonEG/Run2022E-22Sep2023-v1/MINIAOD
 
-data_muoneg_f:
+data_emu_f:
   key: /MuonEG/Run2022F-22Sep2023-v1/MINIAOD
 
-data_muoneg_g:
+data_emu_g:
   key: /MuonEG/Run2022G-22Sep2023-v1/MINIAOD
 
 data_tau_e:
@@ -1303,8 +1315,17 @@ data_tau_g:
 data_met_e:
   key: /JetMET/Run2022E-22Sep2023-v1/MINIAOD
 
+data_met_reproc_e:
+  key: /JetMET/Run2022E-19Dec2023-v1/MINIAOD
+
 data_met_f:
   key: /JetMET/Run2022F-22Sep2023-v2/MINIAOD
 
+data_met_reproc_f:
+  key: /JetMET/Run2022F-19Dec2023-v2/MINIAOD
+
 data_met_g:
   key: /JetMET/Run2022G-22Sep2023-v2/MINIAOD
+
+data_met_reproc_g:
+  key: /JetMET/Run2022G-19Dec2023-v1/MINIAOD
