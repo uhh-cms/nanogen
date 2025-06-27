@@ -11,7 +11,7 @@ import re
 import enum
 import getpass
 import inspect
-from typing import Type, Callable, Sequence
+from typing import Type, Callable, Sequence, Any
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -660,3 +660,25 @@ def wrapper_factory(
         Wrapper.__docs__ = docs
 
     return Wrapper
+
+
+@law.decorator.factory(accept_generator=True)
+def only_local_env(
+    fn: Callable,
+    opts: Any,
+    task: law.Task,
+    *args: Any,
+    **kwargs: Any,
+) -> tuple[Callable, Callable, Callable]:
+    def before_call() -> None:
+        return None
+
+    def call(state: Any) -> Any:
+        if is_remote_env:
+            raise RuntimeError(f"{task.task_family}.{fn.__name__}() can only be executed locally")
+        return fn(task, *args, **kwargs)
+
+    def after_call(state: Any) -> None:
+        return None
+
+    return before_call, call, after_call

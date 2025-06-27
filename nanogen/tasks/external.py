@@ -15,6 +15,7 @@ import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import (
     Task, ConfigTask, DatasetTask, wrapper_factory, user_parameter, table_format_parameter,
+    only_local_env,
 )
 from nanogen.nano_util import (
     das_query, load_dataset_stats, locate_lfn, fetch_lfn, sort_sites_opinionated,
@@ -166,6 +167,7 @@ class GetDatasetLFNs(DatasetTask):
             outputs.missing = self.target("missing.json")
         return outputs
 
+    @only_local_env
     @law.decorator.notify
     @law.decorator.log
     @maybe_wait_for_dcache
@@ -250,6 +252,7 @@ class FetchLumiMask(ConfigTask):
     def output(self):
         return self.target(f"lumi_mask_{law.util.create_hash(self.src_file, 8)}.json")
 
+    @only_local_env
     @law.decorator.notify
     @law.decorator.log
     def run(self):
