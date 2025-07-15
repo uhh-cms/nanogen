@@ -7,6 +7,7 @@ Tasks dealing with external data.
 from __future__ import annotations
 
 import os
+import glob
 from collections import defaultdict
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -160,6 +161,13 @@ class GetDatasetLFNs(DatasetTask):
 
     version = None
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # never validate private datasets
+        if self.dataset_is_private:
+            self.validate = False
+
     def output(self):
         outputs = law.util.DotDict()
         outputs.lfns = self.target("lfns.json")
@@ -172,6 +180,9 @@ class GetDatasetLFNs(DatasetTask):
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
+        return self.run_private() if self.dataset_is_private else self.run_das()
+
+    def run_das(self):
         # get lfns
         lfns = [
             line.strip()
@@ -228,6 +239,15 @@ class GetDatasetLFNs(DatasetTask):
             )
             for lfn in missing_lfns:
                 self.logger.fatal(f"  {lfn}")
+
+    def run_private(self):
+        # just store absolute paths to all private files
+        lfns = glob.glob(os.path.join(self.dataset.private.path, self.dataset.private.pattern))
+        lfns.sort()
+        self.publish_message(f"found {len(lfns)} LFNs for private dataset {self.dataset.key}")
+
+        # save them
+        self.output().lfns.dump(lfns, indent=4, formatter="json")
 
 
 GetDatasetLFNsWrapper = wrapper_factory(

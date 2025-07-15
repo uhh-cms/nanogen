@@ -70,6 +70,21 @@ hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_madgraph:
 hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
   key: /VBFHHto2B2Tau_CV-m2p12_C2V-3p87_C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+# privately produced samples (note the UHH suffix in the MiniAOD campaign)
+hh_vbf_hbb_htt_kv1_k2v1_kl1_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4UHH-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_22pre_cv1.0_c2v1.0_kl1.0
+    pattern: mini_*_*_500.root
+    id: 22761001
+
+hh_vbf_hbb_htt_kv1_k2v0_kl1_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4UHH-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_22pre_cv1.0_c2v0.0_kl1.0
+    pattern: mini_*_*_500.root
+    id: 22761002
+
 #
 # ggf graviton -> hh -> bbtautau
 #

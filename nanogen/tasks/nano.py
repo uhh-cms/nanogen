@@ -190,6 +190,11 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # never fetch lfns of private datasets
+        if self.dataset_is_private:
+            self.fetch_lfns = False
+            self.tmp_fetch_lfns = "False"
+
         # cached FetchLFN requirements for branches
         if self.is_branch:
             self._fetched_lfns = None
@@ -240,6 +245,8 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
         # reuse the nano file hash, otherwise create a new one
         if len(self.branch_data) == 1 and self.n_events < 0 and self.start_event == 0:
             name = os.path.splitext(os.path.basename(self.lfns[self.branch_data[0]]))[0]
+            if self.dataset_is_private:
+                name = f"nano_{name}"
         else:
             hash_parts = [[self.lfns[i] for i in self.branch_data]]
             if self.start_event > 0:
@@ -262,63 +269,11 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         # get the input files to process
         lfns = self.lfns
-        input_files = []
-        for i in self.branch_data:
-            # when already prefetched, use it but prefer local mounts
-            if i in inputs.fetched_lfns:
-                uri = inputs.fetched_lfns[i].uri(base_name="xrootd")
-                if law.target.file.get_scheme(uri) == "root":
-                    local_path = "/" + urllib.parse.urlparse(uri).path.lstrip("/")
-                    if os.path.exists(local_path):
-                        uri = local_path
-                input_files.append(uri)
-                continue
-
-            # use the lfn as is
-            lfn = lfns[i]
-            input_files.append(lfn)
-
-            # all checks below this point determine whether inputs should be fetched temporily
-
-            # disabled altogether
-            if self.tmp_fetch_lfns.lower() == "false":
-                continue
-
-            # locate it
-            try:
-                lfn_locs = locate_lfn(lfn, per_site=1, logger=self.logger)
-            except MissingLFNException:
-                continue
-
-            # adjustments specifically for T2_DE_DESY:
-            # 1. if existing, T2_DE_DESY:root is at the front of lfn_locs; if so, exchange the input
-            #    lfn with the corresponding pfn to prefer xrootd over dcap, which is the default
-            #    when just passing the raw lfn, but often fails
-            # 2. when a local mount is available, use it instead
-            if lfn_locs and (lfn_locs[0].site, lfn_locs[0].scheme) == ("T2_DE_DESY", "root"):
-                # check if local (2)
-                local_path = os.path.join("/pnfs/desy.de/cms/tier2", input_files[-1].lstrip("/"))
-                if os.path.exists(local_path):
-                    input_files[-1] = local_path
-                    continue
-                # otherwise use xrootd based pfn (1)
-                input_files[-1] = lfn_locs[0].pfn
-
-            # select only xrootd locations
-            lfn_locs = list(filter((lambda l: l.scheme == "root"), lfn_locs))
-            if not lfn_locs:
-                continue
-
-            # in "auto" mode, check the primary location
-            if self.tmp_fetch_lfns.lower() == "auto":
-                country = lfn_locs[0].site.split("_", 2)[1]
-                if country.lower() not in {"us", "kr", "in"}:
-                    continue
-
-            # actually fetch and replace with the local path
-            input_files[-1] = fetch_lfn(
-                lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locs,
-            )
+        input_files = (
+            [lfns[i] for i in self.branch_data]
+            if self.dataset_is_private
+            else self.determine_input_files(inputs, lfns, tmp_dir)
+        )
 
         # determine custom hook and arguments from config, or dataset of they exist
         custom_hook = (
@@ -389,6 +344,68 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
         # move the output file to the output location
         self.output().move_from_local(nano_file)
+
+    def determine_input_files(self, inputs, lfns, tmp_dir):
+        # get the input files to process
+        input_files = []
+        for i in self.branch_data:
+            # when already prefetched, use it but prefer local mounts
+            if i in inputs.fetched_lfns:
+                uri = inputs.fetched_lfns[i].uri(base_name="xrootd")
+                if law.target.file.get_scheme(uri) == "root":
+                    local_path = "/" + urllib.parse.urlparse(uri).path.lstrip("/")
+                    if os.path.exists(local_path):
+                        uri = local_path
+                input_files.append(uri)
+                continue
+
+            # use the lfn as is
+            lfn = lfns[i]
+            input_files.append(lfn)
+
+            # all checks below this point determine whether inputs should be fetched temporily
+
+            # disabled altogether
+            if self.tmp_fetch_lfns.lower() == "false":
+                continue
+
+            # locate it
+            try:
+                lfn_locs = locate_lfn(lfn, per_site=1, logger=self.logger)
+            except MissingLFNException:
+                continue
+
+            # adjustments specifically for T2_DE_DESY:
+            # 1. if existing, T2_DE_DESY:root is at the front of lfn_locs; if so, exchange the input
+            #    lfn with the corresponding pfn to prefer xrootd over dcap, which is the default
+            #    when just passing the raw lfn, but often fails
+            # 2. when a local mount is available, use it instead
+            if lfn_locs and (lfn_locs[0].site, lfn_locs[0].scheme) == ("T2_DE_DESY", "root"):
+                # check if local (2)
+                local_path = os.path.join("/pnfs/desy.de/cms/tier2", input_files[-1].lstrip("/"))
+                if os.path.exists(local_path):
+                    input_files[-1] = local_path
+                    continue
+                # otherwise use xrootd based pfn (1)
+                input_files[-1] = lfn_locs[0].pfn
+
+            # select only xrootd locations
+            lfn_locs = list(filter((lambda l: l.scheme == "root"), lfn_locs))
+            if not lfn_locs:
+                continue
+
+            # in "auto" mode, check the primary location
+            if self.tmp_fetch_lfns.lower() == "auto":
+                country = lfn_locs[0].site.split("_", 2)[1]
+                if country.lower() not in {"us", "kr", "in"}:
+                    continue
+
+            # actually fetch and replace with the local path
+            input_files[-1] = fetch_lfn(
+                lfn, tmp_dir.abspath, logger=self.logger, _lfn_locations=lfn_locs,
+            )
+
+        return input_files
 
 
 CreateNanoWrapper = wrapper_factory(

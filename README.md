@@ -75,6 +75,8 @@ nano_config: nano_run3_<VNANO>.yaml
 
 ### Dataset entries in `datasets_*.yaml` files
 
+#### Central samples
+
 ```yaml
 # example
 
@@ -110,6 +112,23 @@ tt_dl_ext1:
 tt_dl_tune_up:
   # all other fields as shown above
   key: ...
+```
+
+#### Privately produced samples
+
+```yaml
+hh_vbf_hbb_htt_kv1_k2v0_kl1_prv_madgraph:
+  # a fake miniaod key (note the UHH suffix behind the miniaod campaign)
+  key: /VBFHHto2B2Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer22MiniAODv4UHH-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+
+  # a private mapping entry qualifies the dataset as being private
+  private:
+    # local path where mini files are stored
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_22pre_cv1.0_c2v0.0_kl1.0
+    # pattern to match the mini files
+    pattern: mini_*_*_500.root
+    # a dataset id that will be used in the cmsdb entry export
+    id: 22761002
 ```
 
 ## References

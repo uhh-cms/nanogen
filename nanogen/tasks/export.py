@@ -177,6 +177,18 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
         # helper to determine the number of files and events
         def get_stats(dataset_name, shift_name):
+            # divert to private behavior if needed
+            if isinstance(self.datasets[dataset_name].get("private", None), dict):
+                if shift_name != "nominal":
+                    raise NotImplementedError(f"get_stats with shift '{shift_name}' not supported")
+                col = inputs["nominal"][dataset_name].collection
+                n_files = len(col)
+                n_events = sum(
+                    target.load(formatter="uproot")["Events"].num_entries
+                    for target in col.targets.values()
+                )
+                return n_files, n_events
+
             # get das stats
             stats = load_dataset_stats_cached(self.datasets[dataset_name].key)
 
@@ -208,14 +220,23 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return mini_to_nano_dataset(dataset.key, campaign_postfix=campaign_postfix)
 
         # get the id of the original dataset
-        dataset_id = load_dataset_stats_cached(self.dataset.key)["dataset_id"]
+        dataset_id = (
+            self.dataset.private.id
+            if self.dataset_is_private
+            else load_dataset_stats_cached(self.dataset.key)["dataset_id"]
+        )
 
         # estimate the process name
         if self.nano_info.data:
             process_name = "_".join(self.dataset_name.split("_")[:2])
         else:
+            # start with the dataset name
+            process_name = self.dataset_name
+            # drop private marker
+            if self.dataset_is_private:
+                process_name = process_name.replace("_prv_", "_")
             # drop generators
-            process_name = re.sub(r"_(powheg|madgraph|amcatnlo|pythia)$", "", self.dataset_name)
+            process_name = re.sub(r"_(powheg|madgraph|amcatnlo|pythia)$", "", process_name)
             # drop flavor schemes
             process_name = re.sub(r"_(4|5)f($|_)", r"\2", process_name)
             # drop fixes

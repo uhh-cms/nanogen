@@ -455,6 +455,8 @@ class DatasetTask(ConfigTask):
         nano_key = mini_to_nano_dataset(self.dataset.key, campaign_postfix=campaign_postfix)
         self.nano_info = DatasetInfo.from_key(nano_key)
 
+        self.dataset_is_private = isinstance(self.dataset.get("private", None), dict)
+
     def store_parts(self) -> law.util.InsertableDict:
         parts = super().store_parts()
         parts.insert_before("version", "dataset", self.dataset_name)
