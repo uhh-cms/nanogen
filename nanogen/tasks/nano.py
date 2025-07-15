@@ -562,7 +562,8 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
         input_paths = [inp.abspath for inp in self.input().collection.targets.values()]
 
         # validate files, skip empty ones
-        input_paths = self.validate_input_files(input_paths)
+        if not self.dataset_is_private:
+            input_paths = self.validate_input_files(input_paths)
 
         # prepare the output
         output = self.output()
@@ -575,6 +576,7 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
             output.abspath,
             local=True,
             hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
+            cascade_size=100,
         )
 
     def validate_input_files(self, paths: list[str]) -> list[str]:
