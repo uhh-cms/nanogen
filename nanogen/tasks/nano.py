@@ -7,10 +7,10 @@ Tasks for MiniAOD to NanoAOD conversion.
 from __future__ import annotations
 
 import os
+import re
 import math
 import urllib.parse
 
-import uproot  # type: ignore[import-untyped]
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
@@ -547,7 +547,13 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
 
     @workflow_condition.output
     def output(self):
-        nano_basename = lambda inp: inp.basename[-41:]  # uuidv4 + ".root"
+        # extract the basename of the input file, depending on whether the dataset is private
+        if self.dataset_is_private:
+            expr = rf"^.*({self.dataset.private.regex})$"
+        else:
+            h = lambda n: f"[0-9abcdef]{{{n},{n}}}"
+            expr = fr"^.*({h(8)}-{h(4)}-{h(4)}-{h(4)}-{h(12)}\.root)$"  # uuidv4 + ".root"
+        nano_basename = lambda inp: re.sub(expr, r"\1", inp.basename)
         hash_parts = [list(map(nano_basename, self.input().collection.targets.values()))]
         if self.n_events >= 0:
             hash_parts.append(f"n{self.n_events}")
@@ -574,12 +580,13 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
             self,
             input_paths,
             output.abspath,
-            local=True,
+            local=True,  # inputs are localized through input/output staging of CMSSWSandboxTask
             hadd_args=["-O", "-f501"],  # 501 is ZSTD(1)
-            cascade_size=100,
+            cascade_size=100,  # cascade-like merging in units of 100 files
         )
 
     def validate_input_files(self, paths: list[str]) -> list[str]:
+        import uproot  # type: ignore[import-untyped]
         valid_paths = []
         for path in paths:
             n = uproot.open(path)["Events"].num_entries

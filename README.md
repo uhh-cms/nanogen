@@ -125,8 +125,8 @@ hh_vbf_hbb_htt_kv1_k2v0_kl1_prv_madgraph:
   private:
     # local path where mini files are stored
     path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_22pre_cv1.0_c2v0.0_kl1.0
-    # pattern to match the mini files
-    pattern: mini_*_*_500.root
+    # regex pattern to match the mini files
+    regex: mini_.+_.+_500\.root
     # a dataset id that will be used in the cmsdb entry export
     id: 22761002
 ```

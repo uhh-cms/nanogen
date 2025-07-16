@@ -7,7 +7,7 @@ Tasks dealing with external data.
 from __future__ import annotations
 
 import os
-import glob
+import re
 from collections import defaultdict
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -242,7 +242,10 @@ class GetDatasetLFNs(DatasetTask):
 
     def run_private(self):
         # just store absolute paths to all private files
-        lfns = glob.glob(os.path.join(self.dataset.private.path, self.dataset.private.pattern))
+        lfns = []
+        for elem in os.listdir(self.dataset.private.path):
+            if re.match(rf"^{self.dataset.private.regex}$", elem):
+                lfns.append(os.path.join(self.dataset.private.path, elem))
         lfns.sort()
         self.publish_message(f"found {len(lfns)} LFNs for private dataset {self.dataset.key}")
 

@@ -305,6 +305,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             parts = self.dataset_name.split("_")
             era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
             entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
+        # private flag, only when actually true
+        if self.dataset_is_private:
+            entry += "        \"private\": True,\n"  # noqa: Q003
         entry += "    },\n"
         entry += ")\n"
 
