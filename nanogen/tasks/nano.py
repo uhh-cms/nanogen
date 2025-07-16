@@ -589,7 +589,11 @@ class MergeNano(DatasetTask, CMSSWSandboxTask, LocalWorkflow, RemoteWorkflow):
         import uproot  # type: ignore[import-untyped]
         valid_paths = []
         for path in paths:
-            n = uproot.open(path)["Events"].num_entries
+            try:
+                n = uproot.open(path)["Events"].num_entries
+            except:
+                self.logger.error(f"file {path} could not be opened")
+                n = 0
             if n > 0:
                 valid_paths.append(path)
                 continue
