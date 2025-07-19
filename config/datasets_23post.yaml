@@ -77,6 +77,49 @@ hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_madgraph:
 hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
   key: /VBFHHto2B2Tau_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
+# privately produced samples (note the UHH suffix in the MiniAOD campaign)
+hh_vbf_hbb_htt_kv1_k2v1_kl1_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv1.0_c2v1.0_kl1.0
+    regex: mini_.+_.+_500\.root
+    id: 22761301
+
+hh_vbf_hbb_htt_kv1_k2v0_kl1_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv1.0_c2v0.0_kl1.0
+    regex: mini_.+_.+_500\.root
+    id: 22761302
+
+hh_vbf_hbb_htt_kvm0p962_k2v0p959_klm1p43_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv-0.962_c2v0.959_kl-1.43
+    regex: mini_.+_.+_500\.root
+    id: 22761303
+
+hh_vbf_hbb_htt_kvm1p21_k2v1p94_klm0p94_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.21_c2v1.94_kl-0.94
+    regex: mini_.+_.+_500\.root
+    id: 22761304
+
+hh_vbf_hbb_htt_kvm1p6_k2v2p72_klm1p36_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.6_c2v2.72_kl-1.36
+    regex: mini_.+_.+_500\.root
+    id: 22761305
+
+hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_prv_madgraph:
+  key: /VBFHHto2B2Tau_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+  private:
+    path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.83_c2v3.57_kl-3.39
+    regex: mini_.+_.+_500\.root
+    id: 22761306
+
 #
 # ggf graviton -> hh -> bbtautau
 #
