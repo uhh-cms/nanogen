@@ -19,10 +19,10 @@ sandbox_script: cmssw_nanogen.sh
 # arguments for cmsDriver.py that creates the cmsRun config
 global_tag:
   # see https://cms-higgs-leprare.docs.cern.ch/#common-hleprare-nanoaod-skims
-  mc: auto:phase1_2022_realistic_postEE
+  mc: auto:phase1_2023_realistic
   # use to resolve to 140X_mcRun3_2023_realistic_v6, see
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/140X_mcRun3_2023_realistic_v6
-  data: auto:phase1_2023_realistic
+  data: auto:run3_data
   # used to resolve to 140X_dataRun3_v14, see
   # https://cms-conddb.cern.ch/cmsDbBrowser/list/Prod/gts/140X_dataRun3_v14
 era:
