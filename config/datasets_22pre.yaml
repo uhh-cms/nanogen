@@ -1100,6 +1100,16 @@ dy_tautau_m4000to6000_powheg:
 dy_tautau_m6000toinf_powheg:
   key: /DYto2Tau_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
 
+# dy amcatanlo, 2 tau filtered, varying additional jets
+dy_tautau_m50toinf_0j_amcatnlo:
+  key: /DYto2Tau-2Jets_M-50_0J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v3/MINIAODSIM
+
+# dy_tautau_m50toinf_1j_amcatnlo:
+#   key:
+
+# dy_tautau_m50toinf_2j_amcatnlo:
+#   key:
+
 #
 # Z + jets
 #
