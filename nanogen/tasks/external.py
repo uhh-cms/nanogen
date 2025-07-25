@@ -192,7 +192,7 @@ class GetDatasetLFNs(DatasetTask):
             ).split("\n")
             if line.strip().endswith(".root")
         ]
-        self.publish_message(f"found {len(lfns)} LFNs for dataset {self.dataset.key}")
+        self.publish_message(f"found {len(lfns):_} LFNs for dataset {self.dataset.key}")
         if not lfns:
             raise Exception("no LFNs found")
 
@@ -221,7 +221,7 @@ class GetDatasetLFNs(DatasetTask):
             # reduce lfns and show some logs
             n_missing = missing_data["n_missing"] = len(missing_lfns)
             missing_frac = n_missing / len(lfns) * 100
-            self.publish_message(f"{n_missing} of {len(lfns)} LFNs missing ({missing_frac:.2f}%)")
+            self.publish_message(f"{n_missing} of {len(lfns):_} LFNs missing ({missing_frac:.2f}%)")
             if missing_lfns:
                 lfns = [lfn for lfn in lfns if lfn not in missing_lfns]
                 sites = set(sum((d["sites"] for d in missing_data["missing"]), []))
@@ -247,7 +247,7 @@ class GetDatasetLFNs(DatasetTask):
             if re.match(rf"^{self.dataset.private.regex}$", elem):
                 lfns.append(os.path.join(self.dataset.private.path, elem))
         lfns.sort()
-        self.publish_message(f"found {len(lfns)} LFNs for private dataset {self.dataset.key}")
+        self.publish_message(f"found {len(lfns):_} LFNs for private dataset {self.dataset.key}")
 
         # save them
         self.output().lfns.dump(lfns, indent=4, formatter="json")
@@ -343,10 +343,11 @@ class FetchLFN(Task):
             if law.target.file.get_scheme(uri) == "root":
                 cmd = f"xrdcp -f {tmp.abspath} {uri}"
                 code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
-                if code != 0:
-                    raise Exception(f"failed to xrdcp {tmp.abspath} to {uri}")
-            else:
-                output.move_from_local(tmp)
+                if code == 0:
+                    return
+                self.logger.warning(f"failed to xrdcp {tmp.abspath} to {uri}, trying to ")
+            self.publish_message("using gfal2 to move the file")
+            output.move_from_local(tmp)
 
 
 class FetchLFNWrapper(Task, law.WrapperTask):

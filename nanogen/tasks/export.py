@@ -26,7 +26,7 @@ class GenerateNanoDocs(DatasetTask, CMSSWSandboxTask):
     user = user_parameter
 
     def requires(self):
-        return CreateNano.req(self, branch=0)
+        return CreateNano.req(self, branch=0, _prefer_cli={"branch"})
 
     def output(self):
         return law.util.DotDict({

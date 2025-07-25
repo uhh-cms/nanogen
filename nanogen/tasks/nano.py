@@ -69,11 +69,10 @@ class CreateCMSRunConfig(CMSSWSandboxTask):
     def run(self):
         # create the cmsDriver command that generates the nano config
         # https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/Instructions/Private-production
-        is_mc = self.dataset_kind == "mc"
-        tier = "NANOAOD" + ("SIM" if is_mc else "")
+        tier = "NANOAOD" + ("SIM" if self.dataset_kind == "mc" else "")
         driver_cmd = (
             "cmsDriver.py NANO"
-            " -s NANO"
+            " --step NANO"
             f" --{self.dataset_kind}"
             f" --eventcontent {tier}"
             f" --datatier {tier}"
