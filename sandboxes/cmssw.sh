@@ -157,7 +157,7 @@ setup_cmssw() {
             echo
             echo "installing ${NG_CMSSW_VERSION} on ${NG_SCRAM_ARCH} in ${install_base}"
 
-            # first install pass
+            # first setup
             (
                 mkdir -p "${install_base}"
                 cd "${install_base}"
@@ -165,8 +165,7 @@ setup_cmssw() {
                 source "/cvmfs/cms.cern.ch/cmsset_default.sh" "" &&
                 scramv1 project CMSSW "${NG_CMSSW_VERSION}" &&
                 cd "${NG_CMSSW_VERSION}/src" &&
-                eval "$( scramv1 runtime -sh )" &&
-                scram b
+                eval "$( scramv1 runtime -sh )"
             )
             local ret="$?"
             [ "${ret}" != "0" ] && clear_pending && return "${ret}"
@@ -180,14 +179,22 @@ setup_cmssw() {
                 if command -v ng_cmssw_custom_install &> /dev/null; then
                     echo -e "\nrunning ng_cmssw_custom_install"
                     ng_cmssw_custom_install &&
-                    cd "${install_path}/src" &&
-                    scram b
+                    cd "${install_path}/src"
                 elif [ ! -z "${ng_cmssw_custom_install}" ] && [ -f "${ng_cmssw_custom_install}" ]; then
                     echo -e "\nsourcing ng_cmssw_custom_install file"
                     source "${ng_cmssw_custom_install}" "" &&
-                    cd "${install_path}/src" &&
-                    scram b
+                    cd "${install_path}/src"
                 fi
+            )
+            ret="$?"
+            [ "${ret}" != "0" ] && clear_pending && return "${ret}"
+
+            # actual compilation
+            (
+                cd "${install_path}/src" &&
+                source "/cvmfs/cms.cern.ch/cmsset_default.sh" "" &&
+                eval "$( scramv1 runtime -sh )" &&
+                scram b -j "${NG_CMSSW_CORES:-4}"
             )
             ret="$?"
             [ "${ret}" != "0" ] && clear_pending && return "${ret}"

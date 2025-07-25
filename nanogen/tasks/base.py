@@ -395,6 +395,7 @@ class CMSSWSandboxTask(ConfigTask):
             "NG_CMSSW_VERSION": self.cmssw_sandbox_version,
             "NG_SCRAM_ARCH": self.cmssw_sandbox_arch,
             "NG_CMSSW_ENV_NAME": self.cmssw_sandbox_name,
+            "NG_NANO_VERSION": self.nano_config.nano_version,
         }
         return self.sandbox_inst._build_export_commands(env)
 

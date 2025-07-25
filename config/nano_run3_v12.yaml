@@ -1,3 +1,5 @@
+nano_version: 12
+
 # nano customonization hook to be injected into the cmsRun config
 customization:
   module: nanogen.customizations.default
