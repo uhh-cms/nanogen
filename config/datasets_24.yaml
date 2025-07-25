@@ -1,0 +1,1124 @@
+#
+# ggf hh -> bbtautau
+#
+
+# hh_ggf_hbb_htt_kl1_kt1_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl0_kt1_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-ggHH_powheg_bugfix_130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl2p45_kt1_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl5_kt1_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-ggHH_powheg_bugfix_130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-0p00_kt-1p00_c2-1p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl1_kt1_c20p1_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p10_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   skip_lfns:
+#     # branch 3, file fully corrupt
+#     - /store/mc/Run3Summer23BPixMiniAODv4/GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p10_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v6-v2/50000/10352936-52d3-48f6-a923-204a13006729.root
+
+# hh_ggf_hbb_htt_kl1_kt1_c20p35_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p35_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   skip_lfns:
+#     # branch 0, file fully corrupt
+#     - /store/mc/Run3Summer23BPixMiniAODv4/GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-0p35_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v6-v2/2830000/05c495b7-ba0a-4844-a742-d7646b60bd05.root
+
+# hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-3p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_htt_kl1_kt1_c2m2_powheg:
+#   key: /GluGlutoHHto2B2Tau_kl-1p00_kt-1p00_c2-m2p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# vbf hh -> bbtautau (LO)
+#
+
+# hh_vbf_hbb_htt_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto2B2Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# not yet available
+# # hh_vbf_hbb_htt_kv1_k2v1_kl2_madgraph:
+# #   key: /VBFHHto2B2Tau_CV_1_C2V-1_C3_2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# not yet available
+# # hh_vbf_hbb_htt_kv1_k2v2_kl1_madgraph:
+# #   key: /VBFHHto2B2Tau_CV_1_C2V_2_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto2B2Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto2B2Tau_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm0p012_k2v0p03_kl10p2_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# privately produced samples (note the UHH suffix in the MiniAOD campaign)
+# hh_vbf_hbb_htt_kv1_k2v1_kl1_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv1.0_c2v1.0_kl1.0
+#     regex: mini_.+_.+_500\.root
+#     id: 22761301
+
+# hh_vbf_hbb_htt_kv1_k2v0_kl1_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv1.0_c2v0.0_kl1.0
+#     regex: mini_.+_.+_500\.root
+#     id: 22761302
+
+# hh_vbf_hbb_htt_kvm0p962_k2v0p959_klm1p43_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/riegerma/mcgen_vbf_data/outputs/vbf_23post_cv-0.962_c2v0.959_kl-1.43
+#     regex: mini_.+_.+_500\.root
+#     id: 22761303
+
+# hh_vbf_hbb_htt_kvm1p21_k2v1p94_klm0p94_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.21_c2v1.94_kl-0.94
+#     regex: mini_.+_.+_500\.root
+#     id: 22761304
+
+# hh_vbf_hbb_htt_kvm1p6_k2v2p72_klm1p36_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.6_c2v2.72_kl-1.36
+#     regex: mini_.+_.+_500\.root
+#     id: 22761305
+
+# hh_vbf_hbb_htt_kvm1p83_k2v3p57_klm3p39_prv_madgraph:
+#   key: /VBFHHto2B2Tau_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4UHH-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+#   private:
+#     path: /data/dust/user/prouvost/mcgen_vbf_data/outputs/vbf_23post_cv-1.83_c2v3.57_kl-3.39
+#     regex: mini_.+_.+_500\.root
+#     id: 22761306
+
+#
+# ggf graviton -> hh -> bbtautau
+#
+
+# Not existing for now
+
+#
+# vbf graviton -> hh -> bbtautau
+#
+
+# Not existing for now
+
+#
+# ggf radion -> hh -> bbtautau
+#
+
+# Not existing for now
+
+#
+# vbf radion -> hh -> bbtautau
+#
+
+# Not existing for now
+
+#
+# ggf hh -> 4tau
+#
+
+# hh_ggf_htt_htt_kl1_kt1_powheg:
+#   key: /GluGlutoHHto4Tau_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_htt_htt_kl0_kt1_powheg:
+#   key: /GluGlutoHHto4Tau_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_htt_htt_kl5_kt1_powheg:
+#   key: /GluGlutoHHto4Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# ggf hh -> 4V
+#
+
+# hh_ggf_hvv_hvv_kl1_kt1_powheg:
+#   key: /GluGlutoHHto4V_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hvv_hvv_kl1_kt1_powheg_ext1:
+#   key: /GluGlutoHHto4V_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6_ext1-v2/MINIAODSIM
+
+# hh_ggf_hvv_hvv_kl0_kt1_powheg:
+#   key: /GluGlutoHHto4V_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hvv_hvv_kl5_kt1_powheg:
+#   key: /GluGlutoHHto4V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v1/MINIAODSIM
+
+#
+# ggf hh -> 2tau2V
+#
+
+# hh_ggf_htt_hvv_kl1_kt1_powheg:
+#   key: /GluGlutoHHto2Tau2V_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_htt_hvv_kl0_kt1_powheg:
+#   key: /GluGlutoHHto2Tau2V_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_htt_hvv_kl5_kt1_powheg:
+#   key: /GluGlutoHHto2Tau2V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# VBF hh -> 4tau
+#
+
+# hh_vbf_htt_htt_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto4Tau_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto4Tau_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto4Tau_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm0p012_k2v0p03_kl10p2_madgraph:
+#   key: /VBFHHto4Tau_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto4Tau_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto4Tau_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto4Tau_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto4Tau_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto4Tau_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_htt_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto4Tau_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# VBF hh -> 4V
+#
+
+# hh_vbf_hvv_hvv_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto4V_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto4V_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto4V_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# # hh_vbf_hvv_hvv_kvm0p012_k2v0p03_kl10p2_madgraph:
+# #   key:
+
+# hh_vbf_hvv_hvv_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto4V_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto4V_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto4V_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto4V_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto4V_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hvv_hvv_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto4V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# VBF hh -> 2tau2V
+#
+
+# hh_vbf_htt_hvv_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto2Tau2V_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto2Tau2V_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto2Tau2V_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# # h_vbf_htt_hvv_kvm0p012_k2v0p03_kl10p2_madgraph:
+# #  key:
+
+# hh_vbf_htt_hvv_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_htt_hvv_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto2Tau2V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# hhh -> bbbbtautau
+#
+
+# hhh_4b2tau_c30_d40_amcatnlo:
+#   key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+#
+# ggf hh -> bbvv
+#
+
+# hh_ggf_hbb_hvv_kl0_kt1_powheg:
+#   key: /GluGlutoHHto2B2V_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv_kl1_kt1_powheg:
+#   key: /GluGlutoHHto2B2V_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv_kl2p45_kt1_powheg:
+#   key: /GluGlutoHHto2B2V_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v1/MINIAODSIM
+
+# hh_ggf_hbb_hvv_kl5_kt1_powheg:
+#   key: /GluGlutoHHto2B2V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv2l2nu_kl0_kt1_powheg:
+#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv2l2nu_kl1_kt1_powheg:
+#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv2l2nu_kl2p45_kt1_powheg:
+#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvv2l2nu_kl5_kt1_powheg:
+#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvvqqlnu_kl0_kt1_powheg:
+#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvvqqlnu_kl1_kt1_powheg:
+#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvvqqlnu_kl2p45_kt1_powheg:
+#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_ggf_hbb_hvvqqlnu_kl5_kt1_powheg:
+#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# vbf hh -> bbvv
+#
+
+# hh_vbf_hbb_hvv_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto2B2V_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto2B2V_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto2B2V_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm0p012_k2v0p03_kl10p2_madgraph:
+#   key: /VBFHHto2B2V_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto2B2V_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto2B2V_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto2B2V_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto2B2V_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto2B2V_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto2B2V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm0p012_k2v0p03_kl10p2_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvv2l2nu_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto2B2Vto2L2Nu_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kv1_k2v0_kl1_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kv1_k2v1_kl1_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kv1p74_k2v1p37_kl14p4_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm0p012_k2v0p03_kl10p2_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm0p758_k2v1p44_klm19p3_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm0p962_k2v0p959_klm1p43_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm1p21_k2v1p94_klm0p94_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm1p6_k2v2p72_klm1p36_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm1p83_k2v3p57_klm3p39_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# hh_vbf_hbb_hvvqqlnu_kvm2p12_k2v3p87_klm5p96_madgraph:
+#   key: /VBFHHto2B2WtoLNu2Q_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# ttbar
+#
+
+tt_sl_powheg:
+  key: /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+
+# tt_dl_powheg:
+#   key: /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg:
+#   key: /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+#
+# ttbar systematics
+#
+
+# tt_sl
+# tt_sl_powheg_hdamp_down:
+#   key: /TTtoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_sl_powheg_hdamp_up:
+#   key: /TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_sl_powheg_mtop_down:
+#   key: /TTtoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_sl_powheg_mtop_up:
+#   key: /TTtoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_sl_powheg_tune_down:
+#   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_sl_powheg_tune_up:
+#   key: /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl
+# tt_dl_powheg_hdamp_down:
+#   key: /TTto2L2Nu_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl_powheg_hdamp_up:
+#   key: /TTto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl_powheg_mtop_down:
+#   key: /TTto2L2Nu_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl_powheg_mtop_up:
+#   key: /TTto2L2Nu_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl_powheg_tune_down:
+#   key: /TTto2L2Nu_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_dl_powheg_tune_up:
+#   key: /TTto2L2Nu_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh
+# tt_fh_powheg_hdamp_down:
+#   key: /TTto4Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg_hdamp_up:
+#   key: /TTto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg_mtop_down:
+#   key: /TTto4Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg_mtop_up:
+#   key: /TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg_tune_down:
+#   key: /TTto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tt_fh_powheg_tune_up:
+#   key: /TTto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+#
+# single top
+#
+
+# t channel
+# st_tchannel_t_4f_powheg:
+#   key: /TBbarQ_t-channel_4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_tchannel_tbar_4f_powheg:
+#   key: /TbarBQ_t-channel_4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# tw channel
+# st_twchannel_t_sl_powheg:
+#   key: /TWminustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg:
+#   key: /TbarWplustoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_t_dl_powheg:
+#   key: /TWminusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg:
+#   key: /TbarWplusto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_t_fh_powheg:
+#   key: /TWminusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg:
+#   key: /TbarWplusto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# s channel
+# st_schannel_t_lep_4f_amcatnlo:
+#   key: /TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_schannel_tbar_lep_4f_amcatnlo:
+#   key: /TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# single top systematics
+#
+
+# no s channel
+
+# no t channel
+
+# tw channel
+# st_twchannel_t_sl_powheg_hdamp_down:
+#   key: /TWminustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_sl_powheg_hdamp_up:
+#   key: /TWminustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_sl_powheg_mtop_down:
+#   key: /TWminustoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_sl_powheg_mtop_up:
+#   key: /TWminustoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_sl_powheg_tune_down:
+#   key: /TWminustoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_sl_powheg_tune_up:
+#   key: /TWminustoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_hdamp_down:
+#   key: /TbarWplustoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_hdamp_up:
+#   key: /TbarWplustoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_mtop_down:
+#   key: /TbarWplustoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_mtop_up:
+#   key: /TbarWplustoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_tune_down:
+#   key: /TbarWplustoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_sl_powheg_tune_up:
+#   key: /TbarWplustoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_hdamp_down:
+#   key: /TWminusto2L2Nu_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_hdamp_up:
+#   key: /TWminusto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_mtop_down:
+#   key: /TWminusto2L2Nu_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_mtop_up:
+#   key: /TWminusto2L2Nu_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_tune_down:
+#   key: /TWminusto2L2Nu_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_dl_powheg_tune_up:
+#   key: /TWminusto2L2Nu_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_hdamp_down:
+#   key: /TbarWplusto2L2Nu_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_hdamp_up:
+#   key: /TbarWplusto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_mtop_down:
+#   key: /TbarWplusto2L2Nu_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_mtop_up:
+#   key: /TbarWplusto2L2Nu_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_tune_down:
+#   key: /TbarWplusto2L2Nu_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_dl_powheg_tune_up:
+#   key: /TbarWplusto2L2Nu_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_hdamp_down:
+#   key: /TWminusto4Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_hdamp_up:
+#   key: /TWminusto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_mtop_down:
+#   key: /TWminusto4Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_mtop_up:
+#   key: /TWminusto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_tune_down:
+#   key: /TWminusto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_t_fh_powheg_tune_up:
+#   key: /TWminusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_hdamp_down:
+#   key: /TbarWplusto4Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_hdamp_up:
+#   key: /TbarWplusto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_mtop_down:
+#   key: /TbarWplusto4Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_mtop_up:
+#   key: /TbarWplusto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_tune_down:
+#   key: /TbarWplusto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+# st_twchannel_tbar_fh_powheg_tune_up:
+#   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# ttbar + V
+#
+
+# ttw
+# ttw_wlnu_amcatnlo:
+#   key: /TTLNu-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttz
+# ttz_zqq_amcatnlo:
+#   key: /TTZ-ZtoQQ-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttz_zll_m4to50_amcatnlo:
+#   key: /TTLL_MLL-4to50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttz_zll_m50toinf_amcatnlo:
+#   key: /TTLL_MLL-50_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttz_znunu_amcatnlo:
+#   key: /TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# ttbar + VV
+#
+
+# ttww_madgraph:
+#   key: /TTWW_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttwz_madgraph:
+#   key: /TTWZ_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttzz_madgraph:
+#   key: /TTZZ_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# 4 top
+#
+
+# tttt_amcatnlo:
+#   key: /TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# w + jets
+#
+
+# w_lnu_amcatnlo:
+#   key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# w_lnu_0j_amcatnlo:
+#   key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_1j_amcatnlo:
+#   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# w_lnu_2j_amcatnlo:
+#   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+#   skip_lfns:
+#     # lzma error, branch 2038
+#     - /store/mc/Run3Summer23BPixMiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v2-v2/40000/b0a431d4-d8cd-4bbc-a3c0-aab4324c3a3e.root
+
+# w_lnu_1j_pt40to100_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_1j_pt100to200_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_1j_pt200to400_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_1j_pt400to600_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_2j_pt40to100_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_2j_pt100to200_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_2j_pt200to400_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_2j_pt400to600_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_1j_pt600toinf_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# w_lnu_2j_pt600toinf_amcatnlo:
+#   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+#
+# DY
+#
+
+# dy_m4to10_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# TODO: check if sample without "ext" is added in the future, not existing for now
+# dy_m10to50_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2_ext1-v3/MINIAODSIM
+#   skip_lfns:
+#     # file fully corrupt, branch 1199
+#     - /store/mc/Run3Summer23BPixMiniAODv4/DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_postBPix_v2_ext1-v3/2810001/4800c140-1f5b-4487-b260-83adc2d50626.root
+
+# dy_m50toinf_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_m50toinf_0j_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_m50toinf_1j_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_m50toinf_2j_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_m50toinf_1j_pt40to100_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_1j_pt100to200_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_1j_pt200to400_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_1j_pt400to600_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_1j_pt600toinf_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_2j_pt40to100_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-40to100_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_2j_pt100to200_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_2j_pt200to400_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_2j_pt400to600_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# dy_m50toinf_2j_pt600toinf_amcatnlo:
+#   key: /DYto2L-2Jets_MLL-50_PTLL-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1/MINIAODSIM
+
+# LO
+# dy_m50toinf_madgraph:
+#   key: /DYto2L-4Jets_MLL-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# NNLO
+# these are now separated into 2 electron, muon, tau's instead of just 2 leptons
+
+# 2 e
+# dy_ee_m10to50_powheg:
+#   key: /DYto2E_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m50to120_powheg:
+#   key: /DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m120to200_powheg:
+#   key: /DYto2E_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m200to400_powheg:
+#   key: /DYto2E_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m400to800_powheg:
+#   key: /DYto2E_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m800to1500_powheg:
+#   key: /DYto2E_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m1500to2500_powheg:
+#   key: /DYto2E_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m2500to4000_powheg:
+#   key: /DYto2E_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m4000to6000_powheg:
+#   key: /DYto2E_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_ee_m6000toinf_powheg:
+#   key: /DYto2E_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# 2 mu
+# dy_mumu_m10to50_powheg:
+#   key: /DYto2Mu_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m50to120_powheg:
+#   key: /DYto2Mu_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m120to200_powheg:
+#   key: /DYto2Mu_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m200to400_powheg:
+#   key: /DYto2Mu_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m400to800_powheg:
+#   key: /DYto2Mu_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m800to1500_powheg:
+#   key: /DYto2Mu_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m1500to2500_powheg:
+#   key: /DYto2Mu_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v4/MINIAODSIM
+
+# dy_mumu_m2500to4000_powheg:
+#   key: /DYto2Mu_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m4000to6000_powheg:
+#   key: /DYto2Mu_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_mumu_m6000toinf_powheg:
+#   key: /DYto2Mu_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# 2 tau
+# dy_tautau_m10to50_powheg:
+#   key: /DYto2Tau_MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m50to120_powheg:
+#   key: /DYto2Tau_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m120to200_powheg:
+#   key: /DYto2Tau_MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m200to400_powheg:
+#   key: /DYto2Tau_MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m400to800_powheg:
+#   key: /DYto2Tau_MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m800to1500_powheg:
+#   key: /DYto2Tau_MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m1500to2500_powheg:
+#   key: /DYto2Tau_MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m2500to4000_powheg:
+#   key: /DYto2Tau_MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m4000to6000_powheg:
+#   key: /DYto2Tau_MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy_tautau_m6000toinf_powheg:
+#   key: /DYto2Tau_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# dy amcatanlo, 2 tau filtered, varying additional jets
+# dy_tautau_m50toinf_0j_amcatnlo:
+#   key: /DYto2Tau-2Jets_M-50_0J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+# # dy_tautau_m50toinf_1j_amcatnlo:
+# #   key:
+
+# # dy_tautau_m50toinf_2j_amcatnlo:
+# #   key:
+
+#
+# Z + jets
+#
+
+# z_qq_1j_pt100to200_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-100to200_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_1j_pt200to400_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-200to400_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_1j_pt400to600_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-400to600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_1j_pt600toinf_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-600_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_2j_pt100to200_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_2j_pt200to400_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_2j_pt400to600_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# z_qq_2j_pt600toinf_amcatnlo:
+#   key: /Zto2Q-2Jets_PTQQ-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+#
+# VBF W/Z
+#
+
+# w_vbf_wlnu_madgraph:
+#   key: /VBFtoLNu_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6_ext1-v2/MINIAODSIM
+
+# z_vbf_zll_m50toinf_madgraph:
+#   key: /VBFto2L_MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6_ext1-v2/MINIAODSIM
+
+#
+# di boson
+#
+
+# ww_pythia:
+#   key: /WW_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wz_pythia:
+#   key: /WZ_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zz_pythia:
+#   key: /ZZ_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+#
+# triple boson
+#
+
+# www_4f_amcatnlo:
+#   key: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wwz_4f_amcatnlo:
+#   key: /WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# wzz_amcatnlo:
+#   key: /WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zzz_amcatnlo:
+#   key: /ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+#
+# higgs
+#
+
+# h_ggf_htt_powheg:
+#   key: /GluGluHToTauTau_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# h_ggf_hbb_powheg:
+#   key: /GluGluHto2B_M-125_TuneCP5_13p6TeV_powheg-minlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# h_ggf_hww2l2nu_powheg:
+#   key: /GluGluHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# h_ggf_hwwlnu2q_powheg:
+#   key: /GluGluHto2WtoLNu2Q_M-125_TuneCP5_13p6TeV_powheg-JHUGenV752-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# h_vbf_htt_powheg:
+#   key: /VBFHToTauTau_M125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# h_vbf_hbb_powheg:
+#   key: /VBFHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# h_vbf_hww2l2nu_powheg:
+#   key: /VBFHto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-jhugen752-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# h_vbf_hwwlnu2q_powheg:
+#   key: /VBFHto2WtoLNu2Q_M-125_TuneCP5_13p6TeV_powheg-JHUGenV752-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# vh_hnonbb_amcatnlo:
+#   key: /VH_HtoNonbb_M-125_TuneCP5_13p6TeV_amcatnloFXFX-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# wmh_wlnu_hbb_powheg:
+#   key: /WminusH_Hto2B_WtoLNu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wph_wlnu_hbb_powheg:
+#   key: /WplusH_Hto2B_WtoLNu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# wmh_wqq_hbb_powheg:
+#   key: /WminusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wph_wqq_hbb_powheg:
+#   key: /WplusH_Hto2B_Wto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wph_htt_powheg:
+#   key: /WplusHTo2TauUncorrelatedDecay_M-125_TuneCP5_13p6TeV_powheg-minnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# wmh_htt_powheg:
+#   key: /WminusHTo2TauUncorrelatedDecay_M-125_TuneCP5_13p6TeV_powheg-minnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zh_zll_hbb_powheg:
+#   key: /ZH_Hto2B_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zh_zqq_hbb_powheg:
+#   key: /ZH_Hto2B_Zto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zh_htt_powheg:
+#   key: /ZHto2TauUncorrelatedDecay_M-125_CP5_13p6TeV_powheg-minnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# zh_hww2l2nu_powheg:
+#   key: /ZH_ZtoAll_Hto2Wto2L2Nu_M-125_TuneCP5_13p6TeV_powheg-minlo-HZJ-jhugenv752-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# zh_gg_zll_hbb_powheg:
+#   key: /ggZH_Hto2B_Zto2L_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# zh_gg_zqq_hbb_powheg:
+#   key: /ggZH_Hto2B_Zto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# zh_gg_znunu_hbb_powheg:
+#   key: /ggZH_Hto2B_Zto2Nu_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tth_hbb_powheg:
+#   key: /TTHto2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+
+# tth_hnonbb_powheg:
+#   key: /TTHtoNon2B_M-125_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+
+# thq_4f_madgraph:
+#   key: /THQ_ctcvcp_HIncl_M-125_4FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+# thw_madgraph:
+#   key: /THW_ctcvcp_HIncl_M-125_5FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+# ttzh_madgraph:
+#   key: /TTZH_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# ttwh_madgraph:
+#   key: /TTWH_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+#
+# data
+#
+
+# data_e_d1:
+#   key: /EGamma0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_e_d1_ext1:
+#   key: /EGamma1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_e_d2:
+#   key: /EGamma0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_e_d2_ext1:
+#   key: /EGamma1/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+data_mu_c:
+  key: /Muon0/Run2024C-MINIv6NANOv15-v1/MINIAOD
+
+# data_mu_d1:
+#   key: /Muon0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_mu_d1_ext1:
+#   key: /Muon1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_mu_d2:
+#   key: /Muon0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_mu_d2_ext1:
+#   key: /Muon1/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_muoneg_d1:
+#   key: /MuonEG/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_muoneg_d2:
+#   key: /MuonEG/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_tau_d1:
+#   key: /Tau/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_tau_d2:
+#   key: /Tau/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_met_d1:
+#   key: /JetMET0/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_met_d1_ext1:
+#   key: /JetMET1/Run2023D-22Sep2023_v1-v1/MINIAOD
+
+# data_met_d2:
+#   key: /JetMET0/Run2023D-22Sep2023_v2-v1/MINIAOD
+
+# data_met_d2_ext1:
+#   key: /JetMET1/Run2023D-22Sep2023_v2-v1/MINIAOD

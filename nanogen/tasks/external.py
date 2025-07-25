@@ -345,7 +345,7 @@ class FetchLFN(Task):
                 code = law.util.interruptable_popen(cmd, shell=True, executable="/bin/bash")[0]
                 if code == 0:
                     return
-                self.logger.warning(f"failed to xrdcp {tmp.abspath} to {uri}, trying to ")
+                self.logger.warning(f"failed to xrdcp {tmp.abspath} to {uri}")
             self.publish_message("using gfal2 to move the file")
             output.move_from_local(tmp)
 

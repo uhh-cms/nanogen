@@ -28,6 +28,7 @@ class Run(enum.Enum):
 class NanoVersion(enum.Enum):
     V12 = "v12"
     V14 = "v14"
+    V15 = "v15"
 
 
 #
@@ -72,7 +73,7 @@ def _customize_uhh(
 
     # add L1 Trigger objects
     if l1t_objects:
-        process = add_l1t_objects(process)
+        process = add_l1t_objects(process, run, nano_version)
 
     return process
 
@@ -87,6 +88,10 @@ def customize_run3_v12_uhh(process, **kwargs):
 
 def customize_run3_v14_uhh(process, **kwargs):
     return _customize_uhh(process, Run.III, NanoVersion.V14, **kwargs)
+
+
+def customize_run3_v15_uhh(process, **kwargs):
+    return _customize_uhh(process, Run.III, NanoVersion.V15, **kwargs)
 
 
 #
@@ -215,10 +220,16 @@ def add_met_variables(process, run: Run, nano_version: NanoVersion):
     return process
 
 
-def add_l1t_objects(process):
+def add_l1t_objects(process, run: Run, nano_version: NanoVersion):
     # see https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/NanoAOD/python/l1trig_cff.py#L181
-    from PhysicsTools.NanoAOD.nano_cff import nanoL1TrigObjCustomize  # type: ignore[import-not-found] # noqa
+    if cmssw_version < (15, 0, 0):
+        from PhysicsTools.NanoAOD.nano_cff import nanoL1TrigObjCustomize  # type: ignore[import-not-found] # noqa
+    else:
+        # l1trig_cff is not imported in nano_cff anymore since 15_0_0
+        from PhysicsTools.NanoAOD.l1trig_cff import nanoL1TrigObjCustomize  # type: ignore[import-not-found] # noqa
+
     process = nanoL1TrigObjCustomize(process)
+
     # lower some cuts
     process.l1EGTable.cut = "pt>=10"
     process.l1TauTable.cut = "pt>=20"

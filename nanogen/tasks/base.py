@@ -402,16 +402,22 @@ class CMSSWSandboxTask(ConfigTask):
         if not self.sandbox_inst or not self.sandbox_inst.sandbox_type:
             return []
 
-        # set the gfal plugin dir depending on the cmssw version
-        cmssw_major = int(self.cmssw_sandbox_version.split("_", 2)[1])
-        plugin_suffix = "14" if cmssw_major >= 14 else "legacy"
-
-        # build the export commands
-        return self.sandbox_inst._build_export_commands({
+        # custom env variables
+        env = {
             "CMS_PATH": "${NG_CMS_PATH}",
             "SITECONFIG_PATH": "${NG_CMS_PATH}/SITECONF/local",
-            "GFAL_PLUGIN_DIR": f"${{NG_CONDA_BASE}}/lib/gfal2-plugins-cmssw-{plugin_suffix}",
-        })
+        }
+
+        # set the gfal plugin dir depending on the cmssw version
+        cmssw_major = int(self.cmssw_sandbox_version.split("_", 2)[1])
+        if cmssw_major < 14:
+            env["GFAL_PLUGIN_DIR"] = "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw-legacy"
+        elif cmssw_major == 14:
+            env["GFAL_PLUGIN_DIR"] = "${NG_CONDA_BASE}/lib/gfal2-plugins-cmssw-14"
+        # use default plugins for cmssw 15 and above
+
+        # build the export commands
+        return self.sandbox_inst._build_export_commands(env)
 
     @property
     def cmssw_sandbox_version(self) -> str:
