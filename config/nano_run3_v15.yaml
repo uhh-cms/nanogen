@@ -1,3 +1,5 @@
+nano_version: 15
+
 # nano customonization hook to be injected into the cmsRun config
 customization:
   module: nanogen.customizations.default
@@ -21,7 +23,6 @@ skim:
       - drop ^n?CaloMET.*$
       - drop ^n?CorrT1METJet.*$
       - drop ^n?TkMET.*$
-      - drop ^n?FsrPhoton.*$
       - drop ^n?GenDressedLepton.*$
       - drop ^n?GenIsolatedPhoton.*$
       - drop ^n?GenProton.*$

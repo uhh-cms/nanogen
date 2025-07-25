@@ -8,8 +8,7 @@
 # cmssw setup
 # from https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis#Recipes_for_Run3Summer23_and_Run
 # CMSSW version should be at least CMSSW_15_0_2 (but 150X)
-cmssw_version: CMSSW_15_0_2
-# cmssw_version: CMSSW_15_0_10_patch3
+cmssw_version: CMSSW_15_0_10_patch3
 scram_arch: el9_amd64_gcc12
 cmssw_env_name: nanogen
 sandbox_script: cmssw_nanogen.sh
