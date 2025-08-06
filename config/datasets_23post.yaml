@@ -903,14 +903,25 @@ dy_tautau_m4000to6000_powheg:
 dy_tautau_m6000toinf_powheg:
   key: /DYto2Tau_MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
-# dy amcatanlo, 2 tau filtered, varying additional jets
+# dy amcatanlo, 2 tau, varying additional jets
 dy_tautau_m50toinf_0j_amcatnlo:
-  key: /DYto2Tau-2Jets_M-50_0J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+  key: /DYto2Tau-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 dy_tautau_m50toinf_1j_amcatnlo:
+  key: /DYto2Tau-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+
+# dy_tautau_m50toinf_2j_amcatnlo:
+#   key:
+
+# dy amcatanlo, 2 tau, varying additional jets, filtered regarding tautau kinematics
+# (see fragment in https://cms-pdmv-prod.web.cern.ch/mcm/requests?prepid=HIG-Run3Summer22EEwmLHEGS-01476&page=0&shown=140737488355327)
+dy_tautau_m50toinf_0j_filtered_amcatnlo:
+  key: /DYto2Tau-2Jets_M-50_0J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+
+dy_tautau_m50toinf_1j_filtered_amcatnlo:
   key: /DYto2Tau-2Jets_M-50_1J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v4/MINIAODSIM
 
-dy_tautau_m50toinf_2j_amcatnlo:
+dy_tautau_m50toinf_2j_filtered_amcatnlo:
   key: /DYto2Tau-2Jets_M-50_2J_Filtered_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
 
 #
