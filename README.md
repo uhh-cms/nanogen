@@ -112,6 +112,11 @@ tt_dl_ext1:
 tt_dl_tune_up:
   # all other fields as shown above
   key: ...
+
+# data with optional jec era specification
+data_e_c:
+  key: ...
+  jec_era: RunCD
 ```
 
 #### Privately produced samples
