@@ -1303,33 +1303,44 @@ ttwh_madgraph:
 
 data_e_c:
   key: /EGamma/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_e_d:
   key: /EGamma/Run2022D-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_mu_c:
   key: /SingleMuon/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_mu_c_ext1:
   key: /Muon/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_mu_d:
   key: /Muon/Run2022D-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_muoneg_c:
   key: /MuonEG/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_muoneg_d:
   key: /MuonEG/Run2022D-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_tau_c:
   key: /Tau/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_tau_d:
   key: /Tau/Run2022D-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_met_c:
   key: /JetMET/Run2022C-22Sep2023-v1/MINIAOD
+  jec_era: RunCD
 
 data_met_d:
   key: /JetMET/Run2022D-22Sep2023-v1/MINIAOD
+  jec_era: RunCD

@@ -1121,99 +1121,131 @@ ttwh_madgraph:
 
 data_e_c1:
   key: /EGamma0/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c1_ext1:
   key: /EGamma1/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c2:
   key: /EGamma0/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c2_ext1:
   key: /EGamma1/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c3:
   key: /EGamma0/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c3_ext1:
   key: /EGamma1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_e_c4:
   key: /EGamma0/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 data_e_c4_ext1:
   key: /EGamma1/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 data_mu_c1:
   key: /Muon0/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c1_ext1:
   key: /Muon1/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c2:
   key: /Muon0/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c2_ext1:
   key: /Muon1/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c3:
   key: /Muon0/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c3_ext1:
   key: /Muon1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_mu_c4:
   key: /Muon0/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 # advice from the TWiki summary ( https://docs.google.com/presentation/d/1TjPem5jX0fzqvTGl271_nQFoVBabsrdrO0i8Qo1uD5E/edit?usp=sharing )
 # is to take latest version number for non-prompt, so use v4-v2 here
 # Note from processing: branch 67 with lzma errors, affected 258 events, filtered with scripts/find_broken_events.py
 data_mu_c4_ext1:
   key: /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
+  jec_era: RunCv4
 
 data_muoneg_c1:
   key: /MuonEG/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_muoneg_c2:
   key: /MuonEG/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_muoneg_c3:
   key: /MuonEG/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_muoneg_c4:
   key: /MuonEG/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 data_tau_c1:
   key: /Tau/Run2023C-22Sep2023_v1-v2/MINIAOD
+  jec_era: RunCv123
 
 data_tau_c2:
   key: /Tau/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_tau_c3:
   key: /Tau/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_tau_c4:
   key: /Tau/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 data_met_c1:
   key: /JetMET0/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c1_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v1-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c2:
   key: /JetMET0/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c2_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v2-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c3:
   key: /JetMET0/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c3_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
 
 data_met_c4:
   key: /JetMET0/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
 
 data_met_c4_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
