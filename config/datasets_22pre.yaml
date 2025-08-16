@@ -830,6 +830,9 @@ st_twchannel_tbar_fh_powheg_mtop_up:
 
 st_twchannel_tbar_fh_powheg_tune_down:
   key: /TbarWplusto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
+  skip_lfns:
+    # corrupt file
+    - /store/mc/Run3Summer22MiniAODv4/TbarWplusto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_v5-v2/2520000/22ace536-88eb-4084-b294-ceb012cf5703.root
 
 st_twchannel_tbar_fh_powheg_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22MiniAODv4-130X_mcRun3_2022_realistic_v5-v2/MINIAODSIM
