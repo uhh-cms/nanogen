@@ -1249,3 +1249,52 @@ data_met_c4:
 data_met_c4_ext1:
   key: /JetMET1/Run2023C-22Sep2023_v4-v1/MINIAOD
   jec_era: RunCv4
+
+# parking VBF data
+data_parking_vbf_c3:
+  key: /ParkingVBF0/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
+
+data_parking_vbf_c3_ext1:
+  key: /ParkingVBF1/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
+
+data_parking_vbf_c3_ext2:
+  key: /ParkingVBF2/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
+
+data_parking_vbf_c3_ext3:
+  key: /ParkingVBF3/Run2023C-22Sep2023_v3-v1/MINIAOD
+  jec_era: RunCv123
+
+data_parking_vbf_c4:
+  key: /ParkingVBF0/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext1:
+  key: /ParkingVBF1/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext2:
+  key: /ParkingVBF2/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext3:
+  key: /ParkingVBF3/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext4:
+  key: /ParkingVBF4/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext5:
+  key: /ParkingVBF5/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext6:
+  key: /ParkingVBF6/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
+
+data_parking_vbf_c4_ext7:
+  key: /ParkingVBF7/Run2023C-22Sep2023_v4-v1/MINIAOD
+  jec_era: RunCv4
