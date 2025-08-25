@@ -594,6 +594,8 @@ tt_sl_powheg:
     - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/0bc88f18-80af-48f0-908e-8f4a00f7df15.root
     # LZMA decompression, index 1911
     - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/687c6e76-6796-467b-82a8-1468b431adf9.root
+    # LZMA decompression, index 4339
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/b7e60fee-eccb-4a85-8dab-a4edc99c04e7.root
 
 tt_sl_powheg_ext1:
   key: /TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
