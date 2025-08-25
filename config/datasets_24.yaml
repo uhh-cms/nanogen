@@ -8,9 +8,8 @@ hh_ggf_hbb_htt_kl1_kt1_powheg:
 hh_ggf_hbb_htt_kl0_kt1_powheg:
   key: /GluGluHHto2B2Tau_Par-c2-0p00-kl-0p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-PowhegBugFix_150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# was not requested?
-# hh_ggf_hbb_htt_kl2p45_kt1_powheg:
-#   key:
+hh_ggf_hbb_htt_kl2p45_kt1_powheg:
+  key: /GluGluHHto2B2Tau_Par-c2-0p00-kl-2p45-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-PowhegBugFix_150X_mcRun3_2024_realistic_v2-v1/MINIAODSIM
 
 hh_ggf_hbb_htt_kl5_kt1_powheg:
   key: /GluGluHHto2B2Tau_Par-c2-0p00-kl-5p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-PowhegBugFix_150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -31,7 +30,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
   key: /GluGluHHto2B2Tau_Par-c2-3p00-kl-1p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-PowhegBugFix_150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 #
-# vbf hh -> bbtautau (LO)
+# vbf hh -> bbtautau (LO) - Not yet available
 #
 
 # hh_vbf_hbb_htt_kv1_k2v1_kl1_madgraph:
@@ -140,7 +139,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 # Not existing for now
 
 #
-# ggf hh -> 4tau
+# ggf hh -> 4tau - Not existing for now
 #
 
 # hh_ggf_htt_htt_kl1_kt1_powheg:
@@ -153,7 +152,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /GluGlutoHHto4Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# ggf hh -> 4V
+# ggf hh -> 4V - Not existing for now
 #
 
 # hh_ggf_hvv_hvv_kl1_kt1_powheg:
@@ -169,7 +168,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /GluGlutoHHto4V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v1/MINIAODSIM
 
 #
-# ggf hh -> 2tau2V
+# ggf hh -> 2tau2V - Not existing for now
 #
 
 # hh_ggf_htt_hvv_kl1_kt1_powheg:
@@ -182,7 +181,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /GluGlutoHHto2Tau2V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# VBF hh -> 4tau
+# VBF hh -> 4tau - Not existing for now
 #
 
 # hh_vbf_htt_htt_kv1_k2v1_kl1_madgraph:
@@ -216,7 +215,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /VBFHHto4Tau_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# VBF hh -> 4V
+# VBF hh -> 4V  - Not existing for now
 #
 
 # hh_vbf_hvv_hvv_kv1_k2v1_kl1_madgraph:
@@ -250,7 +249,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /VBFHHto4V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# VBF hh -> 2tau2V
+# VBF hh -> 2tau2V - Not existing for now
 #
 
 # hh_vbf_htt_hvv_kv1_k2v1_kl1_madgraph:
@@ -284,14 +283,14 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /VBFHHto2Tau2V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# hhh -> bbbbtautau
+# hhh -> bbbbtautau - Not existing for now
 #
 
 # hhh_4b2tau_c30_d40_amcatnlo:
 #   key: /HHHto4B2Tau_c3-0_d4-0_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
 
 #
-# ggf hh -> bbvv
+# ggf hh -> bbvv - Not existing for now
 #
 
 # hh_ggf_hbb_hvv_kl0_kt1_powheg:
@@ -331,7 +330,7 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 #   key: /GluGlutoHHto2B2WtoLNu2Q_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# vbf hh -> bbvv
+# vbf hh -> bbvv - Not existing for now
 #
 
 # hh_vbf_hbb_hvv_kv1_k2v0_kl1_madgraph:
@@ -499,7 +498,7 @@ tt_dl_powheg_tune_up:
 #   key: /TTto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 #
-# single top
+# single top - Some exist but seem more like exclusive channels
 #
 
 # t channel
@@ -653,7 +652,7 @@ tt_dl_powheg_tune_up:
 #   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# ttbar + V
+# ttbar + V - Not existing for now
 #
 
 # ttw
@@ -674,7 +673,7 @@ tt_dl_powheg_tune_up:
 #   key: /TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# ttbar + VV
+# ttbar + VV - Not existing for now
 #
 
 # ttww_madgraph:
@@ -687,14 +686,14 @@ tt_dl_powheg_tune_up:
 #   key: /TTZZ_TuneCP5_13p6TeV_madgraph-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# 4 top
+# 4 top - Not existing for now
 #
 
 # tttt_amcatnlo:
 #   key: /TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
 #
-# w + jets
+# w + jets - Some exist but not all, seems that separate munu and enu samples exist now
 #
 
 # w_lnu_amcatnlo:
@@ -743,7 +742,7 @@ tt_dl_powheg_tune_up:
 #   key: /WtoLNu-2Jets_PTLNu-600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
 
 #
-# DY
+# DY - Some exist, also seem to be separated into e, mu, tau
 #
 
 # dy_m4to10_amcatnlo:
@@ -909,7 +908,7 @@ tt_dl_powheg_tune_up:
 # #   key:
 
 #
-# Z + jets
+# Z + jets - Not existing for now
 #
 
 # z_qq_1j_pt100to200_amcatnlo:
@@ -940,43 +939,44 @@ tt_dl_powheg_tune_up:
 # VBF W/Z
 #
 
-# w_vbf_wlnu_madgraph:
-#   key: /VBFtoLNu_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6_ext1-v2/MINIAODSIM
+w_vbf_wlnu_madgraph:
+  key: /VBFtoLNu_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# z_vbf_zll_m50toinf_madgraph:
-#   key: /VBFto2L_MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6_ext1-v2/MINIAODSIM
+z_vbf_zll_m50toinf_madgraph:
+  key: /VBFto2L_Bin-MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 #
 # di boson
 #
 
-# ww_pythia:
-#   key: /WW_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+ww_pythia:
+  key: /WW_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# wz_pythia:
-#   key: /WZ_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+wz_pythia:
+  key: /WZ_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# zz_pythia:
-#   key: /ZZ_TuneCP5_13p6TeV_pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+zz_pythia:
+  key: /ZZ_TuneCP5_13p6TeV_pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+
 
 #
 # triple boson
 #
 
-# www_4f_amcatnlo:
-#   key: /WWW_4F_TuneCP5_13p6TeV_amcatnlo-madspin-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+www_4f_amcatnlo:
+  key: /WWW-4F_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# wwz_4f_amcatnlo:
-#   key: /WWZ_4F_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v3/MINIAODSIM
+wwz_4f_amcatnlo:
+  key: /WWZ-4F_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# wzz_amcatnlo:
-#   key: /WZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+wzz_amcatnlo: # uses 5F instead of 4F (in 23 didnt mention F at all) - fine?
+  key: /WZZ-5F_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# zzz_amcatnlo:
-#   key: /ZZZ_TuneCP5_13p6TeV_amcatnlo-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v2/MINIAODSIM
+zzz_amcatnlo: # uses 5F instead of 4F (in 23 didnt mention F at all) - fine?
+  key: /ZZZ-5F_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 #
-# higgs
+# higgs - Some exist
 #
 
 # h_ggf_htt_powheg:
