@@ -16,6 +16,9 @@ hh_ggf_hbb_htt_kl2p45_kt1_powheg:
 
 hh_ggf_hbb_htt_kl5_kt1_powheg:
   key: /GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 165
+    - /store/mc/Run3Summer22EEMiniAODv4/GluGlutoHHto2B2Tau_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560000/8ee7bd89-9f15-4824-93fd-6cb2cbbe4ec5.root
 
 # TODO: update to new PU scenario when available
 hh_ggf_hbb_htt_kl0_kt1_c21_powheg:
@@ -605,6 +608,43 @@ tt_dl_powheg:
 
 tt_dl_powheg_ext1:
   key: /TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 267
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2520000/78a9c265-9c34-42b5-a799-9069c87fe74e.root
+    # LZMA decompression, index 418
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2520000/b5c0058f-5cad-4279-b996-38dac89b5738.root
+    # LZMA decompression, index 559
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2520000/f5325627-cd3e-44e6-acd8-8fcc7da84e1f.root
+    # LZMA decompression, index 608
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2530000/24bfe4b5-cd12-41cf-86e0-7b568a68abc7.root
+    # LZMA decompression, index 739
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2530000/9d45a988-3e91-477c-a705-1df29e7d293d.root
+    # LZMA decompression, index 979
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2540000/5cb07d5e-12ee-46c9-89a9-f35031b92a54.root
+    # LZMA decompression, index 1065
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/2540000/9857d0e2-7d2e-4624-b099-d1103165c49a.root
+    # LZMA decompression, index 1224
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/30000/11b7ddaa-c67e-4fa2-b405-15fe8d134520.root
+    # LZMA decompression, index 1409
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/30000/8abf6a1e-ce57-453d-a196-8d2623e0d279.root
+    # LZMA decompression, index 1490
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/30000/baaaffbf-3414-4f3e-8bb9-8b818f1a9f18.root
+    # LZMA decompression, index 1739
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/40000/6a27e0d1-4b01-4f38-9141-be439cedb2a3.root
+    # LZMA decompression, index 1832
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/40000/b447ea58-a342-4967-96d8-93d46a6aace4.root
+    # LZMA decompression, index 1879
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/40000/dacdbffe-176b-40a7-abcd-378b43280881.root
+    # LZMA decompression, index 1979
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/50000/0c141e96-d109-4a4e-80a5-b12198015754.root
+    # LZMA decompression, index 2376
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/50000/790de9b1-ca9b-485d-9961-d2b39c9ca9cc.root
+    # LZMA decompression, index 2380
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/50000/7a8fe3ea-29cc-49a1-9ce6-9e506dec45f7.root
+    # LZMA decompression, index 2413
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/50000/84dee92a-f8b8-4b63-b820-397deed80bcf.root
+    # LZMA decompression, index 2613
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/50000/b5396dad-b723-4783-86d6-16b0f647288c.root
 
 tt_fh_powheg:
   key: /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
@@ -625,8 +665,25 @@ tt_sl_powheg_hdamp_up:
   skip_lfns:
     # LZMA decompression, index 523
     - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/eefb6a0e-898d-4921-8b02-a69008427422.root
+    # LZMA decompression, index 534
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/f1c09fb0-3351-492d-8589-3ea1fab198c6.root
+    # LZMA decompression, index 557
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/fe708ecb-a07a-4c3f-b20f-d5bf5ac9cd58.root
+    # LZMA decompression, index 887
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/0c1c8eb4-97cf-46e0-83e1-8dfeb4f73371.root
+    # LZMA decompression, index 921
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/16fd7fec-ed8a-456d-a9c3-bf50253ebc86.root
+    # LZMA decompression, index 1129
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/57484178-ebb5-44ba-add2-99ab63099703.root
     # LZMA decompression, index 1139
     - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/59d68ebb-081b-49e3-9750-916cfa1aa013.root
+    # LZMA decompression, index 1145
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/5c77cf3d-c183-409c-b50c-694bb3788928.root
+    # LZMA decompression, index 1372
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/a3292c7b-69b8-46ed-961d-de7da9894a16.root
+    # LZMA decompression, index 1751
+    - /store/mc/Run3Summer22EEMiniAODv4/TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/50fda7d7-45bc-465f-9bce-455725058aa0.root
+
 
 tt_sl_powheg_mtop_down:
   key: /TTtoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
@@ -650,8 +707,10 @@ tt_dl_powheg_hdamp_down:
 tt_dl_powheg_hdamp_up:
   key: /TTto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
   skip_lfns:
-    # cant open the file in the last events
+    # LZMA decompression, index 172
     - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v1/2550000/452fa1fb-c1ac-47ae-b16a-5c17d8104102.root
+    # LZMA decompression, index 273
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto2L2Nu_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v1/2550000/70a1daa9-47ee-42c5-bf30-3600b549e82c.root
 
 tt_dl_powheg_mtop_down:
   key: /TTto2L2Nu_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
@@ -678,6 +737,12 @@ tt_fh_powheg_mtop_down:
 tt_fh_powheg_mtop_up:
   key: /TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
   skip_lfns:
+    # LZMA decompression, index 110
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/01e8423e-235d-48b0-864a-bd34ad4fdd57.root
+    # LZMA decompression, index 634
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/edd4761d-8ad6-43b8-88ec-a59a8004effb.root
+    # LZMA decompression, index 1090
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/a80ef0f8-fa71-410c-9b25-c7b13b828e5e.root
     # LZMA decompression, index 1092
     - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/a85b8881-950d-44c6-a41a-d26b7b420cd3.root
 
@@ -835,6 +900,8 @@ st_twchannel_t_fh_powheg_hdamp_down:
 st_twchannel_t_fh_powheg_hdamp_up:
   key: /TWminusto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
   skip_lfns:
+    # LZMA decompression, index 192
+    - /store/mc/Run3Summer22EEMiniAODv4/TWminusto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/05b88e6c-b3c4-45db-bcbe-201dd819f88b.root
     # LZMA decompression, index 297
     - /store/mc/Run3Summer22EEMiniAODv4/TWminusto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/60000/e0c79cbb-c2b8-46a9-8124-2444fc8b74e7.root
 
@@ -868,6 +935,10 @@ st_twchannel_tbar_fh_powheg_tune_down:
 st_twchannel_tbar_fh_powheg_tune_up:
   key: /TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
   skip_lfns:
+    # LZMA decompression, index 111
+    - /store/mc/Run3Summer22EEMiniAODv4/TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/56efa599-2d58-4f90-a04c-66406cb60e0a.root
+    # LZMA decompression, index 234
+    - /store/mc/Run3Summer22EEMiniAODv4/TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/e30fdae5-80dd-4ef0-9ec6-abda23904cff.root
     # LZMA decompression, index 261
     - /store/mc/Run3Summer22EEMiniAODv4/TbarWplusto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/4618d53c-5485-4eee-9ccc-0cd7503f9aa2.root
 
@@ -1193,6 +1264,9 @@ z_qq_2j_pt100to200_amcatnlo:
 
 z_qq_2j_pt200to400_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 889
+    - /store/mc/Run3Summer22EEMiniAODv4/Zto2Q-2Jets_PTQQ-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/f981de80-bc4e-4363-a4ad-8f631743a072.root
 
 z_qq_2j_pt400to600_amcatnlo:
   key: /Zto2Q-2Jets_PTQQ-400to600_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
