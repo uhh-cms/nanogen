@@ -648,6 +648,27 @@ tt_dl_powheg_ext1:
 
 tt_fh_powheg:
   key: /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 287
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/65798d59-6f60-48c3-bde6-be7c24bb15fc.root
+    # LZMA decompression, index 388
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/a7e11d43-734b-41f3-999a-4d02a3b88e87.root
+    # LZMA decompression, index 393
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/2530000/abcfa25d-6bb0-40c7-988a-1d01fdd264ea.root
+    # LZMA decompression, index 796
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/54f417dd-fedd-4552-9724-9445e288850a.root
+    # LZMA decompression, index 998
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/30000/e53857a4-4807-4220-acff-4a4cc3687526.root
+    # LZMA decompression, index 1147
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/33ecd4f7-8a57-4b59-857b-5ac17273765d.root
+    # LZMA decompression, index 1345
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/8ed04a11-7fbc-47d6-b46f-fcb79d5846c2.root
+    # LZMA decompression, index 1602
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/40000/f9bc2e64-4d00-4e02-8062-a45bdd83e12b.root
+    # LZMA decompression, index 2182
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50000/937a6e2c-5ca4-4a3a-9460-fe1e6b70193c.root
+    # LZMA decompression, index 2833
+    - /store/mc/Run3Summer22EEMiniAODv4/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v2/50001/9ee2e11d-c3f8-4c4d-9d4c-7f95ef2ecfab.root
 
 tt_fh_powheg_ext1:
   key: /TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6_ext1-v2/MINIAODSIM
@@ -993,6 +1014,88 @@ w_lnu_amcatnlo:
 
 w_lnu_0j_amcatnlo:
   key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 1529
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560000/f82c54ee-1dfe-495c-aff9-de0369f1a8a1.root
+    # LZMA decompression, index 1622
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560001/0de0874d-dc20-4676-947f-1688ef75786a.root
+    # LZMA decompression, index 1882
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560001/5501f987-0167-47da-8b51-35dcfa40c8bd.root
+    # LZMA decompression, index 2073
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560001/8204bffa-8dfa-4337-b5ff-b9fdf82e38a1.root
+    # LZMA decompression, index 2507
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560001/ef15c01c-62ec-4e07-b6ae-eeea2cfbb6e8.root
+    # LZMA decompression, index 3266
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560002/ffbf5bcb-76c2-4e0f-9e1f-5898e68eeb7a.root
+    # LZMA decompression, index 3576
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/546e0c22-737d-491b-8869-53ba0f23d516.root
+    # LZMA decompression, index 3944
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/af9c69fe-a999-4ca9-a2cf-2fc98aafcc9b.root
+    # LZMA decompression, index 4198
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/ed3fd76a-2a87-414f-8599-aeea85370fde.root
+    # LZMA decompression, index 4742
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50001/73b589f3-0920-4b87-9da6-a77b04e1e2f0.root
+    # LZMA decompression, index 5275
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50002/01c90ebb-a1c9-49e4-a9d9-c6e061d855d4.root
+    # LZMA decompression, index 5301
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50002/0965ad05-f8b5-4982-8f01-2520fb63e997.root
+    # LZMA decompression, index 6195
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50002/f02efd1d-ee27-4aeb-abd1-e6354058b1e5.root
+    # LZMA decompression, index 6237
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50002/fb8607eb-1d74-4a5c-b2cc-9ff9bffcbfd0.root
+    # LZMA decompression, index 6961
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50003/aff4b3df-63af-432e-bc16-64a216e31d1a.root
+    # LZMA decompression, index 6981
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50003/b71377e5-efdc-4570-b58f-719a73a42d61.root
+    # LZMA decompression, index 7052
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50003/c91f0a98-3d58-481a-8d32-ccc47ff85a49.root
+    # LZMA decompression, index 7387
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50004/22f6797a-a3bf-40c7-a053-360f562fd32d.root
+    # LZMA decompression, index 8028
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50004/d9e99c7f-276f-45dd-a141-d58cff776207.root
+    # LZMA decompression, index 8517
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50005/e30674ec-84fc-4c61-bc81-6e6c79533ee3.root
+    # LZMA decompression, index 9057
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/7e197de5-e247-4521-b23f-29466d7bfb60.root
+    # LZMA decompression, index 9327
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/c387073f-9dc5-4b20-be1a-3916b9413181.root
+    # LZMA decompression, index 9348
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/c9db952a-22cc-4329-8f43-a6f52a598856.root
+    # LZMA decompression, index 9552
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/feb2bd69-41a1-4e23-a2af-77d65bebdeb9.root
+    # LZMA decompression, index 9619
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80001/129e9ad6-32fd-498d-b63f-896051b84e20.root
+    # LZMA decompression, index 9962
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80001/6c9796a1-917c-4b58-9197-5fca16cb47e6.root
+    # LZMA decompression, index 10299
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80001/c1dcc9ec-dce8-41c7-96b2-30c0008946ef.root
+    # LZMA decompression, index 10408
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80001/d8c51e3b-cda7-454b-9c1a-fe8a701dbe62.root
+    # LZMA decompression, index 10467
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80001/e7196514-9439-4e96-bd7f-72f160eda886.root
+    # LZMA decompression, index 10990
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80002/697a8956-6e74-4ac5-9a27-17a5a44253ce.root
+    # LZMA decompression, index 11183
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80002/951f8c17-0fa8-43ab-b713-c56f31b73caf.root
+    # LZMA decompression, index 11545
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80002/fc68384a-733c-416f-ada5-5b01654f2360.root
+    # LZMA decompression, index 11650
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/1711596b-3ad1-4aa1-80bf-bde4d0a7b2b2.root
+    # LZMA decompression, index 11939
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/62d0d487-f428-469c-9fb0-5ae0b8df530b.root
+    # LZMA decompression, index 12109
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/8ea503b5-dc26-47ae-bc57-4bd2fabd2c91.root
+    # LZMA decompression, index 12174
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/a376de96-4a4e-4131-96b1-f189f8458ec2.root
+    # LZMA decompression, index 12227
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/b0586023-981c-4514-82a3-4a80e18ad723.root
+    # LZMA decompression, index 12464
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/e71a27d2-b109-4872-a3ec-2c5becf5f856.root
+    # LZMA decompression, index 12484
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80003/ed4c0359-8eb0-4337-af7f-2d3a880d6308.root
+    # LZMA decompression, index 13232
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80004/fa8f873e-3f1c-4670-8251-9fecbbb3a77a.root
+
 
 w_lnu_1j_amcatnlo:
   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v2/MINIAODSIM
@@ -1035,6 +1138,41 @@ w_lnu_2j_pt40to100_amcatnlo:
 
 w_lnu_2j_pt100to200_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v3/MINIAODSIM
+  skip_lfns:
+    # LZMA decompression, index 80
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2540000/3fcbc9e8-fd0a-4ffe-8f04-6fc4cc86ef42.root
+    # LZMA decompression, index 674
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560000/4300d79b-c853-44d9-82ee-d9581b3815ac.root
+    # LZMA decompression, index 1271
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/2560000/d888202c-218f-4a6e-935c-9eff8d49aa87.root
+    # LZMA decompression, index 1681
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/01c69504-7f71-4ecf-8b0c-7c3a6d307517.root
+    # LZMA decompression, index 1893
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/3d11e482-da85-4f02-a1f6-dc2944c06250.root
+    # LZMA decompression, index 1988
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/561b3f04-0c09-48a7-b8df-95fbe7956767.root
+    # LZMA decompression, index 2046
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/6679406b-d9c9-48c8-939b-778534ebb4f1.root
+    # LZMA decompression, index 2370
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/bbcbdcd7-dcd9-4377-a0b4-8747c88d11ec.root
+    # LZMA decompression, index 2612
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50000/fb3ea20e-75e3-40ad-986a-14b00ef15a89.root
+    # LZMA decompression, index 2804
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50001/60ccad87-ad9e-4450-9dbe-62bb83f1dcb3.root
+    # LZMA decompression, index 2914
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50001/9c013215-e834-4173-8a9b-1c0b3f6d0054.root
+    # LZMA decompression, index 2930
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/50001/a08f4011-421b-4cd6-9c17-654fcc834543.root
+    # LZMA decompression, index 3266
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/22c44ba2-274b-497c-8f27-9a1f79b9eb3b.root
+    # LZMA decompression, index 3294
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/2cb07165-00ed-4ead-8e83-4d472a92fed7.root
+    # LZMA decompression, index 3337
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/38ade328-480d-435c-912c-fb74d99b4404.root
+    # LZMA decompression, index 3400
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/48ef6ccb-ee67-416a-b62a-197a1a241dc1.root
+    # LZMA decompression, index 3783
+    - /store/mc/Run3Summer22EEMiniAODv4/WtoLNu-2Jets_PTLNu-100to200_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2022_realistic_postEE_v6-v3/80000/a7e20c7b-83a6-427c-b17a-17415fafa37a.root
 
 w_lnu_2j_pt200to400_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-200to400_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer22EEMiniAODv4-130X_mcRun3_2022_realistic_postEE_v6-v1/MINIAODSIM
