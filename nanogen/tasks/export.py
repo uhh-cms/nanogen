@@ -211,13 +211,17 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 n_skipped_events += load_lfn_stats(lfn)["n_events"]
             n_unskipped_events = stats["n_events"] - n_skipped_events
 
-            return len(inp.collection), n_unskipped_events
+            return len(inp.collection), n_unskipped_events, n_skipped, n_skipped_events
 
         # helper to create the nano dataset key based on a dataset name
         def nano_key(dataset_name):
             dataset = self.datasets[dataset_name]
             campaign_postfix = dataset.get("campaign_postfix", self.config.campaign_postfix)
             return mini_to_nano_dataset(dataset.key, campaign_postfix=campaign_postfix)
+
+        # helper to format summation of numbers
+        def fmt_sum(nums):
+            return " + ".join(f"{n:_}" for n in nums)
 
         # get the id of the original dataset
         dataset_id = (
@@ -242,9 +246,6 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             # drop fixes
             process_name = re.sub(r"_fix\d+($|_)", r"\1", process_name)
 
-        # helper to format summation of numbers
-        fmt_sum = lambda nums: " + ".join(f"{n:_}" for n in nums)
-
         # start creating the entry
         entry = "cpn.add_dataset(\n"
         entry += f"    name=\"{self.dataset_name}\",\n"  # noqa: Q003
@@ -255,7 +256,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         # keys, n_files and n_events, depending on wether the dataset has variations
         if set(inputs.keys()) == {"nominal"}:
             # prepare values
-            n_files, n_events = law.util.unzip([
+            n_files, n_events, n_skipped_files, n_skipped_events = law.util.unzip([
                 get_stats(dataset_name, "nominal")
                 for dataset_name in inputs["nominal"]
             ])
@@ -265,13 +266,19 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 key_line = f"        \"{nano_key(dataset_name)}\","  # noqa: Q003
                 entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
             entry += "    ],\n"
-            entry += f"    n_files={fmt_sum(n_files)},\n"
-            entry += f"    n_events={fmt_sum(n_events)},\n"
+            entry += f"    n_files={fmt_sum(n_files)},"
+            if sum(n_skipped_files) > 0:
+                entry += f"  # {fmt_sum(n_skipped_files)} skipped"
+            entry += "\n"
+            entry += f"    n_events={fmt_sum(n_events)},"
+            if sum(n_skipped_events) > 0:
+                entry += f"  # {fmt_sum(n_skipped_events)} skipped"
+            entry += "\n"
         else:
             entry += "    info=dict(\n"
             for shift_name in inputs:
                 # prepare values
-                n_files, n_events = law.util.unzip([
+                n_files, n_events, n_skipped_files, n_skipped_events = law.util.unzip([
                     get_stats(dataset_name, shift_name)
                     for dataset_name in inputs[shift_name]
                 ])
@@ -282,8 +289,14 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                     key_line = f"                \"{nano_key(dataset_name)}\","  # noqa: Q003
                     entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
                 entry += "            ],\n"
-                entry += f"            n_files={fmt_sum(n_files)},\n"
-                entry += f"            n_events={fmt_sum(n_events)},\n"
+                entry += f"            n_files={fmt_sum(n_files)},"
+                if sum(n_skipped_files) > 0:
+                    entry += f"  # {fmt_sum(n_skipped_files)} skipped"
+                entry += "\n"
+                entry += f"            n_events={fmt_sum(n_events)},"
+                if sum(n_skipped_events) > 0:
+                    entry += f"  # {fmt_sum(n_skipped_events)} skipped"
+                entry += "\n"
                 entry += "        ),\n"
             entry += "    ),\n"
         # auxiliary info
