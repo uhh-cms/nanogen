@@ -232,7 +232,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
         # estimate the process name
         if self.nano_info.data:
-            process_name = "_".join(self.dataset_name.split("_")[:2])
+            process_name = "_".join(self.dataset_name.split("_")[:-1])
+            # drop parking prefix
+            process_name = process_name.replace("_parking", "")
         else:
             # start with the dataset name
             process_name = self.dataset_name

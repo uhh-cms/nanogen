@@ -1272,7 +1272,7 @@ data_parking_vbf_c3_ext3:
 
 data_parking_vbf_c4:
   key: /ParkingVBF0/Run2023C-22Sep2023_v4-v1/MINIAOD
-  jec_era: RunCv466
+  jec_era: RunCv4
   skip_lfns:
     # lzma error, branch 66
     - /store/data/Run2023C/ParkingVBF0/MINIAOD/22Sep2023_v4-v1/2550000/5304b2b4-e4b1-49a8-bdc9-0e947123884b.root
