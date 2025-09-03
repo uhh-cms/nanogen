@@ -1185,6 +1185,9 @@ data_mu_c4:
 data_mu_c4_ext1:
   key: /Muon1/Run2023C-22Sep2023_v4-v2/MINIAOD
   jec_era: RunCv4
+  skip_lfns:
+    # lzma error, branch 67
+    - /store/data/Run2023C/Muon1/MINIAOD/22Sep2023_v4-v2/2820000/10f0bd36-0f37-4144-8be1-61a0c7109d4f.root
 
 data_muoneg_c1:
   key: /MuonEG/Run2023C-22Sep2023_v1-v1/MINIAOD
@@ -1269,7 +1272,10 @@ data_parking_vbf_c3_ext3:
 
 data_parking_vbf_c4:
   key: /ParkingVBF0/Run2023C-22Sep2023_v4-v1/MINIAOD
-  jec_era: RunCv4
+  jec_era: RunCv466
+  skip_lfns:
+    # lzma error, branch 66
+    - /store/data/Run2023C/ParkingVBF0/MINIAOD/22Sep2023_v4-v1/2550000/5304b2b4-e4b1-49a8-bdc9-0e947123884b.root
 
 data_parking_vbf_c4_ext1:
   key: /ParkingVBF1/Run2023C-22Sep2023_v4-v1/MINIAOD
@@ -1286,6 +1292,9 @@ data_parking_vbf_c4_ext3:
 data_parking_vbf_c4_ext4:
   key: /ParkingVBF4/Run2023C-22Sep2023_v4-v1/MINIAOD
   jec_era: RunCv4
+  skip_lfns:
+    # lzma error, branch 1157
+    - /store/data/Run2023C/ParkingVBF4/MINIAOD/22Sep2023_v4-v1/2560001/57630464-26cf-46f3-9fa3-8554812788fe.root
 
 data_parking_vbf_c4_ext5:
   key: /ParkingVBF5/Run2023C-22Sep2023_v4-v1/MINIAOD
@@ -1298,3 +1307,6 @@ data_parking_vbf_c4_ext6:
 data_parking_vbf_c4_ext7:
   key: /ParkingVBF7/Run2023C-22Sep2023_v4-v1/MINIAOD
   jec_era: RunCv4
+  skip_lfns:
+    # lzma error, branch 1311
+    - /store/data/Run2023C/ParkingVBF7/MINIAOD/22Sep2023_v4-v1/60000/13900ff0-abd4-4341-a659-74fa7240b696.root
