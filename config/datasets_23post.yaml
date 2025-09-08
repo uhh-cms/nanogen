@@ -1129,6 +1129,9 @@ data_parking_vbf_d1:
 
 data_parking_vbf_d1_ext1:
   key: /ParkingVBF1/Run2023D-22Sep2023_v1-v1/MINIAOD
+  skip_lfns:
+    # lzma error, branch 1023
+    - /store/data/Run2023D/ParkingVBF1/MINIAOD/22Sep2023_v1-v1/70000/acb807a7-deb1-45cd-8d83-3948ee485cf0.root
 
 data_parking_vbf_d1_ext2:
   key: /ParkingVBF2/Run2023D-22Sep2023_v1-v1/MINIAOD
