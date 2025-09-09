@@ -739,12 +739,13 @@ w_lnu_1j_amcatnlo:
 w_lnu_2j_amcatnlo:
   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v2/MINIAODSIM
   skip_lfns:
-    # file fully corrupt, branch 1424
-    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/636acba3-cf7e-4009-8117-57473785af0c.root
-    # file fully corrupt, branch 1761
-    - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/bb6b514c-d7f9-4407-93cc-79137fc0389f.root
-    # lzma compression error, branch 1839
+  # lzma compression error, branch 1839
     - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/d00aa6d4-3633-4c16-b986-e4f7461f142a.root
+    # these broken files were removed from the dataset
+    # # file fully corrupt, branch 1424
+    # - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/636acba3-cf7e-4009-8117-57473785af0c.root
+    # # file fully corrupt, branch 1761
+    # - /store/mc/Run3Summer23MiniAODv4/WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14-v2/2810001/bb6b514c-d7f9-4407-93cc-79137fc0389f.root
 
 w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_PTLNu-40to100_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v3/MINIAODSIM
@@ -803,6 +804,7 @@ dy_m10to50_amcatnlo:
     # file fully corrupt, branch 686
     - /store/mc/Run3Summer23MiniAODv4/DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/MINIAODSIM/130X_mcRun3_2023_realistic_v14_ext1-v3/2820000/1987f490-121d-40bb-a1c3-fc461689d8a0.root
 
+# TODO: Has been marked as invalid in DAS on Sept. 2 2025, needs to be replaced when a new valid sample is available
 dy_m50toinf_amcatnlo:
   key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23MiniAODv4-130X_mcRun3_2023_realistic_v14-v1/MINIAODSIM
 
