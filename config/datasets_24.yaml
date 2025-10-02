@@ -33,8 +33,8 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 # vbf hh -> bbtautau (LO) - Not yet available
 #
 
-# hh_vbf_hbb_htt_kv1_k2v1_kl1_madgraph:
-#   key: /VBFHHto2B2Tau_Par-CV-1-C2V-1-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+hh_vbf_hbb_htt_kv1_k2v1_kl1_madgraph:
+  key: /VBFHHto2B2Tau_Par-CV-1-C2V-1-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # not yet available
 # # hh_vbf_hbb_htt_kv1_k2v1_kl2_madgraph:
@@ -44,8 +44,8 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 # # hh_vbf_hbb_htt_kv1_k2v2_kl1_madgraph:
 # #   key: /VBFHHto2B2Tau_Par-CV-1-C2V-2-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
 
-# hh_vbf_hbb_htt_kv1_k2v0_kl1_madgraph:
-#   key: /VBFHHto2B2Tau_Par-CV-1-C2V-0-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+hh_vbf_hbb_htt_kv1_k2v0_kl1_madgraph:
+  key: /VBFHHto2B2Tau_Par-CV-1-C2V-0-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # hh_vbf_hbb_htt_kv1p74_k2v1p37_kl14p4_madgraph:
 #   key: /VBFHHto2B2Tau_Par-CV-1p74-C2V-1p37-C3-14p4_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
@@ -53,8 +53,8 @@ hh_ggf_hbb_htt_kl1_kt1_c23_powheg:
 hh_vbf_hbb_htt_kvm0p012_k2v0p03_kl10p2_madgraph:
   key: /VBFHHto2B2Tau_Par-CV-m0p012-C2V-0p030-C3-10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_htt_kvm0p758_k2v1p44_klm19p3_madgraph:
-#   key: /VBFHHto2B2Tau_Par-CV-m0p758-C2V-1p44-C3-m19p3_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v2/MINIAODSIM
+hh_vbf_hbb_htt_kvm0p758_k2v1p44_klm19p3_madgraph:
+  key: /VBFHHto2B2Tau_Par-CV-m0p758-C2V-1p44-C3-m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 hh_vbf_hbb_htt_kvm0p962_k2v0p959_klm1p43_madgraph:
   key: /VBFHHto2B2Tau_Par-CV-m0p962-C2V-0p959-C3-m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
