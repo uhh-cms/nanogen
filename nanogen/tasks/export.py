@@ -17,7 +17,7 @@ from nanogen.tasks.base import (
     ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
 )
 from nanogen.tasks.nano import CreateNano, MergeNano
-from nanogen.nano_util import load_dataset_stats, mini_to_nano_dataset, load_lfn_stats
+from nanogen.nano_util import das_query, load_dataset_stats, mini_to_nano_dataset, load_lfn_stats
 from nanogen.util import expand_path
 
 
@@ -348,4 +348,46 @@ CreateDBEntryWrapper = wrapper_factory(
     cls_name="CreateDBEntryWrapper",
     enable=["datasets", "skip_datasets"],
     reduce_params=db_entry_wrapper_reduce_params,
+)
+
+
+class ExportCentralNanoKey(DatasetTask):
+
+    version = None
+
+    def store_parts(self):
+        parts = super().store_parts()
+        parts.pop("dataset")
+        return parts
+
+    def output(self):
+        return self.target(f"nano__{self.dataset_name}.txt")
+
+    def run(self):
+        # get the nano dataset name from DAS using the "child" attribute
+        nano_key = das_query(f"child dataset={self.mini_info.dataset_key}")
+
+        # validation
+        if "\n" in nano_key:
+            raise ValueError(
+                f"more than one nano key found for dataset '{self.dataset_name}' with mini key "
+                f"'{self.mini_info.dataset_key}': {nano_key}",
+            )
+        expr = rf"^/.+/.+/NANOAOD{'' if self.mini_info.data else 'SIM'}"
+        if not re.match(expr, nano_key):
+            raise ValueError(
+                f"invalid nano key obtained for dataset '{self.dataset_name}' with mini key "
+                f"'{self.mini_info.dataset_key}': {nano_key}",
+            )
+
+        # write output
+        self.output().dump(nano_key, formatter="text")
+
+
+ExportCentralNanoKeyWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=ExportCentralNanoKey,
+    cls_name="ExportCentralNanoKeyWrapper",
+    enable=["datasets", "skip_datasets"],
+    attributes={"version": None},
 )
