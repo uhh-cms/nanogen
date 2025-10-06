@@ -1023,168 +1023,224 @@ ttwh_madgraph:
 
 data_e_c:
   key: /EGamma0/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_c_ext1:
   key: /EGamma1/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_d:
   key: /EGamma0/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_d_ext1:
   key: /EGamma1/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_e:
   key: /EGamma0/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_e_ext1:
   key: /EGamma1/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_e_f:
   key: /EGamma0/Run2024F-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_e_f_ext1:
   key: /EGamma1/Run2024F-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_e_g:
   key: /EGamma0/Run2024G-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_e_g_ext1:
   key: /EGamma1/Run2024G-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_e_h:
   key: /EGamma0/Run2024H-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_e_h_ext1:
   key: /EGamma1/Run2024H-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_e_i:
   key: /EGamma0/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_e_i_ext1:
   key: /EGamma1/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_c:
   key: /Muon0/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_c_ext1:
   key: /Muon1/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_d:
   key: /Muon0/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_d_ext1:
   key: /Muon1/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_e:
   key: /Muon0/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_e_ext1:
   key: /Muon1/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_mu_f:
   key: /Muon0/Run2024F-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_f_ext1:
   key: /Muon1/Run2024F-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_g:
   key: /Muon0/Run2024G-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_g_ext1:
   key: /Muon1/Run2024G-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_mu_h:
   key: /Muon0/Run2024H-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_h_ext1:
   key: /Muon1/Run2024H-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_mu_i:
   key: /Muon0/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_mu_i_ext1:
   key: /Muon1/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_muoneg_c:
   key: /MuonEG/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_muoneg_d:
   key: /MuonEG/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_muoneg_e:
   key: /MuonEG/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_muoneg_f:
   key: /MuonEG/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_muoneg_g:
   key: /MuonEG/Run2024G-MINIv6NANOv15-v3/MINIAOD
+  prompt: True
 
 data_muoneg_h:
   key: /MuonEG/Run2024H-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_muoneg_i:
   key: /MuonEG/Run2024I-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_tau_c:
   key: /Tau/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_tau_d:
   key: /Tau/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_tau_e:
   key: /Tau/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_tau_f:
   key: /Tau/Run2024F-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_tau_g:
   key: /Tau/Run2024G-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_tau_h:
   key: /Tau/Run2024H-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_tau_i:
   key: /Tau/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
 
 data_met_c:
   key: /JetMET0/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_c_ext1:
   key: /JetMET1/Run2024C-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_d:
   key: /JetMET0/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_d_ext1:
   key: /JetMET1/Run2024D-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_e:
   key: /JetMET0/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_e_ext1:
   key: /JetMET1/Run2024E-MINIv6NANOv15-v1/MINIAOD
+  prompt: False
 
 data_met_f:
   key: /JetMET0/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_f_ext1:
   key: /JetMET1/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_g:
   key: /JetMET0/Run2024G-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_g_ext1:
   key: /JetMET1/Run2024G-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_h:
   key: /JetMET0/Run2024H-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_h_ext1:
   key: /JetMET1/Run2024H-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_i:
   key: /JetMET0/Run2024I-MINIv6NANOv15-v2/MINIAOD
+  prompt: True
 
 data_met_i_ext1:
   key: /JetMET1/Run2024I-MINIv6NANOv15-v1/MINIAOD
+  prompt: True
