@@ -124,7 +124,7 @@ class Task(law.SandboxTask):
         parts["task_family"] = self.task_family
 
         # add the version when set
-        if self.version is not None:
+        if self.version not in {None, law.NO_STR, ""}:
             parts["version"] = self.version
 
         return parts
@@ -135,7 +135,7 @@ class Task(law.SandboxTask):
         parts["task_family"] = self.task_family
 
         # add the version when set
-        if self.version is not None:
+        if self.version not in {None, law.NO_STR, ""}:
             parts["version"] = self.version
 
         return parts
