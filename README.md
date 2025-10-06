@@ -113,9 +113,10 @@ tt_dl_tune_up:
   # all other fields as shown above
   key: ...
 
-# data with optional jec era specification
+# data with mandatory "prompt" flag and optional jec era specifications
 data_e_c:
   key: ...
+  prompt: True
   jec_era: RunCD
 ```
 

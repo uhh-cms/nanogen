@@ -17,7 +17,9 @@ from nanogen.tasks.base import (
     ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
 )
 from nanogen.tasks.nano import CreateNano, MergeNano
-from nanogen.nano_util import das_query, load_dataset_stats, mini_to_nano_dataset, load_lfn_stats
+from nanogen.nano_util import (
+    DatasetInfo, das_query, load_dataset_stats, mini_to_nano_dataset, load_lfn_stats,
+)
 from nanogen.util import expand_path
 
 
@@ -364,24 +366,60 @@ class ExportCentralNanoKey(DatasetTask):
         return self.target(f"nano__{self.dataset_name}.txt")
 
     def run(self):
-        # get the nano dataset name from DAS using the "child" attribute
-        nano_key = das_query(f"child dataset={self.mini_info.dataset_key}")
+        # get the nano dataset key from DAS using the "child" attribute
+        nano_keys = das_query(f"child dataset={self.mini_info.dataset_key}").split()
 
-        # validation
-        if "\n" in nano_key:
-            raise ValueError(
-                f"more than one nano key found for dataset '{self.dataset_name}' with mini key "
-                f"'{self.mini_info.dataset_key}': {nano_key}",
-            )
-        expr = rf"^/.+/.+/NANOAOD{'' if self.mini_info.data else 'SIM'}"
-        if not re.match(expr, nano_key):
-            raise ValueError(
-                f"invalid nano key obtained for dataset '{self.dataset_name}' with mini key "
-                f"'{self.mini_info.dataset_key}': {nano_key}",
-            )
+        # filter/select the correct ones using some heuristics
+        nano_keys = self.select_nano_keys(nano_keys)
 
-        # write output
-        self.output().dump(nano_key, formatter="text")
+        # write them
+        self.output().dump("\n".join(nano_keys), formatter="text")
+
+    def select_nano_keys(self, nano_keys: list[str]) -> list[str]:
+        # build info objects for simplified key parsing
+        infos = [DatasetInfo.from_key(k) for k in nano_keys]
+
+        # generic error message
+        is_data = self.mini_info.data
+        err = (
+            f"no valid nano key{'(s)' if is_data else ''} found for dataset '{self.dataset_name}' "
+            f"with mini key '{self.mini_info.dataset_key}', got das response: {nano_keys}"
+        )
+
+        # selection behavior depends heavily on data/mc
+        if is_data:
+            # campaign version should not start with "BTV" or "JME"
+            infos = [
+                info for info in infos
+                if not info.campaign_version.startswith(("BTV", "JME"))
+            ]
+
+            # as per PPD, use all versions for prompt and only the latest for reprocessed datasets
+            is_prompt = self.dataset["prompt"]
+            if len(infos) > 1 and not is_prompt:
+                # select the latest one
+                raise NotImplementedError("selection if latest re-reco dataset not implemented yet")
+
+            # combine back to keys
+            if not infos:
+                raise ValueError(err)
+            nano_keys = [info.dataset_key for info in infos]
+
+        else:  # mc
+            # campaign version should not start with "BTV" or "JME"
+            infos = [
+                info for info in infos
+                if not info.campaign_version.startswith(("BTV", "JME"))
+            ]
+
+            # further heuristics can be added here ...
+
+            # only one objects should remain
+            if len(infos) != 1:
+                raise ValueError(err)
+            nano_keys = [infos[0].dataset_key]
+
+        return nano_keys
 
 
 ExportCentralNanoKeyWrapper = wrapper_factory(
