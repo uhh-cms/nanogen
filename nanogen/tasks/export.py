@@ -87,6 +87,114 @@ GenerateNanoDocsWrapper = wrapper_factory(
 )
 
 
+class ExportCentralNanoKey(DatasetTask):
+
+    version = None
+
+    def store_parts(self):
+        parts = super().store_parts()
+        parts.pop("dataset")
+        return parts
+
+    def output(self):
+        return self.target(f"nano__{self.dataset_name}.txt")
+
+    def run(self):
+        # use the class-level helper
+        nano_key = self.find_nano_key(
+            self.dataset_name,
+            self.mini_info.dataset_key,
+            self.mini_info.data,
+            self.dataset.get("prompt", None),
+        )
+
+        # write them
+        self.output().dump(nano_key, formatter="text")
+
+    @classmethod
+    def find_nano_key(
+        cls,
+        dataset_name: str,
+        mini_key: str,
+        is_data: bool,
+        is_prompt: bool | None = None,
+    ) -> str:
+        if is_prompt is None:
+            if is_data:
+                raise ValueError("is_prompt must be specified for data")
+            is_prompt = False
+
+        # get the nano dataset key from DAS using the "child" attribute
+        nano_keys = das_query(f"child dataset={mini_key}").split()
+
+        # filter/select the correct ones using some heuristics
+        nano_key = cls._select_nano_key(nano_keys, dataset_name, mini_key, is_data, is_prompt)
+
+        return nano_key
+
+    @classmethod
+    def _select_nano_key(
+        cls,
+        nano_keys: list[str],
+        dataset_name: str,
+        mini_key: str,
+        is_data: bool,
+        is_prompt: bool,
+    ) -> str:
+        # build info objects for simplified key parsing
+        infos = [DatasetInfo.from_key(k) for k in nano_keys]
+
+        # generic error message
+        err = (
+            f"no valid nano key{'(s)' if is_data else ''} found for dataset '{dataset_name}' with "
+            f"mini key '{mini_key}', got das response: {nano_keys}"
+        )
+
+        # selection behavior depends heavily on data/mc
+        if is_data:
+            # campaign version should not start with "BTV" or "JME"
+            infos = [
+                info for info in infos
+                if not info.campaign_version.startswith(("BTV", "JME"))
+            ]
+
+            # as per PPD, use all versions for prompt and only the latest for reprocessed datasets
+            # !!! NOTE: this might be more difficult in case there are two central nanos assigned to
+            # !!!       the same mini sample, so let's assume this never happens
+            if len(infos) > 1:
+                raise NotImplementedError("selection if latest re-reco dataset not implemented yet")
+
+            # combine back to keys
+            if not infos:
+                raise ValueError(err)
+            nano_key = infos[0].dataset_key
+
+        else:  # mc
+            # campaign version should not start with "BTV" or "JME"
+            infos = [
+                info for info in infos
+                if not info.campaign_version.startswith(("BTV", "JME"))
+            ]
+
+            # further heuristics can be added here ...
+
+            # only one objects should remain
+            if len(infos) != 1:
+                raise ValueError(err)
+            nano_key = infos[0].dataset_key
+
+        return nano_key
+
+
+ExportCentralNanoKeyWrapper = wrapper_factory(
+    base_cls=ConfigTask,
+    require_cls=ExportCentralNanoKey,
+    cls_name="ExportCentralNanoKeyWrapper",
+    enable=["datasets", "skip_datasets"],
+    attributes={"version": None},
+)
+
+
 class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
     merged_size = MergeNano.merged_size
@@ -98,11 +206,22 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         default=False,
         description="whether to skip dataset extensions; default: False",
     )
+    central = luigi.BoolParameter(
+        default=False,
+        description="whether the created entry should be based on the central nanos rather than "
+        "custom ones; default: False",
+    )
     recreate = luigi.BoolParameter(
         default=False,
         description="whether to recreate existing entries before printing them; default: False",
     )
     user = user_parameter
+
+    @classmethod
+    def modify_param_args(cls, params, args, kwargs):
+        if kwargs.get("central", False):
+            kwargs["version"] = law.NO_STR
+        return params, args, kwargs
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -115,7 +234,11 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         if re.match(r"^.*_ext\d+$", self.dataset_name):
             raise Exception(f"dataset extensions are not allowed, got '{self.dataset_name}'")
 
+        if self.central and self.dataset_is_private:
+            raise Exception("central entries cannot be provided private datasets by construction")
+
     def requires(self):
+        # no requirements if not recreating and output exists
         if not self.recreate and self.output().exists():
             return []
 
@@ -126,10 +249,13 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                     if re.match(rf"^{dataset_name}_ext\d+$", _dataset_name):
                         yield _dataset_name
 
+        # require MergeNano or ExportCentralNanoKey depending on the mode
+        dep = ExportCentralNanoKey if self.central else MergeNano
+
         # nominal dataset, plus extensions
         reqs = law.util.DotDict.wrap({
             "nominal": {
-                dataset_name: MergeNano.req(self, dataset_name=dataset_name)
+                dataset_name: dep.req(self, dataset_name=dataset_name)
                 for dataset_name in maybe_include_extensions(self.dataset_name)
             },
         })
@@ -141,7 +267,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                     continue
                 shift_name = "_".join(m.groups())
                 reqs[shift_name] = {
-                    _dataset_name: MergeNano.req(self, dataset_name=_dataset_name)
+                    _dataset_name: dep.req(self, dataset_name=_dataset_name)
                     for _dataset_name in maybe_include_extensions(dataset_name)
                 }
 
@@ -149,6 +275,8 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
     def output(self):
         postfixes = []
+        if self.central:
+            postfixes.append("central")
         if self.skip_shifts:
             postfixes.append("noshifts")
         if self.skip_extensions:
@@ -171,6 +299,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             self.publish_message(f"\n{output.load(formatter='text')}\n")
             return
 
+        # prepare requirements and inputs
         reqs = self.requires()
         inputs = self.input()
 
@@ -179,6 +308,11 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
 
         # helper to determine the number of files and events
         def get_stats(dataset_name, shift_name):
+            # divert to central behavior if needed
+            if self.central:
+                stats = load_dataset_stats_cached(get_nano_key(dataset_name, shift_name))
+                return stats["n_files"], stats["n_events"], 0, 0
+
             # divert to private behavior if needed
             if isinstance(self.datasets[dataset_name].get("private", None), dict):
                 if shift_name != "nominal":
@@ -216,7 +350,9 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return len(inp.collection), n_unskipped_events, n_skipped, n_skipped_events
 
         # helper to create the nano dataset key based on a dataset name
-        def nano_key(dataset_name):
+        def get_nano_key(dataset_name, shift_name):
+            if self.central:
+                return inputs[shift_name][dataset_name].load(formatter="text").strip()
             dataset = self.datasets[dataset_name]
             campaign_postfix = dataset.get("campaign_postfix", self.config.campaign_postfix)
             return mini_to_nano_dataset(dataset.key, campaign_postfix=campaign_postfix)
@@ -226,14 +362,16 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             return " + ".join(f"{n:_}" for n in nums)
 
         # get the id of the original dataset
-        dataset_id = (
-            self.dataset.private.id
-            if self.dataset_is_private
-            else load_dataset_stats_cached(self.dataset.key)["dataset_id"]
-        )
+        if self.dataset_is_private:
+            dataset_id = self.dataset.private.id
+        elif self.central:
+            nano_key = inputs["nominal"][self.dataset_name].load(formatter="text").strip()
+            dataset_id = load_dataset_stats_cached(nano_key)["dataset_id"]
+        else:
+            load_dataset_stats_cached(self.dataset.key)["dataset_id"]
 
         # estimate the process name
-        if self.nano_info.data:
+        if self.mini_info.data:
             process_name = "_".join(self.dataset_name.split("_")[:-1])
             # drop parking prefix
             process_name = process_name.replace("_parking", "")
@@ -254,7 +392,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         entry = "cpn.add_dataset(\n"
         entry += f"    name=\"{self.dataset_name}\",\n"  # noqa: Q003
         entry += f"    id={dataset_id},\n"
-        if self.nano_info.data:
+        if self.mini_info.data:
             entry += "    is_data=True,\n"
         entry += f"    processes=[procs.{process_name}],\n"
         # keys, n_files and n_events, depending on wether the dataset has variations
@@ -267,7 +405,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
             # add entries
             entry += "    keys=[\n"
             for dataset_name in inputs["nominal"]:
-                key_line = f"        \"{nano_key(dataset_name)}\","  # noqa: Q003
+                key_line = f"        \"{get_nano_key(dataset_name, 'nominal')}\","  # noqa: Q003
                 entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
             entry += "    ],\n"
             entry += f"    n_files={fmt_sum(n_files)},"
@@ -290,7 +428,7 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 entry += f"        {shift_name}=DatasetInfo(\n"
                 entry += "            keys=[\n"
                 for dataset_name in inputs[shift_name]:
-                    key_line = f"                \"{nano_key(dataset_name)}\","  # noqa: Q003
+                    key_line = f"                \"{get_nano_key(dataset_name, shift_name)}\","  # noqa: Q003, E501
                     entry += key_line + ("  # noqa" if len(key_line) > 120 else "") + "\n"
                 entry += "            ],\n"
                 entry += f"            n_files={fmt_sum(n_files)},"
@@ -304,30 +442,32 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                 entry += "        ),\n"
             entry += "    ),\n"
         # auxiliary info
-        entry += "    aux={\n"
-        # merging factors
-        entry += "        \"merging_factors\": {\n"  # noqa: Q003
-        for shift_name, _reqs in reqs.items():
-            for i, (dataset_name, req) in enumerate(_reqs.items()):
-                factor = len(req.branch_map[0])
-                key = shift_name
-                # add extension postfix
-                if i > 0:
-                    key += f"_{dataset_name.rsplit('_', 1)[-1]}"
-                entry += f"            \"{key}\": {factor},\n"  # noqa: Q003
-        entry += "        },\n"
-        # data era
-        if self.nano_info.data:
-            # the era is usually at the end, except for versioned datasets
-            parts = self.dataset_name.split("_")
-            era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
-            entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
-            if "jec_era" in self.dataset:
-                entry += f"        \"jec_era\": \"{self.dataset['jec_era']}\",\n"  # noqa: Q003
-        # private flag, only when actually true
-        if self.dataset_is_private:
-            entry += "        \"private\": True,\n"  # noqa: Q003
-        entry += "    },\n"
+        if not self.central or self.mini_info.data or self.dataset_is_private:
+            entry += "    aux={\n"
+            if not self.central:
+                # merging factors
+                entry += "        \"merging_factors\": {\n"  # noqa: Q003
+                for shift_name, _reqs in reqs.items():
+                    for i, (dataset_name, req) in enumerate(_reqs.items()):
+                        factor = len(req.branch_map[0])
+                        key = shift_name
+                        # add extension postfix
+                        if i > 0:
+                            key += f"_{dataset_name.rsplit('_', 1)[-1]}"
+                        entry += f"            \"{key}\": {factor},\n"  # noqa: Q003
+                entry += "        },\n"
+            # data era
+            if self.mini_info.data:
+                # the era is usually at the end, except for versioned datasets
+                parts = self.dataset_name.split("_")
+                era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
+                entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
+                if "jec_era" in self.dataset:
+                    entry += f"        \"jec_era\": \"{self.dataset['jec_era']}\",\n"  # noqa: Q003
+            # private flag, only when actually true
+            if self.dataset_is_private:
+                entry += "        \"private\": True,\n"  # noqa: Q003
+            entry += "    },\n"
         entry += ")\n"
 
         # save and print the entry
@@ -350,82 +490,4 @@ CreateDBEntryWrapper = wrapper_factory(
     cls_name="CreateDBEntryWrapper",
     enable=["datasets", "skip_datasets"],
     reduce_params=db_entry_wrapper_reduce_params,
-)
-
-
-class ExportCentralNanoKey(DatasetTask):
-
-    version = None
-
-    def store_parts(self):
-        parts = super().store_parts()
-        parts.pop("dataset")
-        return parts
-
-    def output(self):
-        return self.target(f"nano__{self.dataset_name}.txt")
-
-    def run(self):
-        # get the nano dataset key from DAS using the "child" attribute
-        nano_keys = das_query(f"child dataset={self.mini_info.dataset_key}").split()
-
-        # filter/select the correct ones using some heuristics
-        nano_keys = self.select_nano_keys(nano_keys)
-
-        # write them
-        self.output().dump("\n".join(nano_keys), formatter="text")
-
-    def select_nano_keys(self, nano_keys: list[str]) -> list[str]:
-        # build info objects for simplified key parsing
-        infos = [DatasetInfo.from_key(k) for k in nano_keys]
-
-        # generic error message
-        is_data = self.mini_info.data
-        err = (
-            f"no valid nano key{'(s)' if is_data else ''} found for dataset '{self.dataset_name}' "
-            f"with mini key '{self.mini_info.dataset_key}', got das response: {nano_keys}"
-        )
-
-        # selection behavior depends heavily on data/mc
-        if is_data:
-            # campaign version should not start with "BTV" or "JME"
-            infos = [
-                info for info in infos
-                if not info.campaign_version.startswith(("BTV", "JME"))
-            ]
-
-            # as per PPD, use all versions for prompt and only the latest for reprocessed datasets
-            is_prompt = self.dataset["prompt"]
-            if len(infos) > 1 and not is_prompt:
-                # select the latest one
-                raise NotImplementedError("selection if latest re-reco dataset not implemented yet")
-
-            # combine back to keys
-            if not infos:
-                raise ValueError(err)
-            nano_keys = [info.dataset_key for info in infos]
-
-        else:  # mc
-            # campaign version should not start with "BTV" or "JME"
-            infos = [
-                info for info in infos
-                if not info.campaign_version.startswith(("BTV", "JME"))
-            ]
-
-            # further heuristics can be added here ...
-
-            # only one objects should remain
-            if len(infos) != 1:
-                raise ValueError(err)
-            nano_keys = [infos[0].dataset_key]
-
-        return nano_keys
-
-
-ExportCentralNanoKeyWrapper = wrapper_factory(
-    base_cls=ConfigTask,
-    require_cls=ExportCentralNanoKey,
-    cls_name="ExportCentralNanoKeyWrapper",
-    enable=["datasets", "skip_datasets"],
-    attributes={"version": None},
 )
