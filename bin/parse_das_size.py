@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+"""
+Script to parse the size of a dataset from the DAS json output.
+Example:
+
+> dasgoclient -query="dataset=..." -json | parse_das_size.py
+"""
+
 # read json from STDIN
 import sys
 import json
