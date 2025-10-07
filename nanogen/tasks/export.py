@@ -122,9 +122,9 @@ class ExportCentralNanoKey(DatasetTask):
             f"no valid nano key{'(s)' if is_data else ''} found for dataset '{self.dataset_name}' "
             f"with mini key '{self.mini_info.dataset_key}', got das response: {nano_keys}"
         )
-        err_fallback = f"using fallback nano key '{fallback_key}'"
 
         # selection behavior depends heavily on data/mc
+        nano_key = None
         if is_data:
             # campaign version should not start with "BTV" or "JME"
             infos = [
@@ -138,15 +138,8 @@ class ExportCentralNanoKey(DatasetTask):
             if len(infos) > 1:
                 raise NotImplementedError("selection if latest re-reco dataset not implemented yet")
 
-            # combine back to keys
             if infos:
                 nano_key = infos[0].dataset_key
-            elif fallback_key:
-                self.logger.error(err_missing)
-                self.logger.warning(err_fallback)
-                nano_key = fallback_key
-            else:
-                raise ValueError(err_missing)
 
         else:  # mc
             # campaign version should not start with "BTV" or "JME"
@@ -160,14 +153,23 @@ class ExportCentralNanoKey(DatasetTask):
             # only one objects should remain
             if len(infos) > 1:
                 raise ValueError(err_missing)
+
             if infos:
                 nano_key = infos[0].dataset_key
-            elif fallback_key:
-                self.logger.error(err_missing)
-                self.logger.warning(err_fallback)
-                nano_key = fallback_key
-            else:
-                raise ValueError(err_missing)
+
+        # final selection, also considering the fallback key if provided
+        if nano_key:
+            if fallback_key and nano_key != fallback_key:
+                raise ValueError(
+                    f"found nano key '{nano_key}' differs from the provided fallback nano key "
+                    f"'{fallback_key}' for dataset '{self.dataset_name}'",
+                )
+        elif fallback_key:
+            self.logger.error(err_missing)
+            self.logger.warning(f"using fallback nano key '{fallback_key}'")
+            nano_key = fallback_key
+        else:
+            raise ValueError(err_missing)
 
         # write it
         self.output().dump(nano_key, formatter="text")
