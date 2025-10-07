@@ -444,6 +444,20 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         # auxiliary info
         if not self.central or self.mini_info.data or self.dataset_is_private:
             entry += "    aux={\n"
+            # prompt flag and data era
+            if self.mini_info.data:
+                if (is_prompt := self.dataset.get("prompt", None)) is None:
+                    raise ValueError(
+                        f"dataset '{self.dataset_name}' misses the 'prompt' flag in the config, "
+                        "please add it before trying to export a cmsdb entry",
+                    )
+                entry += f"        \"prompt\": {is_prompt},\n"  # noqa: Q003
+                # the era is usually at the end, except for versioned datasets
+                parts = self.dataset_name.split("_")
+                era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
+                entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
+                if "jec_era" in self.dataset:
+                    entry += f"        \"jec_era\": \"{self.dataset['jec_era']}\",\n"  # noqa: Q003
             if not self.central:
                 # merging factors
                 entry += "        \"merging_factors\": {\n"  # noqa: Q003
@@ -456,14 +470,6 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
                             key += f"_{dataset_name.rsplit('_', 1)[-1]}"
                         entry += f"            \"{key}\": {factor},\n"  # noqa: Q003
                 entry += "        },\n"
-            # data era
-            if self.mini_info.data:
-                # the era is usually at the end, except for versioned datasets
-                parts = self.dataset_name.split("_")
-                era = (parts[-1] if parts[-1].isalpha() else parts[-2]).upper()
-                entry += f"        \"era\": \"{era}\",\n"  # noqa: Q003
-                if "jec_era" in self.dataset:
-                    entry += f"        \"jec_era\": \"{self.dataset['jec_era']}\",\n"  # noqa: Q003
             # private flag, only when actually true
             if self.dataset_is_private:
                 entry += "        \"private\": True,\n"  # noqa: Q003
