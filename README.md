@@ -30,7 +30,7 @@ flowchart TD
   CreateNano -- many --> MergeNano
   MergeNano --> ValidateNano
   MergeNano --> CreateDBEntry
-  MergeNano -. custom .-> bbtt.ReduceEvents
+  ExportCentralNanoKey -----> CreateDBEntry
 ```
 
 Almost all tasks have an accompanying `*Wrapper` task that adds functionality like `--dataset-names PATTERNS`, `--skip-dataset-names PATTERNS` to trigger multiple *wrapped* tasks at once.
