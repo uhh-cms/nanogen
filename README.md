@@ -113,10 +113,18 @@ tt_dl_tune_up:
   # all other fields as shown above
   key: ...
 
-# data with mandatory "prompt" flag and optional jec era specifications
+# data entry
 data_e_c:
+  # mini aod key
   key: ...
+
+  # mandatory prompt flag
   prompt: True
+
+  # optional key of the corresponding central nano aod
+  nano_key: ...
+
+  # optional jec era
   jec_era: RunCD
 ```
 
