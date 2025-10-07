@@ -100,55 +100,29 @@ class ExportCentralNanoKey(DatasetTask):
         return self.target(f"nano__{self.dataset_name}.txt")
 
     def run(self):
-        # use the class-level helper
-        nano_key = self.find_nano_key(
-            self.dataset_name,
-            self.mini_info.dataset_key,
-            self.mini_info.data,
-            self.dataset.get("prompt", None),
-        )
+        # check the prompt flag for data
 
-        # write them
-        self.output().dump(nano_key, formatter="text")
+        # get the nano dataset key from DAS using the "child" attribute
+        nano_keys = das_query(f"child dataset={self.mini_info.dataset_key}").split()
 
-    @classmethod
-    def find_nano_key(
-        cls,
-        dataset_name: str,
-        mini_key: str,
-        is_data: bool,
-        is_prompt: bool | None = None,
-    ) -> str:
+        # now, select the correct one, using some heuristics in case of multiple results
+        is_data = self.mini_info.data
+        is_prompt = self.dataset.get("prompt", None)
+        fallback_key = self.dataset.get("nano_key", None)
         if is_prompt is None:
             if is_data:
                 raise ValueError("is_prompt must be specified for data")
             is_prompt = False
 
-        # get the nano dataset key from DAS using the "child" attribute
-        nano_keys = das_query(f"child dataset={mini_key}").split()
-
-        # filter/select the correct ones using some heuristics
-        nano_key = cls._select_nano_key(nano_keys, dataset_name, mini_key, is_data, is_prompt)
-
-        return nano_key
-
-    @classmethod
-    def _select_nano_key(
-        cls,
-        nano_keys: list[str],
-        dataset_name: str,
-        mini_key: str,
-        is_data: bool,
-        is_prompt: bool,
-    ) -> str:
         # build info objects for simplified key parsing
         infos = [DatasetInfo.from_key(k) for k in nano_keys]
 
         # generic error message
-        err = (
-            f"no valid nano key{'(s)' if is_data else ''} found for dataset '{dataset_name}' with "
-            f"mini key '{mini_key}', got das response: {nano_keys}"
+        err_missing = (
+            f"no valid nano key{'(s)' if is_data else ''} found for dataset '{self.dataset_name}' "
+            f"with mini key '{self.mini_info.dataset_key}', got das response: {nano_keys}"
         )
+        err_fallback = f"using fallback nano key '{fallback_key}'"
 
         # selection behavior depends heavily on data/mc
         if is_data:
@@ -165,9 +139,14 @@ class ExportCentralNanoKey(DatasetTask):
                 raise NotImplementedError("selection if latest re-reco dataset not implemented yet")
 
             # combine back to keys
-            if not infos:
-                raise ValueError(err)
-            nano_key = infos[0].dataset_key
+            if infos:
+                nano_key = infos[0].dataset_key
+            elif fallback_key:
+                self.logger.error(err_missing)
+                self.logger.warning(err_fallback)
+                nano_key = fallback_key
+            else:
+                raise ValueError(err_missing)
 
         else:  # mc
             # campaign version should not start with "BTV" or "JME"
@@ -179,11 +158,19 @@ class ExportCentralNanoKey(DatasetTask):
             # further heuristics can be added here ...
 
             # only one objects should remain
-            if len(infos) != 1:
-                raise ValueError(err)
-            nano_key = infos[0].dataset_key
+            if len(infos) > 1:
+                raise ValueError(err_missing)
+            if infos:
+                nano_key = infos[0].dataset_key
+            elif fallback_key:
+                self.logger.error(err_missing)
+                self.logger.warning(err_fallback)
+                nano_key = fallback_key
+            else:
+                raise ValueError(err_missing)
 
-        return nano_key
+        # write it
+        self.output().dump(nano_key, formatter="text")
 
 
 ExportCentralNanoKeyWrapper = wrapper_factory(
