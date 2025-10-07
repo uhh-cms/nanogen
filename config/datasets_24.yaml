@@ -1215,6 +1215,7 @@ data_met_e_ext1:
 
 data_met_f:
   key: /JetMET0/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  nano_key: /JetMET0/Run2024F-PromptReco-v1/NANOAOD
   prompt: True
 
 data_met_f_ext1:
