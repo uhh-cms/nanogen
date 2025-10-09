@@ -498,7 +498,7 @@ def filter_dataset_names(
 
 
 def wrapper_factory(
-    base_cls: Type[Task],
+    base_cls: Type[Task] | Sequence[Type[Task]],
     require_cls: Type[Task],
     enable: list[str],
     cls_name: str | None = None,

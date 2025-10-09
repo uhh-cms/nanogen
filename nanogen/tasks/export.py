@@ -14,7 +14,7 @@ import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import (
-    ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+    Task, ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
 )
 from nanogen.tasks.nano import CreateNano, MergeNano
 from nanogen.nano_util import (
@@ -184,7 +184,22 @@ ExportCentralNanoKeyWrapper = wrapper_factory(
 )
 
 
-class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
+class _CentralMixin(Task):
+
+    central = luigi.BoolParameter(
+        default=False,
+        description="whether the created entry should be based on the central nanos rather than "
+        "custom ones; default: False",
+    )
+
+    @classmethod
+    def modify_param_args(cls, params, args, kwargs):
+        if kwargs.get("central", False):
+            kwargs["version"] = law.NO_STR
+        return params, args, kwargs
+
+
+class CreateDBEntry(DatasetTask, _CentralMixin, law.tasks.RunOnceTask):
 
     merged_size = MergeNano.merged_size
     skip_shifts = luigi.BoolParameter(
@@ -195,22 +210,11 @@ class CreateDBEntry(DatasetTask, law.tasks.RunOnceTask):
         default=False,
         description="whether to skip dataset extensions; default: False",
     )
-    central = luigi.BoolParameter(
-        default=False,
-        description="whether the created entry should be based on the central nanos rather than "
-        "custom ones; default: False",
-    )
     recreate = luigi.BoolParameter(
         default=False,
         description="whether to recreate existing entries before printing them; default: False",
     )
     user = user_parameter
-
-    @classmethod
-    def modify_param_args(cls, params, args, kwargs):
-        if kwargs.get("central", False):
-            kwargs["version"] = law.NO_STR
-        return params, args, kwargs
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -480,7 +484,7 @@ def db_entry_wrapper_reduce_params(self, params):
 
 
 CreateDBEntryWrapper = wrapper_factory(
-    base_cls=ConfigTask,
+    base_cls=(ConfigTask, _CentralMixin),
     require_cls=CreateDBEntry,
     cls_name="CreateDBEntryWrapper",
     enable=["datasets", "skip_datasets"],
