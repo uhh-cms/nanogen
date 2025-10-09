@@ -1239,10 +1239,12 @@ data_met_e_ext1:
 
 data_met_f:
   key: /JetMET0/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  nano_key: /JetMET0/Run2024F-MINIv6NANOv15-v2/NANOAOD
   prompt: true
 
 data_met_f_ext1:
   key: /JetMET1/Run2024F-MINIv6NANOv15-v2/MINIAOD
+  nano_key: /JetMET1/Run2024F-MINIv6NANOv15-v2/NANOAOD
   prompt: true
 
 data_met_g:
