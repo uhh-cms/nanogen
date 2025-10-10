@@ -126,10 +126,10 @@ class ExportCentralNanoKey(DatasetTask):
         # selection behavior depends heavily on data/mc
         nano_key = None
         if is_data:
-            # campaign version should not start with "BTV" or "JME"
+            # campaign version should not start with "BTV", "JME" or "MUOPOG"
             infos = [
                 info for info in infos
-                if not info.campaign_version.startswith(("BTV", "JME"))
+                if not info.campaign_version.startswith(("BTV", "JME", "MUOPOG"))
             ]
 
             # as per PPD, use all versions for prompt and only the latest for reprocessed datasets
