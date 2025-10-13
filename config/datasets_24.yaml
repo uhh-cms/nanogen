@@ -639,7 +639,7 @@ ttww_madgraph:
 ttwz_madgraph:
   key: /TTWZ_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-ttzz_madgraph: # Not existing for now
+ttzz_madgraph:
   key: /TTZZ-ZZto4B_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v3/MINIAODSIM
 
 #
