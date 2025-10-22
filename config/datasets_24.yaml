@@ -451,16 +451,16 @@ tt_dl_powheg_tune_up:
 #
 
 # t channel
-st_tchannel_t_had_powheg:
+st_tchannel_t_had_4f_powheg:
   key: /TBbarQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-st_tchannel_tbar_had_powheg:
+st_tchannel_tbar_had_4f_powheg:
   key: /TbarBQto2Q-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-st_tchannel_t_lep_powheg:
+st_tchannel_t_lep_4f_powheg:
   key: /TBbarQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-st_tchannel_tbar_lep_powheg:
+st_tchannel_tbar_lep_4f_powheg:
   key: /TbarBQtoLNu-t-channel-4FS_TuneCP5_13p6TeV_powheg-madspin-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # t channel systematics
