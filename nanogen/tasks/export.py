@@ -15,6 +15,7 @@ import law  # type: ignore[import-untyped]
 
 from nanogen.tasks.base import (
     Task, ConfigTask, DatasetTask, CMSSWSandboxTask, wrapper_factory, user_parameter,
+    dataset_names_parameter, skip_dataset_names_parameter, filter_dataset_names,
 )
 from nanogen.tasks.nano import CreateNano, MergeNano
 from nanogen.nano_util import (
@@ -490,3 +491,35 @@ CreateDBEntryWrapper = wrapper_factory(
     enable=["datasets", "skip_datasets"],
     reduce_params=db_entry_wrapper_reduce_params,
 )
+
+
+class ListDBEntries(ConfigTask, _CentralMixin, law.tasks.RunOnceTask):
+
+    dataset_names = dataset_names_parameter
+    skip_dataset_names = skip_dataset_names_parameter
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # create list of requested datasets
+        self.requested_dataset_names = [
+            name for name in filter_dataset_names(
+                self.config_name, self.dataset_names, self.skip_dataset_names,
+            )
+            # skip extensions and variations
+            if not re.match(r"^.+_(ext\d+|up|down)$", name)
+        ]
+
+    def requires(self):
+        return {
+            name: CreateDBEntry.req(self, dataset_name=name)
+            for name in self.requested_dataset_names
+        }
+
+    @law.decorator.notify
+    @law.decorator.log
+    @law.tasks.RunOnceTask.complete_on_success
+    def run(self):
+        print()
+        for inp in self.input().values():
+            print(inp.load(formatter="text"))

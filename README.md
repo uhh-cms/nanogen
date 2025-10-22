@@ -31,6 +31,7 @@ flowchart TD
   MergeNano --> ValidateNano
   MergeNano --> CreateDBEntry
   ExportCentralNanoKey -----> CreateDBEntry
+  CreateDBEntry == mane ==> ListDBEntries
 ```
 
 Almost all tasks have an accompanying `*Wrapper` task that adds functionality like `--dataset-names PATTERNS`, `--skip-dataset-names PATTERNS` to trigger multiple *wrapped* tasks at once.
