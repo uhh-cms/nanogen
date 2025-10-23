@@ -215,6 +215,11 @@ class CreateDBEntry(DatasetTask, _CentralMixin, law.tasks.RunOnceTask):
         default=False,
         description="whether to recreate existing entries before printing them; default: False",
     )
+    no_print = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="whether to skip printing the created entry; default: False",
+    )
     user = user_parameter
 
     def __init__(self, *args, **kwargs):
@@ -470,9 +475,12 @@ class CreateDBEntry(DatasetTask, _CentralMixin, law.tasks.RunOnceTask):
             entry += "    },\n"
         entry += ")\n"
 
-        # save and print the entry
+        # save the entry
         output.dump(entry, formatter="text")
-        self.publish_message(f"\n{entry}\n")
+
+        # optionally print it
+        if not self.no_print:
+            self.publish_message(f"\n{entry}\n")
 
 
 def db_entry_wrapper_reduce_params(self, params):
@@ -512,7 +520,7 @@ class ListDBEntries(ConfigTask, _CentralMixin, law.tasks.RunOnceTask):
 
     def requires(self):
         return {
-            name: CreateDBEntry.req(self, dataset_name=name)
+            name: CreateDBEntry.req(self, dataset_name=name, no_print=True)
             for name in self.requested_dataset_names
         }
 
