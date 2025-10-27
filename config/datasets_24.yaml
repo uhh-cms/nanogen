@@ -391,22 +391,22 @@ tt_fh_powheg:
 
 # tt_sl
 # tt_sl_powheg_hdamp_down:
-#   key: /TTtoLNu2Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_sl_powheg_hdamp_up:
-#   key: /TTtoLNu2Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_sl_powheg_mtop_down:
-#   key: /TTtoLNu2Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_sl_powheg_mtop_up:
-#   key: /TTtoLNu2Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_sl_powheg_tune_down:
-#   key: /TTtoLNu2Q_TuneCP5Down_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_sl_powheg_tune_up:
-#   key: /TTtoLNu2Q_TuneCP5Up_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTtoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_dl
 tt_dl_powheg_hdamp_down:
@@ -429,22 +429,22 @@ tt_dl_powheg_tune_up:
 
 # tt_fh
 # tt_fh_powheg_hdamp_down:
-#   key: /TTto4Q_Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_fh_powheg_hdamp_up:
-#   key: /TTto4Q_Hdamp-418_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_fh_powheg_mtop_down:
-#   key: /TTto4Q_MT-171p5_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_fh_powheg_mtop_up:
-#   key: /TTto4Q_MT-173p5_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_fh_powheg_tune_down:
-#   key: /TTto4Q_TuneCP5Down_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # tt_fh_powheg_tune_up:
-#   key: /TTto4Q_TuneCP5Up_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /TTto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 #
 # single top
@@ -531,11 +531,11 @@ st_twchannel_t_fh_powheg_mtop_up:
 
 # missing
 # st_twchannel_t_fh_powheg_tune_down:
-#   key:
+#   key: /TWminusto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # missing
 # st_twchannel_t_fh_powheg_tune_up:
-#   key:
+#   key: /TWminusto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 st_twchannel_t_sl_powheg_hdamp_down:
   key: /TWminustoLNu2Q_Par-Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -617,16 +617,28 @@ st_twchannel_tbar_sl_powheg_mtop_up:
 
 
 # s channel
-# missing
-# st_schannel_t_lep_4f_amcatnlo:
-#   key: /*s-channel*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+st_schannel_t_lep_4f_amcatnlo:
+  key: /TBbartoLplusNuBbar-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# missing
-# st_schannel_tbar_lep_4f_amcatnlo:
-#   key: /TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+st_schannel_tbar_lep_4f_amcatnlo:
+  key: /TbarBtoLminusNuB-s-channel-4FS_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+
+st_schannel_t_had_powheg:
+  key: /TBbarto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+
+# st_schannel_tbar_had_powheg:
+#   key: /TbarBto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TbarBto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8&campaign=*2024Summer24*
+
+st_schannel_t_lep_powheg:
+  key: /TBbartoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+
+# st_schannel_tbar_lep_powheg:
+#   key: /TbarBtoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TbarBtoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8&campaign=*2024Summer24*
 
 # s channel systematics
-# all missing
+# all missing, /*s-channel*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 
 #
@@ -640,6 +652,7 @@ ttw_wlnu_amcatnlo:
 # ttz
 # ttz_zqq_amcatnlo:
 #   key: /TTZ-ZtoQQ-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TTZ-ZtoQQ-1Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8&campaign=*2024Summer24*
 
 ttz_zll_m4to50_amcatnlo:
   key: /TTLL_Bin-MLL-4to50_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -649,6 +662,7 @@ ttz_zll_m50toinf_amcatnlo:
 
 # ttz_znunu_amcatnlo:
 #   key: /TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TTNuNu_TuneCP5_13p6TeV_amcatnlo-pythia8&campaign=*2024Summer24*
 
 #
 # ttbar + VV
@@ -669,22 +683,29 @@ ttzz_madgraph:
 
 # tttt_amcatnlo:
 #   key: /TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TTTT_TuneCP5_13p6TeV_amcatnlo-pythia8&campaign=*2024Summer24*
 
 #
 # w + jets - Some exist but not all, seems that separate munu and enu samples exist now
 #
 
+# grasp: https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=WtoLNu*amc*&campaign=*2024Summer24*
+
 # w_lnu_amcatnlo:
-#   key: /WtoLNu-2Jets_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /WtoLNu-2Jets-*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # w_lnu_0j_amcatnlo:
 #   key: /WtoLNu-2Jets_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # w_lnu_1j_amcatnlo:
 #   key: /WtoLNu-2Jets_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # w_lnu_2j_amcatnlo:
 #   key: /WtoLNu-2Jets_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 w_lnu_1j_pt40to100_amcatnlo:
   key: /WtoLNu-2Jets_Bin-1J-PTLNu-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v3/MINIAODSIM
@@ -720,23 +741,32 @@ w_lnu_2j_pt600toinf_amcatnlo:
 # DY
 #
 
+# grasp: https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=*DYto2L-2Jets*amc*&campaign=*2024Summer24*
+
+# amcatnlo
 # dy_m4to10_amcatnlo:
 #   key: /DYto2L-2Jets_MLL-4to10_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # dy_m10to50_amcatnlo:
 #   key: /DYto2L-2Jets_MLL-10to50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2_ext1-v3/MINIAODSIM
+#   not found in grasp, not planned?
 
 # dy_m50toinf_amcatnlo:
-#   key: /DYto2L-2Jets_MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   key: /DYto2L-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=DYto2L-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8&campaign=*2024Summer24*
 
 # dy_m50toinf_0j_amcatnlo:
 #   key: /DYto2L-2Jets_MLL-50_0J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # dy_m50toinf_1j_amcatnlo:
 #   key: /DYto2L-2Jets_MLL-50_1J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 # dy_m50toinf_2j_amcatnlo:
 #   key: /DYto2L-2Jets_MLL-50_2J_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   not found in grasp, not planned?
 
 dy_m50toinf_1j_pt40to100_amcatnlo:
   key: /DYto2L-2Jets_Bin-1J-MLL-50-PTLL-40to100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v3/MINIAODSIM
@@ -768,13 +798,23 @@ dy_m50toinf_2j_pt400to600_amcatnlo:
 dy_m50toinf_2j_pt600toinf_amcatnlo:
   key: /DYto2L-2Jets_Bin-2J-MLL-50-PTLL-600_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# madgraph
-# dy_m50toinf_madgraph:
-#   key: /DYto2L-4Jets_MLL-50_TuneCP5_13p6TeV_madgraphMLM-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+# amcatnlo, tau filtered, inclusive and in jet bins
+dy_tautau_m50toinf_amcatnlo:
+  key: /DYto2Tau-2Jets_Bin-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v7/MINIAODSIM
+
+dy_tautau_m50toinf_0j_amcatnlo:
+  key: /DYto2Tau-2Jets_Bin-0J-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v4/MINIAODSIM
+
+# dy_tautau_m50toinf_1j_amcatnlo:
+#   key: /DYto2Tau-2Jets_Bin-1J-M-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=DYto2Tau-2Jets*amc*&campaign=*2024Summer24*
+
+# dy_tautau_m50toinf_2j_amcatnlo:
+#   key: /DYto2Tau-2Jets_Bin-2J-M-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=DYto2Tau-2Jets*amc*&campaign=*2024Summer24*
+
 
 # powheg
-# these are now separated into 2 electron, muon, tau's instead of just 2 leptons
-
 # 2 e
 dy_ee_m10to50_powheg:
   key: /DYto2E_Bin-MLL-10to50_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -868,19 +908,13 @@ dy_tautau_m4000to6000_powheg:
 dy_tautau_m6000toinf_powheg:
   key: /DYto2Tau_Bin-MLL-6000_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# dy amcatanlo, 2 tau filtered, varying additional jets
-dy_tautau_m50toinf_0j_amcatnlo:
-  key: /DYto2Tau-2Jets_Bin-0J-MLL-50_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v4/MINIAODSIM
-
-# dy_tautau_m50toinf_1j_amcatnlo:
-#   key: /DYto2Tau-2Jets*/RunIII2024Summer24MiniAODv6-*/MINIAODSIM
-
-# dy_tautau_m50toinf_2j_amcatnlo:
-#   key: /DYto2Tau-2Jets*/RunIII2024Summer24MiniAODv6-*/MINIAODSIM
 
 #
 # Z + jets - Not existing for now
 #
+
+z_qq_pt100toinf_amcatnlo:
+  key: /Zto2Q-2Jets_Bin-PTQQ-100_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 z_qq_pt200toinf_amcatnlo:
   key: /Zto2Q-2Jets_Bin-PTQQ-200_TuneCP5_13p6TeV_amcatnloFXFX-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -917,7 +951,7 @@ w_vbf_wlnu_madgraph:
   key: /VBFtoLNu_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 z_vbf_zll_m50toinf_madgraph:
-  key: /VBFto2L_Bin-MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
+  key: /VBFto2L_Bin-MLL-50_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v3/MINIAODSIM
 
 #
 # di boson
@@ -1038,10 +1072,12 @@ tth_hnonbb_powheg:
   key: /TTH-HtoNon2B_Par-M-125_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # thq_4f_madgraph:
-#   key: /THQ_ctcvcp_HIncl_M-125_4FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+#   key: /THQ_ctcvcp_HIncl_M-125_4FS_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=THQ_ctcvcp_HIncl_M-125_4FS_TuneCP5_13p6TeV_madgraph-pythia8&campaign=*2024Summer24*
 
 # thw_madgraph:
-#   key: /THW_ctcvcp_HIncl_M-125_5FS_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+#   key: /THW*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=THW_ctcvcp_HIncl_M-125_5FS_TuneCP5_13p6TeV_madgraph-pythia8&campaign=*2024Summer24*
 
 # ttzh_madgraph:
 #   key: /TTZH_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
