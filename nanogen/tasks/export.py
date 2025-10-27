@@ -174,6 +174,7 @@ class ExportCentralNanoKey(DatasetTask):
 
         # write it
         self.output().dump(nano_key, formatter="text")
+        self.publish_message(f"found {nano_key}")
 
 
 ExportCentralNanoKeyWrapper = wrapper_factory(
@@ -238,7 +239,7 @@ class CreateDBEntry(DatasetTask, _CentralMixin, law.tasks.RunOnceTask):
 
     def requires(self):
         # no requirements if not recreating and output exists
-        if not self.recreate and self.output().exists():
+        if not self.central and not self.recreate and self.output().exists():
             return []
 
         def maybe_include_extensions(dataset_name):
