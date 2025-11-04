@@ -477,6 +477,17 @@ st_tchannel_tbar_lep_4f_powheg_tune_up:
   key: /TbarBQtoLNu-t-channel-4FS_TuneCP5Up_13p6TeV_powheg-madspin-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # hdamp and mtop missing
+# st_tchannel_tbar_lep_4f_powheg_hdamp_down:
+#   key: /TbarBQtoLNu-t-channel-4FS_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+
+# st_tchannel_tbar_lep_4f_powheg_hdamp_up:
+#   key: /TbarBQtoLNu-t-channel-4FS_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+
+# st_tchannel_tbar_lep_4f_powheg_mtop_down:
+#   key: /TbarBQtoLNu-t-channel-4FS_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+
+# st_tchannel_tbar_lep_4f_powheg_mtop_up:
+#   key: /TbarBQtoLNu-t-channel-4FS_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 
 # tw channel
@@ -569,11 +580,11 @@ st_twchannel_tbar_dl_powheg_mtop_up:
 
 # missing
 # st_twchannel_tbar_dl_powheg_tune_down:
-#   key:
+#   key: /TbarWplusto2L2Nu_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # missing
 # st_twchannel_tbar_dl_powheg_tune_up:
-#   key:
+#   key: /TbarWplusto2L2Nu_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 st_twchannel_tbar_fh_powheg_hdamp_down:
   key: /TbarWplusto4Q_Par-Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -589,11 +600,11 @@ st_twchannel_tbar_fh_powheg_mtop_up:
 
 # missing
 # st_twchannel_tbar_fh_powheg_tune_down:
-#   key:
+#   key: /TbarWplusto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # missing
 # st_twchannel_tbar_fh_powheg_tune_up:
-#   key:
+#   key: /TbarWplusto4Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 st_twchannel_tbar_sl_powheg_hdamp_down:
   key: /TbarWplustoLNu2Q_Par-Hdamp-158_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
@@ -609,11 +620,11 @@ st_twchannel_tbar_sl_powheg_mtop_up:
 
 # missing
 # st_twchannel_tbar_sl_powheg_tune_down:
-#   key:
+#   key: /TbarWplustoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 # missing
 # st_twchannel_tbar_sl_powheg_tune_up:
-#   key:
+#   key: /TbarWplustoLNu2Q_*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
 
 
 # s channel
@@ -626,16 +637,14 @@ st_schannel_tbar_lep_4f_amcatnlo:
 st_schannel_t_had_powheg:
   key: /TBbarto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# st_schannel_tbar_had_powheg:
-#   key: /TbarBto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
-#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TbarBto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8&campaign=*2024Summer24*
+st_schannel_tbar_had_powheg:
+  key: /TbarBto2Q-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 st_schannel_t_lep_powheg:
   key: /TBbartoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# st_schannel_tbar_lep_powheg:
-#   key: /TbarBtoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
-#   https://cms-pdmv-prod.web.cern.ch/grasp/samples?dataset_query=TbarBtoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8&campaign=*2024Summer24*
+st_schannel_tbar_lep_powheg:
+  key: /TbarBtoLNu-s-channel_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 # s channel systematics
 # all missing, /*s-channel*/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
