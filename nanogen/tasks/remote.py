@@ -94,7 +94,7 @@ class HTCondorWorkflow(Task, law.htcondor.HTCondorWorkflow):
     )
     htcondor_flavor = luigi.ChoiceParameter(
         default=default_htcondor_flavor,
-        choices=("naf", "cern", "cern_el7", "cern_el8", "cern_el9", law.NO_STR),
+        choices=("naf", "cern", "cern_el7", "cern_el8", "cern_el9", law.NO_STR),  # type: ignore[arg-type] # noqa
         significant=False,
         description="the 'flavor' (i.e. configuration name) of the batch system; choices: "
         f"naf,cern,cern_el7,cern_el8,cern_el9,NO_STR; default: '{default_htcondor_flavor}'",
@@ -280,7 +280,7 @@ class SlurmWorkflow(Task, law.slurm.SlurmWorkflow):
     )
     slurm_flavor = luigi.ChoiceParameter(
         default=default_slurm_flavor,
-        choices=("maxwell",),
+        choices=("maxwell",),  # type: ignore[arg-type]
         significant=False,
         description="the 'flavor' (i.e. configuration name) of the batch system; choices: "
         f"maxwell; default: '{default_slurm_flavor}'",
