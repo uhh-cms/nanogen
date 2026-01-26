@@ -9,6 +9,7 @@ from __future__ import annotations
 import os
 import re
 import functools
+import collections
 
 import luigi  # type: ignore[import-untyped]
 import law  # type: ignore[import-untyped]
@@ -148,6 +149,17 @@ class ExportCentralNanoKey(DatasetTask):
                 info for info in infos
                 if not info.campaign_version.startswith(("BTV", "JME"))
             ]
+
+            # for identical campaigns and campaign versions, prefer the latest dataset version
+            if len(infos) > 1:
+                groups = collections.defaultdict(list)
+                for info in infos:
+                    key = (info.campaign, info.campaign_version)
+                    groups[key].append(info)
+                infos.clear()
+                for key, group in groups.items():
+                    group.sort(key=lambda info: info.dataset_version, reverse=True)
+                    infos.append(group[0])
 
             # further heuristics can be added here ...
 
