@@ -191,7 +191,7 @@ EOF
 
     export NG_CMS_PATH="/cvmfs/cms.cern.ch"
     local local_conf="/cvmfs/cms.cern.ch/SITECONF/local"
-    if [ "${NG_ON_HTCONDOR}" != "1" ]; then
+    if [ "${NG_ON_HTCONDOR}" != "1" ] && [ "${NG_SKIP_SITE_SETUP}" != "1" ]; then
         if [ ! -d "${local_conf}" ] || [ -z "$( readlink "${local_conf}" )" ]; then
             local cms_path="${NG_SOFTWARE_BASE}/cms"
             local dst_conf="${cms_path}/SITECONF/local"
