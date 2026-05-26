@@ -441,6 +441,14 @@ class CMSSWSandboxTask(ConfigTask):
         return self.config.sandbox_script
 
 
+class CMSSWSandboxTrigger(CMSSWSandboxTask, law.tasks.RunOnceTask):
+
+    version = None
+
+    def run(self):
+        self.mark_complete()
+
+
 class DatasetTask(ConfigTask):
 
     dataset_name = luigi.Parameter(
