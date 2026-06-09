@@ -380,7 +380,7 @@ class CreateDBEntry(DatasetTask, _CentralMixin, law.tasks.RunOnceTask):
             nano_key = inputs["nominal"][self.dataset_name].load(formatter="text").strip()
             dataset_id = load_dataset_stats_cached(nano_key)["dataset_id"]
         else:
-            load_dataset_stats_cached(self.dataset.key)["dataset_id"]
+            dataset_id = load_dataset_stats_cached(self.dataset.key)["dataset_id"]
 
         # estimate the process name
         if self.mini_info.data:
