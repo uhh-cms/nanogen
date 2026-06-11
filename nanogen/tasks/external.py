@@ -329,7 +329,7 @@ class FetchLFN(Task):
     @law.decorator.log
     @maybe_wait_for_dcache
     def run(self):
-        # hotfix: if all wlcg protocols worked normally, we could just the larget localization
+        # hotfix: if all wlcg protocols worked normally, we could just use the target localization
         # feature with mode "w" here, but since there are issues with webdav and xrootd plugins in
         # slc7, and with gsiftp on the desy dcache in general, fetch into a tmp file and move it
         # manually

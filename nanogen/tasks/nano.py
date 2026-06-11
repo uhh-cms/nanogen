@@ -366,6 +366,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
 
             # disabled altogether
             if self.tmp_fetch_lfns.lower() == "false":
+                law.cms.rucio_report_access(lfn=lfn)
                 continue
 
             # locate it
@@ -380,6 +381,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             #    when just passing the raw lfn, but often fails
             # 2. when a local mount is available, use it instead
             if lfn_locs and (lfn_locs[0].site, lfn_locs[0].scheme) == ("T2_DE_DESY", "root"):
+                lfn_locs[0].report_access()
                 # check if local (2)
                 local_path = os.path.join("/pnfs/desy.de/cms/tier2", input_files[-1].lstrip("/"))
                 if os.path.exists(local_path):
@@ -397,6 +399,7 @@ class CreateNano(NanoDatasetWorkflow, CMSSWSandboxTask):
             if self.tmp_fetch_lfns.lower() == "auto":
                 country = lfn_locs[0].site.split("_", 2)[1]
                 if country.lower() not in {"us", "kr", "in"}:
+                    lfn_locs[0].report_access()
                     continue
 
             # actually fetch and replace with the local path

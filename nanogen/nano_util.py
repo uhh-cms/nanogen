@@ -379,6 +379,15 @@ class LFNLocation(object):
             law.config.update({fs: {"base": add_scheme(url.netloc, url.scheme)}})
         return law.wlcg.WLCGFileTarget("/" + str(url.path).lstrip("/"), fs=fs)
 
+    def report_access(self, local_rse: str | None = None) -> None:
+        # default local rse
+        if local_rse is None:
+            local_rse = os.getenv("NG_CMS_SITE")
+
+        # report access if rse can be determined
+        if (rse := self.site or local_rse):
+            law.cms.rucio_report_access(lfn=self.lfn, rse=rse, local_rse=local_rse)
+
 
 def locate_lfn(
     lfn: str,
@@ -488,6 +497,7 @@ def fetch_lfn(
     # when there is a local location, just return the path
     for lfn_location in lfn_locations:
         if lfn_location.exists_locally and not fetch_local:
+            lfn_location.report_access()
             return remove_scheme(lfn_location.pfn)
 
     # fetch the file
@@ -505,6 +515,7 @@ def fetch_lfn(
                 kill_timeout=2,
             )[0]
             if code == 0:
+                lfn_location.report_access()
                 # check if the local file really exists since xrdcp does not always have non-zero
                 # exit codes signaling a failure
                 if os.path.exists(abs_dst):
@@ -515,6 +526,7 @@ def fetch_lfn(
         else:
             try:
                 lfn_location.create_target().copy_to_local(abs_dst)
+                lfn_location.report_access()
                 break
             except Exception as e:
                 log_warning(f"failed to fetch {lfn_location.pfn}: {e}")

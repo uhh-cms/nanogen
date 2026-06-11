@@ -5,6 +5,7 @@ awkward~=2.6.8
 coffea~=2024.4.1
 pyarrow~=16.0.0
 zstandard~=0.23.0
+rucio~=40.3.0
 
 # law requirements
 -r modules/law/requirements.txt

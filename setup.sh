@@ -73,6 +73,8 @@ setup_ng() {
     export MAMBA_ROOT_PREFIX="${NG_CONDA_BASE}"
     export MAMBA_EXE="${MAMBA_ROOT_PREFIX}/bin/micromamba"
     export GFAL_PLUGIN_DIR="${NG_CONDA_BASE}/lib/gfal2-plugins"
+    export RUCIO_ACCOUNT="${RUCIO_ACCOUNT:-${NG_CERN_USER}}"
+    export RUCIO_HOME="${RUCIO_HOME:-/cvmfs/cms.cern.ch/rucio/x86_64/rhel9/py3/current}"
 
 
     #
