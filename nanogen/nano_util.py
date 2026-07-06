@@ -136,7 +136,7 @@ def nano_file_hash(hash_parts: list[Any]) -> str:
     """
     Creates a hash for a nano file based on the given *hash_parts*.
     """
-    h = list(law.util.create_hash(hash_parts, l=32).upper())
+    h = list(law.util.create_hash(hash_parts, 32).upper())
     for i in [20, 16, 12, 8]:
         h.insert(i, "-")
     return "".join(h)

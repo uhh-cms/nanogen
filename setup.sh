@@ -104,7 +104,7 @@ setup_ng() {
     # persistent PATH and PYTHONPATH parts that should be
     # priotized over any additions made in sandboxes later on
     export NG_PERSISTENT_PATH="${NG_BASE}/bin:${NG_BASE}/modules/law/bin"
-    export NG_PERSISTENT_PYTHONPATH="${NG_BASE}:${NG_BASE}/modules/law"
+    export NG_PERSISTENT_PYTHONPATH="${NG_BASE}:${NG_BASE}/modules/law/src"
     # also append the conda path for propagation to sandboxes that bring their own python (e.g. cmssw)
     export NG_PERSISTENT_PYTHONPATH="${NG_PERSISTENT_PYTHONPATH}:${NG_CONDA_BASE}/lib/python${pyv}/site-packages"
 

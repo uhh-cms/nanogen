@@ -443,9 +443,18 @@ class CMSSWSandboxTask(ConfigTask):
 
 class CMSSWSandboxTrigger(CMSSWSandboxTask, law.tasks.RunOnceTask):
 
+    debug = luigi.BoolParameter(
+        default=False,
+        significant=False,
+        description="if True, an ipython shell is started in the run() method; default: False",
+    )
+
     version = None
 
     def run(self):
+        if self.debug:
+            from IPython import embed
+            embed(header=f"debug sandbox task '{self!r}'")
         self.mark_complete()
 
 

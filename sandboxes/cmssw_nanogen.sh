@@ -31,6 +31,11 @@ action() {
         ln -s "${NG_BASE}/cmssw/NanoGen" .
     }
 
+    # custom setup function that is called after CMSSW was sourced
+    ng_cmssw_custom_setup() {
+        export PYTHONPATH="${PYTHONPATH}:$( root-config --libdir )"
+    }
+
     # invoke the common setup
     source "${this_dir}/cmssw.sh" "$@"
 }
