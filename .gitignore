@@ -28,3 +28,4 @@ data
 .law
 .python-version
 local_tests
+law_user.cfg
