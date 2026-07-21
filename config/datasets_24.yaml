@@ -254,41 +254,41 @@ hh_vbf_hbb_htt_kv2p12_k2v3p87_klm5p96_madgraph:
 # ggf hh -> bbvv - Not existing for now
 #
 
-# hh_ggf_hbb_hvv_kl0_kt1_powheg:
-#   key: /GluGlutoHHto2B2V_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv_kl0_kt1_powheg:
+  key: /GluGlutoHHto2B2V_Par-c2-0p00-kl-0p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv_kl1_kt1_powheg:
-#   key: /GluGlutoHHto2B2V_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv_kl1_kt1_powheg:
+  key: /GluGlutoHHto2B2V_Par-c2-0p00-kl-1p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv_kl2p45_kt1_powheg:
-#   key: /GluGlutoHHto2B2V_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v1/MINIAODSIM
+hh_ggf_hbb_hvv_kl2p45_kt1_powheg:
+  key: /GluGlutoHHto2B2V_Par-c2-0p00-kl-2p45-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv_kl5_kt1_powheg:
-#   key: /GluGlutoHHto2B2V_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv_kl5_kt1_powheg:
+  key: /GluGlutoHHto2B2V_Par-c2-0p00-kl-5p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv2l2nu_kl0_kt1_powheg:
-#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv2l2nu_kl0_kt1_powheg:
+  key: /GluGlutoHHto2B2Vto2L2Nu_Par-c2-0p00-kl-0p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv2l2nu_kl1_kt1_powheg:
-#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv2l2nu_kl1_kt1_powheg:
+  key: /GluGlutoHHto2B2Vto2L2Nu_Par-c2-0p00-kl-1p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv2l2nu_kl2p45_kt1_powheg:
-#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv2l2nu_kl2p45_kt1_powheg:
+  key: /GluGlutoHHto2B2Vto2L2Nu_Par-c2-0p00-kl-2p45-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvv2l2nu_kl5_kt1_powheg:
-#   key: /GluGlutoHHto2B2Vto2L2Nu_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvv2l2nu_kl5_kt1_powheg:
+  key: /GluGlutoHHto2B2Vto2L2Nu_Par-c2-0p00-kl-5p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvvqqlnu_kl0_kt1_powheg:
-#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvvqqlnu_kl0_kt1_powheg:
+  key: /GluGlutoHHto2B2WtoLNu2Q_Par-c2-0p00-kl-0p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvvqqlnu_kl1_kt1_powheg:
-#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvvqqlnu_kl1_kt1_powheg:
+  key: /GluGlutoHHto2B2WtoLNu2Q_Par-c2-0p00-kl-1p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvvqqlnu_kl2p45_kt1_powheg:
-#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-2p45_kt-1p00_c2-0p00_LHEweights_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvvqqlnu_kl2p45_kt1_powheg:
+  key: /GluGlutoHHto2B2WtoLNu2Q_Par-c2-0p00-kl-2p45-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_ggf_hbb_hvvqqlnu_kl5_kt1_powheg:
-#   key: /GluGlutoHHto2B2WtoLNu2Q_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_ggf_hbb_hvvqqlnu_kl5_kt1_powheg:
+  key: /GluGlutoHHto2B2WtoLNu2Q_Par-c2-0p00-kl-5p00-kt-1p00_TuneCP5_13p6TeV_powheg-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 #
 # vbf hh -> bbvv - Not existing for now
