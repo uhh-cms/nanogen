@@ -294,95 +294,95 @@ hh_ggf_hbb_hvvqqlnu_kl5_kt1_powheg:
 # vbf hh -> bbvv - Not existing for now
 #
 
-# hh_vbf_hbb_hvv_kv1_k2v0_kl1_madgraph:
-#   key: /VBFHHto2B2V_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kv1_k2v0_kl1_madgraph:
+  key: /VBFHHto2B2V_Par-CV-1-C2V-0-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kv1_k2v1_kl1_madgraph:
-#   key: /VBFHHto2B2V_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kv1_k2v1_kl1_madgraph:
+  key: /VBFHHto2B2V_Par-CV-1-C2V-1-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kv1p74_k2v1p37_kl14p4_madgraph:
-#   key: /VBFHHto2B2V_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kv1p74_k2v1p37_kl14p4_madgraph:
+  key: /VBFHHto2B2V_Par-CV-1p74-C2V-1p37-C3-14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm0p012_k2v0p03_kl10p2_madgraph:
-#   key: /VBFHHto2B2V_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm0p012_k2v0p03_kl10p2_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m0p012-C2V-0p030-C3-10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm0p758_k2v1p44_klm19p3_madgraph:
-#   key: /VBFHHto2B2V_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm0p758_k2v1p44_klm19p3_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m0p758-C2V-1p44-C3-m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm0p962_k2v0p959_klm1p43_madgraph:
-#   key: /VBFHHto2B2V_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm0p962_k2v0p959_klm1p43_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m0p962-C2V-0p959-C3-m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm1p21_k2v1p94_klm0p94_madgraph:
-#   key: /VBFHHto2B2V_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm1p21_k2v1p94_klm0p94_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m1p21-C2V-1p94-C3-m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm1p6_k2v2p72_klm1p36_madgraph:
-#   key: /VBFHHto2B2V_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm1p6_k2v2p72_klm1p36_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m1p60-C2V-2p72-C3-m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm1p83_k2v3p57_klm3p39_madgraph:
-#   key: /VBFHHto2B2V_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm1p83_k2v3p57_klm3p39_madgraph:
+  key: /VBFHHto2B2V_Par-CV-m1p83-C2V-3p57-C3-m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv_kvm2p12_k2v3p87_klm5p96_madgraph:
-#   key: /VBFHHto2B2V_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv_kvm2p12_k2v3p87_klm5p96_madgraph:
+  key: /VBFHHto2B2V_Par-CV-2p12-C2V-3p87-C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kv1_k2v0_kl1_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kv1_k2v0_kl1_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-1-C2V-0-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kv1_k2v1_kl1_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kv1_k2v1_kl1_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-1-C2V-1-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kv1p74_k2v1p37_kl14p4_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kv1p74_k2v1p37_kl14p4_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-1p74-C2V-1p37-C3-14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm0p012_k2v0p03_kl10p2_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm0p012_k2v0p03_kl10p2_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m0p012-C2V-0p030-C3-10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm0p758_k2v1p44_klm19p3_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm0p758_k2v1p44_klm19p3_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m0p758-C2V-1p44-C3-m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm0p962_k2v0p959_klm1p43_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/Run3Summer23BPixMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v6-v3/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm0p962_k2v0p959_klm1p43_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m0p962-C2V-0p959-C3-m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm1p21_k2v1p94_klm0p94_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm1p21_k2v1p94_klm0p94_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m1p21-C2V-1p94-C3-m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm1p6_k2v2p72_klm1p36_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm1p6_k2v2p72_klm1p36_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m1p60-C2V-2p72-C3-m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm1p83_k2v3p57_klm3p39_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm1p83_k2v3p57_klm3p39_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-m1p83-C2V-3p57-C3-m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvv2l2nu_kvm2p12_k2v3p87_klm5p96_madgraph:
-#   key: /VBFHHto2B2Vto2L2Nu_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvv2l2nu_kvm2p12_k2v3p87_klm5p96_madgraph:
+  key: /VBFHHto2B2Vto2L2Nu_Par-CV-2p12-C2V-3p87-C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kv1_k2v0_kl1_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_1_C2V_0_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kv1_k2v0_kl1_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-1-C2V-0-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kv1_k2v1_kl1_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_1_C2V_1_C3_1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kv1_k2v1_kl1_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-1-C2V-1-C3-1_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kv1p74_k2v1p37_kl14p4_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_1p74_C2V_1p37_C3_14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kv1p74_k2v1p37_kl14p4_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-1p74-C2V-1p37-C3-14p4_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm0p012_k2v0p03_kl10p2_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p012_C2V_0p030_C3_10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm0p012_k2v0p03_kl10p2_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m0p012-C2V-0p030-C3-10p2_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm0p758_k2v1p44_klm19p3_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p758_C2V_1p44_C3_m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm0p758_k2v1p44_klm19p3_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m0p758-C2V-1p44-C3-m19p3_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm0p962_k2v0p959_klm1p43_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m0p962_C2V_0p959_C3_m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm0p962_k2v0p959_klm1p43_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m0p962-C2V-0p959-C3-m1p43_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm1p21_k2v1p94_klm0p94_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p21_C2V_1p94_C3_m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm1p21_k2v1p94_klm0p94_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m1p21-C2V-1p94-C3-m0p94_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm1p6_k2v2p72_klm1p36_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p60_C2V_2p72_C3_m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm1p6_k2v2p72_klm1p36_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m1p60-C2V-2p72-C3-m1p36_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm1p83_k2v3p57_klm3p39_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m1p83_C2V_3p57_C3_m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm1p83_k2v3p57_klm3p39_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-m1p83-C2V-3p57-C3-m3p39_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
-# hh_vbf_hbb_hvvqqlnu_kvm2p12_k2v3p87_klm5p96_madgraph:
-#   key: /VBFHHto2B2WtoLNu2Q_CV_m2p12_C2V_3p87_C3_m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic*/MINIAODSIM
+hh_vbf_hbb_hvvqqlnu_kvm2p12_k2v3p87_klm5p96_madgraph:
+  key: /VBFHHto2B2WtoLNu2Q_Par-CV-2p12-C2V-3p87-C3-m5p96_TuneCP5_13p6TeV_madgraph-pythia8/RunIII2024Summer24MiniAODv6-150X_mcRun3_2024_realistic_v2-v2/MINIAODSIM
 
 #
 # ttbar
