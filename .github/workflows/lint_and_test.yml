@@ -26,7 +26,7 @@ jobs:
 
       - name: Lint 🔍
         run: |
-          export PYTHONPATH="${PWD}/modules/law:${PYTHONPATH}"
+          export PYTHONPATH="${PWD}/modules/law/src:${PYTHONPATH}"
           flake8 nanogen
 
   typecheck:
@@ -50,5 +50,5 @@ jobs:
 
       - name: Typecheck 🥊
         run: |
-          export PYTHONPATH="${PWD}/modules/law:${PYTHONPATH}"
+          export PYTHONPATH="${PWD}/modules/law/src:${PYTHONPATH}"
           mypy nanogen

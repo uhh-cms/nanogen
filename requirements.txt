@@ -8,7 +8,8 @@ zstandard~=0.23.0
 rucio~=40.3.0
 
 # law requirements
--r modules/law/requirements.txt
+luigi~=3.7.3
+typing_extensions~=4.15
 
 # development
 ipython~=8.18.1
