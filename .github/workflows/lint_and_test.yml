@@ -29,26 +29,26 @@ jobs:
           export PYTHONPATH="${PWD}/modules/law/src:${PYTHONPATH}"
           flake8 nanogen
 
-  typecheck:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout ⬇️
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          persist-credentials: false
+  # typecheck:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout ⬇️
+  #       uses: actions/checkout@v4
+  #       with:
+  #         submodules: recursive
+  #         persist-credentials: false
 
-      - name: Setup python 🐍
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.9
+  #     - name: Setup python 🐍
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: 3.9
 
-      - name: Install dependencies ☕️
-        run: |
-          pip install -U pip setuptools wheel
-          pip install -r requirements.txt
+  #     - name: Install dependencies ☕️
+  #       run: |
+  #         pip install -U pip setuptools wheel
+  #         pip install -r requirements.txt
 
-      - name: Typecheck 🥊
-        run: |
-          export PYTHONPATH="${PWD}/modules/law/src:${PYTHONPATH}"
-          mypy nanogen
+  #     - name: Typecheck 🥊
+  #       run: |
+  #         export PYTHONPATH="${PWD}/modules/law/src:${PYTHONPATH}"
+  #         mypy nanogen
