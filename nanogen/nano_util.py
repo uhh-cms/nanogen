@@ -232,17 +232,20 @@ def sort_sites_opinionated(sites: list[str], skip_desy: bool = False) -> list[st
     # sort [DESY ->] DE -> CH -> *Rest* -> US -> T3 -> TW -> IN -> RU
     if skip_desy and (desy_site := "T2_DE_DESY") in sites:
         sites.remove(desy_site)
-    return sorted(sites, key=lambda l: (
-        -("DESY" in l),
-        -((country := l.split("_")[1]) == "DE"),
-        -(country == "CH"),
-        # rest goes here
-        +(country == "RU"),
-        +(country == "IN"),
-        +(country == "TW"),
-        +(l.split("_")[0] not in {"T1", "T2"}),
-        +(country == "US"),
-    ))
+    try:
+        return sorted(sites, key=lambda l: (
+            -("DESY" in l),
+            -((country := l.split("_")[1]) == "DE"),
+            -(country == "CH"),
+            # rest goes here
+            +(country == "RU"),
+            +(country == "IN"),
+            +(country == "TW"),
+            +(l.split("_")[0] not in {"T1", "T2"}),
+            +(country == "US"),
+        ))
+    except Exception as e:
+        raise Exception(f"failed sorting sites '{sites}': {e}") from e
 
 
 def resolve_lfn_to_site(lfn: str, site: str) -> list[str]:
@@ -413,6 +416,9 @@ def locate_lfn(
     if not locations:
         # get non-tape locations
         locations = das_query(f"site file={lfn}", log=log_debug).split("\n")
+        # catch warnings being returned with exit code 0
+        if len(locations) == 1 and locations[0].lower().startswith("warning:"):
+            raise MissingLFNException(lfn, "DAS reported no available sites")
         # remove tapes
         locations = [l for l in locations if not l.lower().endswith("_tape")]
         # sort
