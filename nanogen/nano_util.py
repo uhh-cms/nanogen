@@ -177,16 +177,19 @@ def das_query(
     return out.strip()
 
 
-def load_dataset_stats(dataset_key: str) -> dict[str, Any]:
+def load_dataset_stats(dataset_key: str, silent: bool = False) -> dict[str, Any] | None:
     stats = {}
     found_info = False
     found_summaries = False
 
-    for entry in json.loads(das_query(f"dataset={dataset_key}", args="-json")):
+    log = (lambda msg: None) if silent else None
+    for entry in json.loads(das_query(f"dataset={dataset_key}", args="-json", log=log)):
         # dataset info
         if not found_info and "dbs3:dataset_info" in entry.get("das", {}).get("services", []):
             info = entry["dataset"][0]
             stats["dataset_id"] = info["dataset_id"]
+            assert info["status"] in {"VALID", "INVALID"}
+            stats["valid"] = info["status"] == "VALID"
             found_info = True
 
         # file summaries
@@ -197,6 +200,8 @@ def load_dataset_stats(dataset_key: str) -> dict[str, Any]:
             stats["n_events"] = summary["nevents"]
             found_summaries = True
 
+    if (not found_info or not found_summaries) and silent:
+        return None
     if not found_info:
         raise Exception(f"dataset info not found for {dataset_key}")
     if not found_summaries:
