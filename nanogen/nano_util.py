@@ -427,9 +427,18 @@ def locate_lfn(
         if not locations:
             raise MissingLFNException(lfn, "DAS reported no available sites")
 
+    # some hardcoded aliases
+    aliases = {
+        "infn": "root://xrootd-cms.infn.it/",
+        "fnal": "root://cmsxrootd.fnal.gov/",
+        "cern": "root://cms-xrd-global.cern.ch/",
+        "global": "root://cms-xrd-global.cern.ch/",
+    }
+
     # create location objects
     lfn_locations = []
     for location in locations:
+        location = aliases.get(location, location)
         # site, fs, or a schemed prefix (e.g. root://...)?
         if re.match(r"^T[0-9]_\w{2}_.+$", location):
             # expand available protocols
