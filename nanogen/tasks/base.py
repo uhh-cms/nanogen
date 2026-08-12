@@ -685,6 +685,24 @@ def wrapper_factory(
     if docs:
         Wrapper.__docs__ = docs
 
+    # port parameters
+    upstream_params = dict(require_cls.get_params())
+    port_params = (
+        # start from all non-private upstream parameters
+        set(
+            name for name, param in upstream_params.items()
+            if param.visibility != luigi.parameter.ParameterVisibility.PRIVATE
+        ) -
+        # skip existing parameters
+        set(dict(Wrapper.get_params())) -
+        # skip interactive parameters
+        set(require_cls.interactive_params) -
+        # skip with some heuristics
+        {"config_name", "dataset_name", "effective_workflow"}
+    )
+    for name in port_params:
+        setattr(Wrapper, name, upstream_params[name])
+
     return Wrapper
 
 

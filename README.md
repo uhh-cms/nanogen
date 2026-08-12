@@ -29,7 +29,7 @@ flowchart TD
   CollectNanoSizes --> MergeNano
   CreateNano -- many --> MergeNano
   MergeNano --> ValidateNano
-  MergeNano --> CreateDBEntry
+  MergeNano -- if custom --> CreateDBEntry
   ExportCentralNanoKey -- if central -----> CreateDBEntry
   CreateDBEntry == many ==> ListDBEntries
 ```
