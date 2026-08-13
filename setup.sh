@@ -150,8 +150,11 @@ EOF
             "python=${pyv}" \
             git \
             git-lfs \
+            "gfal2=2.23.1" \
             gfal2-util \
+            "python-gfal2=1.13.0" \
             python-gfal2 \
+            "xrootd=5.8.4" \
             conda-pack \
             || return "$?"
         micromamba clean --yes --all
