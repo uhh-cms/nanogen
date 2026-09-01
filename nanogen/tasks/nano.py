@@ -619,11 +619,16 @@ MergeNanoWrapper = wrapper_factory(
 
 class ValidateNano(DatasetTask):
 
+    create_nano = luigi.BoolParameter(
+        default=False,
+        description="whether to check the output of CreateNano rather then MergeNano; default: False",
+    )
+
     def requires(self):
-        return MergeNano.req(self)
+        return (CreateNano if self.create_nano else MergeNano).req(self)
 
     def output(self):
-        return self.target("validation.json")
+        return self.target(f"validation_{'create' if self.create_nano else 'merge'}.json")
 
     @law.decorator.notify
     def run(self):
@@ -683,6 +688,7 @@ class ValidateNano(DatasetTask):
 
 class ValidateNanoSummary(ConfigTask, law.tasks.RunOnceTask):
 
+    create_nano = ValidateNano.create_nano
     dataset_names = dataset_names_parameter
     skip_dataset_names = skip_dataset_names_parameter
     table_format = table_format_parameter
