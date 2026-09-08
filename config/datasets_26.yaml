@@ -1,0 +1,380 @@
+data_e_b:
+  key: /EGamma0/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma0/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_b_ext1:
+  key: /EGamma1/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma1/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+  
+data_e_b_ext2:
+  key: /EGamma2/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma2/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_b_ext3:
+  key: /EGamma3/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma3/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_b_ext4:
+  key: /EGamma4/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma4/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_b_ext5:
+  key: /EGamma5/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /EGamma5/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+  
+data_e_c:
+  key: /EGamma0/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma0/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_c_ext1:
+  key: /EGamma1/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma1/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_c_ext2:
+  key: /EGamma2/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma2/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_c_ext3:
+  key: /EGamma3/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma3/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_c_ext4:
+  key: /EGamma4/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma4/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_c_ext5:
+  key: /EGamma5/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /EGamma5/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d:
+  key: /EGamma0/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma0/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d_ext1:
+  key: /EGamma1/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma1/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d_ext2:
+  key: /EGamma2/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma2/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d_ext3:
+  key: /EGamma3/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma3/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d_ext4:
+  key: /EGamma4/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma4/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_e_d_ext5:
+  key: /EGamma5/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /EGamma5/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_b:
+  key: /Muon0/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /Muon0/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_b_ext1:
+  key: /Muon1/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /Muon1/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_b_ext2:
+  key: /Muon2/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /Muon2/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_b_ext3:
+  key: /Muon3/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /Muon3/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_c:
+  key: /Muon0/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /Muon0/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_c_ext1:
+  key: /Muon1/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /Muon1/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_c_ext2:
+  key: /Muon2/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /Muon2/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_c_ext3:
+  key: /Muon3/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /Muon3/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_d:
+  key: /Muon0/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /Muon0/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_d_ext1:
+  key: /Muon1/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /Muon1/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_d_ext2:
+  key: /Muon2/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /Muon2/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_mu_d_ext3:
+  key: /Muon3/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /Muon3/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_muoneg_b:
+  key: /MuonEG/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /MuonEG/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_muoneg_c:
+  key: /MuonEG/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /MuonEG/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_muoneg_d:
+  key: /MuonEG/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /MuonEG/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_tau_b:
+  key: /Tau/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /Tau/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_tau_c:
+  key: /Tau/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /Tau/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_tau_d:
+  key: /Tau/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /Tau/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+
+data_met_b:
+  key: /JetMET0/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /JetMET0/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_b_ext1:
+  key: /JetMET1/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /JetMET1/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c:
+  key: /JetMET0/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET0/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c_ext1:
+  key: /JetMET1/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET1/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c_ext2:
+  key: /JetMET2/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET2/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c_ext3:
+  key: /JetMET3/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET3/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c_ext4:
+  key: /JetMET4/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET4/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_c_ext5:
+  key: /JetMET5/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /JetMET5/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_d:
+  key: /JetMET0/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /JetMET0/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_met_d_ext1:
+  key: /JetMET1/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /JetMET1/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_b:
+  key: /ParkingHH0/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH0/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_b_ext1:
+  key: /ParkingHH1/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH1/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_c:
+  key: /ParkingHH0/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH0/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_c_ext1:
+  key: /ParkingHH1/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH1/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_d:
+  key: /ParkingHH0/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH0/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_hh_d_ext1:
+  key: /ParkingHH1/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingHH1/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b:
+  key: /ParkingVBF0/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF0/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext1:
+  key: /ParkingVBF1/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF1/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext2:
+  key: /ParkingVBF2/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF2/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext3:
+  key: /ParkingVBF3/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF3/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext4:
+  key: /ParkingVBF4/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF4/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext5:
+  key: /ParkingVBF5/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF5/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext6:
+  key: /ParkingVBF6/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF6/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_b_ext7:
+  key: /ParkingVBF7/Run2026B-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF7/Run2026B-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c:
+  key: /ParkingVBF0/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF0/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext1:
+  key: /ParkingVBF1/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF1/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext2:
+  key: /ParkingVBF2/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF2/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext3:
+  key: /ParkingVBF3/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF3/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext4:
+  key: /ParkingVBF4/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF4/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext5:
+  key: /ParkingVBF5/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF5/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext6:
+  key: /ParkingVBF6/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF6/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_c_ext7:
+  key: /ParkingVBF7/Run2026C-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF7/Run2026C-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d:
+  key: /ParkingVBF0/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF0/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext1:
+  key: /ParkingVBF1/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF1/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext2:
+  key: /ParkingVBF2/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF2/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext3:
+  key: /ParkingVBF3/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF3/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext4:
+  key: /ParkingVBF4/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF4/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext5:
+  key: /ParkingVBF5/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF5/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext6:
+  key: /ParkingVBF6/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF6/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true
+
+data_parking_vbf_d_ext7:
+  key: /ParkingVBF7/Run2026D-PromptReco-v1/MINIAOD
+  nano_key: /ParkingVBF7/Run2026D-PromptReco-v1/NANOAOD
+  prompt: true

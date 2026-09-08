@@ -71,7 +71,9 @@ campaign_postfix: NanoAODv<VNANO>UHH
 # references to dataset and nano configs
 dataset_config: datasets_<ERA>.yaml
 nano_config: nano_run3_<VNANO>.yaml
-
+# trust the nano_key given per dataset instead of resolving it via das parent-child relations,
+# which are incomplete for this campaign
+trust_central_nano_keys: true
 ```
 
 ### Dataset entries in `datasets_*.yaml` files
@@ -85,7 +87,9 @@ nano_config: nano_run3_<VNANO>.yaml
 tt_dl:
   # the miniaod key
   key: /TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16MiniAODAPVv2-106X_mcRun2_asymptotic_preVFP_v11-v1/MINIAODSIM
-
+  # key of the corresponding central nano aod (optional; used as a fallback when das returns no
+  # children, and used directly when trust_central_nano_keys is set in the general config)
+  nano_key: ..
   # list of lfns to skip (optional)
   skip_lfns:
     - ...
@@ -127,6 +131,7 @@ data_e_c:
 
   # optional jec era
   jec_era: RunCD
+  
 ```
 
 #### Privately produced samples
