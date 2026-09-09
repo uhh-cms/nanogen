@@ -111,6 +111,18 @@ class ExportCentralNanoKey(DatasetTask):
         is_data = self.mini_info.data
         is_prompt = self.dataset.get("prompt", None)
         fallback_key = self.dataset.get("nano_key", None)
+        
+        if fallback_key is not None and self.config.get("trust_central_nano_keys",False):           
+            # parse to verify the key structure, and check that it exists in das
+            info = DatasetInfo.from_key(fallback_key)
+            if not das_query(f"dataset dataset={info.dataset_key}").strip():
+                raise ValueError(f"configured nano_key not found in das: {fallback_key}")
+            output = self.output()
+            os.makedirs(output.parent.abspath, exist_ok=True)
+            self.output().dump(fallback_key, formatter="text")
+            self.publish_message(f"using configured nano key {fallback_key}")
+           
+            return
         if is_prompt is None:
             if is_data:
                 raise ValueError("is_prompt must be specified for data")
